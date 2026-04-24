@@ -5,7 +5,7 @@ description: >
   "initialise les instructions Copilot", "génère les instructions pour ce projet",
   "crée un copilot-instructions.md", "configure Copilot pour ce projet".
   Prend en paramètre le type de projet et extrait les informations du code source.
-mode: agent
+agent: agent
 ---
 
 # Initialisation des Instructions Copilot
