@@ -8,19 +8,19 @@ Le projet **[NOM_DU_PROJET]** utilise une **architecture multi-agents** orchestr
 
 ### 🤖 Les Agents et leurs Rôles
 
-Quatre agents spécialisés travaillent ensemble, orchestrés par un **développeur humain** :
+Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **solution-architect** [v1.6]
+#### **🟠 ARCos** [v1.8]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
   - Créer et valider les Plans d'Action multi-phases
   - Décomposer les initiatives en tâches logiques
-  - Orchestrer le travail entre developer, test-qa et doc-manager
+  - Orchestrer le travail entre Devon, Qalvin et Docly
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **developer** [v1.5]
+#### **🔵 DEVon** [v1.8]
 - **Rôle :** Implémentateur de code de production
 - **Responsabilités :**
   - Traduire les exigences en code fonctionnel et testé
@@ -30,7 +30,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **développ
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon l'architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant et compilant sans erreurs
 
-#### **test-qa** [v1.5]
+#### **🟢 QUALvin** [v1.8]
 - **Rôle :** Expert en assurance qualité et tests
 - **Responsabilités :**
   - Écrire des tests unitaires complets (composants, services, modèles)
@@ -40,7 +40,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **développ
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **doc-manager** [v1.5]
+#### **🟣 DOCly** [v1.8]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
   - Mettre à jour README, Wiki et guides
@@ -54,14 +54,14 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **développ
 
 ### 🔄 Workflow Typique
 
-1. **Cadrage (Développeur Humain)** → Définir le besoin et les critères d'acceptation
-2. **Planification (solution-architect)** → Créer un Plan d'Action avec phases et tâches
+1. **Cadrage (👤 Développeur humain)** → Définir le besoin et les critères d'acceptation
+2. **Planification (🟠 ARC - Arkos)** → Créer un Plan d'Action avec phases et tâches
 3. **Validation Humaine** → Approuver le plan avant de lancer
-4. **Implémentation (developer)** → Coder les tâches assignées
+4. **Implémentation (🔵 DEV - Devon)** → Coder les tâches assignées
 5. **Validation Humaine** → Approuver le code avant tests
-6. **Tests (test-qa)** → Écrire et valider les tests
+6. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider les tests
 7. **Validation Humaine** → Approuver les tests avant doc
-8. **Documentation (doc-manager)** → Mettre à jour la documentation
+8. **Documentation (🟣 DOC - Docly)** → Mettre à jour la documentation
 9. **Validation Humaine** → Approuver la documentation
 10. **Phase Suivante** → Lancer la phase suivante du plan (étape 2)
 
@@ -190,11 +190,11 @@ Ajouter toute section pertinente pour les conventions spécifiques au projet :
 
 ```mermaid
 graph TD
-    Human["👤 Développeur Humain"]
-    Arch["🏗️ solution-architect [v1.6]"]
-    Dev["💻 developer [v1.5]"]
-    QA["✅ test-qa [v1.5]"]
-    Doc["📚 doc-manager [v1.5]"]
+    Human["👤 👤 Développeur humain"]
+    Arch["🟠 ARCos [v1.8]"]
+    Dev["🔵 DEVon [v1.8]"]
+    QA["🟢 QUALvin [v1.8]"]
+    Doc["🟣 DOCly [v1.8]"]
 
     Human -->|cadre le besoin| Arch
     Arch -->|crée un Plan d'Action| AP["📋 Plan d'Action<br/>(AP)"]
@@ -219,9 +219,9 @@ graph TD
     Human -->|approuve| NextPhase["✅ Phase suivante<br/>(ou Plan suivant)"]
     
     style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
-    style Arch fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
-    style Dev fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
-    style QA fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+    style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+    style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
     style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
     style AP fill:#FFC107,stroke:#333,stroke-width:2px
     style Code fill:#8BC34A,stroke:#333,stroke-width:2px
@@ -233,3 +233,6 @@ graph TD
 ---
 
 **🎯 Pour customiser ces instructions :** Remplacer tous les placeholders `[...]` par vos valeurs, puis utiliser le prompt `.github/prompts/update-copilot-instructions.prompt.md` pour auditer et enrichir ce fichier depuis le code source.
+
+
+

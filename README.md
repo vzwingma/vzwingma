@@ -8,10 +8,10 @@ Ce dépôt est un **centre de référence transverse** pour les modèles réutil
 
 Quatre agents spécialisés pour orchestrer le développement :
 
-- **developer.agent.md** — Implémentateur de code de production
-- **test-qa.agent.md** — Expert QA et tests unitaires
-- **solution-architect.agent.md** — Planificateur technique et orchestrateur
-- **doc-manager.agent.md** — Gestionnaire de documentation
+- **Devon.agent.md** — Implémentateur de code de production (🔵 DEV)
+- **Qalvin.agent.md** — Expert QA et tests unitaires (🟢 QUAL)
+- **Arkos.agent.md** — Planificateur technique et orchestrateur (🟠 ARC)
+- **Docly.agent.md** — Documentation Agent (🟣 DOC)
 
 Tous les agents sont **génériques et prêts à l'emploi** dans n'importe quel projet.
 
@@ -69,13 +69,13 @@ Vérifier que tous les placeholders sont remplacés et que les conventions du pr
 ```
 1️⃣ Utilisateur cadre le besoin
    ↓
-2️⃣ solution-architect crée un Plan d'Action
+2️⃣ Arkos (🟠 ARC) crée un Plan d'Action
    ↓
-3️⃣ developer implémente les tâches
+3️⃣ Devon (🔵 DEV) implémente les tâches
    ↓
-4️⃣ test-qa écrit les tests
+4️⃣ Qalvin (🟢 QUAL) écrit les tests
    ↓
-5️⃣ doc-manager met à jour la documentation
+5️⃣ Docly (🟣 DOC) met à jour la documentation
    ↓
 6️⃣ Phase suivante du plan (retour à 2️⃣)
 ```
@@ -118,3 +118,6 @@ Pour mettre à jour les instructions d'un projet existant, utiliser :
 ### Hello there <img src="https://github.com/vzwingma/vzwingma/assets/10505762/5250a9d9-e4b4-4b1f-9f10-9d3ac7294928" alt= "" width="60" height="60"/>
 
 [![vzwingma's GitHub stats](https://github-readme-stats.vercel.app/api?username=vzwingma)](https://github.com/vzwingma/vzwingma)
+
+
+

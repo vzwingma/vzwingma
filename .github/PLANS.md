@@ -10,7 +10,7 @@
 Un **Plan d'Action (AP)** est un document structuré qui :
 - Décrit un **objectif global** (ex: modernisation, nouvelle feature, refactoring majeur)
 - Se décompose en **phases logiques** et **tâches détaillées**
-- Assigne les tâches à des **agents spécifiques** (developer, test-qa, solution-architect, doc-manager)
+- Assigne les tâches à des **agents spécifiques** (Devon/🔵 DEV, Qalvin/🟢 QUAL, Arkos/🟠 ARC, Docly/🟣 DOC)
 - Définit les **critères de réussite** et les **dépendances** entre phases
 - Génère des **rapports de phase** documentant l'exécution et les résultats
 
@@ -108,7 +108,7 @@ Chaque phase doit contenir :
 
 #### C. Tâches
 ```markdown
-### Tâches (Agent: [developer | test-qa | solution-architect | doc-manager])
+### Tâches (Agent: [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)])
 
 #### T<N>.<M> - <Titre de la Tâche>
 - **Fichier :** `path/to/file.ts` (ou liste si multiple)
@@ -146,13 +146,13 @@ Chaque phase doit contenir :
 ```markdown
 ## 📊 Résumé des Tâches par Agent
 
-### developer Agent
+### Devon (🔵 DEV) Agent
 - T2.1 à T2.8 : Mise à jour des dépendances
 - T3.1 à T3.5 : Refactorisation architecture
 - **Livrable :** Dépendances à jour, code refactorisé, tests passant
 - **Durée estimée :** 2-3 semaines
 
-### test-qa Agent
+### Qalvin (🟢 QUAL) Agent
 - T1.1 à T1.7 : Tests unitaires + rapport de couverture
 - **Livrable :** Tests ≥80% couverture
 - **Durée estimée :** 1-2 semaines
@@ -201,11 +201,11 @@ Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 ```markdown
 ## 🚀 Plan d'Exécution
 
-1. **Semaine 1-2 :** Lancer Phase 1 (test-qa agent)
-2. **Semaine 2-3 :** Lancer Phase 2 (developer agent, après Phase 1 ✅)
-3. **Semaine 3-4 :** Lancer Phases 3-4 en parallèle (developer agent)
-4. **Semaine 4-5 :** Lancer Phase 5 (solution-architect, après Phase 3 ✅)
-5. **Semaine 5-6 :** Lancer Phase 6 en parallèle (doc-manager)
+1. **Semaine 1-2 :** Lancer Phase 1 (Qalvin (🟢 QUAL) agent)
+2. **Semaine 2-3 :** Lancer Phase 2 (Devon (🔵 DEV) agent, après Phase 1 ✅)
+3. **Semaine 3-4 :** Lancer Phases 3-4 en parallèle (Devon (🔵 DEV) agent)
+4. **Semaine 4-5 :** Lancer Phase 5 (Arkos (🟠 ARC), après Phase 3 ✅)
+5. **Semaine 5-6 :** Lancer Phase 6 en parallèle (Docly (🟣 DOC))
 
 **Triggers pour démarrer une phase :**
 - Tous les rapports de la phase précédente ✅ COMPLÉTÉE
@@ -234,7 +234,7 @@ Pour chaque plan, créer un dossier `.github/plans/<NO>_reports/` avec un rappor
 ```markdown
 # Phase N : <Titre de la Phase>
 
-**Responsable Agent :** [developer | test-qa | solution-architect | doc-manager]  
+**Responsable Agent :** [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)]  
 **Date Début :** YYYY-MM-DD  
 **Date Fin :** YYYY-MM-DD (ou TBD si en cours)  
 **Statut :** ✅ COMPLÉTÉE | 🔄 EN_COURS | ⏳ PLANIFIÉE | ❌ BLOQUÉE
@@ -305,7 +305,7 @@ Fin du rapport Phase N
 
 ## 🔄 Workflow de Suivi
 
-### 1. Créer le Plan (Utilisateur / Solution-Architect)
+### 1. Créer le Plan (Utilisateur / Arkos (🟠 ARC))
 
 ```bash
 # Créer le fichier plan
@@ -332,7 +332,7 @@ touch .github/plans/00X_<nom>.plan.md
 cat .github/plans/<NO>_<nom>.plan.md
 
 # 2. Identifier les tâches assignées
-# Exemple : Agent test-qa cherche "T<N>.<M>" où l'agent est "test-qa"
+# Exemple : Agent Qalvin (🟢 QUAL) cherche "T<N>.<M>" où l'agent est "Qalvin (🟢 QUAL)"
 
 # 3. Créer le rapport de phase
 mkdir -p .github/plans/<NO>_reports/
@@ -396,7 +396,7 @@ Chaque agent doit recevoir un **prompt structuré** qui :
 2. **Identifie ses tâches** (T<N>.X où agent = [son rôle])
 3. **Spécifie le rapport à remplir** (`.github/plans/<NO>_reports/PHASE_N_...`)
 
-**Exemple de prompt pour test-qa :**
+**Exemple de prompt pour Qalvin (🟢 QUAL) :**
 ```
 Exécute la Phase 1 du plan : .github/plans/001_modernisation_complète.plan.md
 
@@ -422,11 +422,11 @@ Exécute la Phase 1 du plan : .github/plans/001_modernisation_complète.plan.md
 
 **Chaîne de délégation entre agents :**
 ```
-solution-architect (plan)
+Arkos (🟠 ARC) (plan)
     ↓
-developer (T2.1-T3.5)
-    ├→ test-qa (valider + écrire tests)
-    └→ doc-manager (documenter changements)
+Devon (🔵 DEV) (T2.1-T3.5)
+    ├→ Qalvin (🟢 QUAL) (valider + écrire tests)
+    └→ Docly (🟣 DOC) (documenter changements)
 ```
 
 ---
@@ -491,3 +491,6 @@ developer (T2.1-T3.5)
 ---
 
 **Fin de la documentation sur les Plans d'Action**
+
+
+

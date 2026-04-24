@@ -47,10 +47,10 @@ Le template permet une initialisation **rapide et complète** avec 3 étapes.
     ├── ARCHITECTURE.md                          # Ce fichier
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── developer.agent.md          [v1.5]
-    │   ├── test-qa.agent.md            [v1.5]
-    │   ├── solution-architect.agent.md [v1.6]
-    │   └── doc-manager.agent.md        [v1.5]
+    │   ├── Devon (🔵 DEV).agent.md          [v1.5]
+    │   ├── Qalvin (🟢 QUAL).agent.md            [v1.5]
+    │   ├── Arkos (🟠 ARC).agent.md [v1.6]
+    │   └── Docly (🟣 DOC).agent.md        [v1.5]
     │
     ├── prompts/                                 # 🎯 Commandes réutilisables
     │   ├── init-copilot-instructions.prompt.md          (initialiser)
@@ -82,7 +82,7 @@ copilot-instructions.md (customisé)
     ↓
 [Équipe utilise agents]
     ↓
-developer, test-qa, solution-architect, doc-manager
+Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)
 ```
 
 ---
@@ -94,10 +94,10 @@ developer, test-qa, solution-architect, doc-manager
 Chaque agent est un **modèle de rôle** générique, défini en markdown avec frontmatter YAML.
 
 **Fichiers :**
-- `developer.agent.md` — Implémentateur de code [v1.5]
-- `test-qa.agent.md` — Expert QA [v1.5]
-- `solution-architect.agent.md` — Planificateur [v1.6]
-- `doc-manager.agent.md` — Gestionnaire doc [v1.5]
+- `Devon (🔵 DEV).agent.md` — Implémentateur de code [v1.5]
+- `Qalvin (🟢 QUAL).agent.md` — Expert QA [v1.5]
+- `Arkos (🟠 ARC).agent.md` — Planificateur [v1.6]
+- `Docly (🟣 DOC).agent.md` — Gestionnaire doc [v1.5]
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet)
@@ -204,9 +204,9 @@ cp copilot-templates/.github/*.md mon-projet/.github/
 👤 "Complète les instructions Copilot depuis le code source"
 
 # 4. Utiliser les agents
-👤 "Implémente l'authentification JWT"  → developer
-👤 "Écris des tests pour ce composant"   → test-qa
-👤 "Conçois une architecture pour..."    → solution-architect
+👤 "Implémente l'authentification JWT"  → Devon (🔵 DEV)
+👤 "Écris des tests pour ce composant"   → Qalvin (🟢 QUAL)
+👤 "Conçois une architecture pour..."    → Arkos (🟠 ARC)
 ```
 
 ### Projet Existant
@@ -242,9 +242,9 @@ cp copilot-templates/.github/copilot-instructions.template.md mon-projet/.github
 
 ### Mise à Jour des Agents
 
-Si une version d'agent change (ex: developer v1.5 → v1.6) :
+Si une version d'agent change (ex: Devon (🔵 DEV) v1.5 → v1.6) :
 
-1. Modifier le fichier `.github/agents/developer.agent.md`
+1. Modifier le fichier `.github/agents/Devon (🔵 DEV).agent.md`
 2. Incrémenter le numéro de version : `[v1.5]` → `[v1.6]`
 3. Documenter les changements dans un changelog interne
 4. Les projets copient la nouvelle version lors du prochain sync
@@ -293,3 +293,6 @@ Pour des questions ou des améliorations :
 ---
 
 **Dernière mise à jour :** 2026-04-24
+
+
+

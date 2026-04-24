@@ -2,7 +2,7 @@
 
 Bienvenue dans le répertoire des Plans d'Action (AP) du projet . 
 
-Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (developer, test-qa, solution-architect, doc-manager) et produit des rapports de suivi documentant l'exécution.
+Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
 
 ---
 
@@ -27,7 +27,7 @@ _(Aucun plan archivé pour l'instant)_
 2. **Créer le dossier reporting** : `.github/plans/<NO>_reports/`
    - Contiendra les rapports de phase complétées
 
-3. **Soumettre pour validation** au développeur humain ou lead du projet
+3. **Soumettre pour validation** au 👤 Développeur humain ou lead du projet
 
 **Guide complet :** 📖 [`.github/PLANS.md`](../PLANS.md)
 
@@ -36,10 +36,10 @@ _(Aucun plan archivé pour l'instant)_
 ## 📚 Documentation Associée
 
 - **Guide complet des Plans d'Action** : [`.github/PLANS.md`](../PLANS.md)
-- **Instructions agent developer** : [`.github/agents/developer.agent.md`](../agents/developer.agent.md)
-- **Instructions agent test-qa** : [`.github/agents/test-qa.agent.md`](../agents/test-qa.agent.md)
-- **Instructions agent doc-manager** : [`.github/agents/doc-manager.agent.md`](../agents/doc-manager.agent.md)
-- **Instructions agent solution-architect** : [`.github/agents/solution-architect.agent.md`](../agents/solution-architect.agent.md)
+- **Instructions agent Devon (🔵 DEV)** : [`.github/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
+- **Instructions agent Qalvin (🟢 QUAL)** : [`.github/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
+- **Instructions agent Docly (🟣 DOC)** : [`.github/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
+- **Instructions agent Arkos (🟠 ARC)** : [`.github/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
 - **Instructions Copilot globales** : [`.github/copilot-instructions.md`](../copilot-instructions.md)
 
 ---
@@ -75,4 +75,8 @@ Pour contribuer ou modifier un plan existant :
 ---
 
 **Dernière mise à jour :** 2026-04-24  
-**Gestionnaire des Plans :** solution-architect & Développeur humain
+**Gestionnaire des Plans :** Arkos (🟠 ARC) & 👤 Développeur humain
+
+
+
+

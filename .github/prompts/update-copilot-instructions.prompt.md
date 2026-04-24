@@ -112,8 +112,9 @@ Avant d'appliquer les modifications :
    - Sections à **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
 
-2. Attendre la **validation du développeur humain** avant d'appliquer les modifications.
+2. Attendre la **validation du 👤 Développeur humain** avant d'appliquer les modifications.
 
 3. Une fois validé, appliquer les changements dans `.github/copilot-instructions.md` avec `replace_string_in_file` ou `multi_replace_string_in_file`.
 
 4. Résumer les modifications appliquées en une liste à puces.
+

@@ -43,10 +43,10 @@ Ouvrir Copilot dans votre projet et exécuter :
 
 ### 🤖 Agents (4)
 Modèles prêts à l'emploi pour différents rôles :
-- **developer** — Implémente le code
-- **test-qa** — Écrit les tests
-- **solution-architect** — Planifie et crée les Plans d'Action
-- **doc-manager** — Maintient la documentation
+- **🔵 DEVon** — Implémente le code
+- **🟢 QUALvin** — Écrit les tests
+- **🟠 ARCos** — Planifie et crée les Plans d'Action
+- **🟣 DOCly** — Maintient la documentation
 
 ### 📋 Templates
 - **`copilot-instructions.template.md`** — Template générique à customiser
@@ -67,13 +67,13 @@ Une fois Copilot configuré, voici comment collaborer :
 ```
 1️⃣ Vous décrivez le besoin
    ↓
-2️⃣ solution-architect crée un Plan d'Action
+2️⃣ 🟠 ARCos crée un Plan d'Action
    ↓
-3️⃣ developer implémente les tâches
+3️⃣ 🔵 DEVon implémente les tâches
    ↓
-4️⃣ test-qa écrit les tests
+4️⃣ 🟢 QUALvin écrit les tests
    ↓
-5️⃣ doc-manager met à jour la documentation
+5️⃣ 🟣 DOCly met à jour la documentation
 ```
 
 ---
@@ -126,11 +126,14 @@ Après configuration, vérifier que :
 - [ ] `.github/agents/` a 4 fichiers ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `solution-architect` fonctionne ✅
-- [ ] Appeler `developer` fonctionne ✅
+- [ ] Appeler `Arkos` (🟠 ARC) fonctionne ✅
+- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
 
 ---
 
 **C'est tout ! Vous êtes prêt à collaborer avec Copilot. 🚀**
 
 Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et prompt.
+
+
+

@@ -66,7 +66,7 @@ Le prompt va :
   ```
   👤 "Conçois une architecture pour une authentification JWT"
   ```
-  → `solution-architect` doit répondre
+  → `Arkos (🟠 ARC)` doit répondre
 
 - [ ] Tester un prompt :
   ```
@@ -98,25 +98,25 @@ Le prompt va :
 ```
 👤 "Implémente l'authentification JWT dans le service d'auth"
 ```
-→ `developer` s'en charge
+→ `Devon (🔵 DEV)` s'en charge
 
 ### Écrire des Tests
 ```
 👤 "Écris des tests pour le service d'authentification"
 ```
-→ `test-qa` s'en charge
+→ `Qalvin (🟢 QUAL)` s'en charge
 
 ### Planifier une Grosse Tâche
 ```
 👤 "Conçois une architecture pour refactoriser la base de données et crée un plan d'action"
 ```
-→ `solution-architect` crée un Plan d'Action
+→ `Arkos (🟠 ARC)` crée un Plan d'Action
 
 ### Mettre à Jour la Documentation
 ```
 👤 "Mets à jour la documentation après cette implémentation"
 ```
-→ `doc-manager` s'en charge
+→ `Docly (🟣 DOC)` s'en charge
 
 ---
 
@@ -136,8 +136,8 @@ Avant de considérer Copilot "prêt" :
 - [ ] `.github/agents/*.md` (4 fichiers) sont présents
 - [ ] `.github/PLANS.md` est accessibles
 - [ ] Aucun placeholder `[...]` dans copilot-instructions.md
-- [ ] Premier test avec `solution-architect` réussi ✅
-- [ ] Premier test avec `developer` réussi ✅
+- [ ] Premier test avec `Arkos (🟠 ARC)` réussi ✅
+- [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅
 - [ ] Équipe sensibilisée au workflow multi-agents
 
 ---
@@ -148,3 +148,6 @@ Pour en savoir plus, consulter :
 - [`.github/README.md`](.github/README.md) — Guide complet
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — Instructions du projet
 - [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
+
+
+

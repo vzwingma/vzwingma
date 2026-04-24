@@ -51,10 +51,10 @@ cp copilot-templates/.github/agents/*.md <projet_cible>/.github/agents/
 ```
 
 Les agents à copier :
-- `developer.agent.md`
-- `test-qa.agent.md`
-- `solution-architect.agent.md`
-- `doc-manager.agent.md`
+- `Devon (🔵 DEV).agent.md`
+- `Qalvin (🟢 QUAL).agent.md`
+- `Arkos (🟠 ARC).agent.md`
+- `Docly (🟣 DOC).agent.md`
 
 ### 4. Copier les Prompts Réutilisables
 
@@ -135,7 +135,7 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 
 Après la migration, vérifier :
 
-- [ ] `.github/agents/` contient 4 fichiers (developer, test-qa, solution-architect, doc-manager)
+- [ ] `.github/agents/` contient 4 fichiers (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC))
 - [ ] `.github/copilot-instructions.md` existe et est customisé pour le projet
 - [ ] Aucun placeholder `[...]` ne subsiste dans copilot-instructions.md
 - [ ] `.github/PLANS.md` est accessible (ou référencé)
@@ -151,10 +151,10 @@ Après la migration, vérifier :
 ### Utiliser les Agents
 
 Quand vous avez besoin de :
-- **Implémenter une fonctionnalité** → `/solve [task]` ou appeler `developer`
-- **Écrire des tests** → appeler `test-qa`
-- **Planifier une architecture** → appeler `solution-architect`
-- **Mettre à jour la documentation** → appeler `doc-manager`
+- **Implémenter une fonctionnalité** → `/solve [task]` ou appeler `Devon (🔵 DEV)`
+- **Écrire des tests** → appeler `Qalvin (🟢 QUAL)`
+- **Planifier une architecture** → appeler `Arkos (🟠 ARC)`
+- **Mettre à jour la documentation** → appeler `Docly (🟣 DOC)`
 
 ### Maintenir les Instructions
 
@@ -172,7 +172,7 @@ Quand vous avez une initiative majeure :
 👤 "Conçois une architecture et un plan d'action pour [initiative]"
 ```
 
-Le `solution-architect` va créer le plan, puis les autres agents l'exécutent.
+Le `Arkos (🟠 ARC)` va créer le plan, puis les autres agents l'exécutent.
 
 ---
 
@@ -207,3 +207,6 @@ Le `solution-architect` va créer le plan, puis les autres agents l'exécutent.
 ---
 
 **Après cette migration, votre projet est prêt à collaborer avec Copilot en utilisant une architecture multi-agents coordonnée ! 🚀**
+
+
+

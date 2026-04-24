@@ -9,10 +9,10 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 ```
 .github/
 ├── agents/                              # Définitions des agents Copilot
-│   ├── developer.agent.md              # Agent implémenteur
-│   ├── test-qa.agent.md                # Agent QA et tests
-│   ├── solution-architect.agent.md     # Agent planificateur
-│   └── doc-manager.agent.md            # Agent documentation
+│   ├── Arkos.agent.md                   # Agent planificateur (🟠 ARC - Arkos)
+│   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
+│   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
+│   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
 │
 ├── prompts/                             # Prompts pour initialiser des tâches
 │   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md
@@ -83,10 +83,10 @@ Chaque fichier agent définit un rôle, ses responsabilités et comment il inter
 
 | Agent | Rôle | Quand l'utiliser |
 |---|---|---|
-| **developer.agent.md** | Implémentateur de code | "Implémente cette fonctionnalité" |
-| **test-qa.agent.md** | Expert QA et tests | "Écris des tests pour ce composant" |
-| **solution-architect.agent.md** | Planificateur technique | "Conçois une architecture pour..." |
-| **doc-manager.agent.md** | Gestionnaire documentation | "Mets à jour la documentation" |
+| **Arkos.agent.md** (🟠 ARC) | Planificateur technique | "Conçois une architecture pour..." |
+| **Devon.agent.md** (🔵 DEV) | Implémentateur de code | "Implémente cette fonctionnalité" |
+| **Qalvin.agent.md** (🟢 QUAL) | Expert QA et tests | "Écris des tests pour ce composant" |
+| **Docly.agent.md** (🟣 DOC) | Gestionnaire documentation | "Mets à jour la documentation" |
 
 Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions Copilot spécifiques au projet se trouvent dans `.github/copilot-instructions.md`.
 
@@ -127,13 +127,13 @@ Exemples concrets d'instructions pour différents types de projets.
 ```
 1️⃣ Utilisateur cadre le besoin
    ↓
-2️⃣ solution-architect crée un Plan d'Action
+2️⃣ Arkos (🟠 ARC) crée un Plan d'Action
    ↓
-3️⃣ developer implémente les tâches
+3️⃣ Devon (🔵 DEV) implémente les tâches
    ↓
-4️⃣ test-qa écrit les tests
+4️⃣ Qalvin (🟢 QUAL) écrit les tests
    ↓
-5️⃣ doc-manager met à jour la documentation
+5️⃣ Docly (🟣 DOC) met à jour la documentation
    ↓
 6️⃣ Phase suivante du plan (retour à 2️⃣)
 ```
@@ -167,7 +167,7 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 
 ### Mettre à jour les agents
 
-Si les versions des agents changent (ex: `developer [v1.6]`), mettre à jour les fichiers `.github/agents/*.md`.
+Si les versions des agents changent (ex: `Devon [v1.8]`), mettre à jour les fichiers `.github/agents/*.md`.
 
 ### Mettre à jour les instructions d'un projet
 
@@ -187,3 +187,6 @@ Pour ajouter un nouvel agent, prompt ou template :
 ---
 
 **Dernière mise à jour :** 2026-04-24
+
+
+
