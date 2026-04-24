@@ -190,7 +190,7 @@ Ajouter toute section pertinente pour les conventions spécifiques au projet :
 
 ```mermaid
 graph TD
-    Human["👤 👤 Développeur humain"]
+    Human["👤 Développeur humain"]
     Arch["🟠 ARCos [v1.8]"]
     Dev["🔵 DEVon [v1.8]"]
     QA["🟢 QUALvin [v1.8]"]
