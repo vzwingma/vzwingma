@@ -92,6 +92,24 @@ Pour chaque convention documentée dans `copilot-instructions.md` :
 - Signaler toute divergence entre la doc et le code réel
 - Identifier les conventions présentes dans le code mais absentes des instructions
 
+### 5. Auditer les fichiers d'instructions agents
+
+Lire les 4 fichiers suivants dans `.github/instructions/` :
+- `architect.instructions.md`
+- `dev.instructions.md`
+- `qa.instructions.md`
+- `doc.instructions.md`
+
+Pour chaque fichier, vérifier sa cohérence avec le code source :
+- `dev.instructions.md` : versions des librairies, noms des fichiers de constantes, chemins des dossiers
+- `qa.instructions.md` : versions des packages de test, commandes CI, chemins de rapport de couverture
+- `doc.instructions.md` : chemins wiki locaux, noms des fichiers de doc, versions pour les diagrammes `.puml`
+- `architect.instructions.md` : noms des couches, providers d'état, service HTTP, stratégie de routing
+
+En complément :
+- Identifier les placeholders `[...]` non remplis et les signaler comme action nécessaire
+- Identifier les valeurs devenues obsolètes (ex : version de librairie outdatée)
+
 ## Règles de rédaction des amendements
 
 1. **Ne pas supprimer** de sections existantes sans raison explicite — préférer amender ou compléter
@@ -111,10 +129,12 @@ Avant d'appliquer les modifications :
    - Sections à **amender** (avec la valeur actuelle et la valeur corrigée)
    - Sections à **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
+   - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md`
+   - Signalement séparé des placeholders non remplis vs des valeurs obsolètes
 
 2. Attendre la **validation du 👤 Développeur humain** avant d'appliquer les modifications.
 
-3. Une fois validé, appliquer les changements dans `.github/copilot-instructions.md` avec `replace_string_in_file` ou `multi_replace_string_in_file`.
+3. Une fois validé, appliquer les changements dans `.github/copilot-instructions.md` et, si nécessaire, dans les fichiers `.github/instructions/*.instructions.md` avec `replace_string_in_file` ou `multi_replace_string_in_file`.
 
 4. Résumer les modifications appliquées en une liste à puces.
 
