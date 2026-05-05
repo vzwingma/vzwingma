@@ -44,7 +44,7 @@ Convention de nommage des IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>
 
 | Icône | Nom      | Fichier agent          | Rôle                          |
 |-------|----------|------------------------|-------------------------------|
-| 🔵    | DEVon    | `dev.agent.md`         | Implémentation [STACK_PRINCIPALE] |
-| 🟢    | QUALvin  | `qa.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
-| 🟣    | DOCly    | `doc.agent.md`         | Documentation (README, Wiki)  |
+| 🔵    | DEVon    | `Devon.agent.md`         | Implémentation [STACK_PRINCIPALE] |
+| 🟢    | QUALvin  | `Qalvin.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
+| 🟣    | DOCly    | `Docly.agent.md`         | Documentation (README, Wiki)  |
 
