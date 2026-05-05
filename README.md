@@ -72,7 +72,7 @@ Vérifier que tous les placeholders sont remplacés et que les conventions du pr
 ```
 1️⃣ Utilisateur cadre le besoin
    ↓
-2️⃣ Arkos (🟠 ARC) crée un Plan d'Action
+2️⃣ Arcos (🟠 ARC) crée un Plan d'Action
    ↓
 3️⃣ Devon (🔵 DEV) implémente les tâches
    ↓
@@ -84,6 +84,8 @@ Vérifier que tous les placeholders sont remplacés et que les conventions du pr
 ```
 
 Pour en savoir plus, consulter .github/PLANS.md.
+
+> 💡 **Parallélisation** : Utiliser `/fleet` quand plusieurs tâches (DEVon, QUALvin, DOCly) sont indépendantes pour les exécuter simultanément.
 
 ---
 
@@ -111,7 +113,7 @@ Pour en savoir plus, consulter .github/PLANS.md.
 
 ## 🔄 Maintenance
 
-Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v1.5]) pour tracker les changements.
+Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v2.0]) pour tracker les changements.
 
 Pour mettre à jour les instructions d'un projet existant, utiliser :
 ```

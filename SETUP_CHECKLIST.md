@@ -74,7 +74,7 @@ Le prompt va :
   ```
   👤 "Conçois une architecture pour une authentification JWT"
   ```
-  → `Arkos (🟠 ARC)` doit répondre
+  → `Arcos (🟠 ARC)` doit répondre
 
 - [ ] Tester un prompt :
   ```
@@ -118,13 +118,19 @@ Le prompt va :
 ```
 👤 "Conçois une architecture pour refactoriser la base de données et crée un plan d'action"
 ```
-→ `Arkos (🟠 ARC)` crée un Plan d'Action
+→ `Arcos (🟠 ARC)` crée un Plan d'Action
 
 ### Mettre à Jour la Documentation
 ```
 👤 "Mets à jour la documentation après cette implémentation"
 ```
 → `Docly (🟣 DOC)` s'en charge
+
+### Paralléliser des Tâches Indépendantes
+```
+👤 "Lance DEVon sur le composant A et QUALvin sur le composant B en parallèle"
+```
+→ Utiliser `/fleet` : les tâches sans dépendance s'exécutent simultanément
 
 ---
 
@@ -133,6 +139,7 @@ Le prompt va :
 - [ ] **Chaque mois** : Exécuter `update-copilot-instructions` pour synchroniser
 - [ ] **Après un changement majeur** : Mettre à jour `.github/copilot-instructions.md`
 - [ ] **Quand une initiative grande** : Créer un Plan d'Action dans `.github/plans/`
+- [ ] **Tâches parallèles** : Utiliser `/fleet` quand DEVon, QUALvin ou DOCly ont des tâches indépendantes
 
 ---
 
@@ -145,7 +152,7 @@ Avant de considérer Copilot "prêt" :
 - [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
 - [ ] `.github/PLANS.md` est accessibles
 - [ ] Aucun placeholder `[...]` dans copilot-instructions.md
-- [ ] Premier test avec `Arkos (🟠 ARC)` réussi ✅
+- [ ] Premier test avec `Arcos (🟠 ARC)` réussi ✅
 - [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅
 - [ ] Équipe sensibilisée au workflow multi-agents
 

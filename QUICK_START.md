@@ -78,6 +78,8 @@ Une fois Copilot configuré, voici comment collaborer :
 5️⃣ 🟣 DOCly met à jour la documentation
 ```
 
+> 💡 **Parallélisation** : Utiliser `/fleet` quand QUALvin et DOCly peuvent travailler en parallèle après DEVon, ou quand plusieurs tâches DEVon sont indépendantes.
+
 ---
 
 ## ❓ FAQ
@@ -105,6 +107,9 @@ A: Une fois les fichiers copiés, exécuter dans votre projet :
 ### Q: Les agents sont-ils customisables ?
 A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).
 
+### Q: Comment paralléliser les tâches entre agents ?
+A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QUALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
+
 ### Q: Où stocker mes Plans d'Action ?
 A: Dans `.github/plans/` — utiliser le format `XXX_<nom>.plan.md`.
 
@@ -130,7 +135,7 @@ Après configuration, vérifier que :
 - [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `Arkos` (🟠 ARC) fonctionne ✅
+- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
 - [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
 
 ---
