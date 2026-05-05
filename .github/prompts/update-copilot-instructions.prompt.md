@@ -6,7 +6,7 @@ description: >
   instructions Copilot", "complète copilot-instructions depuis le code",
   "synchronise les instructions avec le projet", "ajoute les bonnes pratiques
   aux instructions Copilot".
-mode: agent
+agent: agent
 tools:
   - read_file
   - file_search
@@ -29,7 +29,7 @@ Lire chacun des fichiers suivants s'ils existent dans le dépôt :
 
 | Chemin (relatif à la racine) | Rôle attendu |
 |---|---|
-| `docs/BEST_PRACTICES.md` | Bonnes pratiques de développement Angular du projet |
+| `docs/BEST_PRACTICES.md` | Bonnes pratiques de développement du projet |
 | `docs/CODING_STANDARDS.md` | Standards de code (nommage, structure, patterns) |
 | `docs/ARCHITECTURE.md` | Décisions d'architecture (ADR) |
 | `docs/CONTRIBUTING.md` | Guide de contribution / workflow Git |
@@ -63,7 +63,7 @@ Pour chaque couche, rechercher et noter les patterns réellement utilisés :
 
 **Services**
 - Pattern d'injection 
-- Composition des API calls (gestion des erreurs, utilisation de `EnvService` pour les URLs, etc.)
+- Composition des API calls (gestion des erreurs, utilisation du service d'URL/config pour les endpoints, etc.)
 - Gestion des erreurs HTTP
 
 **Composants de pages**
@@ -110,6 +110,8 @@ En complément :
 - Identifier les placeholders `[...]` non remplis et les signaler comme action nécessaire
 - Identifier les valeurs devenues obsolètes (ex : version de librairie outdatée)
 
+> 💡 **Parallélisation possible** : Les étapes 2 (exploration structure), 3 (extraction conventions) et 5 (audit fichiers instructions/) sont **indépendantes** et peuvent être lancées en `/fleet` pour accélérer l'audit global.
+
 ## Règles de rédaction des amendements
 
 1. **Ne pas supprimer** de sections existantes sans raison explicite — préférer amender ou compléter
@@ -129,6 +131,7 @@ Avant d'appliquer les modifications :
    - Sections à **amender** (avec la valeur actuelle et la valeur corrigée)
    - Sections à **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
+   - Vérification que les agents `.github/agents/*.agent.md` sont à leur version courante (v2.0+)
    - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md`
    - Signalement séparé des placeholders non remplis vs des valeurs obsolètes
 

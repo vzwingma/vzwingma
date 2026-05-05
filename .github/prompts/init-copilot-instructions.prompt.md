@@ -10,6 +10,14 @@ agent: agent
 
 # Initialisation des Instructions Copilot
 
+> **Prérequis** : Avant de lancer ce prompt, les fichiers suivants doivent déjà être présents dans le projet cible (copiés depuis le dépôt transverse) :
+> - `.github/agents/` — les 4 agents génériques (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+> - `.github/prompts/` — les prompts réutilisables
+> - `.github/PLANS.md` — le guide des Plans d'Action
+>
+> Ce prompt initialise uniquement les fichiers **spécifiques au projet** : `copilot-instructions.md` et les 4 fichiers `instructions/`.
+> Pour copier les prérequis, utiliser d'abord le prompt `migrate-to-template`.
+
 Ta mission est de **générer et initialiser** le fichier `.github/copilot-instructions.md` pour un nouveau projet, en te basant sur :
 
 1. Le **template générique** (`.github/copilot-instructions.template.md`) présent dans ce dépôt transverse
@@ -46,6 +54,8 @@ Pour chaque placeholder `[...]` du template, fournir une valeur adaptée :
 | **Architecture** | Structure des dossiers + patterns observés | Diagram ASCII ou description hiérarchique |
 | **Conventions Clés** | Fichiers existants du code | Nommage, TypeScript config, ESLint, Prettier, etc. |
 | **État du Projet** | Code analysis + notes | État de maintenance, patterns d'erreur, dépendances clés |
+
+> 💡 **Parallélisation possible** : Les étapes 4 et 5 (génération de `copilot-instructions.md` et des 4 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si les informations de l'analyse (étape 2) sont disponibles.
 
 ### 4. Générer le fichier
 
@@ -91,6 +101,9 @@ Si le projet dispose d'autres fichiers de référence (CONTRIBUTING.md, ARCHITEC
 - [ ] Pas de références à des fichiers inexistants
 - [ ] Langue française conservée pour tout le texte narratif
 - [ ] Fichier lisible et bien formaté (Markdown)
+- [ ] `.github/agents/` contient 4 fichiers (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+- [ ] `.github/PLANS.md` est accessible
+- [ ] `.github/plans/README.md` existe (créer si absent : `mkdir -p .github/plans && echo "# Plans d'Action" > .github/plans/README.md`)
 
 ## 💡 Conseils
 

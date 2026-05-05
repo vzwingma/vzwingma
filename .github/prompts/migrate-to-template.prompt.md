@@ -51,10 +51,10 @@ cp copilot-templates/.github/agents/*.md <projet_cible>/.github/agents/
 ```
 
 Les agents à copier :
-- `Devon (🔵 DEV).agent.md`
-- `Qalvin (🟢 QUAL).agent.md`
-- `Arkos (🟠 ARC).agent.md`
-- `Docly (🟣 DOC).agent.md`
+- `Devon.agent.md`
+- `Qalvin.agent.md`
+- `Arcos.agent.md`
+- `Docly.agent.md`
 
 ### 4. Copier les Prompts Réutilisables
 
@@ -65,6 +65,8 @@ cp copilot-templates/.github/prompts/*.md <projet_cible>/.github/prompts/
 # Copier aussi le guide PLANS.md
 cp copilot-templates/.github/PLANS.md <projet_cible>/.github/
 ```
+
+> 💡 **Les étapes 3 et 4 sont indépendantes** — elles peuvent être exécutées en parallèle avec `/fleet`.
 
 ### 5. Initialiser les Instructions Copilot
 
@@ -111,6 +113,8 @@ Puis personnaliser selon le rôle de chaque agent :
 
 Si certains placeholders ne peuvent pas être déterminés pendant la migration, les conserver tels quels et les signaler explicitement pour revue manuelle.
 
+> 💡 **Les étapes 6 et 7 peuvent être parallélisées** : la personnalisation des instructions et l'enrichissement via le prompt `update-copilot-instructions` sont indépendants si les placeholders sont déjà identifiés.
+
 ### 7. Valider et Enrichir
 
 ```
@@ -141,6 +145,7 @@ git add .github/
 git commit -m "chore: initialiser Copilot avec templates transverses
 
 - Copier les agents génériques
+- Copier les fichiers d'instructions agents (.github/instructions/)
 - Initialiser copilot-instructions.md depuis le template
 - Configurer la structure des Plans d'Action
 - Référencer le guide PLANS.md
@@ -154,7 +159,7 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 
 Après la migration, vérifier :
 
-- [ ] `.github/agents/` contient 4 fichiers (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC))
+- [ ] `.github/agents/` contient 4 fichiers (`Devon.agent.md`, `Qalvin.agent.md`, `Arcos.agent.md`, `Docly.agent.md`)
 - [ ] `.github/instructions/` contient 4 fichiers (architect, dev, qa, doc)
 - [ ] `.github/copilot-instructions.md` existe et est customisé pour le projet
 - [ ] Aucun placeholder `[...]` ne subsiste dans copilot-instructions.md
@@ -172,10 +177,10 @@ Après la migration, vérifier :
 ### Utiliser les Agents
 
 Quand vous avez besoin de :
-- **Implémenter une fonctionnalité** → `/solve [task]` ou appeler `Devon (🔵 DEV)`
-- **Écrire des tests** → appeler `Qalvin (🟢 QUAL)`
-- **Planifier une architecture** → appeler `Arkos (🟠 ARC)`
-- **Mettre à jour la documentation** → appeler `Docly (🟣 DOC)`
+- **Implémenter une fonctionnalité** → `/solve [task]` ou appeler `Devon` (🔵 DEV)
+- **Écrire des tests** → appeler `Qalvin` (🟢 QUAL)
+- **Planifier une architecture** → appeler `Arcos` (🟠 ARC)
+- **Mettre à jour la documentation** → appeler `Docly` (🟣 DOC)
 
 ### Maintenir les Instructions
 
@@ -193,7 +198,7 @@ Quand vous avez une initiative majeure :
 👤 "Conçois une architecture et un plan d'action pour [initiative]"
 ```
 
-Le `Arkos (🟠 ARC)` va créer le plan, puis les autres agents l'exécutent.
+`Arcos` (🟠 ARC) va créer le plan, puis les autres agents l'exécutent.
 
 ---
 

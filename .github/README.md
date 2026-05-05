@@ -9,7 +9,7 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 ```
 .github/
 ├── agents/                              # Définitions des agents Copilot
-│   ├── Arkos.agent.md                   # Agent planificateur (🟠 ARC - Arkos)
+│   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
 │   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
 │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
 │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
@@ -29,10 +29,6 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 ├── plans/                               # (Optionnel) Exemples de Plans d'Action
 │   ├── README.md                        # Index des plans
 │   └── [plans et rapports]
-│
-├── examples/                            # 🆕 Exemples concrets pour référence
-│   ├── copilot-instructions-domoticz.example.md  # Exemple : projet React Native/Expo
-│   └── [autres exemples]
 │
 ├── copilot-instructions.template.md     # 🆕 Template générique à customiser
 ├── copilot-instructions.md              # Template générique (copie du .template.md)
