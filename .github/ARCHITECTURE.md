@@ -20,13 +20,15 @@ Fournir un **ensemble réutilisable et cohérent** de :
 Tous les fichiers sont **génériques** et **prêts à l'emploi** dans n'importe quel projet.
 
 ### 2. **Separation of Concerns**
-- **Agents** = Rôles génériques (indépendants du projet)
-- **Instructions Copilot** = Conventions spécifiques du projet
-- **Prompts** = Commandes réutilisables
-- **Plans** = Orchestration du travail
+- **Agents (`.github/agents/`)** = rôles génériques et workflows réutilisables
+- **Instructions (`.github/instructions/`)** = conventions, stack, chemins et versions propres au projet cible
+- **Prompts** = commandes réutilisables pour initialiser, auditer et migrer
+- **Plans** = orchestration du travail
+
+Cette séparation permet de copier les agents tels quels dans n'importe quel dépôt, puis d'adapter uniquement les fichiers d'instructions via leurs placeholders `[...]`.
 
 ### 3. **Versionning**
-Chaque agent commence par une version (ex: `[v1.5]`) pour tracker les changements.
+Chaque agent commence par une version (ex: `[v1.9]`) pour tracker les changements.
 
 ### 4. **Customisation Minimale**
 Le template permet une initialisation **rapide et complète** avec 3 étapes.
@@ -47,10 +49,16 @@ Le template permet une initialisation **rapide et complète** avec 3 étapes.
     ├── ARCHITECTURE.md                          # Ce fichier
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Devon (🔵 DEV).agent.md          [v1.5]
-    │   ├── Qalvin (🟢 QUAL).agent.md            [v1.5]
-    │   ├── Arkos (🟠 ARC).agent.md [v1.6]
-    │   └── Docly (🟣 DOC).agent.md        [v1.5]
+    │   ├── Arcos.agent.md                       [v1.9]
+    │   ├── Devon.agent.md                       [v1.9]
+    │   ├── Qalvin.agent.md                      [v1.9]
+    │   └── Docly.agent.md                       [v1.9]
+    │
+    ├── instructions/                            # 📐 Spécificités projet à compléter
+    │   ├── architect.instructions.md            (ARCos : architecture, SQL, interactions)
+    │   ├── dev.instructions.md                  (DEVon : stack, code, HTTP, modèles)
+    │   ├── qa.instructions.md                   (QUALvin : tests, commandes CI, couverture)
+    │   └── doc.instructions.md                  (DOCly : docs, wiki, coordination)
     │
     ├── prompts/                                 # 🎯 Commandes réutilisables
     │   ├── init-copilot-instructions.prompt.md          (initialiser)
@@ -74,15 +82,20 @@ Le template permet une initialisation **rapide et complète** avec 3 étapes.
 ```
 Nouveau Projet
     ↓
-[Copier Templates & Agents]
+[Copier templates, agents et instructions]
     ↓
 [Utiliser prompt init-copilot-instructions]
     ↓
-copilot-instructions.md (customisé)
+copilot-instructions.md + instructions/*.md (customisés)
     ↓
-[Équipe utilise agents]
+[Au démarrage, chaque agent lit son fichier d'instructions]
     ↓
-Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)
+Arcos (🟠 ARC) ⇐ architect.instructions.md
+Devon (🔵 DEV) ⇐ dev.instructions.md
+Qalvin (🟢 QUAL) ⇐ qa.instructions.md
+Docly (🟣 DOC) ⇐ doc.instructions.md
+    ↓
+[Équipe utilise les agents]
 ```
 
 ---
@@ -94,16 +107,31 @@ Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)
 Chaque agent est un **modèle de rôle** générique, défini en markdown avec frontmatter YAML.
 
 **Fichiers :**
-- `Devon (🔵 DEV).agent.md` — Implémentateur de code [v1.5]
-- `Qalvin (🟢 QUAL).agent.md` — Expert QA [v1.5]
-- `Arkos (🟠 ARC).agent.md` — Planificateur [v1.6]
-- `Docly (🟣 DOC).agent.md` — Gestionnaire doc [v1.5]
+- `Arcos.agent.md` — Planificateur / orchestrateur [v1.9]
+- `Devon.agent.md` — Implémentateur de code [v1.9]
+- `Qalvin.agent.md` — Expert QA [v1.9]
+- `Docly.agent.md` — Gestionnaire doc [v1.9]
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet)
-- ✅ Versionés (v1.5, v1.6, etc.)
+- ✅ Versionés (v1.9, etc.)
 - ✅ Indépendants (peuvent être copiés isolément)
 - ✅ Prêts à l'emploi (pas besoin de modification)
+
+### 📐 Instructions agents (`.github/instructions/`)
+
+Ces fichiers complètent les agents génériques avec les **spécificités du projet cible**.
+
+**Fichiers :**
+- `architect.instructions.md` — conventions architecturales, protocole SQL de handoff, interactions inter-projets
+- `dev.instructions.md` — stack technique, conventions de code, organisation des composants et services
+- `qa.instructions.md` — stack de test, commandes CI, cas à couvrir systématiquement
+- `doc.instructions.md` — documentation à maintenir, conventions de rédaction, coordination wiki
+
+**Différence avec les agents :**
+- **Agents** = comportement, workflow et responsabilités réutilisables
+- **Instructions** = valeurs concrètes à personnaliser via des placeholders `[...]`
+- **Lecture au démarrage** = chaque agent charge son fichier d'instructions dédié avant exécution
 
 ### 📋 Templates
 
@@ -127,18 +155,18 @@ Commandes réutilisables pour automatiser les tâches.
 **Fichiers :**
 1. `init-copilot-instructions.prompt.md` — Initialiser les instructions
    - Analyse le code source
-   - Remplit le template automatiquement
-   - Génère `.github/copilot-instructions.md`
+   - Remplit le template principal et les 4 fichiers `instructions/`
+   - Génère `.github/copilot-instructions.md` et les spécificités projet
 
 2. `update-copilot-instructions.prompt.md` — Mettre à jour les instructions
    - Audite le code source
-   - Enrichit les sections existantes
+   - Vérifie aussi les valeurs obsolètes et placeholders non remplis dans `instructions/`
    - Garde la doc synchronisée
 
 3. `migrate-to-template.prompt.md` — Migrer un projet existant
    - Guide pour transformer un projet legacy
    - Archive les anciennes instructions
-   - Copie les templates et agents
+   - Copie les templates, agents et fichiers `instructions/`
 
 ### 📖 Exemples (`.github/examples/`)
 
@@ -186,6 +214,11 @@ Pour garder ce dépôt cohérent :
 - Instructions de remplissage visibles
 - Exemple : `[NOM_DU_PROJET]`, `[ARCHITECTURE]`
 
+✅ **Les fichiers `instructions/` doivent rester initialisables**
+- Placeholders `[...]` explicites et compréhensibles
+- Remplis projet par projet lors de l'initialisation
+- Synchronisés avec la stack, les chemins et les versions réelles
+
 ---
 
 ## 🚀 Utilisation Typique
@@ -195,6 +228,7 @@ Pour garder ce dépôt cohérent :
 ```bash
 # 1. Copier les fichiers essentiels
 cp -r copilot-templates/.github/agents mon-projet/.github/
+cp -r copilot-templates/.github/instructions mon-projet/.github/
 cp copilot-templates/.github/*.md mon-projet/.github/
 
 # 2. Utiliser le prompt d'initialisation
@@ -206,7 +240,7 @@ cp copilot-templates/.github/*.md mon-projet/.github/
 # 4. Utiliser les agents
 👤 "Implémente l'authentification JWT"  → Devon (🔵 DEV)
 👤 "Écris des tests pour ce composant"   → Qalvin (🟢 QUAL)
-👤 "Conçois une architecture pour..."    → Arkos (🟠 ARC)
+👤 "Conçois une architecture pour..."    → Arcos (🟠 ARC)
 ```
 
 ### Projet Existant
@@ -217,6 +251,7 @@ cp copilot-templates/.github/*.md mon-projet/.github/
 
 # 2. Copier et customiser
 cp copilot-templates/.github/copilot-instructions.template.md mon-projet/.github/copilot-instructions.md
+cp -r copilot-templates/.github/instructions mon-projet/.github/
 
 # 3. Initialiser
 👤 "Initialise les instructions Copilot pour ce projet"
@@ -232,8 +267,7 @@ cp copilot-templates/.github/copilot-instructions.template.md mon-projet/.github
 |---------|--------|-----------|
 | Agents | 4 | ✅ Oui |
 | Prompts | 3 | ✅ Oui |
-| Templates | 2 | ✅ Oui (avec placeholders) |
-| Exemples | 1 | ✅ Oui (Domoticz) |
+| Templates | 6 | ✅ Oui (avec placeholders) |
 | Guides | 5 | ✅ Oui |
 
 ---
@@ -242,10 +276,10 @@ cp copilot-templates/.github/copilot-instructions.template.md mon-projet/.github
 
 ### Mise à Jour des Agents
 
-Si une version d'agent change (ex: Devon (🔵 DEV) v1.5 → v1.6) :
+Si une version d'agent change (ex: `Devon.agent.md` v1.9 → v1.10) :
 
-1. Modifier le fichier `.github/agents/Devon (🔵 DEV).agent.md`
-2. Incrémenter le numéro de version : `[v1.5]` → `[v1.6]`
+1. Modifier le fichier `.github/agents/Devon.agent.md`
+2. Incrémenter le numéro de version : `[v1.9]` → `[v1.10]`
 3. Documenter les changements dans un changelog interne
 4. Les projets copient la nouvelle version lors du prochain sync
 
@@ -256,6 +290,15 @@ Si le template change :
 1. Modifier `.github/copilot-instructions.template.md`
 2. Ajouter une note de version en en-tête
 3. Les projets pourront se re-synchroniser via les prompts
+
+### Mise à Jour des Instructions Agents
+
+Si une convention projet ou une version technique change :
+
+1. Modifier le fichier concerné dans `.github/instructions/`
+2. Garder des placeholders `[...]` explicites pour les valeurs à personnaliser
+3. Vérifier la cohérence avec l'agent correspondant et les prompts d'init/update/migration
+4. Re-synchroniser les projets consommateurs lors du prochain passage des prompts
 
 ### Ajout de Nouveaux Prompts
 
@@ -273,8 +316,8 @@ Ce dépôt suit la philosophie :
 
 > **"Écrire une fois, réutiliser partout"**
 
-- 🎯 **Généricité** : Les agents et templates ne changent pas entre projets
-- 🔧 **Customisation minimale** : Les placeholders permettent une adaptation rapide
+- 🎯 **Généricité** : Les agents restent stables d'un projet à l'autre
+- 🔧 **Customisation minimale** : Les placeholders permettent d'adapter rapidement `copilot-instructions.md` et `instructions/`
 - 📚 **Documentation centralisée** : Un seul guide (PLANS.md) pour tous les projets
 - 🔄 **Versionning** : Chaque agent a une version pour tracker les changements
 - 🚀 **Efficacité** : Initialiser Copilot en 3 étapes max
@@ -292,7 +335,7 @@ Pour des questions ou des améliorations :
 
 ---
 
-**Dernière mise à jour :** 2026-04-24
+**Dernière mise à jour :** 2026-05-05
 
 
 

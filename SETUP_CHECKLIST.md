@@ -9,6 +9,7 @@ Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates
 - [ ] Copier `.github/agents/*.md` vers votre projet
 - [ ] Copier `.github/PLANS.md` vers votre projet
 - [ ] Copier `.github/copilot-instructions.template.md` vers votre projet
+- [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
 - [ ] Créer `.github/prompts/` si inexistant
 - [ ] Copier `.github/prompts/init-copilot-instructions.prompt.md` vers votre projet
 
@@ -26,6 +27,7 @@ Le prompt va :
 1. ✅ Analyser votre code source
 2. ✅ Identifier le stack technologique
 3. ✅ Remplir automatiquement `.github/copilot-instructions.md`
+4. ✅ Génère les fichiers `.github/instructions/*.instructions.md`
 
 ### Option B : Manuel
 1. [ ] Copier `copilot-instructions.template.md` → `copilot-instructions.md`
@@ -36,6 +38,11 @@ Le prompt va :
    - [ ] **Architecture**
    - [ ] **Conventions Clés**
    - [ ] **État du Projet**
+3. [ ] Remplir les placeholders dans les 4 fichiers `instructions/` :
+   - [ ] `[NOM_DU_PROJET]` dans chaque fichier
+   - [ ] Stack technique dans `dev.instructions.md`
+   - [ ] Commandes de test dans `qa.instructions.md`
+   - [ ] Fichiers wiki dans `doc.instructions.md`
 
 ---
 
@@ -47,6 +54,7 @@ Le prompt va :
   ```
 
 - [ ] Vérifier que **AUCUN** placeholder `[...]` ne subsiste
+- [ ] Vérifier que les placeholders critiques (`[NOM_DU_PROJET]`, stack) sont remplis dans les fichiers `instructions/`
 - [ ] Vérifier que les sections sont pertinentes pour votre projet
 - [ ] Supprimer les sections non applicables (ex: conventions mobile si projet backend)
 
@@ -134,6 +142,7 @@ Avant de considérer Copilot "prêt" :
 
 - [ ] `.github/copilot-instructions.md` existe et est customisé
 - [ ] `.github/agents/*.md` (4 fichiers) sont présents
+- [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
 - [ ] `.github/PLANS.md` est accessibles
 - [ ] Aucun placeholder `[...]` dans copilot-instructions.md
 - [ ] Premier test avec `Arkos (🟠 ARC)` réussi ✅

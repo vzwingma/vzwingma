@@ -14,9 +14,16 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
 │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
 │
+├── instructions/                        # 🆕 Instructions spécifiques projet
+│   ├── architect.instructions.md        # ARCos — conventions architecturales
+│   ├── dev.instructions.md              # DEVon — stack et conventions code
+│   ├── qa.instructions.md               # QUALvin — tests et commandes
+│   └── doc.instructions.md              # DOCly — documentation et wiki
+│
 ├── prompts/                             # Prompts pour initialiser des tâches
 │   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md
 │   ├── update-copilot-instructions.prompt.md    # Auditer et mettre à jour les instructions
+│   ├── migrate-to-template.prompt.md            # Migrer un projet existant vers le template
 │   └── [autres prompts]
 │
 ├── plans/                               # (Optionnel) Exemples de Plans d'Action
@@ -90,14 +97,17 @@ Chaque fichier agent définit un rôle, ses responsabilités et comment il inter
 
 Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions Copilot spécifiques au projet se trouvent dans `.github/copilot-instructions.md`.
 
+> Les agents sont **génériques**. Ils lisent au démarrage leur fichier `instructions/` correspondant pour les spécificités du projet.
+
 ### Prompts (`.github/prompts/`)
 
 Prompts réutilisables pour des tâches récurrentes.
 
 | Prompt | Rôle | Utilisation |
 |---|---|---|
-| **init-copilot-instructions.prompt.md** | 🆕 Initialiser les instructions Copilot | `copilot prompt run init-copilot-instructions` |
-| **update-copilot-instructions.prompt.md** | Auditer et mettre à jour les instructions | `copilot prompt run update-copilot-instructions` |
+| **init-copilot-instructions.prompt.md** | 🆕 Initialiser `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run init-copilot-instructions` |
+| **update-copilot-instructions.prompt.md** | Auditer et mettre à jour `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run update-copilot-instructions` |
+| **migrate-to-template.prompt.md** | Migrer un projet existant | `copilot prompt run migrate-to-template` |
 
 ### Templates
 
@@ -105,6 +115,7 @@ Prompts réutilisables pour des tâches récurrentes.
 |---|---|---|
 | **copilot-instructions.template.md** | Template générique avec placeholders | Copier et customiser dans un nouveau projet |
 | **copilot-instructions.md** | Version "générique par défaut" | Exemple de fichier de base |
+| **instructions/*.instructions.md** | 4 templates à compléter par projet | Copier et remplir les placeholders |
 
 ### Exemples (`.github/examples/`)
 
@@ -145,7 +156,9 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 ## ✅ Checklist pour Initialiser un Nouveau Projet
 
 - [ ] Copier `.github/copilot-instructions.template.md` → `.github/copilot-instructions.md`
+- [ ] Copier `.github/instructions/` → `.github/instructions/` du projet
 - [ ] Utiliser le prompt `init-copilot-instructions` pour remplir les sections
+- [ ] Remplir les placeholders dans les 4 fichiers `instructions/`
 - [ ] Valider que tous les placeholders sont remplacés
 - [ ] (Optionnel) Utiliser `update-copilot-instructions` pour enrichir depuis le code
 - [ ] Committer `.github/copilot-instructions.md` dans le repo
@@ -158,6 +171,7 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 - **Agents génériques** : Présents dans ce dépôt, prêts à l'emploi
 - **Prompts réutilisables** : `.github/prompts/` — s'adapter au contexte du projet
 - **Templates** : `.github/copilot-instructions.template.md` — customiser pour votre projet
+- **Instructions agents** : `.github/instructions/` — à personnaliser par projet
 - **Exemples** : `.github/examples/` — références pour différents types de projets
 - **Plans d'Action** : `.github/PLANS.md` — guide pour orchestrer le travail multi-phases
 
@@ -186,7 +200,7 @@ Pour ajouter un nouvel agent, prompt ou template :
 
 ---
 
-**Dernière mise à jour :** 2026-04-24
+**Dernière mise à jour :** 2026-05-05
 
 
 

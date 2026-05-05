@@ -92,7 +92,26 @@ cp copilot-templates/.github/copilot-instructions.template.md <projet_cible>/.gi
 # - Conventions clés
 ```
 
-### 6. Valider et Enrichir
+### 6. Copier et personnaliser les fichiers d'instructions agents
+
+```bash
+# Copier les templates d'instructions agents depuis le dépôt transverse
+cp copilot-templates/.github/instructions/*.instructions.md <projet_cible>/.github/instructions/
+```
+
+Dans chaque fichier copié, remplacer au minimum les placeholders suivants :
+- `[NOM_DU_PROJET]` → nom du projet cible
+- `[DESCRIPTION_COURTE_DU_PROJET]` → type de projet (ex: frontend React/TypeScript)
+
+Puis personnaliser selon le rôle de chaque agent :
+- `dev.instructions.md` : stack technique réelle, versions, chemins de fichiers
+- `qa.instructions.md` : framework de test réel, commandes CI, chemins de rapport
+- `doc.instructions.md` : chemin wiki local réel, noms des fichiers wiki existants
+- `architect.instructions.md` : couches réelles du projet, noms des providers, service HTTP
+
+Si certains placeholders ne peuvent pas être déterminés pendant la migration, les conserver tels quels et les signaler explicitement pour revue manuelle.
+
+### 7. Valider et Enrichir
 
 ```
 👤 "Complète les instructions Copilot depuis le code source"
@@ -100,7 +119,7 @@ cp copilot-templates/.github/copilot-instructions.template.md <projet_cible>/.gi
 
 Cela va auditer le code et enrichir les sections manquantes.
 
-### 7. Créer la Structure des Plans d'Action
+### 8. Créer la Structure des Plans d'Action
 
 ```bash
 # Créer le dossier plans s'il n'existe pas
@@ -115,7 +134,7 @@ Voir [`.github/PLANS.md`](../PLANS.md) pour le guide complet.
 EOF
 ```
 
-### 8. Committer les Changements
+### 9. Committer les Changements
 
 ```bash
 git add .github/
@@ -136,8 +155,10 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 Après la migration, vérifier :
 
 - [ ] `.github/agents/` contient 4 fichiers (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC))
+- [ ] `.github/instructions/` contient 4 fichiers (architect, dev, qa, doc)
 - [ ] `.github/copilot-instructions.md` existe et est customisé pour le projet
 - [ ] Aucun placeholder `[...]` ne subsiste dans copilot-instructions.md
+- [ ] Placeholders critiques remplacés dans les fichiers d'instructions (au minimum : NOM_DU_PROJET)
 - [ ] `.github/PLANS.md` est accessible (ou référencé)
 - [ ] `.github/prompts/` contient les prompts réutilisables
 - [ ] `.github/plans/README.md` existe
@@ -201,6 +222,7 @@ Le `Arkos (🟠 ARC)` va créer le plan, puis les autres agents l'exécutent.
 - **Template générique** : `.github/copilot-instructions.template.md`
 - **Prompts** : `.github/prompts/`
 - **Agents** : `.github/agents/`
+- **Instructions agents** : `.github/instructions/`
 - **Plans** : `.github/PLANS.md`
 - **Exemples** : `.github/examples/`
 

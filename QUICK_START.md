@@ -13,6 +13,7 @@ Si vous avez un **nouveau projet** et voulez initialiser Copilot rapidement :
 ```bash
 # Depuis ce dépôt vers votre projet
 cp -r .github/agents <votre_projet>/.github/
+cp -r .github/instructions <votre_projet>/.github/
 cp .github/PLANS.md <votre_projet>/.github/
 cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
 mkdir -p <votre_projet>/.github/prompts
@@ -50,6 +51,7 @@ Modèles prêts à l'emploi pour différents rôles :
 
 ### 📋 Templates
 - **`copilot-instructions.template.md`** — Template générique à customiser
+- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
 - **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
 - **Prompts** — Pour initialiser automatiquement les instructions
 
@@ -90,6 +92,7 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (4 fichiers)
+- `.github/instructions/` (4 fichiers — à personnaliser)
 - `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
 - `.github/PLANS.md`
 
@@ -100,7 +103,7 @@ A: Une fois les fichiers copiés, exécuter dans votre projet :
 ```
 
 ### Q: Les agents sont-ils customisables ?
-A: Les agents sont **génériques**, la customisation se fait dans `.github/copilot-instructions.md`.
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).
 
 ### Q: Où stocker mes Plans d'Action ?
 A: Dans `.github/plans/` — utiliser le format `XXX_<nom>.plan.md`.
@@ -124,6 +127,7 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 4 fichiers ✅
+- [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
 - [ ] Appeler `Arkos` (🟠 ARC) fonctionne ✅

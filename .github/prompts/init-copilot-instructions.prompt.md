@@ -55,14 +55,35 @@ Créer `.github/copilot-instructions.md` en :
 3. Supprimant les sections `[📌 À COMPLÉTER : ...]` si elles ont été remplies
 4. Conservant les sections génériques (agents, workflow, plans d'action, diagrammes)
 
-### 5. Auditer et enrichir (optionnel)
+### 5. Générer les fichiers d'instructions agents
+
+Lire les 4 templates dans `.github/instructions/` du dépôt transverse :
+- `architect.instructions.md` — instructions pour l'agent ARCos
+- `dev.instructions.md` — instructions pour l'agent DEVon
+- `qa.instructions.md` — instructions pour l'agent QUALvin
+- `doc.instructions.md` — instructions pour l'agent DOCly
+
+Pour chaque fichier, remplir les placeholders avec les valeurs identifiées lors de l'analyse (étape 2) :
+- `[NOM_DU_PROJET]` → nom du projet
+- `[DESCRIPTION_COURTE_DU_PROJET]` → description courte (ex: frontend React/TypeScript)
+- Pour `dev.instructions.md` : stack, versions, fichiers de constantes, service HTTP, dossiers conventions
+- Pour `qa.instructions.md` : framework de test, commandes CI, chemins de rapport de couverture, noms des contexts
+- Pour `doc.instructions.md` : chemin wiki local, noms des fichiers wiki, frameworks + versions pour les `.puml`
+- Pour `architect.instructions.md` : couches du projet, noms des providers d'état, service HTTP, routing
+
+Créer les 4 fichiers dans `.github/instructions/` du projet cible (ou les mettre à jour s'ils existent déjà).
+Si certaines valeurs ne peuvent pas être déterminées depuis le code, conserver les placeholders `[...]` et les signaler explicitement.
+
+### 6. Auditer et enrichir (optionnel)
 
 Si le projet dispose d'autres fichiers de référence (CONTRIBUTING.md, ARCHITECTURE.md, BEST_PRACTICES.md, etc.), les lire et enrichir les sections correspondantes du fichier généré.
 
 ## ✅ Checklist de Livraison
 
 - [ ] Fichier `.github/copilot-instructions.md` créé
+- [ ] Fichiers `.github/instructions/*.instructions.md` créés (4 fichiers : architect, dev, qa, doc)
 - [ ] Tous les placeholders `[...]` remplacés par des valeurs réelles
+- [ ] Placeholders critiques remplacés (au minimum : NOM_DU_PROJET, stack technique)
 - [ ] Sections `[📌 À COMPLÉTER : ...]` supprimées ou complétées
 - [ ] Structure des sections conservée (ordre, hiérarchie)
 - [ ] Sections génériques intactes (Agents, Workflow, Plans d'Action, Diagrammes)

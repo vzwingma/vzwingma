@@ -19,14 +19,16 @@ Tous les agents sont **génériques et prêts à l'emploi** dans n'importe quel 
 
 - **copilot-instructions.template.md** — Template générique pour initialiser les instructions Copilot dans un nouveau projet (avec placeholders)
 - **copilot-instructions.md** — Copie du template (version de base générique)
+- **instructions/** — 4 templates d'instructions spécifiques au projet (architect, dev, qa, doc) avec placeholders à remplir
 - **PLANS.md** — Guide complet pour créer et exécuter les Plans d'Action multi-phases
 
 ### 🎯 Prompts (.github/prompts/)
 
 Prompts réutilisables pour des tâches récurrentes :
 
-- **init-copilot-instructions.prompt.md** — ✨ **NOUVEAU** — Initialiser les instructions Copilot dans un nouveau projet
+- **init-copilot-instructions.prompt.md** — Initialiser les instructions Copilot dans un nouveau projet
 - **update-copilot-instructions.prompt.md** — Auditer et mettre à jour les instructions depuis le code source
+- **migrate-to-template.prompt.md** — Migrer un projet existant vers ces templates
 
 ### 📖 Exemples (.github/examples/)
 
@@ -46,6 +48,7 @@ Exemples concrets pour différents types de projets :
 
 ```bash
 cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
+cp -r .github/instructions <votre_projet>/.github/
 ```
 
 ### 2. Initialiser automatiquement
@@ -89,6 +92,7 @@ Pour en savoir plus, consulter .github/PLANS.md.
 - **.github/README.md** — Guide complet d'utilisation
 - **.github/PLANS.md** — Guide pour les Plans d'Action
 - **.github/agents/*.md** — Instructions pour chaque agent
+- **.github/instructions/*.md** — Instructions spécifiques projet pour chaque agent
 - **.github/prompts/*.md** — Documentation des prompts
 - **.github/examples/** — Exemples concrets
 
@@ -98,6 +102,7 @@ Pour en savoir plus, consulter .github/PLANS.md.
 
 ✅ **Agents génériques** — Prêts à l'emploi dans n'importe quel projet  
 ✅ **Templates** — Customisables pour votre contexte  
+✅ **Instructions agents** — Templates spécifiques projet pour chaque agent (à personnaliser)  
 ✅ **Prompts** — Pour automatiser l'initialisation et la mise à jour  
 ✅ **Documentation complète** — Guide d'utilisation et bonnes pratiques  
 ✅ **Exemples** — Références pour différents types de projets  
