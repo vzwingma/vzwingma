@@ -10,43 +10,47 @@ Le projet **[NOM_DU_PROJET]** utilise une **architecture multi-agents** orchestr
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v1.8]
+#### **🟠 ARCos** [v2.0]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
   - Créer et valider les Plans d'Action multi-phases
   - Décomposer les initiatives en tâches logiques
   - Orchestrer le travail entre Devon, Qalvin et Docly
+  - Lire `.github/instructions/architect.instructions.md` au démarrage pour les spécificités du projet
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v1.8]
+#### **🔵 DEVon** [v2.0]
 - **Rôle :** Implémentateur de code de production
 - **Responsabilités :**
   - Traduire les exigences en code fonctionnel et testé
   - Respecter les patterns architecturaux et conventions du projet
   - Mettre à jour les dépendances et refactoriser le code
   - Implémenter les optimisations de performance
+  - Lire `.github/instructions/dev.instructions.md` au démarrage pour les spécificités du projet
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon l'architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant et compilant sans erreurs
 
-#### **🟢 QUALvin** [v1.8]
+#### **🟢 QUALvin** [v2.0]
 - **Rôle :** Expert en assurance qualité et tests
 - **Responsabilités :**
   - Écrire des tests unitaires complets (composants, services, modèles)
   - Assurer une couverture de test ≥80%
   - Tester les cas limites et les scénarios d'erreur
   - Valider que le code fonctionne correctement
+  - Lire `.github/instructions/qa.instructions.md` au démarrage pour les spécificités du projet
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v1.8]
+#### **🟣 DOCly** [v2.0]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
   - Mettre à jour README, Wiki et guides
   - Documenter les changements architecturaux
   - Mettre à jour les instructions Copilot quand les agents changent
   - Garder la documentation en sync avec le code
+  - Lire `.github/instructions/doc.instructions.md` au démarrage pour les spécificités du projet
 - **Quand l'utiliser :** "Mets à jour la documentation", "Garde les docs en sync avec ce code", "Ajoute ça au README"
 - **Livrable :** Documentation à jour, claire et complète
 
@@ -55,7 +59,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 ### 🔄 Workflow Typique
 
 1. **Cadrage (👤 Développeur humain)** → Définir le besoin et les critères d'acceptation
-2. **Planification (🟠 ARC - Arkos)** → Créer un Plan d'Action avec phases et tâches
+2. **Planification (🟠 ARC - Arcos)** → Créer un Plan d'Action avec phases et tâches
 3. **Validation Humaine** → Approuver le plan avant de lancer
 4. **Implémentation (🔵 DEV - Devon)** → Coder les tâches assignées
 5. **Validation Humaine** → Approuver le code avant tests
@@ -64,6 +68,8 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 8. **Documentation (🟣 DOC - Docly)** → Mettre à jour la documentation
 9. **Validation Humaine** → Approuver la documentation
 10. **Phase Suivante** → Lancer la phase suivante du plan (étape 2)
+
+> 💡 **Parallélisation** : Les étapes 4→6 (DEVon) et 6→8 (QUALvin + DOCly) peuvent être parallélisées avec `/fleet` quand les tâches sont indépendantes.
 
 ---
 
@@ -77,6 +83,23 @@ Chaque initiative majeure (modernisation, nouvelle feature, refactoring) est orc
 - **Guide complet :** `.github/PLANS.md`
 
 Les Plans d'Action coordonnent le travail multi-phases et garantissent une traçabilité complète via les rapports.
+
+## 📐 Instructions Spécifiques Projet (`.github/instructions/`)
+
+Chaque agent lit au démarrage son fichier d'instructions spécifique au projet :
+
+| Fichier | Agent | Contenu |
+|---|---|---|
+| `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocole SQL handoff |
+| `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions de code |
+| `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
+| `doc.instructions.md` | 🟣 DOCly | Fichiers wiki, conventions de documentation |
+
+Ces fichiers contiennent les valeurs **spécifiques au projet** (versions réelles, chemins, noms de fichiers).  
+Les agents génériques (`.github/agents/`) restent inchangés entre projets.
+
+> Pour initialiser ces fichiers : utiliser le prompt `init-copilot-instructions`.  
+> Pour les mettre à jour : utiliser le prompt `update-copilot-instructions`.
 
 ---
 
