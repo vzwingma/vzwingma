@@ -37,6 +37,7 @@ applyTo: "**"
 - **Versions à maintenir à jour** dans les `.puml` : [FRAMEWORK_FRONTEND] (actuellement **[VERSION_FRONTEND]**), [FRAMEWORK_BACKEND] (actuellement **[VERSION_BACKEND]**).
 - **Ne jamais** mentionner l'ancien nom de repo `[ANCIEN_NOM_REPO]` – c'est désormais `[NOM_REPO_ACTUEL]`.
 - Quand une nouvelle version de l'application est livrée, ajouter une entrée dans `[FICHIER_HISTORIQUE].md` **en tête** de fichier.
+- L'index `.github/plans/README.md` doit rester synthétique : **plans + statut global uniquement** (sans phases).
 
 ## Ce que tu ne fais PAS
 

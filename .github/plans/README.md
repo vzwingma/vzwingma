@@ -4,6 +4,11 @@ Bienvenue dans le répertoire des Plans d'Action (AP) du projet .
 
 Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
 
+Cet index liste uniquement les plans et leur **statut global**.
+
+> **Règle d'indexation :** ne pas détailler les phases dans ce fichier.  
+> Les détails de phases restent dans les fichiers `*.plan.md` et les rapports `*_reports/`.
+
 ---
 
 ## 📂 Plans Actifs / En Cours
