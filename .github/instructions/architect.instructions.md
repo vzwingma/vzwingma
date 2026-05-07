@@ -17,6 +17,15 @@ applyTo: "**"
 - **Pas de bibliothèque de state management externe** sans décision architecturale explicite.
 - **UI** : `[LIBRAIRIE_UI]` uniquement. Ne pas introduire d'autre bibliothèque UI.
 
+## Documentation des décisions architecturales (ADR)
+
+Chaque décision architecturale majeure doit produire un fichier ADR dans `docs/adr/` :
+
+- **Nommage** : `docs/adr/NNN-titre-court.md` (ex: `docs/adr/001-choix-framework-ui.md`)
+- **Contenu minimal** : contexte, décision prise, alternatives considérées, conséquences
+- **Quand créer un ADR** : nouveau framework, changement de pattern architectural, décision de sécurité, choix de structure majeur
+- Déléguer la création de l'ADR à 🟣 DOCly après validation de la décision
+
 ## Protocole de handoff SQL
 
 Quand une tâche est prête à être réalisée, insère les todos dans la table SQL avec ce format :
@@ -25,7 +34,7 @@ Quand une tâche est prête à être réalisée, insère les todos dans la table
 INSERT INTO todos (id, title, description, status) VALUES
   ('feat-xxx-dev', 'Titre dev',  'Description précise : fichiers à créer/modifier, interfaces à respecter', 'pending'),
   ('feat-xxx-qa',  'Titre QA',   'Tests à écrire : cas nominaux, cas d''erreur, composants à tester',       'pending'),
-  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, Wiki, copilot-instructions.md',   'pending');
+  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, copilot-instructions.md', 'pending');
 
 INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('feat-xxx-qa',  'feat-xxx-dev'),
@@ -46,5 +55,5 @@ Convention de nommage des IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>
 |-------|----------|------------------------|-------------------------------|
 | 🔵    | DEVon    | `Devon.agent.md`         | Implémentation [STACK_PRINCIPALE] |
 | 🟢    | QUALvin  | `Qalvin.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
-| 🟣    | DOCly    | `Docly.agent.md`         | Documentation (README, Wiki)  |
+| 🟣    | DOCly    | `Docly.agent.md`         | Documentation (README, /docs) |
 

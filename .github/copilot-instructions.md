@@ -43,10 +43,12 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v2.0]
+#### **🟣 DOCly** [v2.1]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
-  - Mettre à jour README, Wiki et guides
+  - Mettre à jour README, `docs/` et guides
+  - Maintenir `docs/ARCHITECTURE.md` à jour avec l'état réel du projet
+  - Créer les ADRs dans `docs/adr/` sur délégation d'ARCos
   - Documenter les changements architecturaux
   - Mettre à jour les instructions Copilot quand les agents changent
   - Garder la documentation en sync avec le code
@@ -93,7 +95,7 @@ Chaque agent lit au démarrage son fichier d'instructions spécifique au projet 
 | `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocole SQL handoff |
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions de code |
 | `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Fichiers wiki, conventions de documentation |
+| `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions de documentation |
 
 Ces fichiers contiennent les valeurs **spécifiques au projet** (versions réelles, chemins, noms de fichiers).  
 Les agents génériques (`.github/agents/`) restent inchangés entre projets.

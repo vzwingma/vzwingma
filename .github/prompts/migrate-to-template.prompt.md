@@ -108,7 +108,7 @@ Dans chaque fichier copié, remplacer au minimum les placeholders suivants :
 Puis personnaliser selon le rôle de chaque agent :
 - `dev.instructions.md` : stack technique réelle, versions, chemins de fichiers
 - `qa.instructions.md` : framework de test réel, commandes CI, chemins de rapport
-- `doc.instructions.md` : chemin wiki local réel, noms des fichiers wiki existants
+- `doc.instructions.md` : chemin docs/ réel, noms des fichiers de documentation existants
 - `architect.instructions.md` : couches réelles du projet, noms des providers, service HTTP
 
 Si certains placeholders ne peuvent pas être déterminés pendant la migration, les conserver tels quels et les signaler explicitement pour revue manuelle.
@@ -166,6 +166,7 @@ Après la migration, vérifier :
 - [ ] Placeholders critiques remplacés dans les fichiers d'instructions (au minimum : NOM_DU_PROJET)
 - [ ] `.github/PLANS.md` est accessible (ou référencé)
 - [ ] `.github/prompts/` contient les prompts réutilisables
+- [ ] `docs/ARCHITECTURE.md` existe (créer si absent)
 - [ ] `.github/plans/README.md` existe
 - [ ] Agents sont génériques (pas de spécificités du projet)
 - [ ] Instructions Copilot reflètent le projet spécifique

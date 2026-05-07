@@ -18,7 +18,7 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 │   ├── architect.instructions.md        # ARCos — conventions architecturales
 │   ├── dev.instructions.md              # DEVon — stack et conventions code
 │   ├── qa.instructions.md               # QUALvin — tests et commandes
-│   └── doc.instructions.md              # DOCly — documentation et wiki
+│   └── doc.instructions.md              # DOCly — documentation et /docs
 │
 ├── prompts/                             # Prompts pour initialiser des tâches
 │   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md

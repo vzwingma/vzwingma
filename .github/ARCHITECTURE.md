@@ -58,7 +58,7 @@ Le template permet une initialisation **rapide et complète** avec 3 étapes.
     │   ├── architect.instructions.md            (ARCos : architecture, SQL, interactions)
     │   ├── dev.instructions.md                  (DEVon : stack, code, HTTP, modèles)
     │   ├── qa.instructions.md                   (QUALvin : tests, commandes CI, couverture)
-    │   └── doc.instructions.md                  (DOCly : docs, wiki, coordination)
+    │   └── doc.instructions.md                  (DOCly : docs/, ARCHITECTURE.md, ADRs)
     │
     ├── prompts/                                 # 🎯 Commandes réutilisables
     │   ├── init-copilot-instructions.prompt.md          (initialiser)
@@ -126,7 +126,7 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 - `architect.instructions.md` — conventions architecturales, protocole SQL de handoff, interactions inter-projets
 - `dev.instructions.md` — stack technique, conventions de code, organisation des composants et services
 - `qa.instructions.md` — stack de test, commandes CI, cas à couvrir systématiquement
-- `doc.instructions.md` — documentation à maintenir, conventions de rédaction, coordination wiki
+- `doc.instructions.md` — documentation à maintenir, conventions de rédaction, structure du répertoire `docs/`
 
 **Différence avec les agents :**
 - **Agents** = comportement, workflow et responsabilités réutilisables
