@@ -191,7 +191,7 @@ Pour chaque tâche T<N>.<M> :
 ### Après chaque tâche
 
 - ✅ Mise à jour du statut dans le rapport (🔄 → ✅)
-- ✅ Vérification que les tests passent (`npm test`)
+- ✅ Vérification que les tests passent et que la couverture est atteinte, conformément aux instructions de la tâche (dans qa.instructions.md ou les spécificités projet)
 - ✅ Documentation des résultats de couverture
 
 ### À la fin de la phase
