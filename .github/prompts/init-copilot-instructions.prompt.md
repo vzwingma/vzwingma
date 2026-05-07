@@ -103,7 +103,8 @@ Si le projet dispose d'autres fichiers de référence (CONTRIBUTING.md, ARCHITEC
 - [ ] Fichier lisible et bien formaté (Markdown)
 - [ ] `.github/agents/` contient 4 fichiers (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
 - [ ] `.github/PLANS.md` est accessible
-- [ ] `docs/ARCHITECTURE.md` existe (créer si absent : `mkdir -p docs && touch docs/ARCHITECTURE.md`)
+- [ ] `docs/ARCHITECTURE.md` existe (créer depuis le template : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
+- [ ] `docs/adr/` existe (créer si absent : `mkdir -p docs/adr`)
 
 ## 💡 Conseils
 

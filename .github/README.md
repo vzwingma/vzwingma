@@ -112,6 +112,8 @@ Prompts réutilisables pour des tâches récurrentes.
 | **copilot-instructions.template.md** | Template générique avec placeholders | Copier et customiser dans un nouveau projet |
 | **copilot-instructions.md** | Version "générique par défaut" | Exemple de fichier de base |
 | **instructions/*.instructions.md** | 4 templates à compléter par projet | Copier et remplir les placeholders |
+| **docs/ARCHITECTURE.template.md** | Template `docs/ARCHITECTURE.md` | Copier dans `docs/ARCHITECTURE.md` du projet cible |
+| **docs/adr/ADR-TEMPLATE.md** | Template ADR | Copier dans `docs/adr/NNN-titre.md` pour chaque décision |
 
 ### Exemples (`.github/examples/`)
 

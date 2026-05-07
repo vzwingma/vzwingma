@@ -12,6 +12,8 @@ Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates
 - [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
 - [ ] Créer `.github/prompts/` si inexistant
 - [ ] Copier `.github/prompts/init-copilot-instructions.prompt.md` vers votre projet
+- [ ] Copier `docs/ARCHITECTURE.template.md` → `docs/ARCHITECTURE.md` de votre projet
+- [ ] Créer `docs/adr/` et y copier `docs/adr/ADR-TEMPLATE.md`
 
 ---
 
@@ -42,7 +44,7 @@ Le prompt va :
    - [ ] `[NOM_DU_PROJET]` dans chaque fichier
    - [ ] Stack technique dans `dev.instructions.md`
    - [ ] Commandes de test dans `qa.instructions.md`
-   - [ ] Fichiers wiki dans `doc.instructions.md`
+   - [ ] Fichiers docs/ dans `doc.instructions.md`
 
 ---
 
@@ -60,11 +62,13 @@ Le prompt va :
 
 ---
 
-## 📋 Étape 4 : Configurer les Plans d'Action
+## 📋 Étape 4 : Configurer les Plans d'Action et la Documentation
 
 - [ ] Créer `.github/plans/` s'il n'existe pas
 - [ ] Créer `.github/plans/README.md` (ou utiliser le template)
 - [ ] Ajouter `.github/PLANS.md` comme guide de référence
+- [ ] Vérifier que `docs/ARCHITECTURE.md` est initialisé (sinon : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
+- [ ] Compléter les sections **⚠️ À COMPLÉTER** dans `docs/ARCHITECTURE.md`
 
 ---
 
@@ -150,7 +154,9 @@ Avant de considérer Copilot "prêt" :
 - [ ] `.github/copilot-instructions.md` existe et est customisé
 - [ ] `.github/agents/*.md` (4 fichiers) sont présents
 - [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
-- [ ] `.github/PLANS.md` est accessibles
+- [ ] `.github/PLANS.md` est accessible
+- [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées
+- [ ] `docs/adr/` existe (avec `ADR-TEMPLATE.md` comme modèle)
 - [ ] Aucun placeholder `[...]` dans copilot-instructions.md
 - [ ] Premier test avec `Arcos (🟠 ARC)` réussi ✅
 - [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅

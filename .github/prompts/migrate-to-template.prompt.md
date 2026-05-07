@@ -56,7 +56,7 @@ Les agents à copier :
 - `Arcos.agent.md`
 - `Docly.agent.md`
 
-### 4. Copier les Prompts Réutilisables
+### 4. Copier les Prompts Réutilisables et Templates docs
 
 ```bash
 # Prompts
@@ -64,6 +64,11 @@ cp copilot-templates/.github/prompts/*.md <projet_cible>/.github/prompts/
 
 # Copier aussi le guide PLANS.md
 cp copilot-templates/.github/PLANS.md <projet_cible>/.github/
+
+# Copier les templates de documentation
+mkdir -p <projet_cible>/docs/adr
+cp copilot-templates/docs/ARCHITECTURE.template.md <projet_cible>/docs/ARCHITECTURE.md
+cp copilot-templates/docs/adr/ADR-TEMPLATE.md <projet_cible>/docs/adr/ADR-TEMPLATE.md
 ```
 
 > 💡 **Les étapes 3 et 4 sont indépendantes** — elles peuvent être exécutées en parallèle avec `/fleet`.
@@ -166,7 +171,8 @@ Après la migration, vérifier :
 - [ ] Placeholders critiques remplacés dans les fichiers d'instructions (au minimum : NOM_DU_PROJET)
 - [ ] `.github/PLANS.md` est accessible (ou référencé)
 - [ ] `.github/prompts/` contient les prompts réutilisables
-- [ ] `docs/ARCHITECTURE.md` existe (créer si absent)
+- [ ] `docs/ARCHITECTURE.md` existe (créer depuis le template : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
+- [ ] `docs/adr/` existe (créer si absent)
 - [ ] `.github/plans/README.md` existe
 - [ ] Agents sont génériques (pas de spécificités du projet)
 - [ ] Instructions Copilot reflètent le projet spécifique
