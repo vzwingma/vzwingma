@@ -7,33 +7,38 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 ## 📂 Structure
 
 ```
-.github/
-├── agents/                              # Définitions des agents Copilot
-│   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
-│   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
-│   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
-│   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
+.
+├── docs/                                # Documentation versionnée du dépôt
+│   ├── ARCHITECTURE.md                  # Architecture de ce dépôt transverse
+│   ├── ARCHITECTURE.template.md        # Template à copier dans les projets
+│   └── adr/                            # Architecture Decision Records
+│       └── ADR-TEMPLATE.md             # Template ADR
 │
-├── instructions/                        # 🆕 Instructions spécifiques projet
-│   ├── architect.instructions.md        # ARCos — conventions architecturales
-│   ├── dev.instructions.md              # DEVon — stack et conventions code
-│   ├── qa.instructions.md               # QUALvin — tests et commandes
-│   └── doc.instructions.md              # DOCly — documentation et /docs
-│
-├── prompts/                             # Prompts pour initialiser des tâches
-│   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md
-│   ├── update-copilot-instructions.prompt.md    # Auditer et mettre à jour les instructions
-│   ├── migrate-to-template.prompt.md            # Migrer un projet existant vers le template
-│   └── [autres prompts]
-│
-├── plans/                               # (Optionnel) Exemples de Plans d'Action
-│   ├── README.md                        # Index des plans
-│   └── [plans et rapports]
-│
-├── copilot-instructions.template.md     # 🆕 Template générique à customiser
-├── copilot-instructions.md              # Template générique (copie du .template.md)
-├── PLANS.md                             # Guide pour les Plans d'Action
-└── [autres fichiers]
+└── .github/
+    ├── agents/                              # Définitions des agents Copilot
+    │   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
+    │   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
+    │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
+    │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
+    │
+    ├── instructions/                        # 🆕 Instructions spécifiques projet
+    │   ├── architect.instructions.md        # ARCos — conventions architecturales
+    │   ├── dev.instructions.md              # DEVon — stack et conventions code
+    │   ├── qa.instructions.md               # QUALvin — tests et commandes
+    │   └── doc.instructions.md              # DOCly — documentation et /docs
+    │
+    ├── prompts/                             # Prompts pour initialiser des tâches
+    │   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md
+    │   ├── update-copilot-instructions.prompt.md    # Auditer et mettre à jour les instructions
+    │   └── migrate-to-template.prompt.md            # Migrer un projet existant vers le template
+    │
+    ├── plans/                               # (Optionnel) Exemples de Plans d'Action
+    │   ├── README.md                        # Index des plans
+    │   └── [plans et rapports]
+    │
+    ├── copilot-instructions.template.md     # 🆕 Template générique à customiser
+    ├── copilot-instructions.md              # Template générique (copie du .template.md)
+    └── PLANS.md                             # Guide pour les Plans d'Action
 ```
 
 ---
@@ -166,6 +171,8 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 
 ## 📚 Ressources
 
+- **Architecture** : `docs/ARCHITECTURE.md` — architecture de ce dépôt transverse
+- **Templates docs** : `docs/ARCHITECTURE.template.md` + `docs/adr/ADR-TEMPLATE.md`
 - **Agents génériques** : Présents dans ce dépôt, prêts à l'emploi
 - **Prompts réutilisables** : `.github/prompts/` — s'adapter au contexte du projet
 - **Templates** : `.github/copilot-instructions.template.md` — customiser pour votre projet
