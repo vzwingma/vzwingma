@@ -8,6 +8,13 @@ applyTo: "**"
 > Ce fichier est lu automatiquement par l'agent 🟠 ARCos au démarrage.
 > Il contient uniquement les spécificités du projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
 
+## Lecture du document d'architecture
+
+**Au démarrage**, lis `docs/ARCHITECTURE.md` si le fichier existe dans le projet courant :
+- Comprendre la stack technique, les couches applicatives et les composants clés
+- Assurer la cohérence de toute décision de planification avec l'architecture existante
+- Si le fichier est absent, suggérer à 🟣 DOCly de le créer au terme de l'initiative
+
 ## Conventions architecturales
 
 - **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).

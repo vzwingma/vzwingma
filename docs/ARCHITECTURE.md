@@ -47,7 +47,7 @@ Nouveau Projet
     → [Exécuter prompt init-copilot-instructions]
     → copilot-instructions.md + instructions/*.md  (customisés pour le projet)
     → [Au démarrage de session, chaque agent lit son fichier d'instructions]
-        ├── ARCos  (🟠 ARC) ← architect.instructions.md
+        ├── ARCos  (🟠 ARC) ← architect.instructions.md + docs/ARCHITECTURE.md
         ├── DEVon  (🔵 DEV) ← dev.instructions.md
         ├── QUALvin(🟢 QUAL)← qa.instructions.md
         └── DOCly  (🟣 DOC) ← doc.instructions.md
@@ -86,7 +86,7 @@ Nouveau Projet
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Arcos.agent.md                       # Planificateur / orchestrateur [v2.1]
+    │   ├── Arcos.agent.md                       # Planificateur / orchestrateur [v2.2]
     │   ├── Devon.agent.md                       # Implémentateur de code [v2.0]
     │   ├── Qalvin.agent.md                      # Expert QA [v2.0]
     │   └── Docly.agent.md                       # Gestionnaire documentation [v2.1]
@@ -119,7 +119,7 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| 🟠 ARCos | `Arcos.agent.md` | v2.1 | Planificateur / orchestrateur |
+| 🟠 ARCos | `Arcos.agent.md` | v2.2 | Planificateur / orchestrateur |
 | 🔵 DEVon | `Devon.agent.md` | v2.0 | Implémentateur de code |
 | 🟢 QUALvin | `Qalvin.agent.md` | v2.0 | Expert QA et tests |
 | 🟣 DOCly | `Docly.agent.md` | v2.1 | Gestionnaire documentation |
@@ -198,6 +198,7 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 | # | Décision | Statut | Date |
 |---|---|---|---|
 | 001 | Migration documentation Wiki → `/docs` | Acceptée | 2026-05-07 |
+| 002 | ARCos lit `docs/ARCHITECTURE.md` au démarrage | Acceptée | 2026-05-07 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 

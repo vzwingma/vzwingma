@@ -10,7 +10,7 @@ Le projet **[NOM_DU_PROJET]** utilise une **architecture multi-agents** orchestr
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v2.0]
+#### **🟠 ARCos** [v2.2]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
@@ -18,6 +18,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
   - Décomposer les initiatives en tâches logiques
   - Orchestrer le travail entre Devon, Qalvin et Docly
   - Lire `.github/instructions/architect.instructions.md` au démarrage pour les spécificités du projet
+  - Lire `docs/ARCHITECTURE.md` au démarrage pour comprendre le contexte architectural du projet
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
