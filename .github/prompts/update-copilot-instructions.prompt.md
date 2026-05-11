@@ -112,10 +112,11 @@ En complément :
 
 ### 6. Auditer les skills partagés
 
-Lire les 3 skills suivants dans `.github/skills/` (s'ils existent) :
+Lire les 4 skills suivants dans `.github/skills/` (s'ils existent) :
 - `plan-phase-execution/SKILL.md`
 - `plan-creation/SKILL.md`
 - `fleet-guide/SKILL.md`
+- `adr-writing/SKILL.md`
 
 Pour chaque skill, vérifier :
 - Que le frontmatter `applyTo: "**"` est présent (inclusion automatique dans le contexte agent)
