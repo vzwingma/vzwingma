@@ -95,7 +95,7 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (4 fichiers)
-- `.github/skills/` (3 fichiers — procédures AP et /fleet partagées)
+- `.github/skills/` (3 skills — un dossier par skill avec `SKILL.md`)
 - `.github/instructions/` (4 fichiers — à personnaliser)
 - `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
 - `.github/PLANS.md`
@@ -134,7 +134,7 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 4 fichiers ✅
-- [ ] `.github/skills/` a 3 fichiers ✅
+- [ ] `.github/skills/` a 3 skills (dossiers avec `SKILL.md`) ✅
 - [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅

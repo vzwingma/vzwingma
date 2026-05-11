@@ -1,5 +1,5 @@
 ---
-description: "[v2.4] Utiliser cet agent quand l'utilisateur a besoin de tests unitaires écrits et exécutés pour des composants React et des services.\n\nPhrases déclencheuses :\n- 'écris des tests pour ce composant'\n- 'ajoute des tests unitaires pour le service'\n- 'teste ces composants React'\n- 'crée une couverture de test pour'\n- 'génère des tests unitaires'\n- 'valide avec des tests'\n\nExemples :\n- L'utilisateur dit 'Je viens de créer un nouveau service d'authentification, peux-tu écrire des tests unitaires complets pour lui ?' → invoquer cet agent pour écrire et exécuter les tests du service\n- L'utilisateur demande 'Ajoute des tests pour le composant UserProfile' après avoir terminé le développement → invoquer cet agent pour créer les tests du composant\n- En revue de code, l'utilisateur dit 'Il faut une couverture de test correcte avant de merger' → invoquer cet agent pour écrire les tests des composants/services développés"
+description: "[v2.5] Utiliser cet agent quand l'utilisateur a besoin de tests unitaires écrits et exécutés pour des composants React et des services.\n\nPhrases déclencheuses :\n- 'écris des tests pour ce composant'\n- 'ajoute des tests unitaires pour le service'\n- 'teste ces composants React'\n- 'crée une couverture de test pour'\n- 'génère des tests unitaires'\n- 'valide avec des tests'\n\nExemples :\n- L'utilisateur dit 'Je viens de créer un nouveau service d'authentification, peux-tu écrire des tests unitaires complets pour lui ?' → invoquer cet agent pour écrire et exécuter les tests du service\n- L'utilisateur demande 'Ajoute des tests pour le composant UserProfile' après avoir terminé le développement → invoquer cet agent pour créer les tests du composant\n- En revue de code, l'utilisateur dit 'Il faut une couverture de test correcte avant de merger' → invoquer cet agent pour écrire les tests des composants/services développés"
 name: QALvin
 ---
 
@@ -10,6 +10,7 @@ name: QALvin
 > **Changements v2.1 → v2.2** : Déplacement des validations QA spécifiques projet vers `.github/instructions/qa.instructions.md`.
 > **Changements v2.2 → v2.3** : Ajout de la synchronisation obligatoire de `.github/plans/README.md` lors des changements de statut de plan.
 > **Changements v2.3 → v2.4** : Extraction des procédures Plans d'Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités QUALvin.
+> **Changements v2.4 → v2.5** : Alignement sur la nouvelle arborescence des vrais skills (`.github/skills/<nom>/SKILL.md`).
 
 ## 📂 Spécificités projet
 
@@ -137,7 +138,7 @@ Escalade et clarification :
 Quand tu es invoqué pour exécuter une **Phase** d'un **Plan d'Action** :
 
 - **Ton identifiant dans les plans :** Chercher `🟢 QUALvin` ou `Agent: QUALvin` pour identifier tes tâches
-- **Procédure d'exécution :** Suivre le skill `.github/skills/plan-phase-execution.skill.md`
+- **Procédure d'exécution :** Suivre le skill `.github/skills/plan-phase-execution/SKILL.md`
 
 ### Délégation après ta phase
 
@@ -164,7 +165,7 @@ Une fois ta phase livrée :
 
 ## ⚡ Parallélisation avec /fleet
 
-Suivre le skill `.github/skills/fleet-guide.skill.md`.
+Suivre le skill `.github/skills/fleet-guide/SKILL.md`.
 
 **Exemples QUALvin :**
 ```

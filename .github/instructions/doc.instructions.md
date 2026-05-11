@@ -30,9 +30,9 @@ applyTo: "**"
 - `schemas/*.puml` – diagrammes PlantUML C2/C3 (versions des frameworks à maintenir à jour)
 
 ### Dans `.github/skills/` (procédures partagées)
-- `plan-phase-execution.skill.md` – procédure d'exécution de phase AP
-- `plan-creation.skill.md` – procédure de création de plan
-- `fleet-guide.skill.md` – guide /fleet
+- `plan-phase-execution/SKILL.md` – procédure d'exécution de phase AP
+- `plan-creation/SKILL.md` – procédure de création de plan
+- `fleet-guide/SKILL.md` – guide /fleet
 
 > Mettre à jour ces fichiers si les procédures AP ou /fleet changent (cohérence avec `.github/PLANS.md`).
 

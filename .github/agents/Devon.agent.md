@@ -1,5 +1,5 @@
 ---
-description: "[v2.2] Utiliser cet agent quand l'utilisateur demande d'implémenter ou de coder une fonctionnalité déjà architecturée.\n\nPhrases déclencheuses :\n- 'implémente cette fonctionnalité'\n- 'code cette fonction'\n- 'développe selon l'architecture'\n- 'écris l'implémentation de...'\n- 'développons cette fonctionnalité'\n\nExemples :\n- L'utilisateur dit 'Voici l'architecture, maintenant implémente le module d'authentification' → invoquer cet agent pour écrire le code\n- L'utilisateur demande 'Peux-tu coder les endpoints API d'après cette spec ?' → invoquer cet agent pour implémenter les endpoints\n- En cours de développement, l'utilisateur dit 'On a décidé du design, maintenant implémente le processeur de paiement' → invoquer cet agent pour écrire le code fonctionnel"
+description: "[v2.3] Utiliser cet agent quand l'utilisateur demande d'implémenter ou de coder une fonctionnalité déjà architecturée.\n\nPhrases déclencheuses :\n- 'implémente cette fonctionnalité'\n- 'code cette fonction'\n- 'développe selon l'architecture'\n- 'écris l'implémentation de...'\n- 'développons cette fonctionnalité'\n\nExemples :\n- L'utilisateur dit 'Voici l'architecture, maintenant implémente le module d'authentification' → invoquer cet agent pour écrire le code\n- L'utilisateur demande 'Peux-tu coder les endpoints API d'après cette spec ?' → invoquer cet agent pour implémenter les endpoints\n- En cours de développement, l'utilisateur dit 'On a décidé du design, maintenant implémente le processeur de paiement' → invoquer cet agent pour écrire le code fonctionnel"
 name: DEVon
 ---
 
@@ -9,6 +9,7 @@ name: DEVon
 > **Changements v1.9 → v2.0** : Ajout de l'instruction de parallélisation avec /fleet.
 > **Changements v2.0 → v2.1** : Ajout de la règle de synchronisation obligatoire de `.github/plans/README.md` (index plans + statut global uniquement).
 > **Changements v2.1 → v2.2** : Extraction des procédures Plans d'Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités DEVon.
+> **Changements v2.2 → v2.3** : Alignement sur la nouvelle arborescence des vrais skills (`.github/skills/<nom>/SKILL.md`).
 
 ## 📂 Spécificités projet
 
@@ -127,7 +128,7 @@ Quand demander une clarification :
 Quand tu es invoqué pour exécuter une **Phase** d'un **Plan d'Action** :
 
 - **Ton identifiant dans les plans :** Chercher `🔵 DEVon` ou `Agent: DEVon` pour identifier tes tâches
-- **Procédure d'exécution :** Suivre le skill `.github/skills/plan-phase-execution.skill.md`
+- **Procédure d'exécution :** Suivre le skill `.github/skills/plan-phase-execution/SKILL.md`
 
 ### Délégation après ta phase
 
@@ -152,7 +153,7 @@ Une fois ta phase livrée :
 
 ## ⚡ Parallélisation avec /fleet
 
-Suivre le skill `.github/skills/fleet-guide.skill.md`.
+Suivre le skill `.github/skills/fleet-guide/SKILL.md`.
 
 **Exemples DEVon :**
 ```

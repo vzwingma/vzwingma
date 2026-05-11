@@ -10,7 +10,7 @@ Le projet **[NOM_DU_PROJET]** utilise une **architecture multi-agents** orchestr
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v2.5]
+#### **🟠 ARCos** [v2.6]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
@@ -22,7 +22,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v2.2]
+#### **🔵 DEVon** [v2.3]
 - **Rôle :** Implémentateur de code de production
 - **Responsabilités :**
   - Traduire les exigences en code fonctionnel et testé
@@ -33,7 +33,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon l'architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant et compilant sans erreurs
 
-#### **🟢 QUALvin** [v2.4]
+#### **🟢 QUALvin** [v2.5]
 - **Rôle :** Expert en assurance qualité et tests
 - **Responsabilités :**
   - Écrire des tests unitaires complets (composants, services, modèles)
@@ -44,7 +44,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v2.3]
+#### **🟣 DOCly** [v2.4]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -108,11 +108,11 @@ Les agents génériques (`.github/agents/`) restent inchangés entre projets.
 
 Les skills sont des procédures réutilisables incluses automatiquement dans le contexte de tous les agents (`applyTo: **`) :
 
-| Fichier | Contenu |
-|---|---|
-| `plan-phase-execution.skill.md` | Procédure standard d'exécution de phase AP (avant/pendant/après, formats de rapport) |
-| `plan-creation.skill.md` | Procédure de création et d'orchestration d'un Plan d'Action (ARCos + agents orchestrateurs) |
-| `fleet-guide.skill.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
+| Skill | Emplacement | Contenu |
+|---|---|---|
+| `plan-phase-execution` | `.github/skills/plan-phase-execution/SKILL.md` | Procédure standard d'exécution de phase AP (avant/pendant/après, formats de rapport) |
+| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure de création et d'orchestration d'un Plan d'Action (ARCos + agents orchestrateurs) |
+| `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
 
 Ces skills centralisent les procédures communes pour éviter la duplication entre agents.
 

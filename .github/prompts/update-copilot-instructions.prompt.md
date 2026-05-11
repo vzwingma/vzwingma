@@ -112,10 +112,10 @@ En complément :
 
 ### 6. Auditer les skills partagés
 
-Lire les 3 fichiers suivants dans `.github/skills/` (s'ils existent) :
-- `plan-phase-execution.skill.md`
-- `plan-creation.skill.md`
-- `fleet-guide.skill.md`
+Lire les 3 skills suivants dans `.github/skills/` (s'ils existent) :
+- `plan-phase-execution/SKILL.md`
+- `plan-creation/SKILL.md`
+- `fleet-guide/SKILL.md`
 
 Pour chaque skill, vérifier :
 - Que le frontmatter `applyTo: "**"` est présent (inclusion automatique dans le contexte agent)
@@ -145,7 +145,7 @@ Avant d'appliquer les modifications :
    - Sections à **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
    - Vérification que les agents `.github/agents/*.agent.md` sont à leur version courante (v2.0+)
-   - Vérification que les skills `.github/skills/*.skill.md` sont présents et cohérents avec `PLANS.md`
+   - Vérification que les skills `.github/skills/*/SKILL.md` sont présents et cohérents avec `PLANS.md`
    - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md`
    - Signalement séparé des placeholders non remplis vs des valeurs obsolètes
 
