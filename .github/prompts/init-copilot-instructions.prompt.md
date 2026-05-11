@@ -102,6 +102,7 @@ Si le projet dispose d'autres fichiers de référence (CONTRIBUTING.md, ARCHITEC
 - [ ] Langue française conservée pour tout le texte narratif
 - [ ] Fichier lisible et bien formaté (Markdown)
 - [ ] `.github/agents/` contient 4 fichiers (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+- [ ] `.github/skills/` contient 3 fichiers skills partagés (`plan-phase-execution.skill.md`, `plan-creation.skill.md`, `fleet-guide.skill.md`)
 - [ ] `.github/PLANS.md` est accessible
 - [ ] `docs/ARCHITECTURE.md` existe (créer depuis le template : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
 - [ ] `docs/adr/` existe (créer si absent : `mkdir -p docs/adr`)
