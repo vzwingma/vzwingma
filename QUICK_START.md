@@ -14,6 +14,7 @@ Si vous avez un **nouveau projet** et voulez initialiser Copilot rapidement :
 # Depuis ce dépôt vers votre projet
 cp -r .github/agents <votre_projet>/.github/
 cp -r .github/instructions <votre_projet>/.github/
+cp -r .github/skills <votre_projet>/.github/
 cp .github/PLANS.md <votre_projet>/.github/
 cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
 mkdir -p <votre_projet>/.github/prompts
@@ -94,6 +95,7 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (4 fichiers)
+- `.github/skills/` (3 fichiers — procédures AP et /fleet partagées)
 - `.github/instructions/` (4 fichiers — à personnaliser)
 - `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
 - `.github/PLANS.md`
@@ -132,6 +134,7 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 4 fichiers ✅
+- [ ] `.github/skills/` a 3 fichiers ✅
 - [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
