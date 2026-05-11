@@ -1,10 +1,11 @@
-# Instructions Copilot — Template Générique
+# Instructions Copilot — Dépôt Transverse vzwingma
 
-> **Utilisation** : Ce fichier est un template pour initialiser les instructions Copilot dans un nouveau projet. Remplacer les placeholders `[...]` par les valeurs spécifiques à votre projet.
+> Ce fichier décrit le **dépôt transverse de templates Copilot multi-agents** (`vzwingma/vzwingma`).
+> Il sert d'infrastructure réutilisable pour orchestrer le développement dans n'importe quel projet.
 
 ## 👋 Bienvenue ! Agents Copilot et Relations
 
-Le projet **[NOM_DU_PROJET]** utilise une **architecture multi-agents** orchestrée pour coordonner le développement, les tests et la documentation via des **Plans d'Action (AP)** structurés.
+Ce dépôt utilise une **architecture multi-agents** orchestrée pour coordonner les évolutions des templates, agents et skills via des **Plans d'Action (AP)** structurés.
 
 ### 🤖 Les Agents et leurs Rôles
 
@@ -98,8 +99,7 @@ Chaque agent lit au démarrage son fichier d'instructions spécifique au projet 
 | `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions de documentation |
 
-Ces fichiers contiennent les valeurs **spécifiques au projet** (versions réelles, chemins, noms de fichiers).  
-Les agents génériques (`.github/agents/`) restent inchangés entre projets.
+Dans ce dépôt transverse, ces fichiers sont des **templates** (avec placeholders `[...]`) destinés à être copiés et personnalisés dans chaque projet cible.
 
 > Pour initialiser ces fichiers : utiliser le prompt `init-copilot-instructions`.  
 > Pour les mettre à jour : utiliser le prompt `update-copilot-instructions`.
@@ -118,109 +118,98 @@ Ces skills centralisent les procédures communes pour éviter la duplication ent
 
 ---
 
-## [📌 SECTION À COMPLÉTER : Présentation du Projet]
+## 🏗️ Présentation du Projet
 
-Remplacer cette section par une brève description de votre projet (1-2 paragraphes) :
-- Domaine métier (ex: e-commerce, domotique, santé, etc.)
-- Stack technologique principal (ex: React, Node.js, Python, etc.)
-- Plateformes cibles (web, mobile, desktop, etc.)
-- Langue de l'interface (si applicable)
+Ce dépôt est le **dépôt transverse de templates Copilot multi-agents** pour l'organisation `vzwingma`. Il ne contient pas de code applicatif mais des **artefacts d'infrastructure Copilot** réutilisables :
 
-### Exemple pour un projet React Native/Expo :
+- **Agents génériques** (`.github/agents/`) : ARCos, DEVon, QUALvin, DOCly
+- **Skills partagés** (`.github/skills/`) : procédures AP et /fleet communes
+- **Templates d'instructions** (`.github/instructions/`) : à personnaliser par projet
+- **Prompts** (`.github/prompts/`) : initialisation et mise à jour des instructions
+- **Guide Plans d'Action** (`.github/PLANS.md`) : référence pour orchestrer le travail multi-phases
+- **Documentation** (`docs/`, `QUICK_START.md`, `SETUP_CHECKLIST.md`) : guides d'utilisation
+
+**Usage :** Copier les fichiers de ce dépôt vers un projet cible, puis utiliser `init-copilot-instructions` pour personnaliser.
+
+---
+
+## 📁 Architecture du Dépôt
+
 ```
-Application mobile React Native / Expo pour [DOMAINE MÉTIER].
-Cible principalement [PLATEFORME] et le web.
-L'interface utilisateur est en [LANGUE].
+vzwingma/
+├── .github/
+│   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v2.5)
+│   │   ├── Devon.agent.md               # Développeur (v2.2)
+│   │   ├── Qalvin.agent.md              # QA & tests (v2.4)
+│   │   └── Docly.agent.md               # Documentation (v2.3)
+│   ├── skills/                          # Procédures partagées (applyTo: **)
+│   │   ├── plan-phase-execution.skill.md
+│   │   ├── plan-creation.skill.md
+│   │   └── fleet-guide.skill.md
+│   ├── instructions/                    # Templates à personnaliser par projet
+│   │   ├── architect.instructions.md
+│   │   ├── dev.instructions.md
+│   │   ├── qa.instructions.md
+│   │   └── doc.instructions.md
+│   ├── prompts/                         # Prompts réutilisables
+│   │   ├── init-copilot-instructions.prompt.md
+│   │   ├── update-copilot-instructions.prompt.md
+│   │   └── migrate-to-template.prompt.md
+│   ├── plans/                           # Plans d'Action de ce dépôt transverse
+│   │   └── README.md
+│   ├── PLANS.md                         # Guide centralisé Plans d'Action
+│   ├── copilot-instructions.md          # Ce fichier (instructions pour ce repo)
+│   └── copilot-instructions.template.md # Template vierge à copier dans les projets
+├── docs/
+│   ├── ARCHITECTURE.md                  # Architecture de ce dépôt transverse
+│   ├── ARCHITECTURE.template.md         # Template architecture à copier dans les projets
+│   └── adr/                             # Décisions architecturales
+├── QUICK_START.md                       # Guide rapide d'utilisation
+├── SETUP_CHECKLIST.md                   # Checklist d'initialisation projet
+└── README.md                            # Présentation du dépôt
 ```
 
 ---
 
-## [📌 SECTION À COMPLÉTER : Commandes]
-
-Lister les commandes principales du projet (démarrage, tests, build, lint, etc.)
-
-### Exemple pour un projet Node.js/npm :
-```bash
-npm start               # Démarrer le serveur de développement
-npm test                # Lancer les tests
-npm run lint            # ESLint
-npm run build           # Build de production
-```
-
----
-
-## [📌 SECTION À COMPLÉTER : Architecture]
-
-Décrire la structure du projet et les patterns architecturaux utilisés.
-
-Éléments à couvrir :
-- Structure des dossiers principaux (src/, app/, lib/, etc.)
-- Couches principales (composants, services, modèles, contrôleurs, etc.)
-- Patterns de gestion d'état (Context API, Redux, Zustand, etc.)
-- Flux de données principal
-- Paradigmes clés (réactif, impératif, etc.)
-
-### Exemple pour un projet React :
-```
-src/
-  components/         # Composants réutilisables
-  pages/              # Pages/écrans
-  services/           # Logique métier et API calls
-  hooks/              # Custom hooks
-  utils/              # Fonctions utilitaires
-  styles/             # Styles partagés
-  models/             # Modèles de données
-```
-
----
-
-## [📌 SECTION À COMPLÉTER : Conventions Clés]
-
-Décrire les conventions de code et les patterns du projet. Couvrir :
+## ⚙️ Conventions Clés
 
 ### Nommage des fichiers
-- Composants : `*.component.tsx` (ou autre convention)
-- Services : `*.service.ts`
-- Tests : `*.test.ts` (ou autre convention)
-- Utilitaires : `*.utils.ts`
 
-### TypeScript/JavaScript
-- Mode strict activé ? (Oui/Non)
-- Interfaces vs types ?
-- Naming conventions (camelCase, PascalCase, CONSTANT_CASE)
-- Classes vs fonctions ?
+| Type | Convention | Exemple |
+|---|---|---|
+| Agent | `*.agent.md` | `Arcos.agent.md` |
+| Skill | `*.skill.md` | `plan-phase-execution.skill.md` |
+| Instructions projet | `*.instructions.md` | `dev.instructions.md` |
+| Prompt | `*.prompt.md` | `init-copilot-instructions.prompt.md` |
+| Plan d'Action | `NNN_<nom>.plan.md` | `001_modernisation.plan.md` |
+| Rapport de phase | `PHASE_N_COMPLETION_REPORT.md` | — |
 
-### Composants/Vues
-- Hooks ou composants classe ?
-- Gestion d'état (props, Context, Redux, etc.)
-- Naming conventions pour les props et états
-- Styles (CSS modules, styled-components, Tailwind, etc.)
+### Frontmatter des fichiers `.md` Copilot
 
-### Services et Logique Métier
-- Pattern d'appels API (fetch, axios, etc.)
-- Gestion des erreurs HTTP
-- Configuration et variables d'environnement
+- **Agents** (`.github/agents/`) : `description`, `name`, optionnel `agents: ["*"]`
+- **Skills** (`.github/skills/`) : `description`, `applyTo: "**"` (inclusion automatique)
+- **Instructions** (`.github/instructions/`) : `description`, `applyTo: "**"`
 
-### Tests
-- Framework (Jest, Vitest, Mocha, etc.)
-- Pattern de setup et mocks
-- Couverture minimale attendue (ex: ≥80%)
+### Versioning des agents
 
-### Autres conventions
-- Committing (conventional commits, etc.)
-- Branching strategy (Git flow, trunk-based, etc.)
-- Code review expectations
+Chaque agent porte un numéro de version dans son `description` (ex: `[v2.5]`).
+Incrémenter la version à chaque modification du contenu de l'agent.
+
+### Langue
+
+- Documentation : **français**
+- Blocs de code et exemples techniques : **anglais**
+- Placeholders templates : `[NOM_EN_MAJUSCULES]`
 
 ---
 
-## [📌 SECTION À COMPLÉTER : État du Projet et Bonnes Pratiques]
+## 🔄 Maintenance du Dépôt Transverse
 
-Ajouter toute section pertinente pour les conventions spécifiques au projet :
-- État de maintenance (stable, legacy, en evolution)
-- Patterns d'erreur courants à éviter
-- Dépendances clés et leurs usages
-- Performance/optimisations importantes
-- Sécurité (authentification, validation, etc.)
+- **Modifier un agent** → incrémenter sa version, mettre à jour le changelog dans le versioning block, mettre à jour les versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- **Modifier un skill** → vérifier la cohérence avec `PLANS.md`, signaler dans les agents qui y référencent
+- **Ajouter un fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
+- **Pas de commandes de build/test** : ce dépôt est documentation-only
 
 ---
 
@@ -267,10 +256,4 @@ graph TD
     style Docs fill:#E91E63,stroke:#333,stroke-width:2px
     style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
 ```
-
----
-
-**🎯 Pour customiser ces instructions :** Remplacer tous les placeholders `[...]` par vos valeurs, puis utiliser le prompt `.github/prompts/update-copilot-instructions.prompt.md` pour auditer et enrichir ce fichier depuis le code source.
-
-
 
