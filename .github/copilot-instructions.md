@@ -11,7 +11,7 @@ Ce dépôt utilise une **architecture multi-agents** orchestrée pour coordonner
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v2.6]
+#### **🟠 ARCos** [v2.7]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
@@ -113,6 +113,7 @@ Les skills sont des procédures réutilisables incluses automatiquement dans le 
 | `plan-phase-execution` | `.github/skills/plan-phase-execution/SKILL.md` | Procédure standard d'exécution de phase AP (avant/pendant/après, formats de rapport) |
 | `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure de création et d'orchestration d'un Plan d'Action (ARCos + agents orchestrateurs) |
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
+| `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain : ARCos prépare le contenu, DOCly rédige le fichier |
 
 Ces skills centralisent les procédures communes pour éviter la duplication entre agents.
 
@@ -149,6 +150,8 @@ vzwingma/
 │   │   ├── plan-creation/
 │   │   │   └── SKILL.md
 │   │   └── fleet-guide/
+│   │       └── SKILL.md
+│   │   └── adr-writing/
 │   │       └── SKILL.md
 │   ├── instructions/                    # Templates à personnaliser par projet
 │   │   ├── architect.instructions.md
