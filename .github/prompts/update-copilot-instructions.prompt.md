@@ -145,6 +145,7 @@ Avant d'appliquer les modifications :
    - Sections à **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
    - Vérification que les agents `.github/agents/*.agent.md` sont à leur version courante (v2.0+)
+   - Vérification que les skills `.github/skills/*.skill.md` sont présents et cohérents avec `PLANS.md`
    - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md`
    - Signalement séparé des placeholders non remplis vs des valeurs obsolètes
 
