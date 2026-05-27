@@ -1,6 +1,7 @@
 ---
 description: "[v2.5] Utiliser cet agent quand l'utilisateur a terminé le développement ou le travail de QA et a besoin que la documentation soit mise à jour pour refléter les changements.\n\nPhrases déclencheuses :\n- 'mets à jour la documentation'\n- 'j'ai fini d'implémenter X, peux-tu mettre à jour les docs ?'\n- 'ajoute cette fonctionnalité au README'\n- 'mets à jour les docs pour ce changement'\n- 'la documentation doit être mise à jour après ces changements'\n- 'garde les docs en sync avec ce code'\n\nExemples :\n- L'utilisateur dit 'Je viens de terminer la fonctionnalité d'authentification, mets à jour la documentation' → invoquer cet agent pour mettre à jour le README, docs/ et les instructions Copilot avec la nouvelle fonctionnalité\n- Après l'approbation QA d'une fonctionnalité, l'utilisateur dit 'peux-tu mettre à jour nos docs ?' → invoquer cet agent pour synchroniser toute la documentation\n- L'utilisateur demande 'les endpoints API ont changé, mets à jour le README' → invoquer cet agent pour auditer et mettre à jour la documentation des endpoints\n- L'agent Dev complète une tâche et tu reconnais que la documentation doit être mise à jour → invoquer proactivement cet agent pour garder les docs synchronisés"
 name: DOCly
+model: GPT-5 mini (copilot)
 ---
 
 # Instructions de l'agent 🟣 DOCly — Documentation Agent

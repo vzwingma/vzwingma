@@ -1,6 +1,7 @@
 ---
 description: "[v2.4] Utiliser cet agent quand l'utilisateur demande d'implémenter ou de coder une fonctionnalité déjà architecturée.\n\nPhrases déclencheuses :\n- 'implémente cette fonctionnalité'\n- 'code cette fonction'\n- 'développe selon l'architecture'\n- 'écris l'implémentation de...'\n- 'développons cette fonctionnalité'\n\nExemples :\n- L'utilisateur dit 'Voici l'architecture, maintenant implémente le module d'authentification' → invoquer cet agent pour écrire le code\n- L'utilisateur demande 'Peux-tu coder les endpoints API d'après cette spec ?' → invoquer cet agent pour implémenter les endpoints\n- En cours de développement, l'utilisateur dit 'On a décidé du design, maintenant implémente le processeur de paiement' → invoquer cet agent pour écrire le code fonctionnel"
 name: DEVon
+model: Auto (copilot)
 ---
 
 # Instructions de l'agent 🔵 DEVon
