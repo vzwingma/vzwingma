@@ -11,7 +11,7 @@ Ce dépôt utilise une **architecture multi-agents** orchestrée pour coordonner
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v2.7]
+#### **🟠 ARCos** [v2.9]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
@@ -23,7 +23,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v2.3]
+#### **🔵 DEVon** [v2.5]
 - **Rôle :** Implémentateur de code de production
 - **Responsabilités :**
   - Traduire les exigences en code fonctionnel et testé
@@ -34,7 +34,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon l'architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant et compilant sans erreurs
 
-#### **🟢 QUALvin** [v2.5]
+#### **🟢 QUALvin** [v2.7]
 - **Rôle :** Expert en assurance qualité et tests
 - **Responsabilités :**
   - Écrire des tests unitaires complets (composants, services, modèles)
@@ -45,7 +45,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v2.4]
+#### **🟣 DOCly** [v2.6]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -114,6 +114,7 @@ Les skills sont des procédures réutilisables incluses automatiquement dans le 
 | `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure de création et d'orchestration d'un Plan d'Action (ARCos + agents orchestrateurs) |
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain : ARCos prépare le contenu, DOCly rédige le fichier |
+| `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue** : interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 
 Ces skills centralisent les procédures communes pour éviter la duplication entre agents.
 
@@ -140,19 +141,21 @@ Ce dépôt est le **dépôt transverse de templates Copilot multi-agents** pour 
 vzwingma/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v2.6)
-│   │   ├── Devon.agent.md               # Développeur (v2.3)
-│   │   ├── Qalvin.agent.md              # QA & tests (v2.5)
-│   │   └── Docly.agent.md               # Documentation (v2.4)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v2.9)
+│   │   ├── Devon.agent.md               # Développeur (v2.5)
+│   │   ├── Qalvin.agent.md              # QA & tests (v2.7)
+│   │   └── Docly.agent.md               # Documentation (v2.6)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
 │   │   ├── plan-creation/
 │   │   │   └── SKILL.md
-│   │   └── fleet-guide/
-│   │       └── SKILL.md
-│   │   └── adr-writing/
-│   │       └── SKILL.md
+│   │   ├── fleet-guide/
+│   │   │   └── SKILL.md
+│   │   ├── adr-writing/
+│   │   │   └── SKILL.md
+│   │   └── copilotignore/
+│   │       └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
 │   ├── instructions/                    # Templates à personnaliser par projet
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
@@ -214,6 +217,7 @@ Incrémenter la version à chaque modification du contenu de l'agent.
 
 - **Modifier un agent** → incrémenter sa version, mettre à jour le changelog dans le versioning block, mettre à jour les versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
 - **Modifier un skill** → vérifier la cohérence avec `PLANS.md`, signaler dans les agents qui y référencent
+- **Modifier le skill `copilotignore`** → la règle étant appliquée via `applyTo: **`, toute modification de `.github/skills/copilotignore/SKILL.md` prend effet immédiatement pour tous les agents
 - **Ajouter un fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
 - **Pas de commandes de build/test** : ce dépôt est documentation-only
 

@@ -1,6 +1,6 @@
 ---
+name: "plan-creation"
 description: "Skill — Procédure de création et d'orchestration d'un Plan d'Action (AP). Utilisé par les agents orchestrateurs (ARCos et futurs agents de planification)."
-applyTo: "**"
 ---
 
 # Skill : Création d'un Plan d'Action (AP)

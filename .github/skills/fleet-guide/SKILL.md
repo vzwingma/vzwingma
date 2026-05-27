@@ -1,6 +1,6 @@
 ---
+name: "fleet-guide"
 description: "Skill — Guide de parallélisation avec /fleet pour tous les agents. Appliqué automatiquement."
-applyTo: "**"
 ---
 
 # Skill : Parallélisation avec /fleet

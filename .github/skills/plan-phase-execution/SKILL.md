@@ -1,6 +1,6 @@
 ---
+name: "plan-phase-execution"
 description: "Skill — Procédure d'exécution de phase d'un Plan d'Action (AP). Appliqué automatiquement à tous les agents."
-applyTo: "**"
 ---
 
 # Skill : Exécution de Phase d'un Plan d'Action (AP)
