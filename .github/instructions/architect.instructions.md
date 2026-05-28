@@ -5,37 +5,37 @@ applyTo: "**"
 
 # Spécificités projet — [NOM_DU_PROJET]
 
-> Ce fichier est lu automatiquement par l'agent 🟠 ARCos au démarrage.
-> Il contient uniquement les spécificités du projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+> Fichier auto-lu par agent 🟠 ARCos au démarrage.
+> Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
 
 ## Lecture du document d'architecture
 
-**Au démarrage**, lis `docs/ARCHITECTURE.md` si le fichier existe dans le projet courant :
-- Comprendre la stack technique, les couches applicatives et les composants clés
-- Assurer la cohérence de toute décision de planification avec l'architecture existante
-- Si le fichier est absent, suggérer à 🟣 DOCly de le créer au terme de l'initiative
+**Au démarrage**, lis `docs/ARCHITECTURE.md` si existe dans projet courant :
+- Comprendre stack technique, couches applicatives, composants clés
+- Assurer cohérence décisions planification avec architecture existante
+- Si absent, suggérer à 🟣 DOCly création au terme initiative
 
 ## Conventions architecturales
 
 - **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).
-- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Ne pas créer de nouveau Context sans validation.
-- **HTTP** : toujours via `[SERVICE_HTTP]`. Ne pas utiliser `fetch` directement dans un composant.
-- **Routing** : `[STRATEGIE_ROUTING]`. Les nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
-- **Pas de bibliothèque de state management externe** sans décision architecturale explicite.
-- **UI** : `[LIBRAIRIE_UI]` uniquement. Ne pas introduire d'autre bibliothèque UI.
+- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer nouveau Context sans validation.
+- **HTTP** : toujours via `[SERVICE_HTTP]`. Pas utiliser `fetch` direct dans composant.
+- **Routing** : `[STRATEGIE_ROUTING]`. Nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
+- **Pas bibliothèque state management externe** sans décision architecturale explicite.
+- **UI** : `[LIBRAIRIE_UI]` uniquement. Pas introduire autre bibliothèque UI.
 
 ## Documentation des décisions architecturales (ADR)
 
-Chaque décision architecturale majeure doit produire un fichier ADR dans `docs/adr/` :
+Chaque décision architecturale majeure doit produire fichier ADR dans `docs/adr/` :
 
 - **Nommage** : `docs/adr/NNN-titre-court.md` (ex: `docs/adr/001-choix-framework-ui.md`)
 - **Contenu minimal** : contexte, décision prise, alternatives considérées, conséquences
-- **Quand créer un ADR** : nouveau framework, changement de pattern architectural, décision de sécurité, choix de structure majeur
-- Déléguer la création de l'ADR à 🟣 DOCly après validation de la décision
+- **Quand créer ADR** : nouveau framework, changement pattern architectural, décision sécurité, choix structure majeur
+- Déléguer création ADR à 🟣 DOCly après validation décision
 
 ## Protocole de handoff SQL
 
-Quand une tâche est prête à être réalisée, insère les todos dans la table SQL avec ce format :
+Quand tâche prête à être réalisée, insère todos dans table SQL avec ce format :
 
 ```sql
 INSERT INTO todos (id, title, description, status) VALUES
@@ -48,13 +48,13 @@ INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('feat-xxx-doc', 'feat-xxx-dev');
 ```
 
-Convention de nommage des IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
+Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
 
 ## Interactions avec l'agent partenaire ([NOM_PROJET_PARTENAIRE])
 
-- Les contrats d'API (URL, paramètres, codes retour) sont définis en coordination avec l'Architecte [ROLE_PARTENAIRE, ex: backend].
-- Les URLs des µServices sont configurées dans `[FICHIER_CONSTANTES_TECHNIQUES]` et les fichiers `.env.*`.
-- Tout nouveau endpoint [PARTENAIRE] doit être reflété dans `[SERVICE_HTTP]` avant que l'agent Dev puisse l'utiliser.
+- Contrats API (URL, paramètres, codes retour) définis en coordination avec Architecte [ROLE_PARTENAIRE, ex: backend].
+- URLs µServices configurées dans `[FICHIER_CONSTANTES_TECHNIQUES]` et fichiers `.env.*`.
+- Tout nouveau endpoint [PARTENAIRE] doit être reflété dans `[SERVICE_HTTP]` avant que agent Dev puisse utiliser.
 
 ## Agents du projet
 
@@ -67,6 +67,6 @@ Convention de nommage des IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>
 
 ## Règle d'index des plans (obligatoire)
 
-- Le fichier `.github/plans/README.md` est un **index synthétique** : il doit contenir uniquement la liste des plans et leur **statut global**.
-- Ne pas y afficher les statuts de phases.
-- Toute création de plan ou changement de statut global doit inclure, dans le même changement, la mise à jour de `.github/plans/README.md`.
+- Fichier `.github/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
+- Pas afficher statuts phases.
+- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.github/plans/README.md`.
