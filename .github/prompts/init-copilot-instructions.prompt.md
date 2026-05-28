@@ -68,10 +68,10 @@ Créer `.github/copilot-instructions.md` en :
 ### 5. Générer les fichiers d'instructions agents
 
 Lire 4 templates dans `.github/instructions/` du dépôt transverse :
-- `architect.instructions.md` — instructions pour agent ARCos
-- `dev.instructions.md` — instructions pour agent DEVon
-- `qa.instructions.md` — instructions pour agent QUALvin
-- `doc.instructions.md` — instructions pour agent DOCly
+- `architect.instructions.template.md` — template instructions pour agent ARCos
+- `dev.instructions.template.md` — template instructions pour agent DEVon
+- `qa.instructions.template.md` — template instructions pour agent QUALvin
+- `doc.instructions.template.md` — template instructions pour agent DOCly
 
 Pour chaque fichier, remplir placeholders avec valeurs identifiées lors analyse (étape 2) :
 - `[NOM_DU_PROJET]` → nom projet
@@ -81,7 +81,7 @@ Pour chaque fichier, remplir placeholders avec valeurs identifiées lors analyse
 - Pour `doc.instructions.md` : chemin docs/ local, noms fichiers documentation, frameworks + versions pour `.puml`
 - Pour `architect.instructions.md` : couches projet, noms providers état, service HTTP, routing
 
-Créer 4 fichiers dans `.github/instructions/` du projet cible (ou mettre à jour si existent déjà).
+Créer 4 fichiers dans `.github/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
 Si certaines valeurs non déterminables depuis code, conserver placeholders `[...]` et signaler explicitement.
 
 ### 6. Auditer et enrichir (optionnel)
@@ -91,7 +91,7 @@ Si projet dispose autres fichiers référence (CONTRIBUTING.md, ARCHITECTURE.md,
 ## ✅ Checklist de Livraison
 
 - [ ] Fichier `.github/copilot-instructions.md` créé
-- [ ] Fichiers `.github/instructions/*.instructions.md` créés (4 fichiers : architect, dev, qa, doc)
+- [ ] Fichiers `.github/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (4 fichiers : architect, dev, qa, doc)
 - [ ] Tous placeholders `[...]` remplacés par valeurs réelles
 - [ ] Placeholders critiques remplacés (minimum : NOM_DU_PROJET, stack technique)
 - [ ] Sections `[📌 À COMPLÉTER : ...]` supprimées ou complétées
