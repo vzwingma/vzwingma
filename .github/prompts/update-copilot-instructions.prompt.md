@@ -141,7 +141,7 @@ Avant appliquer modifications:
    - Sections **amender** (avec valeur actuelle et valeur corrigée)
    - Sections **supprimer** (si obsolètes — demander confirmation)
    - Sections **validées** (conformes au code, aucun changement)
-   - Vérification agents `.github/agents/*.agent.md` à version courante (v2.0+)
+   - Vérification agents `.github/agents/*.agent.md` à version courante (v3.0+)
    - Vérification skills `.github/skills/*/SKILL.md` présents et cohérents avec `PLANS.md`
    - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md`
    - Signalement séparé placeholders non remplis vs valeurs obsolètes

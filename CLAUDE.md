@@ -20,25 +20,25 @@ Philosophie : "Écrire une fois, réutiliser partout"
 
 4 agents spécialisés orchestrent développement :
 
-### 🟠 ARCos [v2.9]
+### 🟠 ARCos [v3.0]
 - Planificateur et orchestrateur technique
 - Conçoit architecture, crée Plans d'Action, décompose initiatives
 - Lit `.github/instructions/architect.instructions.md` + `docs/ARCHITECTURE.md` au démarrage
 - **Trigger :** "Conçois architecture pour", "Crée plan pour"
 
-### 🔵 DEVon [v2.5]
+### 🔵 DEVon [v3.0]
 - Implémentateur code production
 - Traduit exigences en code testé, respecte patterns architecturaux
 - Lit `.github/instructions/dev.instructions.md` au démarrage
 - **Trigger :** "Implémente fonctionnalité", "Développe selon architecture"
 
-### 🟢 QUALvin [v2.7]
+### 🟢 QUALvin [v3.0]
 - Expert assurance qualité et tests
 - Écrit tests unitaires complets, vise couverture ≥80%
 - Lit `.github/instructions/qa.instructions.md` au démarrage
 - **Trigger :** "Écris tests pour", "Génère tests unitaires"
 
-### 🟣 DOCly [v2.6]
+### 🟣 DOCly [v3.0]
 - Gardien documentation
 - Maintient README, `docs/`, `docs/ARCHITECTURE.md`, crée ADRs
 - Lit `.github/instructions/doc.instructions.md` au démarrage
@@ -59,10 +59,10 @@ Philosophie : "Écrire une fois, réutiliser partout"
 .
 ├── .github/
 │   ├── agents/                      # Agents génériques (ne PAS modifier par projet)
-│   │   ├── Arcos.agent.md          # v2.9
-│   │   ├── Devon.agent.md          # v2.5
-│   │   ├── Qalvin.agent.md         # v2.7
-│   │   └── Docly.agent.md          # v2.6
+│   │   ├── Arcos.agent.md          # v3.0
+│   │   ├── Devon.agent.md          # v3.0
+│   │   ├── Qalvin.agent.md         # v3.0
+│   │   └── Docly.agent.md          # v3.0
 │   ├── skills/                      # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/SKILL.md
 │   │   ├── plan-creation/SKILL.md
@@ -130,7 +130,7 @@ Plans multi-phases coordonnent grandes initiatives (modernisation, features, ref
 - Rapport phase : `PHASE_N_COMPLETION_REPORT.md`
 
 ### Versioning agents
-Chaque agent porte version dans `description` (ex: `[v2.5]`).
+Chaque agent porte version dans `description` (ex: `[v3.0]`).
 Incrémenter version à chaque modification contenu agent.
 
 ### Frontmatter Markdown

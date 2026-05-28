@@ -1,5 +1,5 @@
 ---
-description: "[v2.5] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
+description: "[v3.0] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
 
 Phrases déclencheuses :
 - 'implémente cette fonctionnalité'
@@ -19,7 +19,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 
 # Instructions agent 🔵 DEVon
 
-> **Versioning** : Description agent commence par numéro version (ex. `[v1.9]`). Numéro doit être incrémenté à chaque modif contenu instructions.
+> **Versioning** : Description agent commence par numéro version (ex. `[v3.0]`). Numéro doit être incrémenté à chaque modif contenu instructions.
 > **Changements v1.9 → v2.0** : Ajout instruction parallélisation avec /fleet.
 > **Changements v2.0 → v2.1** : Ajout règle synchro obligatoire `.github/plans/README.md` (index plans + statut global uniquement).
 > **Changements v2.1 → v2.2** : Extraction procédures Plans Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités DEVon.
@@ -27,6 +27,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 > **Changements v2.3 → v2.4** : Ajout interdictions opérations destructives.
 > **Changements v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
 > **Changements v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
+> **Changements v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 
 ## 📂 Spécificités projet
 
@@ -36,6 +37,14 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 - Spécificités projet ont **priorité** sur valeurs par défaut génériques
 
 Si fichier absent, applique conventions génériques.
+
+## 🗿 Instruction globale — Mode caveman
+
+À démarrage session :
+- Vérifier si skill `caveman` déjà actif
+- Si non actif, l'activer immédiatement puis appliquer ses règles
+- Utiliser niveau `full` par défaut ; basculer `lite`/`ultra` seulement sur demande explicite du 👤 Développeur humain
+- Désactiver uniquement sur demande explicite (`stop caveman` ou `normal mode`)
 
 ## Role et responsabilités
 

@@ -113,7 +113,7 @@ Pour en savoir plus, consulter .github/PLANS.md.
 
 ## 🔄 Maintenance
 
-Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v2.0]) pour tracker les changements.
+Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v3.0]) pour tracker les changements.
 
 Pour mettre à jour les instructions d'un projet existant, utiliser :
 ```
@@ -125,6 +125,5 @@ Pour mettre à jour les instructions d'un projet existant, utiliser :
 ### Hello there <img src="https://github.com/vzwingma/vzwingma/assets/10505762/5250a9d9-e4b4-4b1f-9f10-9d3ac7294928" alt= "" width="60" height="60"/>
 
 [![vzwingma's GitHub stats](https://github-readme-stats.vercel.app/api?username=vzwingma)](https://github.com/vzwingma/vzwingma)
-
 
 

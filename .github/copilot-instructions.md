@@ -11,7 +11,7 @@ Ce dépôt utilise une **architecture multi-agents** orchestrée pour coordonner
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v2.9]
+#### **🟠 ARCos** [v3.0]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir des solutions architecturales complètes
@@ -23,7 +23,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Conçois une architecture pour...", "Crée un plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v2.5]
+#### **🔵 DEVon** [v3.0]
 - **Rôle :** Implémentateur de code de production
 - **Responsabilités :**
   - Traduire les exigences en code fonctionnel et testé
@@ -34,7 +34,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon l'architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant et compilant sans erreurs
 
-#### **🟢 QUALvin** [v2.7]
+#### **🟢 QUALvin** [v3.0]
 - **Rôle :** Expert en assurance qualité et tests
 - **Responsabilités :**
   - Écrire des tests unitaires complets (composants, services, modèles)
@@ -45,7 +45,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par un **👤 Dév
 - **Quand l'utiliser :** "Écris des tests pour ce composant", "Génère des tests unitaires", "Valide avec des tests"
 - **Livrable :** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v2.6]
+#### **🟣 DOCly** [v3.0]
 - **Rôle :** Gardien de la documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -141,10 +141,10 @@ Ce dépôt est le **dépôt transverse de templates Copilot multi-agents** pour 
 vzwingma/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v2.9)
-│   │   ├── Devon.agent.md               # Développeur (v2.5)
-│   │   ├── Qalvin.agent.md              # QA & tests (v2.7)
-│   │   └── Docly.agent.md               # Documentation (v2.6)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.0)
+│   │   ├── Devon.agent.md               # Développeur (v3.0)
+│   │   ├── Qalvin.agent.md              # QA & tests (v3.0)
+│   │   └── Docly.agent.md               # Documentation (v3.0)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -202,7 +202,7 @@ vzwingma/
 
 ### Versioning des agents
 
-Chaque agent porte un numéro de version dans son `description` (ex: `[v2.5]`).
+Chaque agent porte un numéro de version dans son `description` (ex: `[v3.0]`).
 Incrémenter la version à chaque modification du contenu de l'agent.
 
 ### Langue
@@ -266,4 +266,3 @@ graph TD
     style Docs fill:#E91E63,stroke:#333,stroke-width:2px
     style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
 ```
-
