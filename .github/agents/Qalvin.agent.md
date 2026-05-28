@@ -15,6 +15,7 @@ tools: [vscode, execute, read, agent, edit, search, web, browser, sonarsource.so
 > **Changements v2.4 → v2.5** : Alignement sur la nouvelle arborescence des vrais skills (`.github/skills/<nom>/SKILL.md`).
 > **Changements v2.5 → v2.6** : Ajout des interdictions d'opérations destructives.
 > **Changements v2.6 → v2.7** : Ajout de la règle absolue de respect du `.copilotignore`.
+> **Changements v2.7 → v2.8** : Migration vers Claude Haiku 4.5 pour exécution rapide et efficace des tests.
 
 ## 📂 Spécificités projet
 

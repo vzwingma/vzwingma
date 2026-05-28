@@ -14,6 +14,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 > **Changements v2.2 → v2.3** : Alignement sur la nouvelle arborescence des vrais skills (`.github/skills/<nom>/SKILL.md`).
 > **Changements v2.3 → v2.4** : Ajout des interdictions d'opérations destructives.
 > **Changements v2.4 → v2.5** : Ajout de la règle absolue de respect du `.copilotignore`.
+> **Changements v2.5 → v2.6** : Confirmation du modèle Claude Sonnet 4.6 pour développement optimal.
 
 ## 📂 Spécificités projet
 

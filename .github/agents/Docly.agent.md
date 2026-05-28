@@ -14,6 +14,7 @@ tools: [vscode, read, agent, edit, search, web, browser, mermaidchart.vscode-mer
 > **Changements v2.3 → v2.4** : Alignement sur la nouvelle arborescence des vrais skills (`.github/skills/<nom>/SKILL.md`).
 > **Changements v2.4 → v2.5** : Ajout des interdictions d'opérations destructives.
 > **Changements v2.5 → v2.6** : Ajout de la règle absolue de respect du `.copilotignore`.
+> **Changements v2.6 → v2.7** : Migration vers Claude Sonnet 4.6 pour amélioration de la qualité de documentation.
 
 ## 📂 Spécificités projet
 

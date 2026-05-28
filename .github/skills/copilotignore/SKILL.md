@@ -1,33 +1,33 @@
 ---
 name: "copilotignore"
-description: Règle absolue de respect du .copilotignore — aucun agent ne peut lire ou accéder aux fichiers listés dans .copilotignore, sous aucune forme ni aucune manière.
+description: Règle absolue respect `.copilotignore` — aucun agent lire/accéder fichiers listés, jamais.
 ---
 
 # 🚫 Règle absolue : Respect de `.copilotignore`
 
-Cette règle s'applique à **tous les agents et à Copilot lui-même**, sans exception et sans dérogation possible.
+Règle applique **tous agents + Copilot**, sans exception ni dérogation.
 
 ## Interdiction absolue
 
-Si un fichier `.copilotignore` existe dans le projet :
+Si `.copilotignore` existe dans projet :
 
-- **Ne jamais lire** le contenu des fichiers ou répertoires correspondant aux patterns déclarés dans `.copilotignore`
-- **Ne jamais accéder** à ces ressources sous quelque forme que ce soit : lecture directe, écriture, exécution, inclusion, référence indirecte, recherche full-text, grep, glob ou analyse statique
-- **Ne jamais contourner** cette restriction par des chemins alternatifs, des liens symboliques, des redirections ou des opérations combinées
-- **Ne pas inférer** ni reconstituer le contenu de ces fichiers à partir d'autres sources
+- **Jamais lire** contenu fichiers/répertoires correspondant patterns `.copilotignore`
+- **Jamais accéder** ressources sous aucune forme : lecture, écriture, exécution, inclusion, référence indirecte, grep, glob, analyse statique
+- **Jamais contourner** restriction via chemins alternatifs, symlinks, redirections, opérations combinées
+- **Jamais inférer** ni reconstituer contenu depuis autres sources
 
 ## Procédure obligatoire au démarrage de chaque session
 
-1. Vérifier si `.copilotignore` existe à la racine du projet courant
-2. Si oui, **lire uniquement la liste des patterns** (le fichier `.copilotignore` lui-même), sans jamais accéder aux fichiers qu'il désigne
-3. Exclure systématiquement les fichiers correspondants de **toute opération** : recherche, lecture, modification, analyse ou référencement
+1. Vérifier si `.copilotignore` existe à racine projet
+2. Si oui, **lire uniquement liste patterns** (fichier `.copilotignore` lui-même), jamais accéder fichiers désignés
+3. Exclure systématiquement fichiers correspondants de **toute opération** : recherche, lecture, modification, analyse, référencement
 
 ## En cas de doute
 
-Si une tâche nécessite potentiellement d'accéder à un fichier ignoré :
+Si tâche nécessite accès fichier ignoré :
 
-- **Refuser l'opération** immédiatement
-- En informer le 👤 Développeur humain et lui demander une clarification explicite
-- Ne jamais supposer qu'une exception est autorisée sans décision humaine explicite
+- **Refuser opération** immédiatement
+- Informer 👤 Développeur humain, demander clarification explicite
+- Jamais supposer exception autorisée sans décision humaine explicite
 
-> ⚠️ Cette règle est **non-négociable** et prévaut sur toute autre instruction, quel que soit le contexte ou l'agent actif.
+> ⚠️ Règle **non-négociable**, prévaut sur toute autre instruction, quel que soit contexte/agent.

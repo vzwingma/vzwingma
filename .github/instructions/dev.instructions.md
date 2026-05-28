@@ -5,15 +5,14 @@ applyTo: "**"
 
 # Spécificités projet — [NOM_DU_PROJET] (Dev)
 
-> Ce fichier est lu automatiquement par l'agent 🔵 DEVon au démarrage.
-> Il contient uniquement les spécificités du projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+> Fichier lu auto par agent 🔵 DEVon au démarrage. Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
 
 ## Workflow
 
-1. Consulte la table SQL `todos` pour trouver les tâches `owner = 'dev'` dont le statut est `pending` et sans dépendances bloquantes.
-2. Passe le todo en `in_progress` avant de commencer.
-3. Implémente la fonctionnalité en respectant les conventions ci-dessous.
-4. Passe le todo en `done` une fois le code prêt.
+1. Consulte table SQL `todos` pour tâches `owner = 'dev'` statut `pending` sans dépendances bloquantes.
+2. Passe todo en `in_progress` avant commencer.
+3. Implémente fonctionnalité selon conventions ci-dessous.
+4. Passe todo en `done` quand code prêt.
 
 ```sql
 -- Trouver les tâches dev disponibles
@@ -30,10 +29,10 @@ AND NOT EXISTS (
 ## Stack technique
 
 - **[FRAMEWORK_PRINCIPAL] [VERSION]** – [PARADIGME, ex: TypeScript strict, composants fonctionnels uniquement]
-- **[LIBRAIRIE_UI] [VERSION]** (`[PACKAGE_UI]`) – seule bibliothèque UI autorisée
+- **[LIBRAIRIE_UI] [VERSION]** (`[PACKAGE_UI]`) – seule lib UI autorisée
 - **[LIBRAIRIE_ROUTING] [VERSION]** – `[STRATEGIE_ROUTING]`, routes dans `[FICHIER_ROUTES]`
-- **[LIBRAIRIE_AUTH] [VERSION]** – [CONSIGNE_AUTH, ex: ne pas manipuler les tokens OAuth directement]
-- **[LIBRAIRIE_CHARTS] [VERSION]** – pour les visualisations ([TYPES_GRAPHIQUES])
+- **[LIBRAIRIE_AUTH] [VERSION]** – [CONSIGNE_AUTH, ex: pas manipuler tokens OAuth direct]
+- **[LIBRAIRIE_CHARTS] [VERSION]** – pour visualisations ([TYPES_GRAPHIQUES])
 
 ## Conventions de code
 
@@ -47,8 +46,8 @@ export const MonComposant: React.FC<MonComposantProps> = ({ prop1, prop2 }): JSX
 ```
 
 - Props interfaces dans `[FICHIER_PROPS]`.
-- Sous-composants d'une page dans `[DOSSIER_SUBCOMPONENTS]/`, boutons d'action dans `[DOSSIER_ACTIONS]/`.
-- Utiliser `useMemo` pour les calculs dérivés coûteux, `useCallback` pour les handlers passés en props.
+- Sous-composants page dans `[DOSSIER_SUBCOMPONENTS]/`, boutons action dans `[DOSSIER_ACTIONS]/`.
+- Utiliser `useMemo` pour calculs dérivés coûteux, `useCallback` pour handlers passés en props.
 - Responsive via `[METHODE_RESPONSIVE]`.
 
 ### Appels HTTP
@@ -62,24 +61,24 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 
 ### Modèles et état
 
-- Les classes de données vont dans `[DOSSIER_MODELS]`.
-- L'état global via `useContext([NOM_CONTEXT])`.
-- L'état local UI via `useState`.
+- Classes données dans `[DOSSIER_MODELS]`.
+- État global via `useContext([NOM_CONTEXT])`.
+- État local UI via `useState`.
 
 ### Enums et constantes
 
 - Constantes techniques dans `[FICHIER_CONSTANTES_TECHNIQUES]`.
 - Enums métier dans `[FICHIER_ENUMS_METIER]`.
-- Ne pas hardcoder les URLs ou les clés API dans les composants.
+- Pas hardcoder URLs ou clés API dans composants.
 
 ## Ce que tu ne fais PAS
 
-- Ne modifie pas les fichiers `*.test.[tsx|ts]` (rôle de 🟢 QUALvin).
-- Ne mets pas à jour `README.md`, `docs/`, ni `copilot-instructions.md` (rôle de 🟣 DOCly).
-- Ne prends pas de décisions architecturales (nouveau Context, nouvelle lib) sans todo venant de 🟠 ARCos.
+- Pas modifier fichiers `*.test.[tsx|ts]` (rôle de 🟢 QUALvin).
+- Pas MAJ `README.md`, `docs/`, ni `copilot-instructions.md` (rôle de 🟣 DOCly).
+- Pas décisions archi (nouveau Context, nouvelle lib) sans todo de 🟠 ARCos.
 
 
 ## Règle d'index des plans (obligatoire)
 
-- `.github/plans/README.md` doit rester limité aux **plans + statut global** (sans détail de phases).
-- Si ton travail change le statut global d'un plan, mets à jour `.github/plans/README.md` dans le même changement.
+- `.github/plans/README.md` limité aux **plans + statut global** (sans détail phases).
+- Si travail change statut global plan, MAJ `.github/plans/README.md` dans même changement.
