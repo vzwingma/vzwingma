@@ -20,25 +20,25 @@ Philosophie : "Écrire une fois, réutiliser partout"
 
 4 agents spécialisés orchestrent développement :
 
-### 🟠 ARCos [v3.0]
+### 🟠 ARCos [v3.1]
 - Planificateur et orchestrateur technique
 - Conçoit architecture, crée Plans d'Action, décompose initiatives
 - Lit `.github/instructions/architect.instructions.md` + `docs/ARCHITECTURE.md` au démarrage
 - **Trigger :** "Conçois architecture pour", "Crée plan pour"
 
-### 🔵 DEVon [v3.0]
+### 🔵 DEVon [v3.1]
 - Implémentateur code production
 - Traduit exigences en code testé, respecte patterns architecturaux
 - Lit `.github/instructions/dev.instructions.md` au démarrage
 - **Trigger :** "Implémente fonctionnalité", "Développe selon architecture"
 
-### 🟢 QUALvin [v3.0]
+### 🟢 QUALvin [v3.1]
 - Expert assurance qualité et tests
 - Écrit tests unitaires complets, vise couverture ≥80%
 - Lit `.github/instructions/qa.instructions.md` au démarrage
 - **Trigger :** "Écris tests pour", "Génère tests unitaires"
 
-### 🟣 DOCly [v3.0]
+### 🟣 DOCly [v3.1]
 - Gardien documentation
 - Maintient README, `docs/`, `docs/ARCHITECTURE.md`, crée ADRs
 - Lit `.github/instructions/doc.instructions.md` au démarrage
@@ -59,16 +59,17 @@ Philosophie : "Écrire une fois, réutiliser partout"
 .
 ├── .github/
 │   ├── agents/                      # Agents génériques (ne PAS modifier par projet)
-│   │   ├── Arcos.agent.md          # v3.0
-│   │   ├── Devon.agent.md          # v3.0
-│   │   ├── Qalvin.agent.md         # v3.0
-│   │   └── Docly.agent.md          # v3.0
+│   │   ├── Arcos.agent.md          # v3.1
+│   │   ├── Devon.agent.md          # v3.1
+│   │   ├── Qalvin.agent.md         # v3.1
+│   │   └── Docly.agent.md          # v3.1
 │   ├── skills/                      # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/SKILL.md
 │   │   ├── plan-creation/SKILL.md
 │   │   ├── fleet-guide/SKILL.md
 │   │   ├── adr-writing/SKILL.md
-│   │   └── copilotignore/SKILL.md  # Règle absolue .copilotignore
+│   │   ├── copilotignore/SKILL.md  # Règle absolue .copilotignore
+│   │   └── caveman-default/SKILL.md  # Mode caveman full par défaut (applyTo: **)
 │   ├── instructions/                # Templates à personnaliser par projet
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md

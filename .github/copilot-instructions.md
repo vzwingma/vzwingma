@@ -13,7 +13,7 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **🟠 ARCos** [v3.0]
+#### **🟠 ARCos** [v3.1]
 - **Rôle:** Planificateur et orchestrateur technique
 - **Responsabilités:**
   - Concevoir solutions architecturales complètes
@@ -25,7 +25,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable:** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v3.0]
+#### **🔵 DEVon** [v3.1]
 - **Rôle:** Implémentateur de code de production
 - **Responsabilités:**
   - Traduire exigences en code fonctionnel et testé
@@ -36,7 +36,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v3.0]
+#### **🟢 QUALvin** [v3.1]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -47,7 +47,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable:** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v3.0]
+#### **🟣 DOCly** [v3.1]
 - **Rôle:** Gardien de documentation
 - **Responsabilités:**
   - Mettre à jour README, `docs/` et guides
@@ -117,6 +117,7 @@ Skills sont procédures réutilisables incluses automatiquement dans contexte de
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain: ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
+| `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -143,10 +144,10 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organi
 vzwingma/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.0)
-│   │   ├── Devon.agent.md               # Développeur (v3.0)
-│   │   ├── Qalvin.agent.md              # QA & tests (v3.0)
-│   │   └── Docly.agent.md               # Documentation (v3.0)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.1)
+│   │   ├── Devon.agent.md               # Développeur (v3.1)
+│   │   ├── Qalvin.agent.md              # QA & tests (v3.1)
+│   │   └── Docly.agent.md               # Documentation (v3.1)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md

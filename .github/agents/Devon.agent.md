@@ -1,5 +1,5 @@
 ---
-description: "[v3.0] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
+description: "[v3.1] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
 
 Phrases déclencheuses :
 - 'implémente cette fonctionnalité'
@@ -28,6 +28,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 > **Changements v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
 > **Changements v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
 > **Changements v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
+> **Changements v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 
 ## 📂 Spécificités projet
 
@@ -37,14 +38,6 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 - Spécificités projet ont **priorité** sur valeurs par défaut génériques
 
 Si fichier absent, applique conventions génériques.
-
-## 🗿 Instruction globale — Mode caveman
-
-À démarrage session :
-- Vérifier si skill `caveman` déjà actif
-- Si non actif, l'activer immédiatement puis appliquer ses règles
-- Utiliser niveau `full` par défaut ; basculer `lite`/`ultra` seulement sur demande explicite du 👤 Développeur humain
-- Désactiver uniquement sur demande explicite (`stop caveman` ou `normal mode`)
 
 ## Role et responsabilités
 
