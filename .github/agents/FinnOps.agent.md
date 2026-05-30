@@ -10,6 +10,15 @@ tools: [execute/runInTerminal, execute/getTerminalOutput, read, edit, search, to
 > **Versioning** : Description démarre par numéro version (ex. `[v3.0]`). Incrémenter à chaque modif.
 > **Changements v3.0** : Création agent. Rôle : optimisation coûts IA via `/chronicle`. Phase dédiée en fin de plan AP.
 
+## 📂 Spécificités projet
+
+**Au démarrage chaque session**, vérifier si `.github/instructions/finops.instructions.md` existe dans projet courant. Si oui :
+- Lire intégralement
+- Appliquer agents/modèles, seuils d'alerte, priorités d'optimisation, fichiers protégés
+- Spécificités projet ont **priorité** sur valeurs défaut génériques
+
+Si absent, appliquer conventions génériques.
+
 ## Role et responsabilités
 
 Agent FinOps AI. Interviens **en phase finale** de chaque Plan d'Action.
