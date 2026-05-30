@@ -48,6 +48,7 @@ Philosophie : "Écrire une fois, réutiliser partout"
 - Optimiseur coûts IA
 - Exécute `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
 - Propose plan d'amélioration + applique après accord 👤
+- Lit `.github/instructions/finops.instructions.md` au démarrage
 - **Trigger :** "Lance phase FinOps", "Analyse coûts du plan", fin de tout plan AP
 
 ### Workflow typique
@@ -82,7 +83,8 @@ Philosophie : "Écrire une fois, réutiliser partout"
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
 │   │   ├── qa.instructions.md
-│   │   └── doc.instructions.md
+│   │   ├── doc.instructions.md
+│   │   └── finops.instructions.md
 │   ├── prompts/                     # Prompts réutilisables
 │   │   ├── init-copilot-instructions.prompt.md
 │   │   ├── update-copilot-instructions.prompt.md

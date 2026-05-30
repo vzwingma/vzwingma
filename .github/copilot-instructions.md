@@ -68,6 +68,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
   - Proposer plan d'amélioration avec ROI estimé
   - Appliquer optimisations validées par 👤 Développeur humain
   - Rédiger rapport rétro `FINNOPS_REPORT.md`
+  - Lire `.github/instructions/finops.instructions.md` au démarrage pour les spécificités du projet
 - **Quand l'utiliser:** Toujours en **phase finale** de tout plan AP. "Lance phase FinOps", "Analyse coûts du plan"
 - **Livrable:** Rapport `FINNOPS_REPORT.md` + optimisations appliquées
 
@@ -113,6 +114,7 @@ Chaque agent lit au démarrage son fichier d'instructions spécifique au projet:
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions de code |
 | `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions de documentation |
+| `finops.instructions.md` | 💰 FINNops | Agents/modèles, seuils alertes, priorités optimisation |
 
 Dans ce dépôt transverse, ces fichiers sont **templates** (avec placeholders `[...]`) destinés à être copiés et personnalisés dans chaque projet cible.
 
@@ -177,7 +179,8 @@ vzwingma/
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
 │   │   ├── qa.instructions.md
-│   │   └── doc.instructions.md
+│   │   ├── doc.instructions.md
+│   │   └── finops.instructions.md
 │   ├── prompts/                         # Prompts réutilisables
 │   │   ├── init-copilot-instructions.prompt.md
 │   │   ├── update-copilot-instructions.prompt.md

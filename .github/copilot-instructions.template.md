@@ -65,6 +65,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
   - Proposer plan d'amélioration avec ROI estimé
   - Appliquer optimisations validées par 👤 Développeur humain
   - Rédiger rapport rétro `FINNOPS_REPORT.md`
+  - Lire `.github/instructions/finops.instructions.md` au démarrage pour spécificités projet
 - **Quand l'utiliser :** Toujours en **phase finale** de tout plan AP. "Lance phase FinOps", "Analyse coûts du plan"
 - **Livrable :** Rapport `FINNOPS_REPORT.md` + optimisations appliquées
 
@@ -110,6 +111,7 @@ Chaque agent lit au démarrage son fichier instructions spécifique projet :
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions code |
 | `qa.instructions.md` | 🟢 QUALvin | Framework test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions documentation |
+| `finops.instructions.md` | 💰 FINNops | Agents/modèles, seuils alertes, priorités optimisation |
 
 Fichiers contiennent valeurs **spécifiques projet** (versions réelles, chemins, noms fichiers).  
 Agents génériques (`.github/agents/`) restent inchangés entre projets.

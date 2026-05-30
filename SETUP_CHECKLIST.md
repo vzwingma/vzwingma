@@ -46,6 +46,7 @@ Le prompt va :
    - [ ] Stack technique dans `dev.instructions.md`
    - [ ] Commandes de test dans `qa.instructions.md`
    - [ ] Fichiers docs/ dans `doc.instructions.md`
+   - [ ] Agents/modèles et seuils dans `finops.instructions.md`
 
 ---
 
