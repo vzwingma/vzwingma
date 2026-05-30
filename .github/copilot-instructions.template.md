@@ -10,7 +10,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v3.0]
+#### **🟠 ARCos** [v3.1]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir solutions architecturales complètes
@@ -22,7 +22,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v3.0]
+#### **🔵 DEVon** [v3.1]
 - **Rôle :** Implémentateur code production
 - **Responsabilités :**
   - Traduire exigences en code fonctionnel et testé
@@ -33,7 +33,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v3.0]
+#### **🟢 QUALvin** [v3.1]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -44,7 +44,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
-#### **🟣 DOCly** [v3.0]
+#### **🟣 DOCly** [v3.1]
 - **Rôle :** Gardien documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -114,6 +114,8 @@ Skills = procédures réutilisables incluses automatiquement dans contexte tous 
 | `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (ARCos + agents orchestrateurs) |
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide parallélisation `/fleet` (quand utiliser, règle décision) |
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
+| `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
+| `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
