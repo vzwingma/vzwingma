@@ -20,7 +20,7 @@ Philosophie : "Écrire une fois, réutiliser partout"
 
 4 agents spécialisés orchestrent développement :
 
-### 🟠 ARCos [v3.1]
+### 🟠 ARCos [v3.2]
 - Planificateur et orchestrateur technique
 - Conçoit architecture, crée Plans d'Action, décompose initiatives
 - Lit `.github/instructions/architect.instructions.md` + `docs/ARCHITECTURE.md` au démarrage
@@ -44,12 +44,19 @@ Philosophie : "Écrire une fois, réutiliser partout"
 - Lit `.github/instructions/doc.instructions.md` au démarrage
 - **Trigger :** "Mets à jour documentation", "Garde docs en sync"
 
+### 💰 FINNops [v3.0]
+- Optimiseur coûts IA
+- Exécute `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
+- Propose plan d'amélioration + applique après accord 👤
+- **Trigger :** "Lance phase FinOps", "Analyse coûts du plan", fin de tout plan AP
+
 ### Workflow typique
 1. 👤 Développeur humain cadre besoin
 2. 🟠 ARCos crée Plan d'Action → validation humaine
 3. 🔵 DEVon implémente → validation humaine
 4. 🟢 QUALvin écrit tests → validation humaine
 5. 🟣 DOCly met à jour docs → validation humaine
+6. 💰 FINNops analyse coûts + rétro → validation humaine
 
 ---
 
@@ -59,10 +66,11 @@ Philosophie : "Écrire une fois, réutiliser partout"
 .
 ├── .github/
 │   ├── agents/                      # Agents génériques (ne PAS modifier par projet)
-│   │   ├── Arcos.agent.md          # v3.1
+│   │   ├── Arcos.agent.md          # v3.2
 │   │   ├── Devon.agent.md          # v3.1
 │   │   ├── Qalvin.agent.md         # v3.1
-│   │   └── Docly.agent.md          # v3.1
+│   │   ├── Docly.agent.md          # v3.1
+│   │   └── FINNops.agent.md        # v3.0
 │   ├── skills/                      # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/SKILL.md
 │   │   ├── plan-creation/SKILL.md

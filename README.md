@@ -6,12 +6,13 @@ Ce dépôt est un **centre de référence transverse** pour les modèles réutil
 
 ### 🤖 Agents Copilot (.github/agents/)
 
-Quatre agents spécialisés pour orchestrer le développement :
+Cinq agents spécialisés pour orchestrer le développement :
 
-- **Devon.agent.md** — Implémentateur de code de production (🔵 DEV)
-- **Qalvin.agent.md** — Expert QA et tests unitaires (🟢 QUAL)
-- **Arkos.agent.md** — Planificateur technique et orchestrateur (🟠 ARC)
-- **Docly.agent.md** — Documentation Agent (🟣 DOC)
+- **Arcos.agent.md** — Planificateur technique et orchestrateur (🟠 ARCos)
+- **Devon.agent.md** — Implémentateur de code de production (🔵 DEVon)
+- **Qalvin.agent.md** — Expert QA et tests unitaires (🟢 QUALvin)
+- **Docly.agent.md** — Documentation Agent (🟣 DOCly)
+- **FinnOps.agent.md** — Optimiseur de coûts IA via `/chronicle` (💰 FINNops)
 
 Tous les agents sont **génériques et prêts à l'emploi** dans n'importe quel projet.
 
@@ -69,21 +70,42 @@ Vérifier que tous les placeholders sont remplacés et que les conventions du pr
 
 ## 🎯 Workflow Typique
 
-```
-1️⃣ Utilisateur cadre le besoin
-   ↓
-2️⃣ Arcos (🟠 ARC) crée un Plan d'Action
-   ↓
-3️⃣ Devon (🔵 DEV) implémente les tâches
-   ↓
-4️⃣ Qalvin (🟢 QUAL) écrit les tests
-   ↓
-5️⃣ Docly (🟣 DOC) met à jour la documentation
-   ↓
-6️⃣ Phase suivante du plan (retour à 2️⃣)
+```mermaid
+graph TD
+    Human["👤 Développeur humain"]
+    Arch["🟠 ARCos\nArchitecte & Orchestrateur"]
+    Dev["🔵 DEVon\nImplémentateur"]
+    QA["🟢 QUALvin\nQA & Tests"]
+    Doc["🟣 DOCly\nDocumentation"]
+    FinOps["💰 FINNops\nFinOps AI"]
+
+    Human -->|"cadre le besoin"| Arch
+    Arch -->|"Plan d'Action ✅"| Human
+
+    Arch -->|"délègue implémentation"| Dev
+    Dev -->|"code ✅"| Human
+    Dev -->|"notifie fin code"| QA
+    Dev -->|"notifie fin code"| Doc
+
+    Arch -->|"délègue tests"| QA
+    QA -->|"tests ✅"| Human
+    QA -->|"notifie tests OK"| Doc
+
+    Arch -->|"délègue documentation"| Doc
+    Doc -->|"doc ✅"| Human
+
+    Arch -->|"délègue phase FinOps\n(fin de chaque plan)"| FinOps
+    FinOps -->|"rapport + plan amélioration ✅"| Human
+
+    style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
+    style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
+    style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+    style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
+    style FinOps fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
 ```
 
-Pour en savoir plus, consulter .github/PLANS.md.
+Pour en savoir plus, consulter `.github/PLANS.md`.
 
 > 💡 **Parallélisation** : Utiliser `/fleet` quand plusieurs tâches (DEVon, QUALvin, DOCly) sont indépendantes pour les exécuter simultanément.
 
@@ -114,6 +136,14 @@ Pour en savoir plus, consulter .github/PLANS.md.
 ## 🔄 Maintenance
 
 Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v3.0]) pour tracker les changements.
+
+| Agent | Version | Rôle |
+|---|---|---|
+| 🟠 ARCos | v3.2 | Architecte & orchestrateur |
+| 🔵 DEVon | v3.1 | Implémentateur |
+| 🟢 QUALvin | v3.1 | QA & tests |
+| 🟣 DOCly | v3.1 | Documentation |
+| 💰 FINNops | v3.0 | FinOps AI |
 
 Pour mettre à jour les instructions d'un projet existant, utiliser :
 ```

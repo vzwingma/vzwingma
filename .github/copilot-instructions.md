@@ -13,7 +13,7 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **🟠 ARCos** [v3.1]
+#### **🟠 ARCos** [v3.2]
 - **Rôle:** Planificateur et orchestrateur technique
 - **Responsabilités:**
   - Concevoir solutions architecturales complètes
@@ -60,6 +60,17 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Mets à jour documentation", "Garde docs en sync avec ce code", "Ajoute ça au README"
 - **Livrable:** Documentation à jour, claire et complète
 
+#### **💰 FINNops** [v3.0]
+- **Rôle:** Optimiseur de coûts IA
+- **Responsabilités:**
+  - Exécuter `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
+  - Analyser consommation tokens par agent, modèle, instructions
+  - Proposer plan d'amélioration avec ROI estimé
+  - Appliquer optimisations validées par 👤 Développeur humain
+  - Rédiger rapport rétro `FINNOPS_REPORT.md`
+- **Quand l'utiliser:** Toujours en **phase finale** de tout plan AP. "Lance phase FinOps", "Analyse coûts du plan"
+- **Livrable:** Rapport `FINNOPS_REPORT.md` + optimisations appliquées
+
 ---
 
 ### 🔄 Workflow Typique
@@ -73,7 +84,9 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 7. **Validation Humaine** → Approuver tests avant doc
 8. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
 9. **Validation Humaine** → Approuver documentation
-10. **Phase Suivante** → Lancer phase suivante du plan (étape 2)
+10. **FinOps (💰 FINNops)** → Analyser coûts, proposer optimisations, rétro plan
+11. **Validation Humaine** → Approuver plan d'amélioration
+12. **Phase Suivante** → Lancer phase suivante du plan (étape 2)
 
 > 💡 **Parallélisation**: Étapes 4→6 (DEVon) et 6→8 (QUALvin + DOCly) peuvent être parallélisées avec `/fleet` quand tâches indépendantes.
 
@@ -144,10 +157,11 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organi
 vzwingma/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.1)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.2)
 │   │   ├── Devon.agent.md               # Développeur (v3.1)
 │   │   ├── Qalvin.agent.md              # QA & tests (v3.1)
-│   │   └── Docly.agent.md               # Documentation (v3.1)
+│   │   ├── Docly.agent.md               # Documentation (v3.1)
+│   │   └── FinnOps.agent.md             # FinOps AI — optimisation coûts (v3.0)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
