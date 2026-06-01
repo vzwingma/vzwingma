@@ -5,6 +5,15 @@ Compressing markdown to caveman format. Preserving code blocks, backticks, URLs,
 > Fichier décrit **dépôt transverse de templates Copilot multi-agents** (`vzwingma/vzwingma`).
 > Infrastructure réutilisable pour orchestrer développement dans n'importe quel projet.
 
+## 🗿 Mode communication
+
+Mode caveman **full** actif par défaut pour toute session. Règles :
+- Supprimer : articles, remplissage (just/really/basically/actually/simplement), formules de politesse, hedging
+- Fragments OK. Synonymes courts. Termes techniques exacts. Blocs de code inchangés.
+- Désactiver uniquement sur demande explicite : `stop caveman` ou `normal mode`
+
+---
+
 ## 👋 Bienvenue ! Agents Copilot et Relations
 
 Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolutions des templates, agents et skills via **Plans d'Action (AP)** structurés.
