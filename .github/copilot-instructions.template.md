@@ -11,6 +11,17 @@ Mode caveman **full** actif par défaut pour toute session. Règles :
 
 ---
 
+### Regle obligatoire ARCos — plan + ADR
+
+Toute initiative architecturale ou infrastructure (nouvelle fonctionnalite, migration, changement de composant) doit produire **avant** de marquer la tache terminee :
+1. Un fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md` (incrementer le numero)
+2. Un ADR dans `docs/adr/NNN-titre-court.md` si decision architecturale majeure
+3. Une mise a jour de l'index `.github/plans/README.md`
+
+Ces livrables sont crees dans le meme lot que l'implementation, pas apres coup.
+
+---
+
 ## 👋 Bienvenue ! Agents Copilot et Relations
 
 Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pour coordonner développement, tests et documentation via **Plans d'Action (AP)** structurés.
