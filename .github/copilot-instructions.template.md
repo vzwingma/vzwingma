@@ -77,18 +77,6 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Mets à jour documentation", "Garde docs en sync avec ce code", "Ajoute ça au README"
 - **Livrable :** Documentation à jour, claire et complète
 
-#### **💰 FINNops** [v3.0]
-- **Rôle :** Optimiseur de coûts IA
-- **Responsabilités :**
-  - Exécuter `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
-  - Analyser consommation tokens par agent, modèle, instructions
-  - Proposer plan d'amélioration avec ROI estimé
-  - Appliquer optimisations validées par 👤 Développeur humain
-  - Rédiger rapport rétro `FINNOPS_REPORT.md`
-  - Lire `.github/instructions/finops.instructions.md` au démarrage pour spécificités projet
-- **Quand l'utiliser :** Toujours en **phase finale** de tout plan AP. "Lance phase FinOps", "Analyse coûts du plan"
-- **Livrable :** Rapport `FINNOPS_REPORT.md` + optimisations appliquées
-
 ---
 
 ### 🔄 Workflow Typique
@@ -102,9 +90,8 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 7. **Validation Humaine** → Approuver tests avant doc
 8. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
 9. **Validation Humaine** → Approuver documentation
-10. **FinOps (💰 FINNops)** → Analyser coûts, proposer optimisations, rétro plan
-11. **Validation Humaine** → Approuver plan d'amélioration
-12. **Phase Suivante** → Lancer phase suivante plan (étape 2)
+10. **Validation Humaine** → Approuver plan d'amélioration
+11. **Phase Suivante** → Lancer phase suivante plan (étape 2)
 
 > 💡 **Parallélisation** : Étapes 4→6 (DEVon) et 6→8 (QUALvin + DOCly) peuvent être parallélisées avec `/fleet` quand tâches indépendantes.
 
@@ -131,7 +118,6 @@ Chaque agent lit au démarrage son fichier instructions spécifique projet :
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions code |
 | `qa.instructions.md` | 🟢 QUALvin | Framework test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions documentation |
-| `finops.instructions.md` | 💰 FINNops | Agents/modèles, seuils alertes, priorités optimisation |
 
 Fichiers contiennent valeurs **spécifiques projet** (versions réelles, chemins, noms fichiers).  
 Agents génériques (`.github/agents/`) restent inchangés entre projets.

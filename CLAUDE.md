@@ -44,20 +44,12 @@ Philosophie : "Écrire une fois, réutiliser partout"
 - Lit `.github/instructions/doc.instructions.md` au démarrage
 - **Trigger :** "Mets à jour documentation", "Garde docs en sync"
 
-### 💰 FINNops [v3.0]
-- Optimiseur coûts IA
-- Exécute `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
-- Propose plan d'amélioration + applique après accord 👤
-- Lit `.github/instructions/finops.instructions.md` au démarrage
-- **Trigger :** "Lance phase FinOps", "Analyse coûts du plan", fin de tout plan AP
-
 ### Workflow typique
 1. 👤 Développeur humain cadre besoin
 2. 🟠 ARCos crée Plan d'Action → validation humaine
 3. 🔵 DEVon implémente → validation humaine
 4. 🟢 QUALvin écrit tests → validation humaine
 5. 🟣 DOCly met à jour docs → validation humaine
-6. 💰 FINNops analyse coûts + rétro → validation humaine
 
 ---
 
@@ -84,7 +76,6 @@ Philosophie : "Écrire une fois, réutiliser partout"
 │   │   ├── dev.instructions.md
 │   │   ├── qa.instructions.md
 │   │   ├── doc.instructions.md
-│   │   └── finops.instructions.md
 │   ├── prompts/                     # Prompts réutilisables
 │   │   ├── init-copilot-instructions.prompt.md
 │   │   ├── update-copilot-instructions.prompt.md

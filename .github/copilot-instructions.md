@@ -80,18 +80,6 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Mets à jour documentation", "Garde docs en sync avec ce code", "Ajoute ça au README"
 - **Livrable:** Documentation à jour, claire et complète
 
-#### **💰 FINNops** [v3.0]
-- **Rôle:** Optimiseur de coûts IA
-- **Responsabilités:**
-  - Exécuter `/chronicle`, `/chronicle improve`, `/chronicle costs-tips`
-  - Analyser consommation tokens par agent, modèle, instructions
-  - Proposer plan d'amélioration avec ROI estimé
-  - Appliquer optimisations validées par 👤 Développeur humain
-  - Rédiger rapport rétro `FINNOPS_REPORT.md`
-  - Lire `.github/instructions/finops.instructions.md` au démarrage pour les spécificités du projet
-- **Quand l'utiliser:** Toujours en **phase finale** de tout plan AP. "Lance phase FinOps", "Analyse coûts du plan"
-- **Livrable:** Rapport `FINNOPS_REPORT.md` + optimisations appliquées
-
 ---
 
 ### 🔄 Workflow Typique
@@ -105,7 +93,6 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 7. **Validation Humaine** → Approuver tests avant doc
 8. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
 9. **Validation Humaine** → Approuver documentation
-10. **FinOps (💰 FINNops)** → Analyser coûts, proposer optimisations, rétro plan
 11. **Validation Humaine** → Approuver plan d'amélioration
 12. **Phase Suivante** → Lancer phase suivante du plan (étape 2)
 
@@ -134,7 +121,6 @@ Chaque agent lit au démarrage son fichier d'instructions spécifique au projet:
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions de code |
 | `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions de documentation |
-| `finops.instructions.md` | 💰 FINNops | Agents/modèles, seuils alertes, priorités optimisation |
 
 Dans ce dépôt transverse, ces fichiers sont **templates** (avec placeholders `[...]`) destinés à être copiés et personnalisés dans chaque projet cible.
 
@@ -183,7 +169,6 @@ vzwingma/
 │   │   ├── Devon.agent.md               # Développeur (v3.1)
 │   │   ├── Qalvin.agent.md              # QA & tests (v3.1)
 │   │   ├── Docly.agent.md               # Documentation (v3.1)
-│   │   └── FinnOps.agent.md             # FinOps AI — optimisation coûts (v3.0)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -200,7 +185,6 @@ vzwingma/
 │   │   ├── dev.instructions.md
 │   │   ├── qa.instructions.md
 │   │   ├── doc.instructions.md
-│   │   └── finops.instructions.md
 │   ├── prompts/                         # Prompts réutilisables
 │   │   ├── init-copilot-instructions.prompt.md
 │   │   ├── update-copilot-instructions.prompt.md

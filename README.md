@@ -77,7 +77,6 @@ graph TD
     Dev["🔵 DEVon\nImplémentateur"]
     QA["🟢 QUALvin\nQA & Tests"]
     Doc["🟣 DOCly\nDocumentation"]
-    FinOps["💰 FINNops\nFinOps AI"]
 
     Human -->|"cadre le besoin"| Arch
     Arch -->|"Plan d'Action ✅"| Human
@@ -94,15 +93,12 @@ graph TD
     Arch -->|"délègue documentation"| Doc
     Doc -->|"doc ✅"| Human
 
-    Arch -->|"délègue phase FinOps\n(fin de chaque plan)"| FinOps
-    FinOps -->|"rapport + plan amélioration ✅"| Human
 
     style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
     style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
     style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
     style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
     style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
-    style FinOps fill:#F44336,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 Pour en savoir plus, consulter `.github/PLANS.md`.
@@ -143,7 +139,6 @@ Les templates et prompts sont **génériques et versionés**. Chaque agent comme
 | 🔵 DEVon | v3.1 | Implémentateur |
 | 🟢 QUALvin | v3.1 | QA & tests |
 | 🟣 DOCly | v3.1 | Documentation |
-| 💰 FINNops | v3.0 | FinOps AI |
 
 Pour mettre à jour les instructions d'un projet existant, utiliser :
 ```
