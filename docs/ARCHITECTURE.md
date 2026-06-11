@@ -86,10 +86,18 @@ Nouveau Projet
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Arcos.agent.md                       # Planificateur / orchestrateur [v3.0]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v3.0]
-    │   ├── Qalvin.agent.md                      # Expert QA [v3.0]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v3.0]
+    │   ├── Arcos.agent.md                       # Planificateur / orchestrateur [v3.1]
+    │   ├── Devon.agent.md                       # Implémentateur de code [v3.1]
+    │   ├── Qalvin.agent.md                      # Expert QA [v3.1]
+    │   └── Docly.agent.md                       # Gestionnaire documentation [v3.1]
+    │
+    ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
+    │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
+    │   ├── plan-creation/SKILL.md               # Création Plan d'Action
+    │   ├── fleet-guide/SKILL.md                 # Guide parallélisation /fleet
+    │   ├── adr-writing/SKILL.md                 # Rédaction ADR
+    │   ├── copilotignore/SKILL.md               # Règle absolue .copilotignore
+    │   └── caveman-default/SKILL.md             # Mode caveman full par défaut
     │
     ├── instructions/                            # 📐 Spécificités projet (à compléter par projet)
     │   ├── architect.instructions.md            # ARCos : architecture, SQL handoff, ADR
@@ -119,10 +127,10 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| 🟠 ARCos | `Arcos.agent.md` | v3.0 | Planificateur / orchestrateur |
-| 🔵 DEVon | `Devon.agent.md` | v3.0 | Implémentateur de code |
-| 🟢 QUALvin | `Qalvin.agent.md` | v3.0 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v3.0 | Gestionnaire documentation |
+| 🟠 ARCos | `Arcos.agent.md` | v3.1 | Planificateur / orchestrateur |
+| 🔵 DEVon | `Devon.agent.md` | v3.1 | Implémentateur de code |
+| 🟢 QUALvin | `Qalvin.agent.md` | v3.1 | Expert QA et tests |
+| 🟣 DOCly | `Docly.agent.md` | v3.1 | Gestionnaire documentation |
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet spécifique)
@@ -271,6 +279,7 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 | Version | Date | Changements majeurs |
 |---|---|---|
+| v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |
 | v3.0 | 2026-05-28 | Activation globale du mode `caveman` dans tous les agents + compression des instructions |
 | v2.1 | 2026-05-07 | Migration wiki → `/docs` ; ajout templates ARCHITECTURE.md et ADR |
 | v2.0 | 2026-05-05 | Ajout parallélisation `/fleet` dans tous les agents |

@@ -62,8 +62,7 @@ Philosophie : "Écrire une fois, réutiliser partout"
 │   │   ├── Arcos.agent.md          # v3.2
 │   │   ├── Devon.agent.md          # v3.1
 │   │   ├── Qalvin.agent.md         # v3.1
-│   │   ├── Docly.agent.md          # v3.1
-│   │   └── FINNops.agent.md        # v3.0
+│   │   └── Docly.agent.md          # v3.1
 │   ├── skills/                      # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/SKILL.md
 │   │   ├── plan-creation/SKILL.md

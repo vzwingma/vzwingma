@@ -6,13 +6,12 @@ Ce dépôt est un **centre de référence transverse** pour les modèles réutil
 
 ### 🤖 Agents Copilot (.github/agents/)
 
-Cinq agents spécialisés pour orchestrer le développement :
+Quatre agents spécialisés pour orchestrer le développement :
 
 - **Arcos.agent.md** — Planificateur technique et orchestrateur (🟠 ARCos)
 - **Devon.agent.md** — Implémentateur de code de production (🔵 DEVon)
 - **Qalvin.agent.md** — Expert QA et tests unitaires (🟢 QUALvin)
 - **Docly.agent.md** — Documentation Agent (🟣 DOCly)
-- **FinnOps.agent.md** — Optimiseur de coûts IA via `/chronicle` (💰 FINNops)
 
 Tous les agents sont **génériques et prêts à l'emploi** dans n'importe quel projet.
 
