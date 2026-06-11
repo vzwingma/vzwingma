@@ -1,82 +1,82 @@
-# ADR NNN — [Titre court de la décision]
+# ADR NNN — [Short title of the decision]
 
-> **Template** : Copier ce fichier dans `docs/adr/NNN-titre-court.md`.  
-> Format de nommage : `NNN` = numéro à 3 chiffres (ex: `001`, `042`), titre en kebab-case.
-
----
-
-**Date :** [AAAA-MM-JJ]  
-**Statut :** [Proposée / Acceptée / Dépréciée / Remplacée par ADR-NNN]  
-**Décideurs :** [🟠 ARCos + 👤 Développeur humain]
+> **Template** : Copy this file into `docs/adr/NNN-short-title.md`.  
+> Naming format: `NNN` = 3-digit number (eg: `001`, `042`), title in kebab-case.
 
 ---
 
-## Contexte
-
-> Décrire la situation actuelle et pourquoi une décision est nécessaire.  
-> Inclure les contraintes techniques, métier ou d'équipe qui influencent le choix.
-
-[Description du problème ou du besoin qui nécessite cette décision architecturale.]
+**Date :** [YYYY-MM-DD]  
+**Status :** [Proposed / Accepted / Deprecated / Replaced by ADR-NNN]  
+**Decision-makers :** [🟠 ARCos + 👤 Human developer]
 
 ---
 
-## Décision
+## Context
 
-> Énoncer clairement la décision prise, en une ou deux phrases directes.
+> Describe the current situation and why a decision is needed.  
+> Include the technical, business or team constraints that influence the choice.
 
-**Nous avons décidé de** [DÉCISION].
-
----
-
-## Alternatives Considérées
-
-> Lister les options qui ont été évaluées avant de prendre la décision.
-
-### Option 1 : [Nom de l'alternative retenue] ✅ Retenue
-
-- **Avantages** : [...]
-- **Inconvénients** : [...]
-
-### Option 2 : [Nom de l'alternative]
-
-- **Avantages** : [...]
-- **Inconvénients** : [...]
-- **Raison du rejet** : [...]
-
-### Option 3 : [Nom de l'alternative]
-
-- **Avantages** : [...]
-- **Inconvénients** : [...]
-- **Raison du rejet** : [...]
+[Description of the problem or need requiring this architectural decision.]
 
 ---
 
-## Conséquences
+## Decision
 
-### Positives
-- [ex: Simplifie la gestion d'état dans les composants]
-- [ex: Réduit le couplage entre les couches]
+> State the decision taken clearly, in one or two direct sentences.
 
-### Négatives / Compromis
-- [ex: Nécessite une migration des composants existants]
-- [ex: Courbe d'apprentissage pour l'équipe]
-
-### Neutres
-- [ex: Implique de mettre à jour la documentation `docs/ARCHITECTURE.md`]
+**We have decided to** [DECISION].
 
 ---
 
-## Mise en œuvre
+## Alternatives Considered
 
-> Décrire comment cette décision est appliquée concrètement dans le projet.
+> List the options that were evaluated before taking the decision.
 
-- **Fichiers impactés** : [ex: `src/services/`, `src/contexts/`]
-- **Tâches de suivi** : [ex: DEVon — refactoriser `ClientHTTP.service.ts`]
-- **Date d'effet** : [ex: À partir de la version v2.0]
+### Option 1: [Name of the selected alternative] ✅ Selected
+
+- **Advantages** : [...]
+- **Disadvantages** : [...]
+
+### Option 2: [Name of the alternative]
+
+- **Advantages** : [...]
+- **Disadvantages** : [...]
+- **Reason for rejection** : [...]
+
+### Option 3: [Name of the alternative]
+
+- **Advantages** : [...]
+- **Disadvantages** : [...]
+- **Reason for rejection** : [...]
 
 ---
 
-## Références
+## Consequences
 
-- [Lien vers la documentation officielle, RFC, article, ou plan d'action associé]
-- [Plan d'Action associé : `.github/plans/NNN_nom.plan.md`]
+### Positive
+- [eg: Simplifies state management in components]
+- [eg: Reduces coupling between layers]
+
+### Negative / Trade-offs
+- [eg: Requires migration of existing components]
+- [eg: Learning curve for the team]
+
+### Neutral
+- [eg: Involves updating the `docs/ARCHITECTURE.md` documentation]
+
+---
+
+## Implementation
+
+> Describe how this decision is applied concretely in the project.
+
+- **Impacted files** : [eg: `src/services/`, `src/contexts/`]
+- **Follow-up tasks** : [eg: DEVon — refactor `ClientHTTP.service.ts`]
+- **Effective date** : [eg: From version v2.0]
+
+---
+
+## References
+
+- [Link to the official documentation, RFC, article, or related action plan]
+- [Related Action Plan: `.github/plans/NNN_nom.plan.md`]

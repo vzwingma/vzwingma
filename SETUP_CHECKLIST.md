@@ -1,96 +1,96 @@
-# ✅ Checklist : Initialiser Copilot dans un Nouveau Projet
+# ✅ Checklist: Initialise Copilot in a New Project
 
-Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates dans votre projet.
-
----
-
-## 🚀 Étape 1 : Copier les Templates et Agents
-
-- [ ] Copier `.github/agents/*.md` vers votre projet
-- [ ] Copier `.github/skills/` (3 dossiers de skills) vers votre projet
-- [ ] Copier `.github/PLANS.md` vers votre projet
-- [ ] Copier `.github/copilot-instructions.template.md` vers votre projet
-- [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
-- [ ] Créer `.github/prompts/` si inexistant
-- [ ] Copier `.github/prompts/init-copilot-instructions.prompt.md` vers votre projet
-- [ ] Copier `docs/ARCHITECTURE.template.md` → `docs/ARCHITECTURE.md` de votre projet
-- [ ] Créer `docs/adr/` et y copier `docs/adr/ADR-TEMPLATE.md`
+Use this checklist to **quickly initialise** this template repository in your project.
 
 ---
 
-## 🎯 Étape 2 : Initialiser les Instructions Copilot
+## 🚀 Step 1: Copy the Templates and Agents
 
-### Option A : Automatique (Recommandée)
+- [ ] Copy `.github/agents/*.md` into your project
+- [ ] Copy `.github/skills/` (3 skill folders) into your project
+- [ ] Copy `.github/PLANS.md` into your project
+- [ ] Copy `.github/copilot-instructions.template.md` into your project
+- [ ] Copy `.github/instructions/*.instructions.md` into your project
+- [ ] Create `.github/prompts/` if it does not exist
+- [ ] Copy `.github/prompts/init-copilot-instructions.prompt.md` into your project
+- [ ] Copy `docs/ARCHITECTURE.template.md` → `docs/ARCHITECTURE.md` into your project
+- [ ] Create `docs/adr/` and copy `docs/adr/ADR-TEMPLATE.md` into it
+
+---
+
+## 🎯 Step 2: Initialise the Copilot Instructions
+
+### Option A: Automatic (Recommended)
 ```bash
 # Exécuter ce prompt
 👤 "Initialise les instructions Copilot pour ce projet"
 ```
 
-Le prompt va :
-1. ✅ Analyser votre code source
-2. ✅ Identifier le stack technologique
-3. ✅ Remplir automatiquement `.github/copilot-instructions.md`
-4. ✅ Génère les fichiers `.github/instructions/*.instructions.md`
+The prompt will:
+1. ✅ Analyse your source code
+2. ✅ Identify the technology stack
+3. ✅ Fill `.github/copilot-instructions.md` automatically
+4. ✅ Generate the files `.github/instructions/*.instructions.md`
 
-### Option B : Manuel
-1. [ ] Copier `copilot-instructions.template.md` → `copilot-instructions.md`
-2. [ ] Ouvrir et remplir les sections `[...]` :
-   - [ ] `[NOM_DU_PROJET]`
-   - [ ] **Présentation du Projet**
-   - [ ] **Commandes**
+### Option B: Manual
+1. [ ] Copy `copilot-instructions.template.md` → `copilot-instructions.md`
+2. [ ] Open and fill in the `[...]` sections:
+   - [ ] `[PROJECT_NAME]`
+   - [ ] **Project Overview**
+   - [ ] **Commands**
    - [ ] **Architecture**
-   - [ ] **Conventions Clés**
-   - [ ] **État du Projet**
-3. [ ] Remplir les placeholders dans les 4 fichiers `instructions/` :
-   - [ ] `[NOM_DU_PROJET]` dans chaque fichier
-   - [ ] Stack technique dans `dev.instructions.md`
-   - [ ] Commandes de test dans `qa.instructions.md`
-   - [ ] Fichiers docs/ dans `doc.instructions.md`
+   - [ ] **Key Conventions**
+   - [ ] **Project Status**
+3. [ ] Fill in the placeholders in the 4 `instructions/` files:
+   - [ ] `[PROJECT_NAME]` in each file
+   - [ ] Technology stack in `dev.instructions.md`
+   - [ ] Test commands in `qa.instructions.md`
+   - [ ] docs/ files in `doc.instructions.md`
 
 ---
 
-## 🔧 Étape 3 : Valider et Enrichir
+## 🔧 Step 3: Validate and Enrich
 
-- [ ] Exécuter ce prompt pour auditer le code :
+- [ ] Run this prompt to audit the code:
   ```
   👤 "Complète les instructions Copilot depuis le code source"
   ```
 
-- [ ] Vérifier que **AUCUN** placeholder `[...]` ne subsiste
-- [ ] Vérifier que les placeholders critiques (`[NOM_DU_PROJET]`, stack) sont remplis dans les fichiers `instructions/`
-- [ ] Vérifier que les sections sont pertinentes pour votre projet
-- [ ] Supprimer les sections non applicables (ex: conventions mobile si projet backend)
+- [ ] Check that **NO** `[...]` placeholder remains
+- [ ] Check that critical placeholders (`[PROJECT_NAME]`, stack) are filled in within the `instructions/` files
+- [ ] Check that the sections are relevant for your project
+- [ ] Remove sections that do not apply (e.g. mobile conventions for a backend project)
 
 ---
 
-## 📋 Étape 4 : Configurer les Plans d'Action et la Documentation
+## 📋 Step 4: Configure Action Plans and Documentation
 
-- [ ] Créer `.github/plans/` s'il n'existe pas
-- [ ] Créer `.github/plans/README.md` (ou utiliser le template)
-- [ ] Ajouter `.github/PLANS.md` comme guide de référence
-- [ ] Vérifier que `docs/ARCHITECTURE.md` est initialisé (sinon : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
-- [ ] Compléter les sections **⚠️ À COMPLÉTER** dans `docs/ARCHITECTURE.md`
+- [ ] Create `.github/plans/` if it does not exist
+- [ ] Create `.github/plans/README.md` (or use the template)
+- [ ] Add `.github/PLANS.md` as a reference guide
+- [ ] Check that `docs/ARCHITECTURE.md` is initialised (otherwise: `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
+- [ ] Complete the **⚠️ TO COMPLETE** sections in `docs/ARCHITECTURE.md`
 
 ---
 
-## ✨ Étape 5 : Premier Test
+## ✨ Step 5: First Test
 
-- [ ] Vérifier que vous pouvez appeler les agents :
+- [ ] Check that you can call the agents:
   ```
   👤 "Conçois une architecture pour une authentification JWT"
   ```
-  → `Arcos (🟠 ARC)` doit répondre
+  → `Arcos (🟠 ARC)` should respond
 
-- [ ] Tester un prompt :
+- [ ] Test a prompt:
   ```
   👤 "Initialise les instructions Copilot pour ce projet"
   ```
 
 ---
 
-## 📚 Étape 6 : Documenter
+## 📚 Step 6: Document
 
-- [ ] Ajouter une note dans `README.md` :
+- [ ] Add a note in `README.md`:
   ```markdown
   ## 🤖 Copilot & Agents
   
@@ -98,80 +98,77 @@ Le prompt va :
   Voir [`.github/copilot-instructions.md`](.github/copilot-instructions.md) pour les conventions et les instructions.
   ```
 
-- [ ] Committer :
+- [ ] Commit:
   ```bash
   git commit -m "chore: initialiser Copilot avec agents et templates transverses"
   ```
 
 ---
 
-## 🎓 Utilisation Après Configuration
+## 🎓 Usage After Configuration
 
-### Lancer une Implémentation
+### Start an Implementation
 ```
 👤 "Implémente l'authentification JWT dans le service d'auth"
 ```
-→ `Devon (🔵 DEV)` s'en charge
+→ `Devon (🔵 DEV)` handles it
 
-### Écrire des Tests
+### Write Tests
 ```
 👤 "Écris des tests pour le service d'authentification"
 ```
-→ `Qalvin (🟢 QUAL)` s'en charge
+→ `Qalvin (🟢 QUAL)` handles it
 
-### Planifier une Grosse Tâche
+### Plan a Large Task
 ```
 👤 "Conçois une architecture pour refactoriser la base de données et crée un plan d'action"
 ```
-→ `Arcos (🟠 ARC)` crée un Plan d'Action
+→ `Arcos (🟠 ARC)` creates an Action Plan
 
-### Mettre à Jour la Documentation
+### Update Documentation
 ```
 👤 "Mets à jour la documentation après cette implémentation"
 ```
-→ `Docly (🟣 DOC)` s'en charge
+→ `Docly (🟣 DOC)` handles it
 
-### Paralléliser des Tâches Indépendantes
+### Parallelise Independent Tasks
 ```
 👤 "Lance DEVon sur le composant A et QUALvin sur le composant B en parallèle"
 ```
-→ Utiliser `/fleet` : les tâches sans dépendance s'exécutent simultanément
+→ Use `/fleet`: tasks without dependencies run simultaneously
 
 ---
 
-## 🔄 Maintenance Continue
+## 🔄 Ongoing Maintenance
 
-- [ ] **Chaque mois** : Exécuter `update-copilot-instructions` pour synchroniser
-- [ ] **Après un changement majeur** : Mettre à jour `.github/copilot-instructions.md`
-- [ ] **Quand une initiative grande** : Créer un Plan d'Action dans `.github/plans/`
-- [ ] **Tâches parallèles** : Utiliser `/fleet` quand DEVon, QUALvin ou DOCly ont des tâches indépendantes
-
----
-
-## ✅ Checklist Finale
-
-Avant de considérer Copilot "prêt" :
-
-- [ ] `.github/copilot-instructions.md` existe et est customisé
-- [ ] `.github/agents/*.md` (4 fichiers) sont présents
-- [ ] `.github/skills/*/SKILL.md` (3 skills) présents
-- [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
-- [ ] `.github/PLANS.md` est accessible
-- [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées
-- [ ] `docs/adr/` existe (avec `ADR-TEMPLATE.md` comme modèle)
-- [ ] Aucun placeholder `[...]` dans copilot-instructions.md
-- [ ] Premier test avec `Arcos (🟠 ARC)` réussi ✅
-- [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅
-- [ ] Équipe sensibilisée au workflow multi-agents
+- [ ] **Each month**: Run `update-copilot-instructions` to synchronise
+- [ ] **After a major change**: Update `.github/copilot-instructions.md`
+- [ ] **For a large initiative**: Create an Action Plan in `.github/plans/`
+- [ ] **Parallel tasks**: Use `/fleet` when DEVon, QUALvin or DOCly have independent tasks
 
 ---
 
-**🎉 Vous êtes prêt ! Commencez à collaborer avec Copilot et les agents.**
+## ✅ Final Checklist
 
-Pour en savoir plus, consulter :
-- [`.github/README.md`](.github/README.md) — Guide complet
-- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — Instructions du projet
-- [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
+Before considering Copilot "ready":
 
+- [ ] `.github/copilot-instructions.md` exists and is customised
+- [ ] `.github/agents/*.md` (4 files) are present
+- [ ] `.github/skills/*/SKILL.md` (3 skills) are present
+- [ ] `.github/instructions/*.instructions.md` (4 files) are present and customised
+- [ ] `.github/PLANS.md` is accessible
+- [ ] `docs/ARCHITECTURE.md` exists and the ⚠️ sections are completed
+- [ ] `docs/adr/` exists (with `ADR-TEMPLATE.md` as the template)
+- [ ] No `[...]` placeholder remains in copilot-instructions.md
+- [ ] First test with `Arcos (🟠 ARC)` successful ✅
+- [ ] First test with `Devon (🔵 DEV)` successful ✅
+- [ ] Team aware of the multi-agent workflow
 
+---
 
+**🎉 You are ready! Start collaborating with Copilot and the agents.**
+
+To learn more, see:
+- [`.github/README.md`](.github/README.md) — Complete guide
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — Project instructions
+- [`.github/PLANS.md`](.github/PLANS.md) — Action Plan guide

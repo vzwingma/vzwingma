@@ -1,186 +1,186 @@
-# 🏗️ Architecture — [NOM_DU_PROJET]
+# 🏗️ Architecture — [PROJECT_NAME]
 
-> **Template** : Ce fichier est un template à copier dans `docs/ARCHITECTURE.md` de votre projet.  
-> Remplacer les placeholders `[...]` par les valeurs réelles. Compléter les sections progressivement au fur et à mesure du développement.  
-> Les sections marquées **⚠️ À COMPLÉTER** sont prioritaires au démarrage.
+> **Template**: This file is a template to copy into your project's `docs/ARCHITECTURE.md`.  
+> Replace the `[...]` placeholders with the real values. Complete the sections progressively as development advances.  
+> Sections marked **⚠️ TO COMPLETE** are the priority at start-up.
 
 ---
 
-## 🎯 Vue d'ensemble
+## 🎯 Overview
 
-**[NOM_DU_PROJET]** est [DESCRIPTION_COURTE : 1-2 phrases décrivant ce que fait le projet et pour qui].
+**[PROJECT_NAME]** is [SHORT_DESCRIPTION: 1-2 sentences describing what the project does and for whom].
 
-| Propriété | Valeur |
+| Property | Value |
 |---|---|
-| **Type** | [frontend / backend / fullstack / mobile / CLI / lib / API] |
-| **Stack principale** | [ex: React 18 + TypeScript, Spring Boot 3, Python FastAPI, etc.] |
-| **Plateforme cible** | [web / iOS / Android / desktop / serveur / etc.] |
-| **Langue UI** | [Français / Anglais / etc.] |
-| **Statut** | [En développement / Stable / Legacy / En maintenance] |
+| **Type** | [front-end / back-end / full-stack / mobile / CLI / lib / API] |
+| **Main stack** | [eg: React 18 + TypeScript, Spring Boot 3, Python FastAPI, etc.] |
+| **Target platform** | [web / iOS / Android / desktop / server / etc.] |
+| **UI language** | [French / English / etc.] |
+| **Status** | [In development / Stable / Legacy / In maintenance] |
 
 ---
 
-## 🏢 Architecture Globale ⚠️ À COMPLÉTER
+## 🏢 Overall Architecture ⚠️ TO COMPLETE
 
-> Décrire les grandes couches et leur rôle. Exemple ci-dessous pour un projet React + API.
-
-```
-[NOM_DU_PROJET]
-├── [COUCHE_UI]           # [Description : ex. Composants React, pages, écrans]
-├── [COUCHE_ETAT]         # [Description : ex. Contextes, stores, état global]
-├── [COUCHE_SERVICE]      # [Description : ex. Appels HTTP, logique métier]
-├── [COUCHE_MODELES]      # [Description : ex. Interfaces TypeScript, entités]
-└── [COUCHE_UTILS]        # [Description : ex. Helpers, constantes, config]
-```
-
-### Flux de données principal
+> Describe the main layers and their role. Example below for a React + API project.
 
 ```
-[ACTEUR_ENTRANT]
-    → [COUCHE_1 : ex. Composant UI]
-    → [COUCHE_2 : ex. Service HTTP]  
-    → [SYSTEME_EXTERNE : ex. API Backend / BDD]
-    ← [retour]
+[PROJECT_NAME]
+├── [UI_LAYER]           # [Description: eg. React components, pages, screens]
+├── [STATE_LAYER]        # [Description: eg. Contexts, stores, global state]
+├── [SERVICE_LAYER]      # [Description: eg. HTTP calls, business logic]
+├── [MODELS_LAYER]       # [Description: eg. TypeScript interfaces, entities]
+└── [UTILS_LAYER]        # [Description: eg. Helpers, constants, config]
 ```
 
----
-
-## 📂 Structure des Dossiers ⚠️ À COMPLÉTER
+### Main data flow
 
 ```
-[RACINE_PROJET]/
-├── [DOSSIER_PRINCIPAL]/              # [Description]
-│   ├── [SOUS_DOSSIER_1]/             # [Description]
-│   ├── [SOUS_DOSSIER_2]/             # [Description]
-│   └── [SOUS_DOSSIER_3]/             # [Description]
-├── docs/                             # Documentation versionnée
-│   ├── ARCHITECTURE.md               # Ce fichier
-│   └── adr/                          # Architecture Decision Records
-├── [DOSSIER_TESTS]/                  # [Description]
-└── [FICHIERS_CONFIG]                 # [ex: package.json, pyproject.toml, etc.]
+[INBOUND_ACTOR]
+    → [LAYER_1: eg. UI component]
+    → [LAYER_2: eg. HTTP service]  
+    → [EXTERNAL_SYSTEM: eg. Backend API / DB]
+    ← [return]
 ```
 
 ---
 
-## 🔧 Stack Technique
+## 📂 Folder Structure ⚠️ TO COMPLETE
 
-### Dépendances principales
+```
+[PROJECT_ROOT]/
+├── [MAIN_DIRECTORY]/              # [Description]
+│   ├── [SUBDIRECTORY_1]/          # [Description]
+│   ├── [SUBDIRECTORY_2]/          # [Description]
+│   └── [SUBDIRECTORY_3]/          # [Description]
+├── docs/                          # Versioned documentation
+│   ├── ARCHITECTURE.md            # This file
+│   └── adr/                       # Architecture Decision Records
+├── [TESTS_DIRECTORY]/             # [Description]
+└── [CONFIG_FILES]                 # [eg: package.json, pyproject.toml, etc.]
+```
 
-| Catégorie | Librairie / Framework | Version | Rôle |
+---
+
+## 🔧 Technical Stack
+
+### Main dependencies
+
+| Category | Library / Framework | Version | Role |
 |---|---|---|---|
-| [ex: Framework UI] | [ex: React] | [ex: 18.x] | [ex: Rendu composants] |
-| [ex: Langage] | [ex: TypeScript] | [ex: 5.x] | [ex: Typage statique] |
-| [ex: Tests] | [ex: Jest] | [ex: 29.x] | [ex: Tests unitaires] |
-| [ex: Build] | [ex: Vite] | [ex: 5.x] | [ex: Bundler] |
+| [eg: UI framework] | [eg: React] | [eg: 18.x] | [eg: Component rendering] |
+| [eg: Language] | [eg: TypeScript] | [eg: 5.x] | [eg: Static typing] |
+| [eg: Tests] | [eg: Jest] | [eg: 29.x] | [eg: Unit tests] |
+| [eg: Build] | [eg: Vite] | [eg: 5.x] | [eg: Bundler] |
 
-> ⚠️ Maintenir ce tableau à jour à chaque montée de version majeure.
+> ⚠️ Keep this table up to date with each major version upgrade.
 
-### Variables d'environnement
+### Environment variables
 
-| Variable | Description | Exemple |
+| Variable | Description | Example |
 |---|---|---|
-| `[NOM_VAR_1]` | [Description] | `[valeur_exemple]` |
-| `[NOM_VAR_2]` | [Description] | `[valeur_exemple]` |
+| `[VAR_NAME_1]` | [Description] | `[example_value]` |
+| `[VAR_NAME_2]` | [Description] | `[example_value]` |
 
 ---
 
-## 🔄 Intégrations Externes
+## 🔄 External Integrations
 
-> Lister les systèmes externes avec lesquels le projet communique.
+> List the external systems the project communicates with.
 
-| Système | Type | URL / Endpoint | Authentification |
+| System | Type | URL / Endpoint | Authentication |
 |---|---|---|---|
-| [ex: API Backend] | [REST / GraphQL / WebSocket] | `[URL_BASE]` | [ex: JWT Bearer] |
-| [ex: BDD] | [PostgreSQL / MongoDB / etc.] | `[connexion]` | [ex: SSL + mdp] |
+| [eg: Backend API] | [REST / GraphQL / WebSocket] | `[BASE_URL]` | [eg: JWT Bearer] |
+| [eg: DB] | [PostgreSQL / MongoDB / etc.] | `[connection]` | [eg: SSL + password] |
 
 ---
 
-## 🔐 Sécurité
+## 🔐 Security
 
-> ⚠️ À COMPLÉTER — Décrire les mécanismes de sécurité en place.
+> ⚠️ TO COMPLETE — Describe the security mechanisms in place.
 
-- **Authentification** : [ex: OAuth2 via [PROVIDER], tokens JWT avec refresh]
-- **Autorisation** : [ex: RBAC avec rôles USER / ADMIN]
-- **Données sensibles** : [ex: Jamais de token en localStorage, toujours httpOnly cookie]
-- **Validation entrées** : [ex: Zod côté client, Bean Validation côté serveur]
+- **Authentication** : [eg: OAuth2 via [PROVIDER], JWT tokens with refresh]
+- **Authorisation** : [eg: RBAC with USER / ADMIN roles]
+- **Sensitive data** : [eg: Never store tokens in localStorage, always use httpOnly cookies]
+- **Input validation** : [eg: Zod on client side, Bean Validation on server side]
 
 ---
 
 ## 🧪 Tests
 
-| Type | Framework | Emplacement | Couverture cible |
+| Type | Framework | Location | Target coverage |
 |---|---|---|---|
-| Unitaires | [ex: Jest + RTL] | `[ex: src/**/*.test.ts]` | ≥80% |
-| [Intégration] | [ex: Supertest] | `[ex: tests/integration/]` | [ex: ≥60%] |
-| [E2E] | [ex: Playwright] | `[ex: e2e/]` | [ex: Scénarios critiques] |
+| Unit | [eg: Jest + RTL] | `[eg: src/**/*.test.ts]` | ≥80% |
+| [Integration] | [eg: Supertest] | `[eg: tests/integration/]` | [eg: ≥60%] |
+| [E2E] | [eg: Playwright] | `[eg: e2e/]` | [eg: Critical scenarios] |
 
-Commande pour lancer les tests : `[COMMANDE_TEST]`  
-Rapport de couverture : `[CHEMIN_RAPPORT_COVERAGE]`
+Command to run tests: `[TEST_COMMAND]`  
+Coverage report: `[COVERAGE_REPORT_PATH]`
 
 ---
 
-## 📐 Conventions et Patterns
+## 📐 Conventions and Patterns
 
-> Résumé des conventions clés — pour le détail, voir `.github/copilot-instructions.md`.
+> Summary of key conventions — for details, see `.github/copilot-instructions.md`.
 
-- **Nommage fichiers** : [ex: `*.component.tsx`, `*.service.ts`, `*.test.ts`]
-- **Nommage variables** : [ex: camelCase pour variables, PascalCase pour composants]
-- **Gestion d'état** : [ex: Context API uniquement, pas de Redux]
-- **Appels HTTP** : [ex: Toujours via `ClientHTTP.service.ts`, jamais `fetch` directement]
-- **Gestion erreurs** : [ex: Toujours catcher les erreurs HTTP, afficher un toast utilisateur]
+- **File naming** : [eg: `*.component.tsx`, `*.service.ts`, `*.test.ts`]
+- **Variable naming** : [eg: camelCase for variables, PascalCase for components]
+- **State management** : [eg: Context API only, no Redux]
+- **HTTP calls** : [eg: Always via `ClientHTTP.service.ts`, never `fetch` directly]
+- **Error handling** : [eg: Always catch HTTP errors, show a user toast]
 
 ---
 
-## 🗺️ Décisions Architecturales (ADR)
+## 🗺️ Architectural Decisions (ADR)
 
-> Les décisions architecturales majeures sont documentées dans `docs/adr/`.  
-> Format : `docs/adr/NNN-titre-court.md`
+> Major architectural decisions are documented in `docs/adr/`.  
+> Format: `docs/adr/NNN-short-title.md`
 
-| # | Décision | Statut | Date |
+| # | Decision | Status | Date |
 |---|---|---|---|
-| [001] | [ex: Choix de React vs Vue] | [Acceptée / Dépréciée / Remplacée] | [AAAA-MM-JJ] |
-| [002] | [ex: Authentification OAuth2] | [Acceptée] | [AAAA-MM-JJ] |
+| [001] | [eg: Choosing React over Vue] | [Accepted / Deprecated / Replaced] | [YYYY-MM-DD] |
+| [002] | [eg: OAuth2 authentication] | [Accepted] | [YYYY-MM-DD] |
 
-> 💡 Chaque nouvelle décision architecturale majeure doit faire l'objet d'un ADR. Voir `docs/adr/` pour les détails.
+> 💡 Each new major architectural decision must have an ADR. See `docs/adr/` for details.
 
 ---
 
 ## 📈 Performance
 
-> ⚠️ À COMPLÉTER si pertinent — Documenter les optimisations et contraintes de performance.
+> ⚠️ TO COMPLETE if relevant — Document performance optimisations and constraints.
 
-- [ex: Pagination obligatoire sur toutes les listes > 50 éléments]
-- [ex: `useMemo` pour les calculs dérivés coûteux dans les composants]
-- [ex: Images optimisées via [OUTIL], formats WebP en priorité]
+- [eg: Mandatory pagination on all lists > 50 items]
+- [eg: `useMemo` for expensive derived calculations in components]
+- [eg: Images optimised via [TOOL], WebP formats preferred]
 
 ---
 
-## 🚀 Déploiement
+## 🚀 Deployment
 
-| Environnement | URL | Déclencheur |
+| Environment | URL | Trigger |
 |---|---|---|
-| Développement | `[URL_DEV]` | [ex: Push sur `develop`] |
-| Staging | `[URL_STAGING]` | [ex: PR vers `main`] |
-| Production | `[URL_PROD]` | [ex: Tag `v*`] |
+| Development | `[URL_DEV]` | [eg: Push to `develop`] |
+| Staging | `[URL_STAGING]` | [eg: PR to `main`] |
+| Production | `[URL_PROD]` | [eg: Tag `v*`] |
 
-Pipeline CI/CD : [ex: GitHub Actions — voir `.github/workflows/`]
+CI/CD pipeline: [eg: GitHub Actions — see `.github/workflows/`]
 
 ---
 
-## 📝 Historique des Versions
+## 📝 Version History
 
-> Ajouter une entrée à chaque version livrée (en tête de liste).
+> Add an entry for each delivered version (at the top of the list).
 
-| Version | Date | Changements majeurs |
+| Version | Date | Major changes |
 |---|---|---|
-| [ex: v1.0.0] | [AAAA-MM-JJ] | [ex: Version initiale] |
+| [eg: v1.0.0] | [YYYY-MM-DD] | [eg: Initial version] |
 
 ---
 
-## 🔗 Ressources
+## 🔗 Resources
 
 - **README** : [`README.md`](../README.md)
-- **Instructions Copilot** : [`.github/copilot-instructions.md`](../.github/copilot-instructions.md)
-- **Plans d'Action** : [`.github/plans/`](../.github/plans/)
+- **Copilot instructions** : [`.github/copilot-instructions.md`](../.github/copilot-instructions.md)
+- **Action Plans** : [`.github/plans/`](../.github/plans/)
 - **ADRs** : [`docs/adr/`](./adr/)
-- [**[LIEN_EXTERNE_1]**]([URL]) : [Description]
+- [**[EXTERNAL_LINK_1]**]([URL]) : [Description]

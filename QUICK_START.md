@@ -1,14 +1,14 @@
-# 🚀 Guide Rapide : Utiliser Ce Dépôt de Templates
+# 🚀 Quick Guide: Using This Template Repository
 
-Bienvenue ! Ce dépôt contient les **templates et agents réutilisables** pour orchestrer le développement avec Copilot.
+Welcome! This repository contains the **reusable templates and agents** for orchestrating development with Copilot.
 
 ---
 
-## ⚡ TL;DR — 3 Étapes Rapides
+## ⚡ TL;DR — 3 Quick Steps
 
-Si vous avez un **nouveau projet** et voulez initialiser Copilot rapidement :
+If you have a **new project** and want to initialise Copilot quickly:
 
-### 1️⃣ Copier les Fichiers Essentiels
+### 1️⃣ Copy the Essential Files
 
 ```bash
 # Depuis ce dépôt vers votre projet
@@ -21,51 +21,51 @@ mkdir -p <votre_projet>/.github/prompts
 cp .github/prompts/*.prompt.md <votre_projet>/.github/prompts/
 ```
 
-### 2️⃣ Initialiser les Instructions
+### 2️⃣ Initialise the Instructions
 
-Ouvrir Copilot dans votre projet et exécuter :
+Open Copilot in your project and run:
 
 ```
 👤 "Initialise les instructions Copilot pour ce projet"
 ```
 
-✅ Cela va analyser votre code et générer les instructions automatiquement.
+✅ This will analyse your code and generate the instructions automatically.
 
-### 3️⃣ Valider
+### 3️⃣ Validate
 
 ```
 👤 "Complète les instructions Copilot depuis le code source"
 ```
 
-✅ Votre projet est prêt ! Commencez à utiliser les agents.
+✅ Your project is ready! Start using the agents.
 
 ---
 
-## 📚 Contenus de Ce Dépôt
+## 📚 Contents of This Repository
 
 ### 🤖 Agents (4)
-Modèles prêts à l'emploi pour différents rôles :
-- **🔵 DEVon** — Implémente le code
-- **🟢 QUALvin** — Écrit les tests
-- **🟠 ARCos** — Planifie et crée les Plans d'Action
-- **🟣 DOCly** — Maintient la documentation
+Ready-to-use models for different roles:
+- **🔵 DEVon** — Implements code
+- **🟢 QUALvin** — Writes tests
+- **🟠 ARCos** — Plans and creates Action Plans
+- **🟣 DOCly** — Maintains documentation
 
 ### 📋 Templates
-- **`copilot-instructions.template.md`** — Template générique à customiser
-- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
-- **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
-- **Prompts** — Pour initialiser automatiquement les instructions
+- **`copilot-instructions.template.md`** — Generic template to customise
+- **`instructions/`** — 4 agent instruction templates to customise per project
+- **`PLANS.md`** — Guide for orchestrating multi-phase work
+- **Prompts** — To initialise instructions automatically
 
 ### 📖 Documentation
-- **`.github/README.md`** — Guide complet du dépôt
-- **`SETUP_CHECKLIST.md`** — Checklist pour initialiser un projet
-- **`.github/examples/`** — Exemples concrets (Domoticz, etc.)
+- **`.github/README.md`** — Complete repository guide
+- **`SETUP_CHECKLIST.md`** — Checklist for initialising a project
+- **`.github/examples/`** — Practical examples (Domoticz, etc.)
 
 ---
 
-## 🎯 Workflow Typique
+## 🎯 Typical Workflow
 
-Une fois Copilot configuré, voici comment collaborer :
+Once Copilot is configured, here is how to collaborate:
 
 ```
 1️⃣ Vous décrivez le besoin
@@ -79,73 +79,70 @@ Une fois Copilot configuré, voici comment collaborer :
 5️⃣ 🟣 DOCly met à jour la documentation
 ```
 
-> 💡 **Parallélisation** : Utiliser `/fleet` quand QUALvin et DOCly peuvent travailler en parallèle après DEVon, ou quand plusieurs tâches DEVon sont indépendantes.
+> 💡 **Parallelisation**: Use `/fleet` when QUALvin and DOCly can work in parallel after DEVon, or when several DEVon tasks are independent.
 
 ---
 
 ## ❓ FAQ
 
-### Q: Comment copier rapidement ce dépôt vers mon projet ?
+### Q: How do I quickly copy this repository into my project?
 A: 
 ```bash
 git clone <ce_repo> copilot-templates
 cp -r copilot-templates/.github/* mon-projet/.github/
 ```
 
-### Q: Est-ce que je dois tout copier ?
-A: Non ! Minimum requis :
-- `.github/agents/` (4 fichiers)
-- `.github/skills/` (3 skills — un dossier par skill avec `SKILL.md`)
-- `.github/instructions/` (4 fichiers — à personnaliser)
-- `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
+### Q: Do I need to copy everything?
+A: No! Minimum required:
+- `.github/agents/` (4 files)
+- `.github/skills/` (3 skills — one folder per skill with `SKILL.md`)
+- `.github/instructions/` (4 files — to customise)
+- `.github/copilot-instructions.template.md` (rename to `copilot-instructions.md`)
 - `.github/PLANS.md`
 
-### Q: Comment initialiser rapidement ?
-A: Une fois les fichiers copiés, exécuter dans votre projet :
+### Q: How do I initialise quickly?
+A: Once the files are copied, run in your project:
 ```
 👤 "Initialise les instructions Copilot pour ce projet"
 ```
 
-### Q: Les agents sont-ils customisables ?
-A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).
+### Q: Are the agents customisable?
+A: The agents are **generic**; customisation happens in two places: `.github/copilot-instructions.md` (global context) and `.github/instructions/*.instructions.md` (specifics per agent).
 
-### Q: Comment paralléliser les tâches entre agents ?
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QUALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
+### Q: How do I parallelise tasks between agents?
+A: Use `/fleet` when several agents have independent tasks (e.g. QUALvin + DOCly after DEVon, or several components to implement without dependencies). `/fleet` dispatches the sub-agents simultaneously.
 
-### Q: Où stocker mes Plans d'Action ?
-A: Dans `.github/plans/` — utiliser le format `XXX_<nom>.plan.md`.
+### Q: Where should I store my Action Plans?
+A: In `.github/plans/` — use the format `XXX_<nom>.plan.md`.
 
-### Q: Quelle est la licence ?
-A: Libre d'utilisation — c'est un dépôt de templates transverse.
-
----
-
-## 📞 Besoin d'Aide ?
-
-1. **Lire** [`.github/README.md`](.github/README.md) — Guide complet
-2. **Consulter** [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
-3. **Regarder** [`.github/examples/`](.github/examples/) — Exemples concrets
-4. **Suivre** [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md) — Étape par étape
+### Q: What is the licence?
+A: Free to use — this is a cross-cutting template repository.
 
 ---
 
-## ✅ Vérification Rapide
+## 📞 Need Help?
 
-Après configuration, vérifier que :
-
-- [ ] `.github/agents/` a 4 fichiers ✅
-- [ ] `.github/skills/` a 3 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
-- [ ] `.github/copilot-instructions.md` existe et est customisé ✅
-- [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
+1. **Read** [`.github/README.md`](.github/README.md) — Complete guide
+2. **See** [`.github/PLANS.md`](.github/PLANS.md) — Action Plan guide
+3. **Look at** [`.github/examples/`](.github/examples/) — Practical examples
+4. **Follow** [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md) — Step by step
 
 ---
 
-**C'est tout ! Vous êtes prêt à collaborer avec Copilot. 🚀**
+## ✅ Quick Check
 
-Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et prompt.
+After configuration, check that:
 
+- [ ] `.github/agents/` has 4 files ✅
+- [ ] `.github/skills/` has 3 skills (folders with `SKILL.md`) ✅
+- [ ] `.github/instructions/` has 4 files with `[PROJECT_NAME]` filled in ✅
+- [ ] `.github/copilot-instructions.md` exists and is customised ✅
+- [ ] `.github/PLANS.md` is accessible ✅
+- [ ] Calling `Arcos` (🟠 ARC) works ✅
+- [ ] Calling `Devon` (🔵 DEV) works ✅
 
+---
 
+**That's it! You are ready to collaborate with Copilot. 🚀**
+
+Read [`.github/README.md`](.github/README.md) for more details about each agent and prompt.

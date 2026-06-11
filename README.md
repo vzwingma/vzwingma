@@ -1,96 +1,96 @@
 # 🤖 Copilot Templates & Agents Repository
 
-Ce dépôt est un **centre de référence transverse** pour les modèles réutilisables, les instructions et les prompts Copilot. Il permet de coordonner le développement avec une **architecture multi-agents orchestrée**.
+This repository is a **cross-cutting reference hub** for reusable Copilot templates, instructions and prompts. It helps coordinate development with an **orchestrated multi-agent architecture**.
 
-## 📚 Contenus
+## 📚 Contents
 
-### 🤖 Agents Copilot (.github/agents/)
+### 🤖 Copilot Agents (.github/agents/)
 
-Quatre agents spécialisés pour orchestrer le développement :
+Four specialised agents to orchestrate development:
 
-- **Arcos.agent.md** — Planificateur technique et orchestrateur (🟠 ARCos)
-- **Devon.agent.md** — Implémentateur de code de production (🔵 DEVon)
-- **Qalvin.agent.md** — Expert QA et tests unitaires (🟢 QUALvin)
-- **Docly.agent.md** — Documentation Agent (🟣 DOCly)
+- **Arcos.agent.md** — Technical planner and orchestrator (🟠 ARCos)
+- **Devon.agent.md** — Production code implementer (🔵 DEVon)
+- **Qalvin.agent.md** — QA and unit testing expert (🟢 QUALvin)
+- **Docly.agent.md** — Documentation agent (🟣 DOCly)
 
-Tous les agents sont **génériques et prêts à l'emploi** dans n'importe quel projet.
+All agents are **generic and ready to use** in any project.
 
 ### 📋 Templates (.github/)
 
-- **copilot-instructions.template.md** — Template générique pour initialiser les instructions Copilot dans un nouveau projet (avec placeholders)
-- **copilot-instructions.md** — Copie du template (version de base générique)
-- **instructions/** — 4 templates d'instructions spécifiques au projet (architect, dev, qa, doc) avec placeholders à remplir
-- **PLANS.md** — Guide complet pour créer et exécuter les Plans d'Action multi-phases
+- **copilot-instructions.template.md** — Generic template to initialise Copilot instructions in a new project (with placeholders)
+- **copilot-instructions.md** — Copy of the template (generic baseline version)
+- **instructions/** — 4 project-specific instruction templates (architect, dev, qa, doc) with placeholders to fill in
+- **PLANS.md** — Full guide for creating and executing multi-phase Action Plans
 
 ### 🎯 Prompts (.github/prompts/)
 
-Prompts réutilisables pour des tâches récurrentes :
+Reusable prompts for recurring tasks:
 
-- **init-copilot-instructions.prompt.md** — Initialiser les instructions Copilot dans un nouveau projet
-- **update-copilot-instructions.prompt.md** — Auditer et mettre à jour les instructions depuis le code source
-- **migrate-to-template.prompt.md** — Migrer un projet existant vers ces templates
+- **init-copilot-instructions.prompt.md** — Initialise Copilot instructions in a new project
+- **update-copilot-instructions.prompt.md** — Audit and update instructions from source code
+- **migrate-to-template.prompt.md** — Migrate an existing project to these templates
 
-### 📖 Exemples (.github/examples/)
+### 📖 Examples (.github/examples/)
 
-Exemples concrets pour différents types de projets :
+Practical examples for different project types:
 
-- **copilot-instructions-domoticz.example.md** — Exemple : projet React Native / Expo (archivé à titre de référence)
+- **copilot-instructions-domoticz.example.md** — Example: React Native / Expo project (archived for reference)
 
 ### 📖 Documentation
 
-- **.github/README.md** — Guide d'utilisation des templates, agents et prompts
+- **.github/README.md** — Guide to using templates, agents and prompts
 
 ---
 
-## 🚀 Quick Start : Initialiser un Nouveau Projet
+## 🚀 Quick Start: Initialise a New Project
 
-### 1. Copier le template
+### 1. Copy the template
 
 ```bash
 cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
 cp -r .github/instructions <votre_projet>/.github/
 ```
 
-### 2. Initialiser automatiquement
+### 2. Initialise automatically
 
-Utiliser le prompt init-copilot-instructions pour générer les instructions :
+Use the init-copilot-instructions prompt to generate the instructions:
 
 ```
 👤 "Initialise les instructions Copilot pour ce projet"
 ```
 
-Le prompt va analyser votre code et remplir les sections automatiquement.
+The prompt will analyse your code and fill in the sections automatically.
 
-### 3. Valider
+### 3. Validate
 
-Vérifier que tous les placeholders sont remplacés et que les conventions du projet sont bien documentées.
+Check that all placeholders have been replaced and that the project's conventions are properly documented.
 
 ---
 
-## 🎯 Workflow Typique
+## 🎯 Typical Workflow
 
 ```mermaid
 graph TD
-    Human["👤 Développeur humain"]
-    Arch["🟠 ARCos\nArchitecte & Orchestrateur"]
-    Dev["🔵 DEVon\nImplémentateur"]
+    Human["👤 Human developer"]
+    Arch["🟠 ARCos\nArchitect & Orchestrator"]
+    Dev["🔵 DEVon\nImplementer"]
     QA["🟢 QUALvin\nQA & Tests"]
     Doc["🟣 DOCly\nDocumentation"]
 
-    Human -->|"cadre le besoin"| Arch
-    Arch -->|"Plan d'Action ✅"| Human
+    Human -->|"frames requirement"| Arch
+    Arch -->|"Action Plan ✅"| Human
 
-    Arch -->|"délègue implémentation"| Dev
+    Arch -->|"delegates implementation"| Dev
     Dev -->|"code ✅"| Human
-    Dev -->|"notifie fin code"| QA
-    Dev -->|"notifie fin code"| Doc
+    Dev -->|"notifies code completion"| QA
+    Dev -->|"notifies code completion"| Doc
 
-    Arch -->|"délègue tests"| QA
+    Arch -->|"delegates tests"| QA
     QA -->|"tests ✅"| Human
-    QA -->|"notifie tests OK"| Doc
+    QA -->|"notifies tests OK"| Doc
 
-    Arch -->|"délègue documentation"| Doc
-    Doc -->|"doc ✅"| Human
+    Arch -->|"delegates documentation"| Doc
+    Doc -->|"docs ✅"| Human
 
 
     style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
@@ -100,46 +100,46 @@ graph TD
     style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
 ```
 
-Pour en savoir plus, consulter `.github/PLANS.md`.
+To learn more, see `.github/PLANS.md`.
 
-> 💡 **Parallélisation** : Utiliser `/fleet` quand plusieurs tâches (DEVon, QUALvin, DOCly) sont indépendantes pour les exécuter simultanément.
+> 💡 **Parallelisation**: Use `/fleet` when several tasks (DEVon, QUALvin, DOCly) are independent so they can be executed simultaneously.
 
 ---
 
 ## 📚 Documentation
 
-- **.github/README.md** — Guide complet d'utilisation
-- **.github/PLANS.md** — Guide pour les Plans d'Action
-- **.github/agents/*.md** — Instructions pour chaque agent
-- **.github/instructions/*.md** — Instructions spécifiques projet pour chaque agent
-- **.github/prompts/*.md** — Documentation des prompts
-- **.github/examples/** — Exemples concrets
+- **.github/README.md** — Complete user guide
+- **.github/PLANS.md** — Action Plan guide
+- **.github/agents/*.md** — Instructions for each agent
+- **.github/instructions/*.md** — Project-specific instructions for each agent
+- **.github/prompts/*.md** — Prompt documentation
+- **.github/examples/** — Practical examples
 
 ---
 
-## ✅ Ce que vous Trouvez Ici
+## ✅ What You Will Find Here
 
-✅ **Agents génériques** — Prêts à l'emploi dans n'importe quel projet  
-✅ **Templates** — Customisables pour votre contexte  
-✅ **Instructions agents** — Templates spécifiques projet pour chaque agent (à personnaliser)  
-✅ **Prompts** — Pour automatiser l'initialisation et la mise à jour  
-✅ **Documentation complète** — Guide d'utilisation et bonnes pratiques  
-✅ **Exemples** — Références pour différents types de projets  
+✅ **Generic agents** — Ready to use in any project  
+✅ **Templates** — Customisable for your context  
+✅ **Agent instructions** — Project-specific templates for each agent (to customise)  
+✅ **Prompts** — To automate initialisation and updates  
+✅ **Complete documentation** — Usage guide and best practice  
+✅ **Examples** — References for different project types  
 
 ---
 
 ## 🔄 Maintenance
 
-Les templates et prompts sont **génériques et versionés**. Chaque agent commence par une version (ex: [v3.0]) pour tracker les changements.
+The templates and prompts are **generic and versioned**. Each agent starts with a version (e.g. [v3.0]) to track changes.
 
-| Agent | Version | Rôle |
+| Agent | Version | Role |
 |---|---|---|
-| 🟠 ARCos | v3.2 | Architecte & orchestrateur |
-| 🔵 DEVon | v3.1 | Implémentateur |
+| 🟠 ARCos | v3.2 | Architect & orchestrator |
+| 🔵 DEVon | v3.1 | Implementer |
 | 🟢 QUALvin | v3.1 | QA & tests |
 | 🟣 DOCly | v3.1 | Documentation |
 
-Pour mettre à jour les instructions d'un projet existant, utiliser :
+To update instructions in an existing project, use:
 ```
 👤 "Complète les instructions Copilot depuis le code source"
 ```
@@ -149,5 +149,3 @@ Pour mettre à jour les instructions d'un projet existant, utiliser :
 ### Hello there <img src="https://github.com/vzwingma/vzwingma/assets/10505762/5250a9d9-e4b4-4b1f-9f10-9d3ac7294928" alt= "" width="60" height="60"/>
 
 [![vzwingma's GitHub stats](https://github-readme-stats.vercel.app/api?username=vzwingma)](https://github.com/vzwingma/vzwingma)
-
-

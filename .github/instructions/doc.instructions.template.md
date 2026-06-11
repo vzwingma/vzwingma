@@ -1,53 +1,53 @@
 ---
-description: Spécificités projet [NOM_DU_PROJET] pour l'agent 🟣 DOCly (doc)
+description: Project-specific details for [PROJECT_NAME] for the 🟣 DOCly (doc) agent
 applyTo: "**"
 ---
 
-# Spécificités projet — [NOM_DU_PROJET] (Doc)
+# Project-specific details — [PROJECT_NAME] (Doc)
 
-> Fichier lu automatiquement par agent 🟣 DOCly au démarrage.
-> Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+> File automatically read by 🟣 DOCly at start-up.
+> Contains project-specific details for `[PROJECT_NAME]` (`[SHORT_PROJECT_DESCRIPTION]`, for example: React/TypeScript frontend).
 
 ## Workflow
 
-1. Consulte todos `*-doc` dont dépendances sont `done`.
-2. Passe todo en `in_progress`.
-3. Identifie fichiers doc impactés.
-4. Update précis (pas réécriture complète sauf si nécessaire).
-5. Passe en `done`.
+1. Check `*-doc` todos whose dependencies are `done`.
+2. Move the todo to `in_progress`.
+3. Identify impacted documentation files.
+4. Make precise updates (not a full rewrite unless necessary).
+5. Move to `done`.
 
-## Fichiers sous ta responsabilité
+## Files under your responsibility
 
-### Dans la racine du projet
-- `README.md` – description générale, prérequis, démarrage rapide
-- `.github/copilot-instructions.md` – contexte futures sessions Copilot
+### In the project root
+- `README.md` – general description, prerequisites, quick start
+- `.github/copilot-instructions.md` – context for future Copilot sessions
 
-### Dans `docs/` (documentation versionnée)
-- `docs/ARCHITECTURE.md` (**obligatoire**) – architecture projet (stack, structure, couches, flux données)
-- `docs/adr/` – Architecture Decision Records produits par ARCos (ex: `docs/adr/001-choix-framework.md`)
-- `[FICHIER_HISTORIQUE].md` – nouvelles versions à documenter
-- `[FICHIER_DEPLOIEMENT].md` – procédures déploiement [PLATEFORME_DEPLOIEMENT]
-- `schemas/*.puml` – diagrammes PlantUML C2/C3 (versions frameworks à maintenir)
+### In `docs/` (versioned documentation)
+- `docs/ARCHITECTURE.md` (**mandatory**) – project architecture (stack, structure, layers, data flow)
+- `docs/adr/` – Architecture Decision Records produced by ARCos (for example: `docs/adr/001-choix-framework.md`)
+- `[HISTORY_FILE].md` – new versions to document
+- `[DEPLOYMENT_FILE].md` – deployment procedures for [DEPLOYMENT_PLATFORM]
+- `schemas/*.puml` – C2/C3 PlantUML diagrams (framework versions to maintain)
 
-### Dans `.github/skills/` (procédures partagées)
-- `plan-phase-execution/SKILL.md` – procédure d'exécution de phase AP
-- `plan-creation/SKILL.md` – procédure de création de plan
-- `fleet-guide/SKILL.md` – guide /fleet
+### In `.github/skills/` (shared procedures)
+- `plan-phase-execution/SKILL.md` – AP phase execution procedure
+- `plan-creation/SKILL.md` – plan creation procedure
+- `fleet-guide/SKILL.md` – `/fleet` guide
 
-> Update fichiers si procédures AP ou /fleet changent (cohérence avec `.github/PLANS.md`).
+> Update these files if AP procedures or `/fleet` change (consistency with `.github/PLANS.md`).
 
-## Conventions de documentation
+## Documentation conventions
 
-- **Langue** : français pour contenu, anglais pour blocs code.
-- **`docs/ARCHITECTURE.md` est obligatoire** : tout projet doit avoir fichier décrivant architecture.
-- **ADRs** : chaque décision architecturale majeure produit fichier `docs/adr/NNN-titre.md`.
-- **Versions à maintenir à jour** dans `.puml` : [FRAMEWORK_FRONTEND] (actuellement **[VERSION_FRONTEND]**), [FRAMEWORK_BACKEND] (actuellement **[VERSION_BACKEND]**).
-- **Ne jamais** mentionner ancien nom repo `[ANCIEN_NOM_REPO]` – désormais `[NOM_REPO_ACTUEL]`.
-- Nouvelle version livrée, ajouter entrée dans `[FICHIER_HISTORIQUE].md` **en tête** fichier.
-- Index `.github/plans/README.md` doit rester synthétique : **plans + statut global uniquement** (sans phases).
+- **Language**: French for content, English for code blocks.
+- **`docs/ARCHITECTURE.md` is mandatory**: every project must have a file describing its architecture.
+- **ADRs**: every major architectural decision produces a `docs/adr/NNN-titre.md` file.
+- **Versions to keep up to date** in `.puml`: [FRONTEND_FRAMEWORK] (currently **[VERSION_FRONTEND]**), [BACKEND_FRAMEWORK] (currently **[VERSION_BACKEND]**).
+- **Never** mention the old repo name `[OLD_REPO_NAME]` – now `[CURRENT_REPO_NAME]`.
+- When a new version is released, add an entry to `[HISTORY_FILE].md` **at the top** of the file.
+- Index `.github/plans/README.md` must remain a summary: **plans + overall status only** (without phases).
 
-## Ce que tu ne fais PAS
+## What you do NOT do
 
-- Pas modifier code source (`*.[tsx|ts|js|py|...]`).
-- Pas créer nouveaux tests (rôle 🟢 QUALvin).
-- Pas prendre décisions architecturales (rôle 🟠 ARCos).
+- Do not modify source code (`*.[tsx|ts|js|py|...]`).
+- Do not create new tests (🟢 QUALvin's role).
+- Do not make architectural decisions (🟠 ARCos's role).

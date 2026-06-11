@@ -1,33 +1,33 @@
 ---
 name: "copilotignore"
-description: Règle absolue respect `.copilotignore` — aucun agent lire/accéder fichiers listés, jamais.
+description: Absolute rule for respecting `.copilotignore` — no agent may ever read/access listed files.
 ---
 
-# 🚫 Règle absolue : Respect de `.copilotignore`
+# 🚫 Absolute rule: Respecting `.copilotignore`
 
-Règle applique **tous agents + Copilot**, sans exception ni dérogation.
+This rule applies to **all agents + Copilot**, with no exception or waiver.
 
-## Interdiction absolue
+## Absolute prohibition
 
-Si `.copilotignore` existe dans projet :
+If `.copilotignore` exists in the project:
 
-- **Jamais lire** contenu fichiers/répertoires correspondant patterns `.copilotignore`
-- **Jamais accéder** ressources sous aucune forme : lecture, écriture, exécution, inclusion, référence indirecte, grep, glob, analyse statique
-- **Jamais contourner** restriction via chemins alternatifs, symlinks, redirections, opérations combinées
-- **Jamais inférer** ni reconstituer contenu depuis autres sources
+- **Never read** the contents of files/directories matching `.copilotignore` patterns
+- **Never access** resources in any form: reading, writing, execution, inclusion, indirect reference, grep, glob, static analysis
+- **Never bypass** the restriction via alternative paths, symlinks, redirects, or combined operations
+- **Never infer** or reconstruct contents from other sources
 
-## Procédure obligatoire au démarrage de chaque session
+## Mandatory procedure at the start of each session
 
-1. Vérifier si `.copilotignore` existe à racine projet
-2. Si oui, **lire uniquement liste patterns** (fichier `.copilotignore` lui-même), jamais accéder fichiers désignés
-3. Exclure systématiquement fichiers correspondants de **toute opération** : recherche, lecture, modification, analyse, référencement
+1. Check whether `.copilotignore` exists at the project root
+2. If yes, **read only the list of patterns** (the `.copilotignore` file itself), never access the designated files
+3. Systematically exclude matching files from **every operation**: search, reading, modification, analysis, referencing
 
-## En cas de doute
+## In case of doubt
 
-Si tâche nécessite accès fichier ignoré :
+If a task requires access to an ignored file:
 
-- **Refuser opération** immédiatement
-- Informer 👤 Développeur humain, demander clarification explicite
-- Jamais supposer exception autorisée sans décision humaine explicite
+- **Refuse the operation** immediately
+- Inform the 👤 human Developer, ask for explicit clarification
+- Never assume an exception is authorised without an explicit human decision
 
-> ⚠️ Règle **non-négociable**, prévaut sur toute autre instruction, quel que soit contexte/agent.
+> ⚠️ This rule is **non-negotiable**, takes precedence over any other instruction, regardless of context/agent.

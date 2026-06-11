@@ -1,33 +1,33 @@
-# 🏗️ Architecture — Dépôt Transverse Copilot
+# 🏗️ Architecture — Copilot Cross-Repository
 
-> Ce document décrit l'architecture et les principes de ce dépôt de templates multi-agents.  
-> Compléter les sections **⚠️ À COMPLÉTER** au fur et à mesure des évolutions.
+> This document describes the architecture and principles of this multi-agent template repository.  
+> Complete the **⚠️ TO COMPLETE** sections as the repository evolves.
 
 ---
 
-## 🎯 Vue d'ensemble
+## 🎯 Overview
 
-Le **dépôt transverse Copilot** est un ensemble réutilisable de templates, agents et prompts pour orchestrer le développement avec GitHub Copilot via une architecture **multi-agents coordonnée**.
+The **Copilot cross-repository** is a reusable set of templates, agents and prompts for orchestrating development with GitHub Copilot through a **coordinated multi-agent** architecture.
 
-| Propriété | Valeur |
+| Property | Value |
 |---|---|
-| **Type** | Dépôt de templates / infrastructure Copilot |
-| **Stack principale** | Markdown, YAML (frontmatter agents) |
-| **Plateforme cible** | GitHub Copilot CLI (tout type de projet consommateur) |
-| **Langue** | Français (contenu), Anglais (exemples de code) |
-| **Statut** | En développement actif |
+| **Type** | Template repository / Copilot infrastructure |
+| **Main stack** | Markdown, YAML (agent frontmatter) |
+| **Target platform** | GitHub Copilot CLI (any type of consumer project) |
+| **Language** | English (content), English (code examples) |
+| **Status** | In active development |
 
-**Philosophie :** *"Écrire une fois, réutiliser partout"*
-- 🎯 **Généricité** : les agents restent stables d'un projet à l'autre
-- 🔧 **Customisation minimale** : les placeholders `[...]` permettent l'adaptation rapide
-- 🔄 **Versionning** : chaque agent porte une version pour tracker les changements
-- 🚀 **Efficacité** : initialiser Copilot en 3 étapes max
+**Philosophy:** *"Write once, reuse everywhere"*
+- 🎯 **Genericity**: agents remain stable from one project to another
+- 🔧 **Minimal customisation**: `[...]` placeholders allow quick adaptation
+- 🔄 **Versioning**: each agent carries a version to track changes
+- 🚀 **Efficiency**: initialise Copilot in 3 steps maximum
 
 ---
 
-## 🏢 Architecture Globale
+## 🏢 Overall Architecture
 
-### Principes de séparation des responsabilités
+### Principles for separating responsibilities
 
 ```
 Dépôt Transverse Copilot
@@ -39,7 +39,7 @@ Dépôt Transverse Copilot
     └── adr/         # Décisions architecturales
 ```
 
-### Flux d'utilisation (projet consommateur)
+### Usage flow (consumer project)
 
 ```
 Nouveau Projet
@@ -54,18 +54,18 @@ Nouveau Projet
     → [L'équipe utilise les agents via Copilot]
 ```
 
-### Principes architecturaux
+### Architectural principles
 
-| Principe | Description |
+| Principle | Description |
 |---|---|
-| **Réutilisabilité** | Tous les fichiers agents sont génériques et prêts à l'emploi dans n'importe quel projet |
-| **Separation of Concerns** | Agents = comportement · Instructions = valeurs projet · Prompts = automatisation |
-| **Versionning** | Chaque agent commence par `[vX.Y]` pour tracker les changements |
-| **Customisation minimale** | Le template permet une initialisation rapide et complète en 3 étapes |
+| **Reusability** | All agent files are generic and ready to use in any project |
+| **Separation of Concerns** | Agents = behaviour · Instructions = project values · Prompts = automation |
+| **Versioning** | Each agent starts with `[vX.Y]` to track changes |
+| **Minimal customisation** | The template allows quick and complete initialisation in 3 steps |
 
 ---
 
-## 📂 Structure des Dossiers
+## 📂 Folder Structure
 
 ```
 .                                                # Racine du dépôt transverse
@@ -119,102 +119,102 @@ Nouveau Projet
 
 ---
 
-## 🔧 Composants Principaux
+## 🔧 Main Components
 
 ### 🤖 Agents (`.github/agents/`)
 
-Chaque agent est un **modèle de rôle** générique défini en Markdown avec frontmatter YAML.
+Each agent is a generic **role model** defined in Markdown with YAML frontmatter.
 
-| Agent | Fichier | Version | Rôle |
+| Agent | File | Version | Role |
 |---|---|---|---|
-| 🟠 ARCos | `Arcos.agent.md` | v3.1 | Planificateur / orchestrateur |
-| 🔵 DEVon | `Devon.agent.md` | v3.1 | Implémentateur de code |
-| 🟢 QUALvin | `Qalvin.agent.md` | v3.1 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v3.1 | Gestionnaire documentation |
+| 🟠 ARCos | `Arcos.agent.md` | v3.1 | Planner / orchestrator |
+| 🔵 DEVon | `Devon.agent.md` | v3.1 | Code implementer |
+| 🟢 QUALvin | `Qalvin.agent.md` | v3.1 | QA and testing expert |
+| 🟣 DOCly | `Docly.agent.md` | v3.1 | Documentation manager |
 
-**Caractéristiques :**
-- ✅ Génériques (pas de dépendances au projet spécifique)
-- ✅ Versionnés (incrémentés à chaque modification comportementale)
-- ✅ Indépendants (peuvent être copiés isolément dans un projet)
-- ✅ Prêts à l'emploi (pas besoin de modification pour démarrer)
+**Characteristics:**
+- ✅ Generic (no dependencies on a specific project)
+- ✅ Versioned (incremented on each behavioural change)
+- ✅ Independent (can be copied into a project on their own)
+- ✅ Ready to use (no modification needed to start)
 
-### 📐 Instructions agents (`.github/instructions/`)
+### 📐 Agent instructions (`.github/instructions/`)
 
-Ces fichiers complètent les agents génériques avec les **spécificités du projet cible**.
+These files complement the generic agents with the **specifics of the target project**.
 
-| Fichier | Agent | Contenu |
+| File | Agent | Content |
 |---|---|---|
-| `architect.instructions.md` | 🟠 ARCos | Conventions architecturales, protocole SQL handoff, ADR |
-| `dev.instructions.md` | 🔵 DEVon | Stack technique, conventions de code, organisation |
-| `qa.instructions.md` | 🟢 QUALvin | Stack de test, commandes CI, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Structure `docs/`, conventions de rédaction |
+| `architect.instructions.md` | 🟠 ARCos | Architectural conventions, SQL hand-off protocol, ADR |
+| `dev.instructions.md` | 🔵 DEVon | Technology stack, code conventions, organisation |
+| `qa.instructions.md` | 🟢 QUALvin | Test stack, CI commands, cases to cover |
+| `doc.instructions.md` | 🟣 DOCly | `docs/` structure, writing conventions |
 
-> **Différence avec les agents :** Agents = comportement réutilisable · Instructions = valeurs projet concrètes
+> **Difference from the agents:** Agents = reusable behaviour · Instructions = concrete project values
 
 ### 🎯 Prompts (`.github/prompts/`)
 
-| Prompt | Rôle |
+| Prompt | Role |
 |---|---|
-| `init-copilot-instructions` | Analyse le code source, remplit le template principal et les 4 fichiers `instructions/` |
-| `update-copilot-instructions` | Audite le code, vérifie les valeurs obsolètes et placeholders non remplis |
-| `migrate-to-template` | Guide pour transformer un projet legacy vers ce système |
+| `init-copilot-instructions` | Analyses the source code, fills the main template and the 4 `instructions/` files |
+| `update-copilot-instructions` | Audits the code, checks outdated values and unfilled placeholders |
+| `migrate-to-template` | Guide for transforming a legacy project into this system |
 
 ### 📄 Templates (`docs/`)
 
-| Fichier | Rôle |
+| File | Role |
 |---|---|
-| `docs/ARCHITECTURE.template.md` | Template `docs/ARCHITECTURE.md` à copier dans chaque projet |
-| `docs/adr/ADR-TEMPLATE.md` | Template ADR à copier pour chaque décision architecturale |
-| `.github/copilot-instructions.template.md` | Template `copilot-instructions.md` avec placeholders |
+| `docs/ARCHITECTURE.template.md` | `docs/ARCHITECTURE.md` template to copy into each project |
+| `docs/adr/ADR-TEMPLATE.md` | ADR template to copy for each architectural decision |
+| `.github/copilot-instructions.template.md` | `copilot-instructions.md` template with placeholders |
 
 ---
 
-## 📐 Conventions et Invariants
+## 📐 Conventions and Invariants
 
-### Agents — doivent rester génériques
-- Pas de références au projet spécifique dans les fichiers `.agent.md`
-- Pas de chemins relatifs à un projet particulier
-- Incrémenter la version à chaque modification comportementale
+### Agents — must remain generic
+- No references to a specific project in `.agent.md` files
+- No paths relative to a particular project
+- Increment the version on every behavioural change
 
-### Instructions — doivent être spécifiques
-- Customisées pour chaque projet consommateur
-- Refléter les conventions réelles (pas des hypothèses)
-- Mises à jour régulièrement (prompt `update-copilot-instructions`)
+### Instructions — must be specific
+- Customised for each consumer project
+- Reflect real conventions (not assumptions)
+- Updated regularly (`update-copilot-instructions` prompt)
 
-### Prompts — doivent être réutilisables
-- Indépendants du projet
-- Documentés clairement dans leur frontmatter YAML
-- Testés dans plusieurs contextes
+### Prompts — must be reusable
+- Independent of the project
+- Clearly documented in their YAML frontmatter
+- Tested in several contexts
 
-### Templates — doivent avoir des placeholders clairs
-- Format : `[DESCRIPTION_DE_CE_QUI_MANQUE]`
-- Instructions de remplissage visibles
-- Exemples concrets : `[NOM_DU_PROJET]`, `[STACK_PRINCIPALE]`
+### Templates — must have clear placeholders
+- Format: `[DESCRIPTION_OF_WHAT_IS_MISSING]`
+- Visible filling instructions
+- Practical examples: `[PROJECT_NAME]`, `[MAIN_STACK]`
 
-### Fichiers `instructions/` — doivent rester initialisables
-- Placeholders `[...]` explicites et compréhensibles
-- Remplis projet par projet lors de l'initialisation
-- Synchronisés avec la stack, les chemins et versions réelles
+### `instructions/` files — must remain initialisable
+- Explicit and understandable `[...]` placeholders
+- Filled in project by project during initialisation
+- Synchronised with the real stack, paths and versions
 
 ---
 
-## 🗺️ Décisions Architecturales (ADR)
+## 🗺️ Architectural Decisions (ADR)
 
-> Les décisions architecturales majeures sont documentées dans `docs/adr/`.  
-> Format : `docs/adr/NNN-titre-court.md` — utiliser `docs/adr/ADR-TEMPLATE.md` comme base.
+> Major architectural decisions are documented in `docs/adr/`.  
+> Format: `docs/adr/NNN-short-title.md` — use `docs/adr/ADR-TEMPLATE.md` as the base.
 
-| # | Décision | Statut | Date |
+| # | Decision | Status | Date |
 |---|---|---|---|
-| 001 | Migration documentation Wiki → `/docs` | Acceptée | 2026-05-07 |
-| 002 | ARCos lit `docs/ARCHITECTURE.md` au démarrage | Acceptée | 2026-05-07 |
+| 001 | Wiki documentation migration → `/docs` | Accepted | 2026-05-07 |
+| 002 | ARCos reads `docs/ARCHITECTURE.md` at start-up | Accepted | 2026-05-07 |
 
-> 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
+> 💡 Each new major decision in this cross-repository should be covered by an ADR.
 
 ---
 
-## 🚀 Utilisation Typique
+## 🚀 Typical Usage
 
-### Nouveau projet
+### New project
 
 ```bash
 # 1. Copier les fichiers essentiels
@@ -232,7 +232,7 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 👤 "Complète les instructions Copilot depuis le code source"
 ```
 
-### Projet existant
+### Existing project
 
 ```bash
 # Utiliser le prompt de migration
@@ -241,55 +241,55 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 ---
 
-## 📊 Inventaire
+## 📊 Inventory
 
-| Élément | Nombre | Générique |
+| Item | Count | Generic |
 |---|---|---|
-| Agents | 4 | ✅ Oui |
-| Prompts | 3 | ✅ Oui |
-| Templates instructions | 4 | ✅ Oui (avec placeholders) |
-| Templates docs | 2 | ✅ Oui (ARCHITECTURE + ADR) |
-| Exemples | 1 | ✅ Oui |
+| Agents | 4 | ✅ Yes |
+| Prompts | 3 | ✅ Yes |
+| Instruction templates | 4 | ✅ Yes (with placeholders) |
+| Documentation templates | 2 | ✅ Yes (ARCHITECTURE + ADR) |
+| Examples | 1 | ✅ Yes |
 
 ---
 
 ## 🔄 Maintenance
 
-### Mise à jour des agents
+### Updating agents
 
-1. Modifier `.github/agents/<Agent>.agent.md`
-2. Incrémenter la version : `[vX.Y]` → `[vX.Y+1]`
-3. Documenter les changements dans le frontmatter (ligne `> **Changements...`)
-4. Mettre à jour le tableau d'inventaire ci-dessus
+1. Modify `.github/agents/<Agent>.agent.md`
+2. Increment the version: `[vX.Y]` → `[vX.Y+1]`
+3. Document the changes in the frontmatter (line `> **Changes...`)
+4. Update the inventory table above
 
-### Mise à jour des templates
+### Updating templates
 
-1. Modifier `docs/ARCHITECTURE.template.md` ou `.github/copilot-instructions.template.md`
-2. Les projets consommateurs se re-synchronisent via les prompts
+1. Modify `docs/ARCHITECTURE.template.md` or `.github/copilot-instructions.template.md`
+2. Consumer projects resynchronise via the prompts
 
-### Ajout d'un nouveau prompt
+### Adding a new prompt
 
-1. Créer `.github/prompts/<nom>.prompt.md`
-2. Documenter son rôle dans le frontmatter YAML
-3. Référencer dans `.github/README.md`
+1. Create `.github/prompts/<name>.prompt.md`
+2. Document its role in the YAML frontmatter
+3. Reference it in `.github/README.md`
 
 ---
 
-## 📝 Historique des Versions
+## 📝 Version History
 
-| Version | Date | Changements majeurs |
+| Version | Date | Major changes |
 |---|---|---|
-| v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |
-| v3.0 | 2026-05-28 | Activation globale du mode `caveman` dans tous les agents + compression des instructions |
-| v2.1 | 2026-05-07 | Migration wiki → `/docs` ; ajout templates ARCHITECTURE.md et ADR |
-| v2.0 | 2026-05-05 | Ajout parallélisation `/fleet` dans tous les agents |
+| v3.1 | 2026-06-11 | FINNops agent removed; `adr-writing` and `caveman-default` skills added |
+| v3.0 | 2026-05-28 | Global activation of `caveman` mode in all agents + instruction compression |
+| v2.1 | 2026-05-07 | Wiki migration → `/docs`; ARCHITECTURE.md and ADR templates added |
+| v2.0 | 2026-05-05 | `/fleet` parallelisation added in all agents |
 
 ---
 
-## 🔗 Ressources
+## 🔗 Resources
 
 - **README** : [`.github/README.md`](.github/README.md)
-- **Guide Plans d'Action** : [`.github/PLANS.md`](.github/PLANS.md)
+- **Action Plan Guide** : [`.github/PLANS.md`](.github/PLANS.md)
 - **Checklist** : [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md)
 - **ADRs** : [`docs/adr/`](./adr/)
-- **Exemples** : [`.github/examples/`](.github/examples/)
+- **Examples** : [`.github/examples/`](.github/examples/)

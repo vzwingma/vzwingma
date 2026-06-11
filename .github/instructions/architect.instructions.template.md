@@ -1,41 +1,41 @@
 ---
-description: Spécificités projet [NOM_DU_PROJET] pour l'agent ARCos (architect)
+description: Project-specific details for [PROJECT_NAME] for the ARCos (architect) agent
 applyTo: "**"
 ---
 
-# Spécificités projet — [NOM_DU_PROJET]
+# Project-specific details — [PROJECT_NAME]
 
-> Fichier auto-lu par agent 🟠 ARCos au démarrage.
-> Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+> File automatically read by 🟠 ARCos at start-up.
+> Contains project-specific details for `[PROJECT_NAME]` (`[SHORT_PROJECT_DESCRIPTION]`, for example: React/TypeScript frontend).
 
-## Lecture du document d'architecture
+## Reading the architecture document
 
-**Au démarrage**, lis `docs/ARCHITECTURE.md` si existe dans projet courant :
-- Comprendre stack technique, couches applicatives, composants clés
-- Assurer cohérence décisions planification avec architecture existante
-- Si absent, suggérer à 🟣 DOCly création au terme initiative
+**At start-up**, read `docs/ARCHITECTURE.md` if it exists in the current project:
+- Understand the technical stack, application layers, key components
+- Ensure planning decisions remain consistent with the existing architecture
+- If absent, suggest that 🟣 DOCly create it at the end of the initiative
 
-## Conventions architecturales
+## Architectural conventions
 
-- **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).
-- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer nouveau Context sans validation.
-- **HTTP** : toujours via `[SERVICE_HTTP]`. Pas utiliser `fetch` direct dans composant.
-- **Routing** : `[STRATEGIE_ROUTING]`. Nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
-- **Pas bibliothèque state management externe** sans décision architecturale explicite.
-- **UI** : `[LIBRAIRIE_UI]` uniquement. Pas introduire autre bibliothèque UI.
+- **Layers**: `[UI_LAYER]/` (UI) → `[STATE_LAYER]/` (global state) → `[HTTP_LAYER]/` (HTTP) → `[UTILS_LAYER]/` (constants, helpers).
+- **Global state**: only via `[GLOBAL_STATE_PROVIDER]`. Do not create a new Context without validation.
+- **HTTP**: always via `[HTTP_SERVICE]`. Do not use `fetch` directly in a component.
+- **Routing**: `[ROUTING_STRATEGY]`. New routes are added in `[ROUTES_FILE]`.
+- **No external state management library** without an explicit architectural decision.
+- **UI**: `[UI_LIBRARY]` only. Do not introduce another UI library.
 
-## Documentation des décisions architecturales (ADR)
+## Documenting architectural decisions (ADR)
 
-Chaque décision architecturale majeure doit produire fichier ADR dans `docs/adr/` :
+Each major architectural decision must produce an ADR file in `docs/adr/`:
 
-- **Nommage** : `docs/adr/NNN-titre-court.md` (ex: `docs/adr/001-choix-framework-ui.md`)
-- **Contenu minimal** : contexte, décision prise, alternatives considérées, conséquences
-- **Quand créer ADR** : nouveau framework, changement pattern architectural, décision sécurité, choix structure majeur
-- Déléguer création ADR à 🟣 DOCly après validation décision
+- **Naming**: `docs/adr/NNN-titre-court.md` (for example: `docs/adr/001-choix-framework-ui.md`)
+- **Minimum content**: context, decision made, alternatives considered, consequences
+- **When to create an ADR**: new framework, architectural pattern change, security decision, major structural choice
+- Delegate ADR creation to 🟣 DOCly after the decision is validated
 
-## Protocole de handoff SQL
+## SQL handoff protocol
 
-Quand tâche prête à être réalisée, insère todos dans table SQL avec ce format :
+When a task is ready to be carried out, insert todos into the SQL table with this format:
 
 ```sql
 INSERT INTO todos (id, title, description, status) VALUES
@@ -48,25 +48,25 @@ INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('feat-xxx-doc', 'feat-xxx-dev');
 ```
 
-Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
+ID naming convention: `feat-<name>-dev` / `feat-<name>-qa` / `feat-<name>-doc`.
 
-## Interactions avec l'agent partenaire ([NOM_PROJET_PARTENAIRE])
+## Interactions with the partner agent ([PARTNER_PROJECT_NAME])
 
-- Contrats API (URL, paramètres, codes retour) définis en coordination avec Architecte [ROLE_PARTENAIRE, ex: backend].
-- URLs µServices configurées dans `[FICHIER_CONSTANTES_TECHNIQUES]` et fichiers `.env.*`.
-- Tout nouveau endpoint [PARTENAIRE] doit être reflété dans `[SERVICE_HTTP]` avant que agent Dev puisse utiliser.
+- API contracts (URL, parameters, return codes) are defined in co-ordination with the Architect [PARTNER_ROLE, e.g. backend].
+- µServices URLs are configured in `[TECHNICAL_CONSTANTS_FILE]` and `.env.*` files.
+- Any new [PARTNER] endpoint must be reflected in `[HTTP_SERVICE]` before the Dev agent can use it.
 
-## Agents du projet
+## Project agents
 
-| Icône | Nom      | Fichier agent          | Rôle                          |
-|-------|----------|------------------------|-------------------------------|
-| 🔵    | DEVon    | `Devon.agent.md`         | Implémentation [STACK_PRINCIPALE] |
-| 🟢    | QUALvin  | `Qalvin.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
-| 🟣    | DOCly    | `Docly.agent.md`         | Documentation (README, /docs) |
+| Icon | Name    | Agent file        | Role                          |
+|------|---------|-------------------|-------------------------------|
+| 🔵   | DEVon   | `Devon.agent.md`  | [MAIN_STACK] implementation   |
+| 🟢   | QUALvin | `Qalvin.agent.md` | Unit tests ([TEST_FRAMEWORK]) |
+| 🟣   | DOCly   | `Docly.agent.md`  | Documentation (README, /docs) |
 
 
-## Règle d'index des plans (obligatoire)
+## Plan index rule (mandatory)
 
-- Fichier `.github/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
-- Pas afficher statuts phases.
-- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.github/plans/README.md`.
+- File `.github/plans/README.md` is a **summary index**: it must contain only the list of plans and their **overall status**.
+- Do not display phase statuses.
+- Any plan creation or overall status change must include, in the same change, an update to `.github/plans/README.md`.

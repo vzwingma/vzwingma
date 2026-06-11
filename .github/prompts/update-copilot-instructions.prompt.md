@@ -1,11 +1,10 @@
 ---
 name: update-copilot-instructions
 description: >
-  Audite le code source et les fichiers de bonnes pratiques pour compléter et
-  amender le fichier copilot-instructions.md. Utiliser quand : "mets à jour les
-  instructions Copilot", "complète copilot-instructions depuis le code",
-  "synchronise les instructions avec le projet", "ajoute les bonnes pratiques
-  aux instructions Copilot".
+  Audits the source code and best-practice files to complete and amend the
+  copilot-instructions.md file. Use when: "update Copilot instructions", "complete
+  copilot-instructions from the code", "synchronise instructions with the project",
+  "add best practices to the Copilot instructions".
 agent: agent
 tools:
   - read_file
@@ -16,140 +15,140 @@ tools:
   - multi_replace_string_in_file
 ---
 
-# Mise à jour de `copilot-instructions.md`
+# Updating `copilot-instructions.md`
 
-Mission: auditer code source et fichiers référence, puis compléter/amender `.github/copilot-instructions.md` pour refléter état réel projet et bonnes pratiques.
+Mission: audit source code and reference files, then complete/amend `.github/copilot-instructions.md` so that it reflects the real state of the project and its best practices.
 
-## Fichiers de bonnes pratiques à lire (si présents)
+## Best-practice files to read (if present)
 
-Lire fichiers suivants si existent:
+Read the following files if they exist:
 
-| Chemin (relatif à la racine) | Rôle attendu |
+| Relative root path | Expected role |
 |---|---|
-| `docs/BEST_PRACTICES.md` | Bonnes pratiques développement projet |
-| `docs/CODING_STANDARDS.md` | Standards code (nommage, structure, patterns) |
-| `docs/ARCHITECTURE.md` | Décisions architecture (ADR) |
-| `docs/CONTRIBUTING.md` | Guide contribution / workflow Git |
-| `CHANGELOG.md` | Historique changements (pour détecter évolutions récentes) |
-| `.eslintrc.json` / `eslint.config.*` | Règles lint actives (conventions enforced) |
+| `docs/BEST_PRACTICES.md` | Project development best practices |
+| `docs/CODING_STANDARDS.md` | Code standards (naming, structure, patterns) |
+| `docs/ARCHITECTURE.md` | Architecture decisions (ADR) |
+| `docs/CONTRIBUTING.md` | Contribution guide / Git workflow |
+| `CHANGELOG.md` | Change history (to detect recent developments) |
+| `.eslintrc.json` / `eslint.config.*` | Active lint rules (enforced conventions) |
 
-> Si autres fichiers référence fournis en contexte, lire aussi.
+> If other reference files are provided in context, read those too.
 
-## Étapes d'audit du code source
+## Source code audit steps
 
-### 1. Lire les instructions existantes
+### 1. Read the existing instructions
 
-Lire intégralement `.github/copilot-instructions.md` pour identifier:
-- Sections déjà présentes
-- Infos potentiellement obsolètes ou incomplètes
-- Conventions décrites mais non vérifiées dans code
-- Chapitres indiqués <em>à compléter</em> ou <em>à valider</em>
+Read `.github/copilot-instructions.md` in full to identify:
+- Sections already present
+- Information that may be obsolete or incomplete
+- Conventions described but not verified in the code
+- Chapters marked <em>to be completed</em> or <em>to be validated</em>
 
-### 2. Explorer la structure du projet
+### 2. Explore the project structure
 
-Lister `src/` pour détecter nouveau dossier ou domaine non documenté
+List `src/` to detect a new folder or domain that is not documented
 
-### 3. Extraire les conventions réelles du code
+### 3. Extract the real conventions from the code
 
-Pour chaque couche, rechercher et noter patterns réellement utilisés:
+For each layer, search for and note the patterns actually used:
 
 **Interfaces**
-- Nommage interfaces
-- Structure type interface données
+- Interface naming
+- Typical data interface structure
 
 **Services**
-- Pattern injection
-- Composition API calls (gestion erreurs, utilisation service URL/config pour endpoints, etc.)
-- Gestion erreurs HTTP
+- Injection pattern
+- API call composition (error handling, use of service URL/config for endpoints, etc.)
+- HTTP error handling
 
-**Composants de pages**
-- Structure type composant
+**Page components**
+- Typical component structure
 
-**Composants réutilisables**
-- Pattern cycle vie
+**Reusable components**
+- Lifecycle pattern
 
-**Fonctions utilitaires**
-- Conventions nommage fichiers
-- Pattern fonctions pures
+**Utility functions**
+- File naming conventions
+- Pure function patterns
 
 **Tests**
-- Structure suites
-- Outils mock utilisés
-- Pattern setup
+- Suite structure
+- Mock tools used
+- Setup pattern
 
 **CSS / Styles**
-- Tokens CSS définis
-- Conventions nommage classes locales
+- Defined CSS tokens
+- Local class naming conventions
 
-### 4. Vérifier la cohérence avec les instructions existantes
+### 4. Check consistency with the existing instructions
 
-Pour chaque convention documentée dans `copilot-instructions.md`:
-- Confirmer appliquée dans code
-- Signaler divergence entre doc et code réel
-- Identifier conventions présentes dans code mais absentes instructions
+For each convention documented in `copilot-instructions.md`:
+- Confirm it is applied in the code
+- Flag divergence between documentation and real code
+- Identify conventions present in the code but absent from the instructions
 
-### 5. Auditer les fichiers d'instructions agents
+### 5. Audit the agent instruction files
 
-Lire 4 fichiers suivants dans `.github/instructions/`:
+Read the following 4 files in `.github/instructions/`:
 - `architect.instructions.md`
 - `dev.instructions.md`
 - `qa.instructions.md`
 - `doc.instructions.md`
 
-> Si un fichier est absent, le créer depuis le template correspondant dans `.github/instructions/` du dépôt transverse (`architect.instructions.template.md`, `dev.instructions.template.md`, `qa.instructions.template.md`, `doc.instructions.template.md`) et remplir les placeholders avec les valeurs du projet.
+> If a file is missing, create it from the corresponding template in `.github/instructions/` from the transverse repository (`architect.instructions.template.md`, `dev.instructions.template.md`, `qa.instructions.template.md`, `doc.instructions.template.md`) and fill in the placeholders with project values.
 
-Pour chaque fichier, vérifier cohérence avec code source:
-- `dev.instructions.md`: versions librairies, noms fichiers constantes, chemins dossiers
-- `qa.instructions.md`: versions packages test, commandes CI, chemins rapport couverture
-- `doc.instructions.md`: chemins docs/ locaux, noms fichiers doc, versions pour diagrammes `.puml`
-- `architect.instructions.md`: noms couches, providers état, service HTTP, stratégie routing
+For each file, check consistency with the source code:
+- `dev.instructions.md`: library versions, constant file names, folder paths
+- `qa.instructions.md`: test package versions, CI commands, coverage report paths
+- `doc.instructions.md`: local docs/ paths, documentation file names, versions for `.puml` diagrams
+- `architect.instructions.md`: layer names, state providers, HTTP service, routing strategy
 
-En complément:
-- Identifier placeholders `[...]` non remplis et signaler comme action nécessaire
-- Identifier valeurs obsolètes (ex: version librairie outdatée)
+In addition:
+- Identify unfilled `[...]` placeholders and report them as required actions
+- Identify obsolete values (for example: outdated library version)
 
-### 6. Auditer les skills partagés
+### 6. Audit the shared skills
 
-Lire 4 skills suivants dans `.github/skills/` (si existent):
+Read the following 4 skills in `.github/skills/` (if they exist):
 - `plan-phase-execution/SKILL.md`
 - `plan-creation/SKILL.md`
 - `fleet-guide/SKILL.md`
 - `adr-writing/SKILL.md`
 
-Pour chaque skill, vérifier:
-- Frontmatter `applyTo: "**"` présent (inclusion auto dans contexte agent)
-- Contenu cohérent avec `.github/PLANS.md` (pas divergence format)
-- Agents `.github/agents/*.agent.md` référencent skills dans sections AP et /fleet (et répètent pas contenu)
-- Identifier contenu dupliqué entre skill et agent (candidat extraction)
+For each skill, check:
+- Frontmatter `applyTo: "**"` present (automatic inclusion in agent context)
+- Content consistent with `.github/PLANS.md` (no format divergence)
+- `.github/agents/*.agent.md` agents reference the skills in AP and /fleet sections (and do not repeat the content)
+- Identify duplicated content between skill and agent (candidate for extraction)
 
-> 💡 **Parallélisation possible**: Étapes 2 (exploration structure), 3 (extraction conventions), 5 (audit instructions/) et 6 (audit skills/) sont **indépendantes** et peuvent être lancées en `/fleet` pour accélérer audit global.
+> 💡 **Possible parallelisation**: Steps 2 (structure exploration), 3 (convention extraction), 5 (instructions/ audit) and 6 (skills/ audit) are **independent** and can be launched with `/fleet` to speed up the overall audit.
 
-## Règles de rédaction des amendements
+## Drafting rules for amendments
 
-1. **Pas supprimer** sections existantes sans raison explicite — préférer amender ou compléter
-2. **Vérifier dans code** chaque convention avant ajouter: pas documenter hypothèses
-3. **Rester concis**: instructions Copilot lues chaque session; éviter verbosité
-4. **Conserver langue française** pour texte narratif
-5. **Utiliser exemples code** issus code source réel quand utile
-6. **Structurer ajouts** dans section pertinente existante, ou créer nouvelle section titrée si nécessaire
-7. **Pas dupliquer** infos déjà présentes dans fichiers agents (`.github/agents/`)
+1. **Do not remove** existing sections without explicit reason — prefer amending or completing
+2. **Verify in the code** each convention before adding it: do not document assumptions
+3. **Stay concise**: Copilot instructions are read every session; avoid verbosity
+4. **Keep French** for narrative text
+5. **Use code examples** from the real source code when useful
+6. **Structure additions** in the relevant existing section, or create a new titled section if necessary
+7. **Do not duplicate** information already present in agent files (`.github/agents/`)
 
-## Format de livraison
+## Delivery format
 
-Avant appliquer modifications:
+Before applying modifications:
 
-1. Présenter **diff résumé** changements proposés:
-   - Sections **ajouter** (avec justification et source dans code)
-   - Sections **amender** (avec valeur actuelle et valeur corrigée)
-   - Sections **supprimer** (si obsolètes — demander confirmation)
-   - Sections **validées** (conformes au code, aucun changement)
-   - Vérification agents `.github/agents/*.agent.md` à version courante (v3.0+)
-   - Vérification skills `.github/skills/*/SKILL.md` présents et cohérents avec `PLANS.md`
-   - Modifications proposées pour chaque fichier `.github/instructions/*.instructions.md` (créés depuis `*.instructions.template.md` si absents)
-   - Signalement séparé placeholders non remplis vs valeurs obsolètes
+1. Present a **summary diff** of the proposed changes:
+   - Sections to **add** (with justification and source in the code)
+   - Sections to **amend** (with current value and corrected value)
+   - Sections to **remove** (if obsolete — ask for confirmation)
+   - Sections **validated** (consistent with the code, no change)
+   - Verification of `.github/agents/*.agent.md` agents at the current version (v3.0+)
+   - Verification of `.github/skills/*/SKILL.md` skills present and consistent with `PLANS.md`
+   - Proposed modifications for each `.github/instructions/*.instructions.md` file (created from `*.instructions.template.md` if absent)
+   - Separate report of unfilled placeholders vs obsolete values
 
-2. Attendre **validation 👤 Développeur humain** avant appliquer modifications.
+2. Wait for **validation from the 👤 human Developer** before applying modifications.
 
-3. Une fois validé, appliquer changements dans `.github/copilot-instructions.md` et, si nécessaire, dans fichiers `.github/instructions/*.instructions.md` avec `replace_string_in_file` ou `multi_replace_string_in_file`.
+3. Once validated, apply changes in `.github/copilot-instructions.md` and, if necessary, in `.github/instructions/*.instructions.md` files with `replace_string_in_file` or `multi_replace_string_in_file`.
 
-4. Résumer modifications appliquées en liste à puces.
+4. Summarise the applied modifications as a bullet list.

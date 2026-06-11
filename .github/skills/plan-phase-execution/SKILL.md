@@ -1,40 +1,40 @@
 ---
 name: "plan-phase-execution"
-description: "Skill — Procédure d'exécution de phase d'un Plan d'Action (AP). Appliqué automatiquement à tous les agents."
+description: "Skill — Procedure for executing an Action Plan (AP) phase. Automatically applied to all agents."
 ---
 
-# Skill : Exécution de Phase d'un Plan d'Action (AP)
+# Skill: Executing an Action Plan (AP) Phase
 
-> Skill décrit **procédure standard** pour agent exécute phase Plan Action.
-> Chaque agent connaît propre identifiant et cibles délégation (voir instructions).
-> Référence complète format AP : `.github/PLANS.md`
-
----
-
-## Avant de démarrer
-
-1. **Lire plan complet** : `.github/plans/<NO>_<nom>.plan.md`
-2. **Identifier tes tâches** : Chercher ton identifiant agent dans phase (ex: `🔵 DEVon`, `🟢 QUALvin`, etc.)
-3. **Lister tâches** assignées (T<N>.X, T<N>.Y, etc.) et séquence
-4. **Comprendre dépendances** : Quelle(s) phase(s) doit-on compléter avant tienne
-5. **Identifier rapport à remplir** : `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
+> This skill describes the **standard procedure** for an agent to execute an Action Plan phase.
+> Each agent knows its own identifier and delegation targets (see instructions).
+> Full AP format reference: `.github/PLANS.md`
 
 ---
 
-## Pendant l'exécution
+## Before starting
 
-Pour chaque tâche T<N>.<M> :
+1. **Read the full plan**: `.github/plans/<NO>_<nom>.plan.md`
+2. **Identify your tasks**: Look for your agent identifier in the phase (for example: `🔵 DEVon`, `🟢 QUALvin`, etc.)
+3. **List the assigned tasks** (T<N>.X, T<N>.Y, etc.) and their sequence
+4. **Understand dependencies**: Which phase(s) must be completed before yours
+5. **Identify the report to fill in**: `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
 
-1. **Lire tâche en détail** dans plan
-   - Quel(s) fichier(s) toucher / tester / documenter
-   - Quoi couvrir / implémenter
-   - Critères acceptation mesurables
+---
 
-2. **Exécuter tâche** selon ton rôle
+## During execution
 
-3. **Documenter dans rapport phase** en temps réel
+For each task T<N>.<M>:
 
-**Format documentation par tâche :**
+1. **Read the task in detail** in the plan
+   - Which file(s) to touch / test / document
+   - What to cover / implement
+   - Measurable acceptance criteria
+
+2. **Execute the task** according to your role
+
+3. **Document it in the phase report** in real time
+
+**Documentation format per task:**
 ```markdown
 ### T<N>.<M> - [Titre de la tâche]
 
@@ -54,16 +54,16 @@ Pour chaque tâche T<N>.<M> :
 
 ---
 
-## Après chaque tâche
+## After each task
 
-- ✅ Mettre à jour statut dans rapport (🔄 → ✅ ou ❌)
-- ✅ Vérifier que tâche suivante peut démarrer (dépendances internes)
+- ✅ Update the status in the report (🔄 → ✅ or ❌)
+- ✅ Check that the next task can start (internal dependencies)
 
 ---
 
-## À la fin de la phase
+## At the end of the phase
 
-Remplir **Synthèse Phase** dans rapport :
+Fill in the **Phase Summary** in the report:
 
 ```markdown
 ## 📊 Synthèse de Phase
@@ -77,20 +77,20 @@ Remplir **Synthèse Phase** dans rapport :
 **Prochaine Phase :** Phase X peut démarrer (toutes les dépendances ✅)
 ```
 
-Puis **signaler à agent suivant** selon tes instructions délégation.
+Then **notify the next agent** according to your delegation instructions.
 
 ---
 
-## Règle obligatoire — Synchronisation de l'index des plans
+## Mandatory rule — Plan index synchronisation
 
-- `.github/plans/README.md` est index **plans + statut global uniquement** (jamais détails phases).
-- Si tes mises à jour entraînent changement **statut global** plan, mets à jour `.github/plans/README.md` dans **même changement**.
+- `.github/plans/README.md` is the **plans + global status only** index (never phase details).
+- If your updates cause a change to the plan's **global status**, update `.github/plans/README.md` in the **same change**.
 
 ---
 
-## Références
+## References
 
-- 📋 Guide complet : `.github/PLANS.md`
-- 📋 Plan courant : `.github/plans/<NO>_<nom>.plan.md`
-- 📊 Rapports existants : `.github/plans/<NO>_reports/`
-- 📌 Index plans (synthétique) : `.github/plans/README.md`
+- 📋 Full guide: `.github/PLANS.md`
+- 📋 Current plan: `.github/plans/<NO>_<nom>.plan.md`
+- 📊 Existing reports: `.github/plans/<NO>_reports/`
+- 📌 Plans index (summary): `.github/plans/README.md`

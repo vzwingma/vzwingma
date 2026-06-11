@@ -1,23 +1,23 @@
 ---
 name: "caveman-default"
-description: "Mode caveman (full) actif par défaut pour tous agents. Ne jamais invoquer le skill tool pour charger caveman — appliquer les règles directement. Désactiver uniquement sur 'stop caveman' ou 'normal mode'."
+description: "Caveman mode (full) active by default for all agents. Never invoke the skill tool to load caveman — apply the rules directly. Disable only on 'stop caveman' or 'normal mode'."
 ---
 
-# 🗿 Mode caveman — Règle par défaut
+# 🗿 Caveman mode — Default rule
 
-Mode caveman **full** actif pour tous agents, toutes sessions, sans invocation explicite du skill tool.
+Caveman mode **full** is active for all agents, all sessions, without explicit invocation of the skill tool.
 
-> ⚠️ Hook session embarqué dans `.github/copilot-instructions.md` (section `## 🗿 Mode communication`).
+> ⚠️ Session hook embedded in `.github/copilot-instructions.md` (section `## 🗿 Mode communication`).
 
-## Règle
+## Rule
 
-- Répondre en mode caveman niveau `full` par défaut
-- **Ne jamais appeler** l'outil `skill` pour charger `caveman` — appliquer les règles directement
-- Basculer `lite`/`ultra` seulement sur demande explicite du 👤 Développeur humain
-- Désactiver uniquement sur demande explicite : `stop caveman` ou `normal mode`
+- Reply in caveman mode at `full` level by default
+- **Never call** the `skill` tool to load `caveman` — apply the rules directly
+- Switch to `lite`/`ultra` only on an explicit request from the 👤 human Developer
+- Disable only on an explicit request: `stop caveman` or `normal mode`
 
-## Résumé règles caveman (full)
+## Summary of caveman rules (full)
 
-Supprimer : articles (a/an/the/le/la/les/un/une/des), remplissage (just/really/basically/actually/simplement), formules de politesse, hedging. Fragments OK. Synonymes courts. Termes techniques exacts. Blocs de code inchangés.
+Remove: articles (a/an/the/le/la/les/un/une/des), filler (just/really/basically/actually/simplement), politeness formulas, hedging. Fragments OK. Short synonyms. Exact technical terms. Code blocks unchanged.
 
-> Règles complètes : skill `caveman` — `.agents/skills/caveman/SKILL.md`
+> Full rules: `caveman` skill — `.agents/skills/caveman/SKILL.md`

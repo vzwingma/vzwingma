@@ -1,124 +1,124 @@
 ---
 name: init-copilot-instructions
 description: >
-  Initialise les instructions Copilot pour un nouveau projet. Utiliser pour :
-  "initialise les instructions Copilot", "génère les instructions pour ce projet",
-  "crée un copilot-instructions.md", "configure Copilot pour ce projet".
-  Prend en paramètre le type de projet et extrait les informations du code source.
+  Initialises Copilot instructions for a new project. Use for:
+  "initialise Copilot instructions", "generate instructions for this project",
+  "create a copilot-instructions.md", "configure Copilot for this project".
+  Takes the project type as a parameter and extracts information from the source code.
 agent: agent
 ---
 
-# Initialisation des Instructions Copilot
+# Initialising Copilot Instructions
 
-> **Prérequis** : Avant lancer prompt, fichiers suivants doivent exister projet cible (copiés depuis dépôt transverse) :
-> - `.github/agents/` — 4 agents génériques (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
-> - `.github/prompts/` — prompts réutilisables
-> - `.github/PLANS.md` — guide Plans d'Action
+> **Prerequisites**: Before running the prompt, the following files must exist in the target project (copied from the transverse repository):
+> - `.github/agents/` — 4 generic agents (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+> - `.github/prompts/` — reusable prompts
+> - `.github/PLANS.md` — Action Plan guide
 >
-> Prompt initialise uniquement fichiers **spécifiques projet** : `copilot-instructions.md` et 4 fichiers `instructions/`.
-> Pour copier prérequis, utiliser d'abord prompt `migrate-to-template`.
+> The prompt initialises only **project-specific** files: `copilot-instructions.md` and the 4 `instructions/` files.
+> To copy prerequisites, first use the `migrate-to-template` prompt.
 
-Mission : **générer et initialiser** fichier `.github/copilot-instructions.md` pour nouveau projet, basé sur :
+Mission: **generate and initialise** the `.github/copilot-instructions.md` file for a new project, based on:
 
-1. **Template générique** (`.github/copilot-instructions.template.md`) présent dans dépôt transverse
-2. **Analyse code source** projet cible
-3. **Conventions réelles** appliquées dans code
+1. **Generic template** (`.github/copilot-instructions.template.md`) present in the transverse repository
+2. **Target project source code analysis**
+3. **Real conventions** applied in the code
 
-## 📋 Étapes
+## 📋 Steps
 
-### 1. Lire le template générique
+### 1. Read the generic template
 
-Lire intégralement `.github/copilot-instructions.template.md` pour comprendre structure base.
+Read `.github/copilot-instructions.template.md` in full to understand the base structure.
 
-### 2. Analyser le projet cible
+### 2. Analyse the target project
 
-Parcourir dépôt et identifier :
+Browse the repository and identify:
 
-- **Structure projet** : Explorer dossiers principaux (src/, app/, lib/, etc.)
-- **Stack technologique** : Identifier langage (TypeScript, Python, Go, etc.), framework principal (React, Vue, Django, Spring, etc.)
-- **Type projet** : Catégoriser (frontend, backend, fullstack, mobile, CLI, lib, etc.)
-- **Plateforme** : Web, mobile (iOS/Android), desktop, CLI, API, etc.
-- **Gestion état** : Context API, Redux, Zustand, MobX, etc. (si pertinent)
-- **Patterns architecturaux** : Couches (components, services, models), DDD, MVVM, etc.
-- **Conventions existantes** : Naming files, imports, styling, testing patterns, etc.
+- **Project structure**: Explore the main folders (src/, app/, lib/, etc.)
+- **Technology stack**: Identify the language (TypeScript, Python, Go, etc.), main framework (React, Vue, Django, Spring, etc.)
+- **Project type**: Categorise (frontend, backend, full-stack, mobile, CLI, library, etc.)
+- **Platform**: Web, mobile (iOS/Android), desktop, CLI, API, etc.
+- **State management**: Context API, Redux, Zustand, MobX, etc. (if relevant)
+- **Architectural patterns**: Layers (components, services, models), DDD, MVVM, etc.
+- **Existing conventions**: File naming, imports, styling, testing patterns, etc.
 
-### 3. Remplir les sections du template
+### 3. Fill in the template sections
 
-Pour chaque placeholder `[...]` du template, fournir valeur adaptée :
+For each `[...]` placeholder in the template, provide a suitable value:
 
-| Placeholder | Source d'information | Exemple |
+| Placeholder | Source of information | Example |
 |---|---|---|
-| `[NOM_DU_PROJET]` | Nom repo ou package.json name | "Domoticz Mobile", "API-Gateway", "Design System" |
-| **Présentation du Projet** | README, description, package.json, main.swift, etc. | Stack tech, domaine métier, plateformes |
-| **Commandes** | package.json scripts, Makefile, build scripts, etc. | `npm start`, `npm test`, `go build`, etc. |
-| **Architecture** | Structure dossiers + patterns observés | Diagram ASCII ou description hiérarchique |
-| **Conventions Clés** | Fichiers existants du code | Nommage, TypeScript config, ESLint, Prettier, etc. |
-| **État du Projet** | Code analysis + notes | État maintenance, patterns erreur, dépendances clés |
+| `[NOM_DU_PROJET]` | Repo name or package.json name | "Domoticz Mobile", "API-Gateway", "Design System" |
+| **Project Overview** | README, description, package.json, main.swift, etc. | Tech stack, business domain, platforms |
+| **Commands** | package.json scripts, Makefile, build scripts, etc. | `npm start`, `npm test`, `go build`, etc. |
+| **Architecture** | Folder structure + observed patterns | ASCII diagram or hierarchical description |
+| **Key Conventions** | Existing files in the codebase | Naming, TypeScript config, ESLint, Prettier, etc. |
+| **Project State** | Code analysis + notes | Maintenance state, error patterns, key dependencies |
 
-> 💡 **Parallélisation possible** : Étapes 4 et 5 (génération `copilot-instructions.md` et 4 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si infos analyse (étape 2) disponibles.
+> 💡 **Possible parallelisation**: Steps 4 and 5 (generating `copilot-instructions.md` and the 4 `instructions/` files) can be executed in parallel with `/fleet` if the analysis information (step 2) is available.
 
-### 4. Générer le fichier
+### 4. Generate the file
 
-Créer `.github/copilot-instructions.md` en :
-1. Copiant template
-2. Remplaçant tous placeholders par valeurs projet
-3. Supprimant sections `[📌 À COMPLÉTER : ...]` si remplies
-4. Conservant sections génériques (agents, workflow, plans d'action, diagrammes)
+Create `.github/copilot-instructions.md` by:
+1. Copying the template
+2. Replacing all placeholders with project values
+3. Removing `[📌 À COMPLÉTER : ...]` sections if filled in
+4. Keeping generic sections (agents, workflow, action plans, diagrams)
 
-### 5. Générer les fichiers d'instructions agents
+### 5. Generate the agent instruction files
 
-Lire 4 templates dans `.github/instructions/` du dépôt transverse :
-- `architect.instructions.template.md` — template instructions pour agent ARCos
-- `dev.instructions.template.md` — template instructions pour agent DEVon
-- `qa.instructions.template.md` — template instructions pour agent QUALvin
-- `doc.instructions.template.md` — template instructions pour agent DOCly
+Read the 4 templates in `.github/instructions/` from the transverse repository:
+- `architect.instructions.template.md` — instruction template for the ARCos agent
+- `dev.instructions.template.md` — instruction template for the DEVon agent
+- `qa.instructions.template.md` — instruction template for the QUALvin agent
+- `doc.instructions.template.md` — instruction template for the DOCly agent
 
-Pour chaque fichier, remplir placeholders avec valeurs identifiées lors analyse (étape 2) :
-- `[NOM_DU_PROJET]` → nom projet
-- `[DESCRIPTION_COURTE_DU_PROJET]` → description courte (ex: frontend React/TypeScript)
-- Pour `dev.instructions.md` : stack, versions, fichiers constantes, service HTTP, dossiers conventions
-- Pour `qa.instructions.md` : framework test, commandes CI, chemins rapport couverture, noms contexts
-- Pour `doc.instructions.md` : chemin docs/ local, noms fichiers documentation, frameworks + versions pour `.puml`
-- Pour `architect.instructions.md` : couches projet, noms providers état, service HTTP, routing
+For each file, fill in placeholders with the values identified during analysis (step 2):
+- `[NOM_DU_PROJET]` → project name
+- `[DESCRIPTION_COURTE_DU_PROJET]` → short description (for example: React/TypeScript frontend)
+- For `dev.instructions.md`: stack, versions, constants files, HTTP service, convention folders
+- For `qa.instructions.md`: test framework, CI commands, coverage report paths, context names
+- For `doc.instructions.md`: local docs/ path, documentation file names, frameworks + versions for `.puml`
+- For `architect.instructions.md`: project layers, state provider names, HTTP service, routing
 
-Créer 4 fichiers dans `.github/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
-Si certaines valeurs non déterminables depuis code, conserver placeholders `[...]` et signaler explicitement.
+Create 4 files in the target project's `.github/instructions/` folder (or update them if they already exist), named `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
+If some values cannot be determined from the code, keep the `[...]` placeholders and report them explicitly.
 
-### 6. Auditer et enrichir (optionnel)
+### 6. Audit and enrich (optional)
 
-Si projet dispose autres fichiers référence (CONTRIBUTING.md, ARCHITECTURE.md, BEST_PRACTICES.md, etc.), les lire et enrichir sections correspondantes fichier généré.
+If the project has other reference files (CONTRIBUTING.md, ARCHITECTURE.md, BEST_PRACTICES.md, etc.), read them and enrich the corresponding sections of the generated file.
 
-## ✅ Checklist de Livraison
+## ✅ Delivery Checklist
 
-- [ ] Fichier `.github/copilot-instructions.md` créé
-- [ ] Fichiers `.github/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (4 fichiers : architect, dev, qa, doc)
-- [ ] Tous placeholders `[...]` remplacés par valeurs réelles
-- [ ] Placeholders critiques remplacés (minimum : NOM_DU_PROJET, stack technique)
-- [ ] Sections `[📌 À COMPLÉTER : ...]` supprimées ou complétées
-- [ ] Structure sections conservée (ordre, hiérarchie)
-- [ ] Sections génériques intactes (Agents, Workflow, Plans d'Action, Diagrammes)
-- [ ] Exemples code issus codebase réel (si pertinent)
-- [ ] Pas références fichiers inexistants
-- [ ] Langue française conservée pour tout texte narratif
-- [ ] Fichier lisible et bien formaté (Markdown)
-- [ ] `.github/agents/` contient 4 fichiers (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
-- [ ] `.github/skills/` contient 4 skills partagés (`plan-phase-execution/SKILL.md`, `plan-creation/SKILL.md`, `fleet-guide/SKILL.md`, `adr-writing/SKILL.md`)
+- [ ] `.github/copilot-instructions.md` file created
+- [ ] `.github/instructions/*.instructions.md` files created from `*.instructions.template.md` templates (4 files: architect, dev, qa, doc)
+- [ ] All `[...]` placeholders replaced with real values
+- [ ] Critical placeholders replaced (minimum: NOM_DU_PROJET, technical stack)
+- [ ] `[📌 À COMPLÉTER : ...]` sections removed or completed
+- [ ] Section structure preserved (order, hierarchy)
+- [ ] Generic sections intact (Agents, Workflow, Action Plans, Diagrams)
+- [ ] Code examples from the real codebase (if relevant)
+- [ ] No references to non-existent files
+- [ ] French retained for all narrative text
+- [ ] File readable and properly formatted (Markdown)
+- [ ] `.github/agents/` contains 4 files (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+- [ ] `.github/skills/` contains 4 shared skills (`plan-phase-execution/SKILL.md`, `plan-creation/SKILL.md`, `fleet-guide/SKILL.md`, `adr-writing/SKILL.md`)
 - [ ] `.github/PLANS.md` accessible
-- [ ] `docs/ARCHITECTURE.md` existe (créer depuis template : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
-- [ ] `docs/adr/` existe (créer si absent : `mkdir -p docs/adr`)
+- [ ] `docs/ARCHITECTURE.md` exists (create from template: `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
+- [ ] `docs/adr/` exists (create if absent: `mkdir -p docs/adr`)
 
-## 💡 Conseils
+## 💡 Tips
 
-1. **Soyez précis** : Observer et décrire ce qui existe réellement, pas hypothèses
-2. **Soyez concis** : Instructions Copilot lues régulièrement ; rester synthétique
-3. **Soyez pratiques** : Inclure commandes réelles, patterns réels observés
-4. **Conservez la structure** : Pas réorganiser sections template, sauf si très pertinent
-5. **Exemples du code** : Quand utile, inclure patterns extraits code source réel
+1. **Be precise**: Observe and describe what actually exists, not assumptions
+2. **Be concise**: Copilot instructions are read regularly; stay concise
+3. **Be practical**: Include real commands, real observed patterns
+4. **Keep the structure**: Do not reorganise template sections, unless highly relevant
+5. **Examples from the code**: Where useful, include patterns extracted from real source code
 
-## 🎯 Résultat
+## 🎯 Result
 
-À fin, fichier `.github/copilot-instructions.md` doit être **source de vérité** pour Copilot :
-- Décrit fidèlement état projet
-- Fournit conventions claires et appliquées
-- Guide agents dans contexte projet spécifique
-- Reste à jour et maintenu par projet
+At the end, the `.github/copilot-instructions.md` file must be the **source of truth** for Copilot:
+- Faithfully describes the state of the project
+- Provides clear, applied conventions
+- Guides agents in the context of the specific project
+- Stays up to date and maintained by the project

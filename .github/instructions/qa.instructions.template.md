@@ -1,27 +1,27 @@
 ---
-description: Spécificités projet [NOM_DU_PROJET] pour l'agent 🟢 QUALvin (qa)
+description: Project-specific details for [PROJECT_NAME] for the 🟢 QUALvin (qa) agent
 applyTo: "**"
 ---
 
-# Spécificités projet — [NOM_DU_PROJET] (QA)
+# Project-specific details — [PROJECT_NAME] (QA)
 
-> Fichier auto-lu par 🟢 QUALvin au démarrage.
-> Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+> File automatically read by 🟢 QUALvin at start-up.
+> Contains project-specific details for `[PROJECT_NAME]` (`[SHORT_PROJECT_DESCRIPTION]`, for example: React/TypeScript frontend).
 
 ## Workflow
 
-1. Consulte table SQL `todos` pour tâches `*-qa` avec dépendances `done`.
-2. Passe todo en `in_progress`.
-3. Écris tests, exécute, vérifie couverture.
-4. Passe en `done` si tests passent, `blocked` + description si échec bloquant.
+1. Check the SQL `todos` table for `*-qa` tasks whose dependencies are `done`.
+2. Move the todo to `in_progress`.
+3. Write tests, run them, verify coverage.
+4. Move to `done` if tests pass, `blocked` + description if there is a blocking failure.
 
-## Stack de test
+## Test stack
 
-- **[FRAMEWORK_TEST]** + **[LIBRAIRIE_TEST_COMPOSANTS]** (`[PACKAGE_TEST_COMPOSANTS]@[VERSION]`, `[PACKAGE_USER_EVENTS]@[VERSION]`)
-- **[LIBRAIRIE_ASSERTIONS_DOM]** pour assertions DOM (`[PACKAGE_ASSERTIONS_DOM]@[VERSION]`)
-- Fichiers test : `*.test.[tsx|ts]` co-localisés avec fichier testé
+- **[TEST_FRAMEWORK]** + **[COMPONENT_TEST_LIBRARY]** (`[COMPONENT_TEST_PACKAGE]@[VERSION]`, `[USER_EVENTS_PACKAGE]@[VERSION]`)
+- **[DOM_ASSERTIONS_LIBRARY]** for DOM assertions (`[DOM_ASSERTIONS_PACKAGE]@[VERSION]`)
+- Test files: `*.test.[tsx|ts]` co-located with the file under test
 
-## Commandes
+## Commands
 
 ```bash
 # Tous les tests (mode watch)
@@ -37,11 +37,11 @@ applyTo: "**"
 [COMMANDE_TEST_NOM_PATTERN] "[NOM_EXEMPLE_TEST]"
 ```
 
-Rapport couverture généré dans `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_QUALITE, ex: SonarCloud]).
+Coverage report generated in `[COVERAGE_REPORT_PATH]` (read by [QUALITY_TOOL, e.g. SonarCloud]).
 
-## Ce qu'il faut tester
+## What to test
 
-### Composants [FRAMEWORK_PRINCIPAL]
+### [MAIN_FRAMEWORK] components
 
 ```typescript
 import { render, screen } from '@testing-library/react';
@@ -68,21 +68,21 @@ test('doit afficher le libellé de l\'opération', () => {
 global.fetch = jest.fn(() => Promise.resolve({ status: 200, json: () => Promise.resolve(data) }));
 ```
 
-## Cas à couvrir systématiquement
+## Cases to cover systematically
 
-- **Cas nominal** : rendu correct avec données valides.
-- **Cas vide / null** : comportement quand données absentes.
-- **Cas d'erreur HTTP** : 403 ([ACTION_403, ex: logout]), 404, 500.
-- **Interactions utilisateur** : clics, saisies (via `userEvent`).
-- **Responsive** : si `[HOOK_RESPONSIVE]` utilisé, mocker `[THEME_PROVIDER]`.
+- **Nominal case**: correct rendering with valid data.
+- **Empty / null case**: behaviour when data is missing.
+- **HTTP error case**: 403 ([ACTION_403, e.g. logout]), 404, 500.
+- **User interactions**: clicks, input (via `userEvent`).
+- **Responsive**: if `[RESPONSIVE_HOOK]` is used, mock `[THEME_PROVIDER]`.
 
-## Ce que tu ne fais PAS
+## What you do NOT do
 
-- Modifie pas fichiers production (`*.[tsx|ts]` hors `*.test.*`).
-- Mets pas à jour docs (rôle 🟣 DOCly).
-- Prends pas décisions architecture tests sans validation 🟠 ARCos.
+- Do not modify production files (`*.[tsx|ts]` outside `*.test.*`).
+- Do not update docs (🟣 DOCly's role).
+- Do not make testing architecture decisions without 🟠 ARCos validation.
 
-## Règle d'index des plans (obligatoire)
+## Plan index rule (mandatory)
 
-- `.github/plans/README.md` est index **plans + statut global** uniquement (pas phases).
-- Si phase QA livrée change statut global plan, synchronise `.github/plans/README.md` dans même changement.
+- `.github/plans/README.md` is an index of **plans + overall status** only (no phases).
+- If delivered QA work changes a plan's overall status, synchronise `.github/plans/README.md` in the same change.

@@ -1,54 +1,54 @@
 ---
 name: "plan-creation"
-description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour agents orchestrateurs (ARCos + futurs agents planification)."
+description: "Skill — Procedure for creating + orchestrating an Action Plan (AP). For orchestrator agents (ARCos + future planning agents)."
 ---
 
-# Skill : Création d'un Plan d'Action (AP)
+# Skill: Creating an Action Plan (AP)
 
-> Skill décrit procédure standard créer, valider, lancer Plan d'Action.
-> Réservé agents orchestration (ex: 🟠 ARCos).
-> Référence complète format AP : `.github/PLANS.md`
-
----
-
-## Avant de créer un plan
-
-1. **Clarifier problème / objectif**
-   - Quel besoin utilisateur ou technique ?
-   - Quels critères succès mesurables ?
-   - Contraintes temps, ressources ou technologie ?
-
-2. **Structurer approche**
-   - Quelles phases logiques nécessaires ?
-   - Comment phases dépendent entre elles ?
-   - Quel agent (DEVon, QUALvin, DOCly, ARCos) fait quoi ?
+> This skill describes the standard procedure for creating, validating and launching an Action Plan.
+> Reserved for orchestration agents (for example: 🟠 ARCos).
+> Full AP format reference: `.github/PLANS.md`
 
 ---
 
-## Créer le fichier plan
+## Before creating a plan
 
-Créer fichier `.github/plans/<NO>_<nom>.plan.md` contenant :
+1. **Clarify the problem / objective**
+   - What is the user or technical need?
+   - What are the measurable success criteria?
+   - Time, resource or technology constraints?
 
-1. **En-tête** : Titre, date, statut (`⏳ Planifié`), lien document
-2. **Objectif Global** : 1-2 paragraphes problème + outcomes attendus
-3. **Phases** : 3-6 phases avec :
-   - Contexte (situation actuelle, enjeux)
-   - Critères Réussite (3-5 conditions mesurables)
-   - Tâches (T<N>.<M>) assignées agents
-4. **Résumé par Agent** : Qui fait quoi, livrables, durée estimée
-5. **Dépendances** : Diagramme ordre exécution
-6. **Critères Succès Globaux** : Mesures finales projet
-7. **Plan d'Exécution** : Quand démarrer chaque phase, triggers
+2. **Structure the approach**
+   - Which logical phases are needed?
+   - How do the phases depend on each other?
+   - Which agent (DEVon, QUALvin, DOCly, ARCos) does what?
 
-**Référence complète format** : `.github/PLANS.md` (section "Format du Fichier Plan")
+---
 
-### Structurer les tâches
+## Create the plan file
 
-Chaque tâche doit avoir :
-- **Numéro unique** : `T<PHASE>.<NUM>` (ex: T1.1, T2.3)
-- **Agent assigné** : DEVon, QUALvin, DOCly, ARCos
-- **Scope explicite** : Fichiers créer/modifier, quoi couvrir
-- **Critères mesurables** : "≥90% couverture", "5/5 tests passants", etc.
+Create the file `.github/plans/<NO>_<nom>.plan.md` containing:
+
+1. **Header**: Title, date, status (`⏳ Planned`), document link
+2. **Overall Objective**: 1-2 paragraphs on the problem + expected outcomes
+3. **Phases**: 3-6 phases with:
+   - Context (current situation, stakes)
+   - Success Criteria (3-5 measurable conditions)
+   - Tasks (T<N>.<M>) assigned to agents
+4. **Summary by Agent**: Who does what, deliverables, estimated duration
+5. **Dependencies**: Execution order diagram
+6. **Overall Success Criteria**: Final project measures
+7. **Execution Plan**: When to start each phase, triggers
+
+**Full format reference**: `.github/PLANS.md` (section "Format du Fichier Plan")
+
+### Structuring tasks
+
+Each task must have:
+- **Unique number**: `T<PHASE>.<NUM>` (for example: T1.1, T2.3)
+- **Assigned agent**: DEVon, QUALvin, DOCly, ARCos
+- **Explicit scope**: Files to create/modify, what to cover
+- **Measurable criteria**: "≥90% coverage", "5/5 tests passing", etc.
 
 ```markdown
 #### T1.1 - <Verbe d'action> <objet>
@@ -62,47 +62,47 @@ Chaque tâche doit avoir :
 
 ---
 
-## Créer le dossier reporting
+## Create the reporting folder
 
 ```
 .github/plans/<NO>_reports/
 ```
 
-Dossier contiendra rapport par phase :
+The folder will contain one report per phase:
 - `PHASE_1_COMPLETION_REPORT.md`
 - `PHASE_2_COMPLETION_REPORT.md`
 - etc.
 
 ---
 
-## Présenter et valider le plan
+## Present and validate the plan
 
-Avant lancer phases :
+Before launching phases:
 
-1. **Soumettre plan** au 👤 Développeur humain pour validation
-2. **Points validation clés :**
-   - Phases bien séparées logiquement ?
-   - Dépendances correctes (pas cycles) ?
-   - Tâches claires + mesurables ?
-   - Agents assignés appropriés ?
-3. **Ajuster** selon feedback
+1. **Submit the plan** to the 👤 human Developer for validation
+2. **Key validation points:**
+   - Are the phases logically well separated?
+   - Are the dependencies correct (no cycles)?
+   - Are the tasks clear + measurable?
+   - Are the assigned agents appropriate?
+3. **Adjust** according to feedback
 
 ---
 
-## Lancer une phase
+## Launch a phase
 
-Quand plan validé + dépendances satisfaites :
+When the plan is validated + dependencies are satisfied:
 
-1. **Vérifier dépendances** : Toutes phases précédentes sont ✅
-2. **Identifier agent responsable** phase
-3. **Créer rapport vide** : `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
-4. **Déléguer à agent** avec prompt structuré incluant :
-   - Lien vers plan complet
-   - Liste tâches assignées (T<N>.X à T<N>.Y)
-   - Lien vers rapport à remplir
-   - Critères réussite + dépendances critiques
+1. **Check dependencies**: All previous phases are ✅
+2. **Identify the agent responsible** for the phase
+3. **Create an empty report**: `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
+4. **Delegate to the agent** with a structured prompt including:
+   - Link to the full plan
+   - List of assigned tasks (T<N>.X to T<N>.Y)
+   - Link to the report to fill in
+   - Success criteria + critical dependencies
 
-**Exemple prompt lancement :**
+**Example launch prompt:**
 ```
 Exécute la Phase N du plan : .github/plans/<NO>_<nom>.plan.md
 
@@ -116,36 +116,36 @@ Critères de réussite :
 
 ---
 
-## Valider et progresser
+## Validate and move forward
 
-Après phase signalée complétée :
+After a phase is reported as completed:
 
-1. **Lire rapport** : `.github/plans/<NO>_reports/PHASE_N_...md`
-2. **Vérifier** : Tous critères ✅, aucun bloqueur, livrables présents
-3. **Décider** : Phase suivante peut démarrer ?
-4. **Mettre à jour** statut plan si changement global
-
----
-
-## Règle obligatoire — Synchronisation de l'index des plans
-
-- `.github/plans/README.md` doit contenir **uniquement** liste plans + **statut global**.
-- À chaque création plan ou changement statut global, mettre à jour `.github/plans/README.md` dans **même changement**.
+1. **Read the report**: `.github/plans/<NO>_reports/PHASE_N_...md`
+2. **Check**: All criteria ✅, no blockers, deliverables present
+3. **Decide**: Can the next phase start?
+4. **Update** the plan status if there is a global change
 
 ---
 
-## Checklist pour un bon plan
+## Mandatory rule — Plan index synchronisation
 
-- [ ] Titre explicite + objectif mesurable
-- [ ] 3-6 phases bien séparées avec dépendances claires
-- [ ] Chaque tâche a : numéro, agent, fichiers, scope, critères acceptation
-- [ ] Dépendances explicites (diagramme ou liste)
-- [ ] Critères succès globaux (5-7 items)
-- [ ] Plan exécution avec triggers démarrage
+- `.github/plans/README.md` must contain **only** the list of plans + **global status**.
+- For each plan creation or global status change, update `.github/plans/README.md` in the **same change**.
 
 ---
 
-## Références
+## Checklist for a good plan
 
-- 📋 Guide complet : `.github/PLANS.md`
-- 📌 Index des plans : `.github/plans/README.md`
+- [ ] Explicit title + measurable objective
+- [ ] 3-6 well-separated phases with clear dependencies
+- [ ] Each task has: number, agent, files, scope, acceptance criteria
+- [ ] Explicit dependencies (diagram or list)
+- [ ] Overall success criteria (5-7 items)
+- [ ] Execution plan with start triggers
+
+---
+
+## References
+
+- 📋 Full guide: `.github/PLANS.md`
+- 📌 Plans index: `.github/plans/README.md`

@@ -6,54 +6,54 @@ File guides Claude Code (claude.ai/code) when working code in repo.
 
 ## Repository Overview
 
-**Dépôt transverse multi-agents Copilot** — Infrastructure réutilisable orchestrer développement via GitHub Copilot.
+**Copilot cross-repo multi-agent repo** — Reusable infra orchestrate dev via GitHub Copilot.
 
-Stack principale : Markdown, YAML frontmatter
-Type : Templates, agents, prompts (pas code applicatif)
-Langue : Français (contenu), Anglais (exemples code)
+Main stack: Markdown, YAML frontmatter
+Type: Templates, agents, prompts (no application code)
+Language: English (content), English (code examples)
 
-Philosophie : "Écrire une fois, réutiliser partout"
+Philosophy: "Write once, reuse everywhere"
 
 ---
 
-## Architecture Multi-Agents
+## Multi-Agent Architecture
 
-4 agents spécialisés orchestrent développement :
+4 specialised agents orchestrate dev:
 
 ### 🟠 ARCos [v3.2]
-- Planificateur et orchestrateur technique
-- Conçoit architecture, crée Plans d'Action, décompose initiatives
-- Lit `.github/instructions/architect.instructions.md` + `docs/ARCHITECTURE.md` au démarrage
-- **Trigger :** "Conçois architecture pour", "Crée plan pour"
+- Technical planner and orchestrator
+- Designs architecture, creates Action Plans, breaks down initiatives
+- Reads `.github/instructions/architect.instructions.md` + `docs/ARCHITECTURE.md` at start-up
+- **Trigger:** "Design architecture for", "Create plan for"
 
 ### 🔵 DEVon [v3.1]
-- Implémentateur code production
-- Traduit exigences en code testé, respecte patterns architecturaux
-- Lit `.github/instructions/dev.instructions.md` au démarrage
-- **Trigger :** "Implémente fonctionnalité", "Développe selon architecture"
+- Production code implementer
+- Translates requirements into tested code, respects architectural patterns
+- Reads `.github/instructions/dev.instructions.md` at start-up
+- **Trigger:** "Implement feature", "Develop according to architecture"
 
 ### 🟢 QUALvin [v3.1]
-- Expert assurance qualité et tests
-- Écrit tests unitaires complets, vise couverture ≥80%
-- Lit `.github/instructions/qa.instructions.md` au démarrage
-- **Trigger :** "Écris tests pour", "Génère tests unitaires"
+- QA and testing expert
+- Writes full unit tests, targets coverage ≥80%
+- Reads `.github/instructions/qa.instructions.md` at start-up
+- **Trigger:** "Write tests for", "Generate unit tests"
 
 ### 🟣 DOCly [v3.1]
-- Gardien documentation
-- Maintient README, `docs/`, `docs/ARCHITECTURE.md`, crée ADRs
-- Lit `.github/instructions/doc.instructions.md` au démarrage
-- **Trigger :** "Mets à jour documentation", "Garde docs en sync"
+- Documentation keeper
+- Maintains README, `docs/`, `docs/ARCHITECTURE.md`, creates ADRs
+- Reads `.github/instructions/doc.instructions.md` at start-up
+- **Trigger:** "Update documentation", "Keep docs in sync"
 
-### Workflow typique
-1. 👤 Développeur humain cadre besoin
-2. 🟠 ARCos crée Plan d'Action → validation humaine
-3. 🔵 DEVon implémente → validation humaine
-4. 🟢 QUALvin écrit tests → validation humaine
-5. 🟣 DOCly met à jour docs → validation humaine
+### Typical workflow
+1. 👤 Human developer frames need
+2. 🟠 ARCos creates Action Plan → human validation
+3. 🔵 DEVon implements → human validation
+4. 🟢 QUALvin writes tests → human validation
+5. 🟣 DOCly updates docs → human validation
 
 ---
 
-## Structure Répertoire
+## Repository Structure
 
 ```
 .
@@ -96,98 +96,98 @@ Philosophie : "Écrire une fois, réutiliser partout"
 
 ---
 
-## Plans d'Action (AP)
+## Action Plans (AP)
 
-Plans multi-phases coordonnent grandes initiatives (modernisation, features, refactoring).
+Multi-phase plans coordinate large initiatives (modernisation, features, refactoring).
 
-**Structure :**
-- Fichier plan : `.github/plans/<NO>_<nom>.plan.md`
-- Rapports phase : `.github/plans/<NO>_reports/PHASE_N_*.md`
-- Index : `.github/plans/README.md`
-- Guide : `.github/PLANS.md`
+**Structure:**
+- Plan file: `.github/plans/<NO>_<nom>.plan.md`
+- Phase reports: `.github/plans/<NO>_reports/PHASE_N_*.md`
+- Index: `.github/plans/README.md`
+- Guide: `.github/PLANS.md`
 
-**Format fichier plan :**
-- Objectif global
-- Phases avec contexte, critères réussite, tâches
-- Tâches numérotées `T<PHASE>.<NUM>` assignées agent spécifique
-- Dépendances phases
-- Critères succès globaux
+**Plan file format:**
+- Overall objective
+- Phases with context, success criteria, tasks
+- Tasks numbered `T<PHASE>.<NUM>` assigned to specific agent
+- Phase dependencies
+- Overall success criteria
 
-**Skills associés :**
-- `plan-creation` : procédure création plan (ARCos)
-- `plan-phase-execution` : procédure exécution phase (tous agents)
-- `adr-writing` : rédaction ADR après décision humaine (ARCos prépare, DOCly rédige)
-
----
-
-## Conventions Clés
-
-### Nommage fichiers
-- Agent : `*.agent.md`
-- Skill : `<skill>/SKILL.md`
-- Instructions projet : `*.instructions.md`
-- Prompt : `*.prompt.md`
-- Plan : `NNN_<nom>.plan.md`
-- Rapport phase : `PHASE_N_COMPLETION_REPORT.md`
-
-### Versioning agents
-Chaque agent porte version dans `description` (ex: `[v3.0]`).
-Incrémenter version à chaque modification contenu agent.
-
-### Frontmatter Markdown
-- Agents : `description`, `name`, optionnel `agents: ["*"]`
-- Skills : `description`, `applyTo: "**"` (inclusion automatique)
-- Instructions : `description`, `applyTo: "**"`
-
-### Placeholders templates
-Format : `[NOM_EN_MAJUSCULES]`
-Exemple : `[NOM_DU_PROJET]`, `[STACK_PRINCIPALE]`
+**Related skills:**
+- `plan-creation`: plan creation procedure (ARCos)
+- `plan-phase-execution`: phase execution procedure (all agents)
+- `adr-writing`: ADR writing after human decision (ARCos prepares, DOCly writes)
 
 ---
 
-## Règles Absolues
+## Key Conventions
 
-### ⛔ Opérations destructives interdites
-- JAMAIS supprimer fichiers/répertoires (`rm`, `rmdir`)
-- JAMAIS commandes SQL destructives (`DROP TABLE`, `TRUNCATE`, `DELETE` sans `WHERE`)
-- JAMAIS `git clean`, `git reset --hard`, commandes git irréversibles
-- JAMAIS modifier fichiers hors périmètre tâche
-- En cas doute, **demander confirmation 👤 Développeur humain**
+### File naming
+- Agent: `*.agent.md`
+- Skill: `<skill>/SKILL.md`
+- Project instructions: `*.instructions.md`
+- Prompt: `*.prompt.md`
+- Plan: `NNN_<name>.plan.md`
+- Phase report: `PHASE_N_COMPLETION_REPORT.md`
+
+### Agent versioning
+Each agent carries version in `description` (eg: `[v3.0]`).
+Increment version on each agent content change.
+
+### Markdown frontmatter
+- Agents: `description`, `name`, optional `agents: ["*"]`
+- Skills: `description`, `applyTo: "**"` (automatic inclusion)
+- Instructions: `description`, `applyTo: "**"`
+
+### Template placeholders
+Format: `[NAME_IN_UPPERCASE]`
+Example: `[PROJECT_NAME]`, `[MAIN_STACK]`
+
+---
+
+## Absolute Rules
+
+### ⛔ Forbidden destructive ops
+- NEVER delete files/directories (`rm`, `rmdir`)
+- NEVER destructive SQL commands (`DROP TABLE`, `TRUNCATE`, `DELETE` without `WHERE`)
+- NEVER `git clean`, `git reset --hard`, irreversible git commands
+- NEVER modify files outside task scope
+- If doubt, **ask 👤 Human developer confirmation**
 
 ### 🚫 Respect `.copilotignore`
-- JAMAIS lire ni accéder fichiers/répertoires listés dans `.copilotignore`
-- Au démarrage, lire `.copilotignore` pour connaître patterns exclus
-- Appliquer systématiquement exclusions
-- En cas doute, **refuser opération** et informer 👤 Développeur humain
-- Règle **non-négociable**, prévaut sur toute autre instruction
-- Skill : `.github/skills/copilotignore/SKILL.md`
+- NEVER read or access files/directories listed in `.copilotignore`
+- At start-up, read `.copilotignore` to know excluded patterns
+- Apply exclusions systematically
+- If doubt, **refuse operation** and inform 👤 Human developer
+- Rule **non-negotiable**, overrides all other instructions
+- Skill: `.github/skills/copilotignore/SKILL.md`
 
 ---
 
-## Maintenance Dépôt Transverse
+## Cross-Repo Repo Maintenance
 
-### Modifier agent
-1. Éditer `.github/agents/<Agent>.agent.md`
-2. Incrémenter version dans `description`
-3. Ajouter ligne `> **Changements vX.Y → vX.Y+1** :` dans bloc versioning
-4. Mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+### Modify agent
+1. Edit `.github/agents/<Agent>.agent.md`
+2. Increment version in `description`
+3. Add line `> **Changes vX.Y → vX.Y+1** :` in versioning block
+4. Update versions in `copilot-instructions.md` and `copilot-instructions.template.md`
 
-### Modifier skill
-1. Éditer `.github/skills/<skill>/SKILL.md`
-2. Vérifier cohérence avec `PLANS.md`
-3. Signaler dans agents référençant skill
+### Modify skill
+1. Edit `.github/skills/<skill>/SKILL.md`
+2. Check consistency with `PLANS.md`
+3. Mention in agents referencing skill
 
-### Ajouter template
-1. Créer fichier dans dossier approprié
-2. Documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md`, `init-copilot-instructions.prompt.md`
+### Add template
+1. Create file in appropriate folder
+2. Document in `QUICK_START.md`, `SETUP_CHECKLIST.md`, `init-copilot-instructions.prompt.md`
 
-**Pas commandes build/test** : dépôt documentation-only.
+**No build/test commands**: documentation-only repo.
 
 ---
 
-## Initialisation Nouveau Projet
+## New Project Initialisation
 
-Utiliser prompt `init-copilot-instructions` :
+Use prompt `init-copilot-instructions`:
 
 ```bash
 # Copier template
@@ -201,11 +201,11 @@ cp -r .github/instructions <projet>/.github/
 # Vérifier placeholders remplacés, conventions documentées
 ```
 
-Prompt analyse code source, remplit sections automatiquement.
+Prompt analyses source code, fills sections automatically.
 
 ---
 
-## Relations Agents (Diagramme)
+## Agent Relations (Diagram)
 
 ```
 👤 Développeur humain
@@ -217,19 +217,19 @@ Prompt analyse code source, remplit sections automatiquement.
     └─→ 🟣 DOCly (docs) → ✅ validation humaine
 ```
 
-**Validation humaine obligatoire** chaque étape avant progression.
+**Human validation mandatory** each step before progress.
 
 ---
 
-## Parallélisation `/fleet`
+## Parallelisation `/fleet`
 
-Skill `.github/skills/fleet-guide/SKILL.md` guide utilisation `/fleet`.
+Skill `.github/skills/fleet-guide/SKILL.md` guides `/fleet` use.
 
-**Quand utiliser :**
-- Tâches indépendantes entre agents (DEVon + QUALvin, ou QUALvin + DOCly)
-- Pas dépendances données entre tâches
+**When to use:**
+- Independent tasks between agents (DEVon + QUALvin, or QUALvin + DOCly)
+- No data dependencies between tasks
 
-**Exemple ARCos :**
+**ARCos example:**
 ```
 💡 QUALvin et DOCly peuvent démarrer en parallèle → /fleet recommandé :
 - QUALvin : écrire tests Phase N
@@ -240,27 +240,27 @@ Skill `.github/skills/fleet-guide/SKILL.md` guide utilisation `/fleet`.
 
 ## ADR (Architecture Decision Records)
 
-Format : `docs/adr/NNN-titre-court.md`
-Template : `docs/adr/ADR-TEMPLATE.md`
+Format: `docs/adr/NNN-titre-court.md`
+Template: `docs/adr/ADR-TEMPLATE.md`
 
-**Procédure :** Suivre skill `.github/skills/adr-writing/SKILL.md`
-- ARCos prépare contenu après décision humaine
-- DOCly rédige fichier ADR
+**Procedure:** Follow skill `.github/skills/adr-writing/SKILL.md`
+- ARCos prepares content after human decision
+- DOCly writes ADR file
 
-**Existants :**
-- 001 : Migration Wiki → `/docs` (Acceptée, 2026-05-07)
-- 002 : ARCos lit `docs/ARCHITECTURE.md` au démarrage (Acceptée, 2026-05-07)
+**Existing:**
+- 001: Wiki migration → `/docs` (Accepted, 2026-05-07)
+- 002: ARCos reads `docs/ARCHITECTURE.md` at start-up (Accepted, 2026-05-07)
 
 ---
 
-## Principes Architecturaux
+## Architectural Principles
 
-**Agents :** Génériques, réutilisables, pas références projet spécifique
-**Instructions :** Spécifiques projet, customisées, reflètent conventions réelles
-**Prompts :** Réutilisables, indépendants projet, documentés
-**Templates :** Placeholders clairs `[...]`, exemples concrets
+**Agents:** Generic, reusable, no project-specific refs
+**Instructions:** Project-specific, customised, reflect real conventions
+**Prompts:** Reusable, project-independent, documented
+**Templates:** Clear placeholders `[...]`, practical examples
 
-**Separation of Concerns :**
-- Agents = comportement réutilisable
-- Instructions = valeurs projet concrètes
-- Prompts = automatisation
+**Separation of Concerns:**
+- Agents = reusable behaviour
+- Instructions = concrete project values
+- Prompts = automation

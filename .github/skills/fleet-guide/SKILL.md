@@ -1,33 +1,33 @@
 ---
 name: "fleet-guide"
-description: "Skill — Guide parallélisation `/fleet` pour tous agents. Appliqué automatiquement."
+description: "Skill — Guide to `/fleet` parallelisation for all agents. Automatically applied."
 ---
 
-# Skill : Parallélisation avec /fleet
+# Skill: Parallelisation with /fleet
 
-> `/fleet` = mode exécution parallèle CLI Copilot. Dispatche plusieurs sous-agents simultanément, réduit temps total.
-
----
-
-## Quand utiliser /fleet
-
-- **Tâches indépendantes du même agent**: Plusieurs composants/services/fichiers sans dépendance
-- **Délégation multi-agents en parallèle**: Deux agents démarrent simultanément (ex: QUALvin + DOCly sur même feature après DEVon)
-- **Phases parallèles d'un Plan d'Action**: Deux phases s'exécutent simultanément
+> `/fleet` = Copilot CLI parallel execution mode. Dispatches several sub-agents simultaneously, reducing total time.
 
 ---
 
-## Quand NE PAS utiliser /fleet
+## When to use /fleet
 
-- Tâche B **dépend du résultat** de tâche A
-- Deux sous-tâches **modifient le même fichier** (risque conflit)
-- Fichier setup commun doit être créé d'abord
+- **Independent tasks for the same agent**: Several components/services/files with no dependency
+- **Parallel multi-agent delegation**: Two agents start simultaneously (for example: QUALvin + DOCly on the same feature after DEVon)
+- **Parallel phases of an Action Plan**: Two phases run simultaneously
 
 ---
 
-## Comment indiquer l'usage de /fleet
+## When NOT to use /fleet
 
-Dans plan ou délégation, signaler explicitement tâches parallélisables:
+- Task B **depends on the result** of task A
+- Two sub-tasks **modify the same file** (conflict risk)
+- A shared setup file must be created first
+
+---
+
+## How to indicate the use of /fleet
+
+In a plan or delegation, explicitly indicate parallelisable tasks:
 
 ```
 💡 Ces tâches sont indépendantes → lancer en /fleet :
@@ -37,11 +37,11 @@ Dans plan ou délégation, signaler explicitement tâches parallélisables:
 
 ---
 
-## Règle de décision
+## Decision rule
 
-| Situation | Mode recommandé |
+| Situation | Recommended mode |
 |---|---|
-| Tâche B dépend de tâche A | Séquentiel |
-| Tâches A et B sans lien | `/fleet` |
-| DEVon terminé → QUALvin + DOCly | `/fleet` pour QUALvin + DOCly |
-| Plusieurs éléments indépendants | `/fleet` |
+| Task B depends on task A | Sequential |
+| Tasks A and B unrelated | `/fleet` |
+| DEVon finished → QUALvin + DOCly | `/fleet` for QUALvin + DOCly |
+| Several independent items | `/fleet` |

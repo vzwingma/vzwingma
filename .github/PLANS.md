@@ -1,28 +1,28 @@
-# 📋 Plans d'Action (AP) — Documentation Centralisée
+# 📋 Action Plans (AP) — Centralised Documentation
 
-**Document :** `.github/PLANS.md`  
-**Objectif :** Guide centralisé pour créer, exécuter et tracker les plans d'action multi-phases.
-
----
-
-## 🎯 Qu'est-ce qu'un Plan d'Action (AP) ?
-
-Un **Plan d'Action (AP)** est un document structuré qui :
-- Décrit un **objectif global** (ex: modernisation, nouvelle feature, refactoring majeur)
-- Se décompose en **phases logiques** et **tâches détaillées**
-- Assigne les tâches à des **agents spécifiques** (Devon/🔵 DEV, Qalvin/🟢 QUAL, Arkos/🟠 ARC, Docly/🟣 DOC)
-- Définit les **critères de réussite** et les **dépendances** entre phases
-- Génère des **rapports de phase** documentant l'exécution et les résultats
-
-**Cas d'usage :**
-- Moderniser l'infrastructure et les tests (AP-001 : Modernisation Complète)
-- Implémenter une grande fonctionnalité cross-team
-- Refactoriser un domaine métier complexe
-- Coordonner des mises à jour dépendantes
+**Document:** `.github/PLANS.md`  
+**Purpose:** Centralised guide for creating, executing and tracking multi-phase action plans.
 
 ---
 
-## 📂 Structure des Répertoires
+## 🎯 What is an Action Plan (AP)?
+
+An **Action Plan (AP)** is a structured document that:
+- Describes a **global objective** (for example: modernisation, new feature, major refactoring)
+- Breaks down into **logical phases** and **detailed tasks**
+- Assigns tasks to **specific agents** (Devon/🔵 DEV, Qalvin/🟢 QUAL, Arkos/🟠 ARC, Docly/🟣 DOC)
+- Defines **success criteria** and **dependencies** between phases
+- Generates **phase reports** documenting execution and results
+
+**Use cases:**
+- Modernise infrastructure and tests (AP-001: Complete Modernisation)
+- Implement a large cross-team feature
+- Refactor a complex business domain
+- Co-ordinate dependent updates
+
+---
+
+## 📂 Directory Structure
 
 ```
 .github/
@@ -40,20 +40,20 @@ Un **Plan d'Action (AP)** est un document structuré qui :
 └── ...
 ```
 
-**Conventions de nommage :**
-- Fichier plan : `.github/plans/<NO>_<nom_descriptif>.plan.md`
-  - `<NO>` : Numéro séquentiel (001, 002, 003...)
-  - `<nom_descriptif>` : Slug lisible en français ou anglais
-  - Exemple : `001_modernisation_complète.plan.md`
-- Dossier reporting : `.github/plans/<NO>_reports/`
-  - Contient les rapports de phase (`PHASE_1_...`, `PHASE_2_...`, etc.)
-  - Un rapport par phase complétée
+**Naming conventions:**
+- Plan file: `.github/plans/<NO>_<nom_descriptif>.plan.md`
+  - `<NO>`: Sequential number (001, 002, 003...)
+  - `<nom_descriptif>`: Descriptive slug in French or English
+  - Example: `001_modernisation_complète.plan.md`
+- Reporting folder: `.github/plans/<NO>_reports/`
+  - Contains phase reports (`PHASE_1_...`, `PHASE_2_...`, etc.)
+  - One report per completed phase
 
 ---
 
-## 📝 Format du Fichier Plan (`.plan.md`)
+## 📝 Plan File Format (`.plan.md`)
 
-### 1. En-tête (Métadonnées)
+### 1. Header (Metadata)
 
 ```markdown
 # Plan d'Action : <Titre Explicite>
@@ -66,7 +66,7 @@ Un **Plan d'Action (AP)** est un document structuré qui :
 ---
 ```
 
-### 2. Objectif Global (1-2 paragraphes)
+### 2. Global Objective (1-2 paragraphs)
 
 ```markdown
 ## 🎯 Objectif Global
@@ -81,11 +81,11 @@ Objectifs : couverture ≥80%, 0 dépendances dépréciées, 0 breaking changes,
 documentation exhaustive."
 ```
 
-### 3. Phases (Une par section)
+### 3. Phases (One per section)
 
-Chaque phase doit contenir :
+Each phase must contain:
 
-#### A. Contexte
+#### A. Context
 ```markdown
 ### Contexte
 - [Situation actuelle / problèmes identifiés]
@@ -93,7 +93,7 @@ Chaque phase doit contenir :
 - [Ressources/outils disponibles]
 ```
 
-#### B. Critères de Réussite
+#### B. Success Criteria
 ```markdown
 ### Critères de Réussite
 ✅ [Condition testable 1]  
@@ -101,12 +101,12 @@ Chaque phase doit contenir :
 ✅ [Condition testable 3]  
 ```
 
-**Bonnes pratiques :**
-- Utiliser "≥X%" plutôt que "bien", "suffisant"
-- Mesurable et vérifiable
-- Lister 3-5 critères max par phase
+**Good practices:**
+- Use "≥X%" rather than "good", "sufficient"
+- Measurable and verifiable
+- List 3-5 criteria max per phase
 
-#### C. Tâches
+#### C. Tasks
 ```markdown
 ### Tâches (Agent: [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)])
 
@@ -121,12 +121,12 @@ Chaque phase doit contenir :
 - ...
 ```
 
-**Numérotation :**
-- `T<PHASE>.<NUMERO>` : T1.1, T1.2, T2.1, T3.3, etc.
-- Unique par phase
-- Ordre d'exécution recommandé
+**Numbering:**
+- `T<PHASE>.<NUMERO>`: T1.1, T1.2, T2.1, T3.3, etc.
+- Unique per phase
+- Recommended execution order
 
-**Template de tâche :**
+**Task template:**
 ```markdown
 #### T<N>.<M> - <Verbe d'action> <objet> (<scope optionnel>)
 
@@ -141,7 +141,7 @@ Chaque phase doit contenir :
   - ✓ Performance < 1s (si perf)
 ```
 
-### 4. Résumé des Tâches par Agent
+### 4. Summary of Tasks by Agent
 
 ```markdown
 ## 📊 Résumé des Tâches par Agent
@@ -158,7 +158,7 @@ Chaque phase doit contenir :
 - **Durée estimée :** 1-2 semaines
 ```
 
-### 5. Dépendances entre Phases
+### 5. Dependencies Between Phases
 
 ```markdown
 ## 📍 Dépendances entre Phases
@@ -183,7 +183,7 @@ Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 - Phases sans dépendances = peuvent démarrer en parallèle
 ```
 
-### 6. Critères de Succès Globaux
+### 6. Global Success Criteria
 
 ```markdown
 ## ✅ Critères de Succès Globaux
@@ -196,7 +196,7 @@ Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 6. **Documentation à jour** (Phase 6)
 ```
 
-### 7. Plan d'Exécution
+### 7. Execution Plan
 
 ```markdown
 ## 🚀 Plan d'Exécution
@@ -215,11 +215,11 @@ Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 
 ---
 
-## 📈 Rapports de Phase (Execution Tracking)
+## 📈 Phase Reports (Execution Tracking)
 
-### Structure du Reporting
+### Reporting Structure
 
-Pour chaque plan, créer un dossier `.github/plans/<NO>_reports/` avec un rapport par phase :
+For each plan, create a `.github/plans/<NO>_reports/` folder with one report per phase:
 
 ```
 .github/plans/001_reports/
@@ -229,7 +229,7 @@ Pour chaque plan, créer un dossier `.github/plans/<NO>_reports/` avec un rappor
 └── PHASE_6_FINAL_REVIEW.md
 ```
 
-### Format d'un Rapport de Phase
+### Format of a Phase Report
 
 ```markdown
 # Phase N : <Titre de la Phase>
@@ -303,9 +303,9 @@ Fin du rapport Phase N
 
 ---
 
-## 🔄 Workflow de Suivi
+## 🔄 Tracking Workflow
 
-### 1. Créer le Plan (Utilisateur / Arkos (🟠 ARC))
+### 1. Create the Plan (User / Arkos (🟠 ARC))
 
 ```bash
 # Créer le fichier plan
@@ -319,13 +319,13 @@ touch .github/plans/00X_<nom>.plan.md
 # - Plan d'exécution
 ```
 
-**Validation :**
-- [ ] Phases bien séparées avec dépendances claires
-- [ ] Chaque tâche a un scope explicite et des critères mesurables
-- [ ] Agents assignés sont cohérents avec les tâches
-- [ ] Plan de dépendances est acyclique
+**Validation:**
+- [ ] Phases are clearly separated with clear dependencies
+- [ ] Each task has an explicit scope and measurable criteria
+- [ ] Assigned agents are consistent with the tasks
+- [ ] The dependency plan is acyclic
 
-### 2. Démarrer une Phase (Agent Responsable)
+### 2. Start a Phase (Responsible Agent)
 
 ```bash
 # 1. Lire le plan complet
@@ -342,9 +342,9 @@ touch .github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md
 # 5. Documenter en temps réel dans le rapport
 ```
 
-### 3. Documenter Pendant l'Exécution
+### 3. Document During Execution
 
-Pour chaque tâche complétée :
+For each completed task:
 ```markdown
 ### T<N>.<M> - [Titre]
 
@@ -363,9 +363,9 @@ Pour chaque tâche complétée :
 - Découvert et fixé [bug X] qui bloquait les tests de mock API
 ```
 
-### 4. Compléter le Reporting (Après la Phase)
+### 4. Complete the Reporting (After the Phase)
 
-Remplir la **synthèse de phase** :
+Fill in the **phase summary**:
 ```markdown
 ## 📊 Synthèse de Phase
 
@@ -379,7 +379,7 @@ Remplir la **synthèse de phase** :
 **Prochaine Phase :** Phase X peut démarrer (toutes les dépendances ✅)
 ```
 
-### 5. Valider et Archiver (Utilisateur / Lead)
+### 5. Validate and Archive (User / Lead)
 
 ```bash
 # Approuver le rapport
@@ -389,14 +389,14 @@ Remplir la **synthèse de phase** :
 
 ---
 
-## 🎯 Intégration avec les Agents
+## 🎯 Integration with the Agents
 
-Chaque agent doit recevoir un **prompt structuré** qui :
-1. **Pointe vers le plan** (`.github/plans/<NO>_<nom>.plan.md`)
-2. **Identifie ses tâches** (T<N>.X où agent = [son rôle])
-3. **Spécifie le rapport à remplir** (`.github/plans/<NO>_reports/PHASE_N_...`)
+Each agent must receive a **structured prompt** that:
+1. **Points to the plan** (`.github/plans/<NO>_<nom>.plan.md`)
+2. **Identifies its tasks** (T<N>.X where agent = [its role])
+3. **Specifies the report to fill in** (`.github/plans/<NO>_reports/PHASE_N_...`)
 
-**Exemple de prompt pour Qalvin (🟢 QUAL) :**
+**Example prompt for Qalvin (🟢 QUAL):**
 ```
 Exécute la Phase 1 du plan : .github/plans/001_modernisation_complète.plan.md
 
@@ -420,7 +420,7 @@ Exécute la Phase 1 du plan : .github/plans/001_modernisation_complète.plan.md
 - Signaler tout bloqueur pour la phase suivante
 ```
 
-**Chaîne de délégation entre agents :**
+**Delegation chain between agents:**
 ```
 Arkos (🟠 ARC) (plan)
     ↓
@@ -431,66 +431,63 @@ Devon (🔵 DEV) (T2.1-T3.5)
 
 ---
 
-## ✅ Checklist pour un Bon Plan
+## ✅ Checklist for a Good Plan
 
-- [ ] **Titre explicite** (ex: "Modernisation Complète", pas "AP-001")
-- [ ] **Objectif clair** (1-2 phrases, mesurable)
-- [ ] **Phases bien séparées** (3-6 phases généralement)
-- [ ] **Chaque phase a :**
-  - [ ] Contexte (situation actuelle)
-  - [ ] Critères de réussite (3-5, mesurables)
-  - [ ] Tâches numérotées (T<N>.<M>)
-  - [ ] Agent responsable identifié
-- [ ] **Chaque tâche a :**
-  - [ ] Titre avec verbe d'action
-  - [ ] Fichiers précis
-  - [ ] Scope explicite (quoi couvrir / implémenter)
-  - [ ] Critères d'acceptation testables
-- [ ] **Dépendances explicites** (diagramme ou liste)
-- [ ] **Critères de succès globaux** (5-7 items)
-- [ ] **Plan d'exécution** (quand démarrer chaque phase, triggers)
-
----
-
-## ✅ Checklist pour un Bon Rapport de Phase
-
-- [ ] **En-tête complet** (Agent, dates, statut)
-- [ ] **Chaque tâche documente :**
-  - [ ] Statut final (✅ DONE, ❌ BLOCKED, etc.)
-  - [ ] Fichiers modifiés/créés (paths précis)
-  - [ ] Résultats mesurés (coverage %, count, etc.)
-  - [ ] Notes pertinentes
-- [ ] **Synthèse de phase :**
-  - [ ] Tâches complétées (X/Y)
-  - [ ] Critères de réussite atteints (checklist)
-  - [ ] Bloqueurs identifiés (le cas échéant)
-  - [ ] Améliorations futures (optional)
-- [ ] **Livrables clairs** (liste de ce qui a été produit)
+- [ ] **Explicit title** (for example: "Complete Modernisation", not "AP-001")
+- [ ] **Clear objective** (1-2 sentences, measurable)
+- [ ] **Well-separated phases** (3-6 phases generally)
+- [ ] **Each phase has:**
+  - [ ] Context (current situation)
+  - [ ] Success criteria (3-5, measurable)
+  - [ ] Numbered tasks (T<N>.<M>)
+  - [ ] Responsible agent identified
+- [ ] **Each task has:**
+  - [ ] Title with action verb
+  - [ ] Precise files
+  - [ ] Explicit scope (what to cover / implement)
+  - [ ] Testable acceptance criteria
+- [ ] **Explicit dependencies** (diagram or list)
+- [ ] **Global success criteria** (5-7 items)
+- [ ] **Execution plan** (when to start each phase, triggers)
 
 ---
 
-## 📚 Exemples Existants
+## ✅ Checklist for a Good Phase Report
 
-- **AP-001 :** Modernisation Complète
-  - Plan : `.github/plans/001_modernisation_complète.plan.md`
-  - Rapports : `.github/plans/001_reports/PHASE_*_*.md`
-  - Phases : 1 (Tests), 2 (Dépendances), 3 (Architecture), 4 (Performance), 5 (CI/CD), 6 (Docs)
-  - Statut : 🔄 Phase 1 en cours
-
----
-
-## 🚀 Lancer un Nouveau Plan
-
-1. **Créer le fichier** `.github/plans/<NO>_<nom>.plan.md`
-2. **Remplir** objectif global, phases, tâches, dépendances
-3. **Valider** que les tâches sont mesurables et les agents assignés
-4. **Créer le dossier** `.github/plans/<NO>_reports/`
-5. **Lancer la Phase 1** avec l'agent responsable
-6. **Suivre** via les rapports de phase
+- [ ] **Complete header** (Agent, dates, status)
+- [ ] **Each task documents:**
+  - [ ] Final status (✅ DONE, ❌ BLOCKED, etc.)
+  - [ ] Modified/created files (precise paths)
+  - [ ] Measured results (coverage %, count, etc.)
+  - [ ] Relevant notes
+- [ ] **Phase summary:**
+  - [ ] Completed tasks (X/Y)
+  - [ ] Success criteria achieved (checklist)
+  - [ ] Blockers identified (where applicable)
+  - [ ] Future improvements (optional)
+- [ ] **Clear deliverables** (list of what was produced)
 
 ---
 
-**Fin de la documentation sur les Plans d'Action**
+## 📚 Existing Examples
 
+- **AP-001:** Complete Modernisation
+  - Plan: `.github/plans/001_modernisation_complète.plan.md`
+  - Reports: `.github/plans/001_reports/PHASE_*_*.md`
+  - Phases: 1 (Tests), 2 (Dependencies), 3 (Architecture), 4 (Performance), 5 (CI/CD), 6 (Docs)
+  - Status: 🔄 Phase 1 in progress
 
+---
 
+## 🚀 Launch a New Plan
+
+1. **Create the file** `.github/plans/<NO>_<nom>.plan.md`
+2. **Fill in** the global objective, phases, tasks and dependencies
+3. **Validate** that tasks are measurable and agents are assigned
+4. **Create the folder** `.github/plans/<NO>_reports/`
+5. **Launch Phase 1** with the responsible agent
+6. **Track** through the phase reports
+
+---
+
+**End of the Action Plans documentation**

@@ -1,6 +1,6 @@
-# 📚 Copilot Templates & Agents — Dépôt Transverse
+# 📚 Copilot Templates & Agents — Cross-Project Repository
 
-Ce dépôt contient les **modèles réutilisables** et les **instructions d'agents** pour orchestrer le développement avec Copilot en utilisant une architecture **multi-agents coordonnée**.
+This repository contains the **reusable templates** and **agent instructions** for orchestrating development with Copilot using a **co-ordinated multi-agent** architecture.
 
 ---
 
@@ -43,39 +43,39 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 
 ---
 
-## 🚀 Quick Start : Initialiser Copilot dans un Nouveau Projet
+## 🚀 Quick Start: Initialise Copilot in a New Project
 
-### Étape 1 : Copier le template
+### Step 1: Copy the template
 
-Copier `.github/copilot-instructions.template.md` vers votre projet :
+Copy `.github/copilot-instructions.template.md` into your project:
 
 ```bash
 # Depuis le dépôt transverse vers votre projet
 cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
 ```
 
-### Étape 2 : Utiliser le prompt d'initiation
+### Step 2: Use the initialisation prompt
 
-Utiliser le prompt **`.github/prompts/init-copilot-instructions.prompt.md`** pour **générer automatiquement** les instructions :
+Use the **`.github/prompts/init-copilot-instructions.prompt.md`** prompt to **generate the instructions automatically**:
 
 ```
 👤 Utilisateur: "Initialise les instructions Copilot pour ce projet"
 ```
 
-Ou avec le CLI Copilot :
+Or with the Copilot CLI:
 ```bash
 copilot prompt run init-copilot-instructions
 ```
 
-Le prompt va :
-1. ✅ Lire le template
-2. ✅ Analyser votre code source
-3. ✅ Remplir les placeholders automatiquement
-4. ✅ Générer `.github/copilot-instructions.md`
+The prompt will:
+1. ✅ Read the template
+2. ✅ Analyse your source code
+3. ✅ Fill the placeholders automatically
+4. ✅ Generate `.github/copilot-instructions.md`
 
-### Étape 3 : Valider et enrichir (optionnel)
+### Step 3: Validate and enrich (optional)
 
-Si votre projet a des conventions spécifiques non détectées, utilisez le prompt **`.github/prompts/update-copilot-instructions.prompt.md`** pour auditer et enrichir :
+If your project has specific conventions that were not detected, use the **`.github/prompts/update-copilot-instructions.prompt.md`** prompt to audit and enrich:
 
 ```
 👤 Utilisateur: "Complète les instructions Copilot depuis le code source"
@@ -83,60 +83,60 @@ Si votre projet a des conventions spécifiques non détectées, utilisez le prom
 
 ---
 
-## 📖 Fichiers Clés
+## 📖 Key Files
 
 ### Agents (`.github/agents/`)
 
-Chaque fichier agent définit un rôle, ses responsabilités et comment il interagit avec les autres agents.
+Each agent file defines a role, its responsibilities and how it interacts with the other agents.
 
-| Agent | Rôle | Quand l'utiliser |
+| Agent | Role | When to use it |
 |---|---|---|
-| **Arkos.agent.md** (🟠 ARC) | Planificateur technique | "Conçois une architecture pour..." |
-| **Devon.agent.md** (🔵 DEV) | Implémentateur de code | "Implémente cette fonctionnalité" |
-| **Qalvin.agent.md** (🟢 QUAL) | Expert QA et tests | "Écris des tests pour ce composant" |
-| **Docly.agent.md** (🟣 DOC) | Gestionnaire documentation | "Mets à jour la documentation" |
+| **Arcos.agent.md** (🟠 ARC) | Technical planner | "Design an architecture for..." |
+| **Devon.agent.md** (🔵 DEV) | Code implementer | "Implement this feature" |
+| **Qalvin.agent.md** (🟢 QUAL) | QA and testing expert | "Write tests for this component" |
+| **Docly.agent.md** (🟣 DOC) | Documentation manager | "Update the documentation" |
 
-Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions Copilot spécifiques au projet se trouvent dans `.github/copilot-instructions.md`.
+All agents are **generic and reusable** in any project. Project-specific Copilot instructions are located in `.github/copilot-instructions.md`.
 
-> Les agents sont **génériques**. Ils lisent au démarrage leur fichier `instructions/` correspondant pour les spécificités du projet.
+> The agents are **generic**. At start-up, they read their corresponding `instructions/` file for project-specific details.
 
 ### Prompts (`.github/prompts/`)
 
-Prompts réutilisables pour des tâches récurrentes.
+Reusable prompts for recurring tasks.
 
-| Prompt | Rôle | Utilisation |
+| Prompt | Role | Usage |
 |---|---|---|
-| **init-copilot-instructions.prompt.md** | 🆕 Initialiser `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run init-copilot-instructions` |
-| **update-copilot-instructions.prompt.md** | Auditer et mettre à jour `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run update-copilot-instructions` |
-| **migrate-to-template.prompt.md** | Migrer un projet existant | `copilot prompt run migrate-to-template` |
+| **init-copilot-instructions.prompt.md** | 🆕 Initialise `copilot-instructions.md` and the `instructions/` files | `copilot prompt run init-copilot-instructions` |
+| **update-copilot-instructions.prompt.md** | Audit and update `copilot-instructions.md` and the `instructions/` files | `copilot prompt run update-copilot-instructions` |
+| **migrate-to-template.prompt.md** | Migrate an existing project | `copilot prompt run migrate-to-template` |
 
 ### Templates
 
-| Fichier | Rôle | Utilisation |
+| File | Role | Usage |
 |---|---|---|
-| **copilot-instructions.template.md** | Template générique avec placeholders | Copier et customiser dans un nouveau projet |
-| **copilot-instructions.md** | Version "générique par défaut" | Exemple de fichier de base |
-| **instructions/*.instructions.md** | 4 templates à compléter par projet | Copier et remplir les placeholders |
-| **docs/ARCHITECTURE.template.md** | Template `docs/ARCHITECTURE.md` | Copier dans `docs/ARCHITECTURE.md` du projet cible |
-| **docs/adr/ADR-TEMPLATE.md** | Template ADR | Copier dans `docs/adr/NNN-titre.md` pour chaque décision |
+| **copilot-instructions.template.md** | Generic template with placeholders | Copy and customise in a new project |
+| **copilot-instructions.md** | "Default generic" version | Example of a base file |
+| **instructions/*.instructions.md** | 4 templates to complete per project | Copy and fill the placeholders |
+| **docs/ARCHITECTURE.template.md** | `docs/ARCHITECTURE.md` template | Copy into the target project's `docs/ARCHITECTURE.md` |
+| **docs/adr/ADR-TEMPLATE.md** | ADR template | Copy into `docs/adr/NNN-titre.md` for each decision |
 
-### Exemples (`.github/examples/`)
+### Examples (`.github/examples/`)
 
-Exemples concrets d'instructions pour différents types de projets.
+Concrete examples of instructions for different kinds of projects.
 
-| Exemple | Type de projet | Utilisation |
+| Example | Project type | Usage |
 |---|---|---|
-| **copilot-instructions-domoticz.example.md** | React Native / Expo | Référence pour projets mobiles |
+| **copilot-instructions-domoticz.example.md** | React Native / Expo | Reference for mobile projects |
 
 ### Documentation
 
-| Fichier | Rôle |
+| File | Role |
 |---|---|
-| **PLANS.md** | Guide complet pour créer et exécuter les Plans d'Action |
+| **PLANS.md** | Complete guide for creating and executing Action Plans |
 
 ---
 
-## 🎯 Workflow Typique avec Copilot
+## 🎯 Typical Workflow with Copilot
 
 ```
 1️⃣ Utilisateur cadre le besoin
@@ -152,60 +152,57 @@ Exemples concrets d'instructions pour différents types de projets.
 6️⃣ Phase suivante du plan (retour à 2️⃣)
 ```
 
-Pour en savoir plus, lire `.github/PLANS.md`.
+To learn more, read `.github/PLANS.md`.
 
 ---
 
-## ✅ Checklist pour Initialiser un Nouveau Projet
+## ✅ Checklist for Initialising a New Project
 
-- [ ] Copier `.github/copilot-instructions.template.md` → `.github/copilot-instructions.md`
-- [ ] Copier `.github/instructions/` → `.github/instructions/` du projet
-- [ ] Utiliser le prompt `init-copilot-instructions` pour remplir les sections
-- [ ] Remplir les placeholders dans les 4 fichiers `instructions/`
-- [ ] Valider que tous les placeholders sont remplacés
-- [ ] (Optionnel) Utiliser `update-copilot-instructions` pour enrichir depuis le code
-- [ ] Committer `.github/copilot-instructions.md` dans le repo
-- [ ] Les agents sont prêts ! Utiliser `/solve` ou les appeler par nom
+- [ ] Copy `.github/copilot-instructions.template.md` → `.github/copilot-instructions.md`
+- [ ] Copy `.github/instructions/` → the project's `.github/instructions/`
+- [ ] Use the `init-copilot-instructions` prompt to fill in the sections
+- [ ] Fill in the placeholders in the 4 `instructions/` files
+- [ ] Validate that all placeholders are replaced
+- [ ] (Optional) Use `update-copilot-instructions` to enrich from the code
+- [ ] Commit `.github/copilot-instructions.md` to the repo
+- [ ] The agents are ready! Use `/solve` or call them by name
 
 ---
 
-## 📚 Ressources
+## 📚 Resources
 
-- **Architecture** : `docs/ARCHITECTURE.md` — architecture de ce dépôt transverse
-- **Templates docs** : `docs/ARCHITECTURE.template.md` + `docs/adr/ADR-TEMPLATE.md`
-- **Agents génériques** : Présents dans ce dépôt, prêts à l'emploi
-- **Prompts réutilisables** : `.github/prompts/` — s'adapter au contexte du projet
-- **Templates** : `.github/copilot-instructions.template.md` — customiser pour votre projet
-- **Instructions agents** : `.github/instructions/` — à personnaliser par projet
-- **Exemples** : `.github/examples/` — références pour différents types de projets
-- **Plans d'Action** : `.github/PLANS.md` — guide pour orchestrer le travail multi-phases
+- **Architecture**: `docs/ARCHITECTURE.md` — architecture of this cross-project repository
+- **Docs templates**: `docs/ARCHITECTURE.template.md` + `docs/adr/ADR-TEMPLATE.md`
+- **Generic agents**: Present in this repository, ready to use
+- **Reusable prompts**: `.github/prompts/` — adapt to the project's context
+- **Templates**: `.github/copilot-instructions.template.md` — customise for your project
+- **Agent instructions**: `.github/instructions/` — to customise per project
+- **Examples**: `.github/examples/` — references for different project types
+- **Action Plans**: `.github/PLANS.md` — guide for orchestrating multi-phase work
 
 ---
 
 ## 🔄 Maintenance
 
-### Mettre à jour les agents
+### Update the agents
 
-Si les versions des agents changent (ex: `Devon [v1.8]`), mettre à jour les fichiers `.github/agents/*.md`.
+If agent versions change (for example: `Devon [v1.8]`), update the `.github/agents/*.md` files.
 
-### Mettre à jour les instructions d'un projet
+### Update a project's instructions
 
-Utiliser le prompt `update-copilot-instructions` régulièrement pour garder les instructions à jour avec le code réel.
+Use the `update-copilot-instructions` prompt regularly to keep the instructions aligned with the real code.
 
 ---
 
 ## 🤝 Contribution
 
-Pour ajouter un nouvel agent, prompt ou template :
+To add a new agent, prompt or template:
 
-1. Créer le fichier dans le dossier approprié (`.github/agents/`, `.github/prompts/`, etc.)
-2. Suivre les conventions existantes (format YAML frontmatter pour agents/prompts)
-3. Tester dans un projet de sandbox avant de committer
-4. Documenter dans ce README
+1. Create the file in the appropriate folder (`.github/agents/`, `.github/prompts/`, etc.)
+2. Follow the existing conventions (YAML frontmatter format for agents/prompts)
+3. Test in a sandbox project before committing
+4. Document it in this README
 
 ---
 
-**Dernière mise à jour :** 2026-05-05
-
-
-
+**Last updated:** 2026-05-05
