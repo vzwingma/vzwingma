@@ -25,27 +25,27 @@ _(Aucun plan archivé pour l'instant)_
 
 ## 🚀 Comment Créer un Nouveau Plan
 
-1. **Créer le fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
+1. **Créer le fichier plan** : `.opencode/plans/<NO>_<nom>.plan.md`
    - Utiliser le numéro séquentiel suivant (ex: 002 après 001)
-   - Suivre le format défini dans [`.github/PLANS.md`](../PLANS.md)
+   - Suivre le format défini dans [`.opencode/PLANS.md`](../PLANS.md)
 
-2. **Créer le dossier reporting** : `.github/plans/<NO>_reports/`
+2. **Créer le dossier reporting** : `.opencode/plans/<NO>_reports/`
    - Contiendra les rapports de phase complétées
 
 3. **Soumettre pour validation** au 👤 Développeur humain ou lead du projet
 
-**Guide complet :** 📖 [`.github/PLANS.md`](../PLANS.md)
+**Guide complet :** 📖 [`.opencode/PLANS.md`](../PLANS.md)
 
 ---
 
 ## 📚 Documentation Associée
 
-- **Guide complet des Plans d'Action** : [`.github/PLANS.md`](../PLANS.md)
-- **Instructions agent Devon (🔵 DEV)** : [`.github/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
-- **Instructions agent Qalvin (🟢 QUAL)** : [`.github/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
-- **Instructions agent Docly (🟣 DOC)** : [`.github/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
-- **Instructions agent Arkos (🟠 ARC)** : [`.github/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
-- **Instructions Copilot globales** : [`.github/copilot-instructions.md`](../copilot-instructions.md)
+- **Guide complet des Plans d'Action** : [`.opencode/PLANS.md`](../PLANS.md)
+- **Instructions agent Devon (🔵 DEV)** : [`.opencode/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
+- **Instructions agent Qalvin (🟢 QUAL)** : [`.opencode/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
+- **Instructions agent Docly (🟣 DOC)** : [`.opencode/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
+- **Instructions agent Arkos (🟠 ARC)** : [`.opencode/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
+- **Configuration OpenCode** : `AGENTS.md` à la racine du projet
 
 ---
 

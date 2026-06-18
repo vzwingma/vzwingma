@@ -7,7 +7,7 @@ description: "Mode caveman (full) actif par défaut pour tous agents. Ne jamais 
 
 Mode caveman **full** actif pour tous agents, toutes sessions, sans invocation explicite du skill tool.
 
-> ⚠️ Hook session embarqué dans `.github/copilot-instructions.md` (section `## 🗿 Mode communication`).
+> ⚠️ Hook session embarqué dans `.opencode/copilot-instructions.md` (section `## 🗿 Mode communication`).
 
 ## Règle
 

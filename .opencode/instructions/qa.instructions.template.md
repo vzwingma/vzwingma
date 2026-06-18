@@ -84,5 +84,5 @@ global.fetch = jest.fn(() => Promise.resolve({ status: 200, json: () => Promise.
 
 ## Règle d'index des plans (obligatoire)
 
-- `.github/plans/README.md` est index **plans + statut global** uniquement (pas phases).
-- Si phase QA livrée change statut global plan, synchronise `.github/plans/README.md` dans même changement.
+- `.opencode/plans/README.md` est index **plans + statut global** uniquement (pas phases).
+- Si phase QA livrée change statut global plan, synchronise `.opencode/plans/README.md` dans même changement.

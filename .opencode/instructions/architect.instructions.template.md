@@ -67,6 +67,6 @@ Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
 
 ## Règle d'index des plans (obligatoire)
 
-- Fichier `.github/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
+- Fichier `.opencode/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
 - Pas afficher statuts phases.
-- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.github/plans/README.md`.
+- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.opencode/plans/README.md`.

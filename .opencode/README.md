@@ -1,6 +1,6 @@
-# 📚 Copilot Templates & Agents — Dépôt Transverse
+# 📚 OpenCode Agents & Templates — Dépôt Transverse
 
-Ce dépôt contient les **modèles réutilisables** et les **instructions d'agents** pour orchestrer le développement avec Copilot en utilisant une architecture **multi-agents coordonnée**.
+Ce dépôt contient les **modèles réutilisables** et les **agents OpenCode** pour orchestrer le développement avec OpenCode en utilisant une architecture **multi-agents coordonnée**.
 
 ---
 
@@ -8,84 +8,92 @@ Ce dépôt contient les **modèles réutilisables** et les **instructions d'agen
 
 ```
 .
-├── docs/                                # Documentation versionnée du dépôt
-│   ├── ARCHITECTURE.md                  # Architecture de ce dépôt transverse
-│   ├── ARCHITECTURE.template.md        # Template à copier dans les projets
-│   └── adr/                            # Architecture Decision Records
-│       └── ADR-TEMPLATE.md             # Template ADR
+├── .opencode/
+│   ├── agents/                              # Définitions des agents OpenCode
+│   │   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
+│   │   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
+│   │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
+│   │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
+│   │
+│   ├── instructions/                        # Instructions spécifiques projet (templates)
+│   │   ├── architect.instructions.template.md
+│   │   ├── dev.instructions.template.md
+│   │   ├── qa.instructions.template.md
+│   │   └── doc.instructions.template.md
+│   │
+│   ├── prompts/                             # Prompts pour initialiser des tâches
+│   │   ├── init-opencode.prompt.md           # Initialiser AGENTS.md et instructions
+│   │   └── update-opencode.prompt.md         # Auditer et mettre à jour les instructions
+│   │
+│   ├── plans/                               # (Optionnel) Exemples de Plans d'Action
+│   │   ├── README.md                        # Index des plans
+│   │   └── [plans et rapports]
+│   │
+│   ├── skills/                              # Skills partagés OpenCode
+│   │   ├── adr-writing/
+│   │   ├── caveman-default/
+│   │   ├── copilotignore/
+│   │   ├── fleet-guide/
+│   │   ├── plan-creation/
+│   │   └── plan-phase-execution/
+│   │
+│   ├── PLANS.md                             # Guide pour les Plans d'Action
+│   └── README.md                            # Ce fichier
 │
-└── .github/
-    ├── agents/                              # Définitions des agents Copilot
-    │   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
-    │   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
-    │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
-    │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
-    │
-    ├── instructions/                        # 🆕 Instructions spécifiques projet
-    │   ├── architect.instructions.md        # ARCos — conventions architecturales
-    │   ├── dev.instructions.md              # DEVon — stack et conventions code
-    │   ├── qa.instructions.md               # QUALvin — tests et commandes
-    │   └── doc.instructions.md              # DOCly — documentation et /docs
-    │
-    ├── prompts/                             # Prompts pour initialiser des tâches
-    │   ├── init-copilot-instructions.prompt.md      # 🆕 Initialiser copilot-instructions.md
-    │   ├── update-copilot-instructions.prompt.md    # Auditer et mettre à jour les instructions
-    │   └── migrate-to-template.prompt.md            # Migrer un projet existant vers le template
-    │
-    ├── plans/                               # (Optionnel) Exemples de Plans d'Action
-    │   ├── README.md                        # Index des plans
-    │   └── [plans et rapports]
-    │
-    ├── copilot-instructions.template.md     # 🆕 Template générique à customiser
-    ├── copilot-instructions.md              # Template générique (copie du .template.md)
-    └── PLANS.md                             # Guide pour les Plans d'Action
+├── .agents/                                 # Skills OpenCode (caveman family)
+├── docs/                                    # Documentation versionnée du dépôt
+│   ├── ARCHITECTURE.md
+│   ├── ARCHITECTURE.template.md
+│   └── adr/
+│       └── ADR-TEMPLATE.md
+│
+├── .github/                                 # Legacy Copilot (templates pour projets aval)
+│   ├── copilot-instructions.md
+│   └── copilot-instructions.template.md
+│
+├── AGENTS.md                                # Instructions OpenCode racine
+└── ...
 ```
 
 ---
 
-## 🚀 Quick Start : Initialiser Copilot dans un Nouveau Projet
+## 🚀 Quick Start : Initialiser OpenCode dans un Nouveau Projet
 
-### Étape 1 : Copier le template
+### Étape 1 : Copier les agents
 
-Copier `.github/copilot-instructions.template.md` vers votre projet :
+Copier `.opencode/agents/` vers votre projet :
 
 ```bash
 # Depuis le dépôt transverse vers votre projet
-cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
+cp -r .opencode/agents <votre_projet>/.opencode/agents
 ```
 
 ### Étape 2 : Utiliser le prompt d'initiation
 
-Utiliser le prompt **`.github/prompts/init-copilot-instructions.prompt.md`** pour **générer automatiquement** les instructions :
+Utiliser le prompt **`init-opencode`** pour **générer automatiquement** la configuration :
 
 ```
-👤 Utilisateur: "Initialise les instructions Copilot pour ce projet"
-```
-
-Ou avec le CLI Copilot :
-```bash
-copilot prompt run init-copilot-instructions
+👤 Utilisateur: "Initialise la configuration OpenCode pour ce projet"
 ```
 
 Le prompt va :
-1. ✅ Lire le template
-2. ✅ Analyser votre code source
-3. ✅ Remplir les placeholders automatiquement
-4. ✅ Générer `.github/copilot-instructions.md`
+1. ✅ Analyser votre code source
+2. ✅ Générer `AGENTS.md` avec la structure du projet
+3. ✅ Créer les fichiers `.opencode/instructions/` personnalisés
 
-### Étape 3 : Valider et enrichir (optionnel)
+### Étape 3 : Utiliser les agents
 
-Si votre projet a des conventions spécifiques non détectées, utilisez le prompt **`.github/prompts/update-copilot-instructions.prompt.md`** pour auditer et enrichir :
+Les agents sont prêts ! Ouvrir OpenCode à la racine du projet :
 
-```
-👤 Utilisateur: "Complète les instructions Copilot depuis le code source"
+```bash
+opencode
 ```
 
 ---
 
 ## 📖 Fichiers Clés
 
-### Agents (`.github/agents/`)
+### Agents (`.opencode/agents/`)
 
 Chaque fichier agent définit un rôle, ses responsabilités et comment il interagit avec les autres agents.
 
@@ -96,37 +104,18 @@ Chaque fichier agent définit un rôle, ses responsabilités et comment il inter
 | **Qalvin.agent.md** (🟢 QUAL) | Expert QA et tests | "Écris des tests pour ce composant" |
 | **Docly.agent.md** (🟣 DOC) | Gestionnaire documentation | "Mets à jour la documentation" |
 
-Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions Copilot spécifiques au projet se trouvent dans `.github/copilot-instructions.md`.
+Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions spécifiques au projet se trouvent dans `.opencode/instructions/`.
 
 > Les agents sont **génériques**. Ils lisent au démarrage leur fichier `instructions/` correspondant pour les spécificités du projet.
 
-### Prompts (`.github/prompts/`)
+### Prompts (`.opencode/prompts/`)
 
 Prompts réutilisables pour des tâches récurrentes.
 
 | Prompt | Rôle | Utilisation |
 |---|---|---|
-| **init-copilot-instructions.prompt.md** | 🆕 Initialiser `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run init-copilot-instructions` |
-| **update-copilot-instructions.prompt.md** | Auditer et mettre à jour `copilot-instructions.md` et les fichiers `instructions/` | `copilot prompt run update-copilot-instructions` |
-| **migrate-to-template.prompt.md** | Migrer un projet existant | `copilot prompt run migrate-to-template` |
-
-### Templates
-
-| Fichier | Rôle | Utilisation |
-|---|---|---|
-| **copilot-instructions.template.md** | Template générique avec placeholders | Copier et customiser dans un nouveau projet |
-| **copilot-instructions.md** | Version "générique par défaut" | Exemple de fichier de base |
-| **instructions/*.instructions.md** | 4 templates à compléter par projet | Copier et remplir les placeholders |
-| **docs/ARCHITECTURE.template.md** | Template `docs/ARCHITECTURE.md` | Copier dans `docs/ARCHITECTURE.md` du projet cible |
-| **docs/adr/ADR-TEMPLATE.md** | Template ADR | Copier dans `docs/adr/NNN-titre.md` pour chaque décision |
-
-### Exemples (`.github/examples/`)
-
-Exemples concrets d'instructions pour différents types de projets.
-
-| Exemple | Type de projet | Utilisation |
-|---|---|---|
-| **copilot-instructions-domoticz.example.md** | React Native / Expo | Référence pour projets mobiles |
+| **init-opencode.prompt.md** | Initialiser `AGENTS.md` et les fichiers `instructions/` | `init-opencode` |
+| **update-opencode.prompt.md** | Auditer et mettre à jour `AGENTS.md` et les fichiers `instructions/` | `update-opencode` |
 
 ### Documentation
 
@@ -136,7 +125,7 @@ Exemples concrets d'instructions pour différents types de projets.
 
 ---
 
-## 🎯 Workflow Typique avec Copilot
+## 🎯 Workflow Typique avec OpenCode
 
 ```
 1️⃣ Utilisateur cadre le besoin
@@ -152,20 +141,19 @@ Exemples concrets d'instructions pour différents types de projets.
 6️⃣ Phase suivante du plan (retour à 2️⃣)
 ```
 
-Pour en savoir plus, lire `.github/PLANS.md`.
+Pour en savoir plus, lire `.opencode/PLANS.md`.
 
 ---
 
 ## ✅ Checklist pour Initialiser un Nouveau Projet
 
-- [ ] Copier `.github/copilot-instructions.template.md` → `.github/copilot-instructions.md`
-- [ ] Copier `.github/instructions/` → `.github/instructions/` du projet
-- [ ] Utiliser le prompt `init-copilot-instructions` pour remplir les sections
+- [ ] Copier `.opencode/agents/` → `.opencode/agents/` du projet
+- [ ] Copier `.opencode/skills/` → `.opencode/skills/` du projet
+- [ ] Copier `.opencode/PLANS.md` → `.opencode/PLANS.md` du projet
+- [ ] Utiliser le prompt `init-opencode` pour remplir les sections
 - [ ] Remplir les placeholders dans les 4 fichiers `instructions/`
 - [ ] Valider que tous les placeholders sont remplacés
-- [ ] (Optionnel) Utiliser `update-copilot-instructions` pour enrichir depuis le code
-- [ ] Committer `.github/copilot-instructions.md` dans le repo
-- [ ] Les agents sont prêts ! Utiliser `/solve` ou les appeler par nom
+- [ ] Les agents sont prêts ! Utiliser `@ARCos`, `@DEVon`, etc.
 
 ---
 
@@ -173,12 +161,10 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 
 - **Architecture** : `docs/ARCHITECTURE.md` — architecture de ce dépôt transverse
 - **Templates docs** : `docs/ARCHITECTURE.template.md` + `docs/adr/ADR-TEMPLATE.md`
-- **Agents génériques** : Présents dans ce dépôt, prêts à l'emploi
-- **Prompts réutilisables** : `.github/prompts/` — s'adapter au contexte du projet
-- **Templates** : `.github/copilot-instructions.template.md` — customiser pour votre projet
-- **Instructions agents** : `.github/instructions/` — à personnaliser par projet
-- **Exemples** : `.github/examples/` — références pour différents types de projets
-- **Plans d'Action** : `.github/PLANS.md` — guide pour orchestrer le travail multi-phases
+- **Agents génériques** : Présents dans `.opencode/agents/`, prêts à l'emploi
+- **Prompts réutilisables** : `.opencode/prompts/` — s'adapter au contexte du projet
+- **Instructions agents** : `.opencode/instructions/` — à personnaliser par projet
+- **Plans d'Action** : `.opencode/PLANS.md` — guide pour orchestrer le travail multi-phases
 
 ---
 
@@ -186,26 +172,23 @@ Pour en savoir plus, lire `.github/PLANS.md`.
 
 ### Mettre à jour les agents
 
-Si les versions des agents changent (ex: `Devon [v1.8]`), mettre à jour les fichiers `.github/agents/*.md`.
+Si les versions des agents changent (ex: `Devon [v4.0]`), mettre à jour les fichiers `.opencode/agents/*.md`.
 
 ### Mettre à jour les instructions d'un projet
 
-Utiliser le prompt `update-copilot-instructions` régulièrement pour garder les instructions à jour avec le code réel.
+Utiliser le prompt `update-opencode` régulièrement pour garder les instructions à jour avec le code réel.
 
 ---
 
 ## 🤝 Contribution
 
-Pour ajouter un nouvel agent, prompt ou template :
+Pour ajouter un nouvel agent, prompt ou skill :
 
-1. Créer le fichier dans le dossier approprié (`.github/agents/`, `.github/prompts/`, etc.)
+1. Créer le fichier dans le dossier approprié (`.opencode/agents/`, `.opencode/prompts/`, etc.)
 2. Suivre les conventions existantes (format YAML frontmatter pour agents/prompts)
 3. Tester dans un projet de sandbox avant de committer
 4. Documenter dans ce README
 
 ---
 
-**Dernière mise à jour :** 2026-05-05
-
-
-
+**Dernière mise à jour :** 2026-06-18
