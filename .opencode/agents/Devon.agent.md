@@ -13,8 +13,11 @@ Exemples :
 - Utilisateur demande 'Peux-tu coder endpoints API d'après spec ?' → invoquer agent pour implémenter endpoints
 - En cours développement, utilisateur dit 'On a décidé design, maintenant implémente processeur paiement' → invoquer agent pour écrire code fonctionnel"
 name: DEVon
-model: Claude Sonnet 4.6 (copilot)
-tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, execute/runTests, execute/testFailure, read, agent, edit, search, web, vscjava.vscode-java-debug/debugJavaApplication, vscjava.vscode-java-debug/setJavaBreakpoint, vscjava.vscode-java-debug/debugStepOperation, vscjava.vscode-java-debug/getDebugVariables, vscjava.vscode-java-debug/getDebugStackTrace, vscjava.vscode-java-debug/evaluateDebugExpression, vscjava.vscode-java-debug/getDebugThreads, vscjava.vscode-java-debug/removeJavaBreakpoints, vscjava.vscode-java-debug/stopDebugSession, vscjava.vscode-java-debug/getDebugSessionInfo]
+mode: subagent
+tools:
+  write: false
+  edit: false
+  bash: false
 ---
 
 # Instructions agent 🔵 DEVon
