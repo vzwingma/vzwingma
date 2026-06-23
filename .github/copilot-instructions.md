@@ -1,8 +1,8 @@
 Compressing Markdown into caveman format. Preserving code blocks, backticks, URLs, headings, file paths.
 
-# Copilot Instructions — vzwingma Cross-Project Repository
+# Copilot Instructions — Cross-Project Repository
 
-> This file describes the **cross-project repository of multi-agent Copilot templates** (`vzwingma/vzwingma`).
+> This file describes the **cross-project repository of multi-agent Copilot templates**.
 > Reusable infrastructure for orchestrating development in any project.
 
 ## 🗿 Communication mode
@@ -147,7 +147,7 @@ Skills centralise common procedures to avoid duplication between agents.
 
 ## 🏗️ Project Overview
 
-This repository is a **cross-project repository of multi-agent Copilot templates** for the `vzwingma` organisation. It does not contain application code, but rather reusable **Copilot infrastructure artefacts**:
+This repository is a **cross-project repository of multi-agent Copilot templates**. It does not contain application code, but rather reusable **Copilot infrastructure artefacts**:
 
 - **Generic agents** (`.github/agents/`): ARCos, DEVon, QUALvin, DOCly
 - **Shared skills** (`.github/skills/`): common AP and `/fleet` procedures
@@ -163,7 +163,7 @@ This repository is a **cross-project repository of multi-agent Copilot templates
 ## 📁 Repository Architecture
 
 ```
-vzwingma/
+/
 ├── .github/
 │   ├── agents/                          # Generic agents (cross-project — do not modify per project)
 │   │   ├── Arcos.agent.md               # Architect & orchestrator (v4.1)
@@ -248,49 +248,3 @@ Increment the version each time the agent content changes.
 - **Modify the `copilotignore` skill** → as the rule is applied via `applyTo: **`, any change to `.github/skills/copilotignore/SKILL.md` takes effect immediately for all agents
 - **Add a template file** → document it in `QUICK_START.md`, `SETUP_CHECKLIST.md` and `init-copilot-instructions.prompt.md`
 - **No build/test commands**: this repository is documentation-only
-
----
-
-## 📊 Relationships Between Agents (Mermaid Diagram)
-
-```mermaid
-graph TD
-    Human["👤 Human developer"]
-    Arch["🟠 ARCos"]
-    Dev["🔵 DEVon"]
-    QA["🟢 QUALvin"]
-    Doc["🟣 DOCly"]
-
-    Human -->|defines the need| Arch
-    Arch -->|creates an Action Plan| AP["📋 Action Plan<br/>(AP)"]
-    AP -->|specifies the tasks| Dev
-    AP -->|specifies the test cases| QA
-    AP -->|specifies what to document| Doc
-    
-    Dev -->|implements| Code["💾 Code"]
-    Code -->|signals implementation complete| QA
-    QA -->|validates with tests| Tests["✔️ Tests"]
-    Tests -->|signals tests ✅| Doc
-    Tests -->|signals tests ✅| Human
-    
-    Dev -->|reports changes| Doc
-    Doc -->|updates| Docs["📖 Documentation"]
-    Docs -->|submits for ✅| Human
-    
-    Arch -->|submits Plan for ✅| Human
-    Dev -->|submits Code for ✅| Human
-    QA -->|submits Tests for ✅| Human
-    
-    Human -->|approves| NextPhase["✅ Next phase<br/>(or next Plan)"]
-    
-    style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
-    style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
-    style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
-    style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
-    style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
-    style AP fill:#FFC107,stroke:#333,stroke-width:2px
-    style Code fill:#8BC34A,stroke:#333,stroke-width:2px
-    style Tests fill:#00BCD4,stroke:#333,stroke-width:2px
-    style Docs fill:#E91E63,stroke:#333,stroke-width:2px
-    style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
-```
