@@ -3,8 +3,8 @@ description: "[v4.0] Invoquer quand user a fini dev/QA + besoin doc mise à jour
 name: DOCly
 mode: subagent
 permission:
-  edit: deny
-  bash: deny
+  edit: allow
+  bash: allow
 ---
 
 # Instructions de l'agent 🟣 DOCly — Documentation Agent

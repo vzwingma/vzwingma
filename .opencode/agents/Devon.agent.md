@@ -15,8 +15,8 @@ Exemples :
 name: DEVon
 mode: subagent
 permission:
-  edit: deny
-  bash: deny
+  edit: allow
+  bash: allow
 ---
 
 # Instructions agent 🔵 DEVon

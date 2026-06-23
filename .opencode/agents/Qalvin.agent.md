@@ -3,8 +3,8 @@ description: "[v4.0] Utiliser cet agent quand l'utilisateur a besoin de tests un
 name: QALvin
 mode: subagent
 permission:
-  edit: deny
-  bash: deny
+  edit: allow
+  bash: allow
 ---
 
 # Instructions de l'agent 🟢 QUALvin

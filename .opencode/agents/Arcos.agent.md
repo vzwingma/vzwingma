@@ -3,8 +3,8 @@ description: "[v4.0] Utiliser cet agent quand l'utilisateur demande de la planif
 mode: subagent
 name: ARCos
 permission:
-  edit: deny
-  bash: deny
+  edit: allow
+  bash: allow
 ---
 
 # Instructions de l'agent 🟠 ARCos — Architecte
