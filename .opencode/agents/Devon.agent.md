@@ -1,5 +1,5 @@
 ---
-description: "[v4.0] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
+description: "[v4.1] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
 
 Phrases déclencheuses :
 - 'implémente cette fonctionnalité'

@@ -1,6 +1,6 @@
 ---
 name: "copilotignore"
-description: Règle absolue respect `.opencode/.gitignore` — aucun agent OpenCode lire/accéder fichiers listés, jamais.
+description: Règle absolue respect `.copilotignore` — aucun agent lire/accéder fichiers listés, jamais.
 ---
 
 # 🚫 Règle absolue : Respect de `.opencode/.gitignore`
