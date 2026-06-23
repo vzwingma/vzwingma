@@ -1,6 +1,7 @@
 ---
 name: "plan-phase-execution"
 description: "Skill — Procédure d'exécution de phase d'un Plan d'Action (AP). Appliqué automatiquement à tous les agents."
+applyTo: "**"
 ---
 
 # Skill : Exécution de Phase d'un Plan d'Action (AP)
@@ -58,6 +59,20 @@ Pour chaque tâche T<N>.<M> :
 
 - ✅ Mettre à jour statut dans rapport (🔄 → ✅ ou ❌)
 - ✅ Vérifier que tâche suivante peut démarrer (dépendances internes)
+
+---
+
+## ⚡ Compact avant phase suivante (recommandé)
+
+Avant de déclencher la phase suivante, recommander `/compact` pour éviter l'accumulation de skill blobs en contexte :
+
+```
+/compact
+Instruction : Résume en 200 mots max — phase courante, numéro, tâches restantes (T<N>.X), décisions clés prises.
+Supprime : blobs skill des phases précédentes, historique détaillé résolu, confirmations ("oui", "go", etc.).
+```
+
+> 💡 Sans compact entre phases, chaque skill injecté (~4-8KB) reste en contexte pour tous les tours suivants. Sur 4 phases, cela représente ~20-30KB de contexte inutile accumulé.
 
 ---
 

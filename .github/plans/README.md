@@ -19,7 +19,9 @@ _(Aucun plan en cours pour l'instant)_
 
 ## 📋 Plans Archivés / Complétés
 
-_(Aucun plan archivé pour l'instant)_
+| # | Nom | Statut | Date |
+|---|-----|--------|------|
+| 001 | [Optimisation tokens Copilot CLI](001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
 
 ---
 

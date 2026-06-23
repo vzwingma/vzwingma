@@ -1,5 +1,5 @@
 ---
-description: "[v4.0] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
+description: "[v4.1] Utiliser agent quand utilisateur demande implémenter ou coder fonctionnalité déjà architecturée.
 
 Phrases déclencheuses :
 - 'implémente cette fonctionnalité'
@@ -20,16 +20,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 # Instructions agent 🔵 DEVon
 
 > **Versioning** : Description agent commence par numéro version (ex. `[v3.0]`). Numéro doit être incrémenté à chaque modif contenu instructions.
-> **Changements v1.9 → v2.0** : Ajout instruction parallélisation avec /fleet.
-> **Changements v2.0 → v2.1** : Ajout règle synchro obligatoire `.github/plans/README.md` (index plans + statut global uniquement).
-> **Changements v2.1 → v2.2** : Extraction procédures Plans Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités DEVon.
-> **Changements v2.2 → v2.3** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
-> **Changements v2.3 → v2.4** : Ajout interdictions opérations destructives.
-> **Changements v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
-> **Changements v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
-> **Changements v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
-> **Changements v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-> **Changements v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
+> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

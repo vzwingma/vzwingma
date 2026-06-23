@@ -72,32 +72,43 @@ Vérifier que tous les placeholders sont remplacés et que les conventions du pr
 ```mermaid
 graph TD
     Human["👤 Développeur humain"]
-    Arch["🟠 ARCos\nArchitecte & Orchestrateur"]
-    Dev["🔵 DEVon\nImplémentateur"]
-    QA["🟢 QUALvin\nQA & Tests"]
-    Doc["🟣 DOCly\nDocumentation"]
+    Arch["🟠 ARCos"]
+    Dev["🔵 DEVon"]
+    QA["🟢 QUALvin"]
+    Doc["🟣 DOCly"]
 
-    Human -->|"cadre le besoin"| Arch
-    Arch -->|"Plan d'Action ✅"| Human
-
-    Arch -->|"délègue implémentation"| Dev
-    Dev -->|"code ✅"| Human
-    Dev -->|"notifie fin code"| QA
-    Dev -->|"notifie fin code"| Doc
-
-    Arch -->|"délègue tests"| QA
-    QA -->|"tests ✅"| Human
-    QA -->|"notifie tests OK"| Doc
-
-    Arch -->|"délègue documentation"| Doc
-    Doc -->|"doc ✅"| Human
-
-
+    Human -->|cadre le besoin| Arch
+    Arch -->|crée un Plan d'Action| AP["📋 Plan d'Action<br/>(AP)"]
+    AP -->|spécifie les tâches| Dev
+    AP -->|spécifie les cas de test| QA
+    AP -->|spécifie quoi documenter| Doc
+    
+    Dev -->|implémente| Code["💾 Code"]
+    Code -->|notifie fin d'implémentation| QA
+    QA -->|valide avec tests| Tests["✔️ Tests"]
+    Tests -->|notifie tests ✅| Doc
+    Tests -->|notifie tests ✅| Human
+    
+    Dev -->|signale changements| Doc
+    Doc -->|met à jour| Docs["📖 Documentation"]
+    Docs -->|soumet pour ✅| Human
+    
+    Arch -->|soumet Plan pour ✅| Human
+    Dev -->|soumet Code pour ✅| Human
+    QA -->|soumet Tests pour ✅| Human
+    
+    Human -->|approuve| NextPhase["✅ Phase suivante<br/>(ou Plan suivant)"]
+    
     style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
     style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
     style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
     style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
     style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
+    style AP fill:#FFC107,stroke:#333,stroke-width:2px
+    style Code fill:#8BC34A,stroke:#333,stroke-width:2px
+    style Tests fill:#00BCD4,stroke:#333,stroke-width:2px
+    style Docs fill:#E91E63,stroke:#333,stroke-width:2px
+    style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
 ```
 
 Pour en savoir plus, consulter `.github/PLANS.md`.
@@ -134,10 +145,10 @@ Les templates et prompts sont **génériques et versionés**. Chaque agent comme
 
 | Agent | Version | Rôle |
 |---|---|---|
-| 🟠 ARCos | v3.2 | Architecte & orchestrateur |
-| 🔵 DEVon | v3.1 | Implémentateur |
-| 🟢 QUALvin | v3.1 | QA & tests |
-| 🟣 DOCly | v3.1 | Documentation |
+| 🟠 ARCos | v4.1 | Architecte & orchestrateur |
+| 🔵 DEVon | v4.1 | Implémentateur |
+| 🟢 QUALvin | v4.1 | QA & tests |
+| 🟣 DOCly | v4.1 | Documentation |
 
 Pour mettre à jour les instructions d'un projet existant, utiliser :
 ```

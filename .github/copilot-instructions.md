@@ -33,7 +33,7 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **🟠 ARCos** [v3.2]
+#### **🟠 ARCos** [v4.1]
 - **Rôle:** Planificateur et orchestrateur technique
 - **Responsabilités:**
   - Concevoir solutions architecturales complètes
@@ -45,7 +45,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable:** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v3.1]
+#### **🔵 DEVon** [v4.1]
 - **Rôle:** Implémentateur de code de production
 - **Responsabilités:**
   - Traduire exigences en code fonctionnel et testé
@@ -56,7 +56,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v3.1]
+#### **🟢 QUALvin** [v4.1]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -67,7 +67,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable:** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v3.1]
+#### **🟣 DOCly** [v4.1]
 - **Rôle:** Gardien de documentation
 - **Responsabilités:**
   - Mettre à jour README, `docs/` et guides
@@ -139,6 +139,7 @@ Skills sont procédures réutilisables incluses automatiquement dans contexte de
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain: ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
+| `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -165,10 +166,11 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organi
 vzwingma/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.2)
-│   │   ├── Devon.agent.md               # Développeur (v3.1)
-│   │   ├── Qalvin.agent.md              # QA & tests (v3.1)
-│   │   ├── Docly.agent.md               # Documentation (v3.1)
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v4.1)
+│   │   ├── Devon.agent.md               # Développeur (v4.1)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.1)
+│   │   ├── Docly.agent.md               # Documentation (v4.1)
+│   │   └── CHANGELOG.md                 # Historique des versions de tous les agents
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -178,6 +180,8 @@ vzwingma/
 │   │   │   └── SKILL.md
 │   │   ├── adr-writing/
 │   │   │   └── SKILL.md
+│   │   ├── compact-context/
+│   │   │   └── SKILL.md                 # Instructions preCompact pour sessions plans/SDLC (applyTo: **)
 │   │   └── copilotignore/
 │   │       └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
 │   ├── instructions/                    # Templates à personnaliser par projet
@@ -239,7 +243,7 @@ Incrémenter version à chaque modification du contenu de l'agent.
 
 ## 🔄 Maintenance du Dépôt Transverse
 
-- **Modifier agent** → incrémenter version, mettre à jour changelog dans versioning block, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- **Modifier agent** → incrémenter version, ajouter entrée dans `.github/agents/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
 - **Modifier skill** → vérifier cohérence avec `PLANS.md`, signaler dans agents qui y référencent
 - **Modifier skill `copilotignore`** → règle étant appliquée via `applyTo: **`, toute modification de `.github/skills/copilotignore/SKILL.md` prend effet immédiatement pour tous agents
 - **Ajouter fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
@@ -249,44 +253,4 @@ Incrémenter version à chaque modification du contenu de l'agent.
 
 ## 📊 Relations entre Agents (Diagramme Mermaid)
 
-```mermaid
-graph TD
-    Human["👤 Développeur humain"]
-    Arch["🟠 ARCos"]
-    Dev["🔵 DEVon"]
-    QA["🟢 QUALvin"]
-    Doc["🟣 DOCly"]
-
-    Human -->|cadre le besoin| Arch
-    Arch -->|crée un Plan d'Action| AP["📋 Plan d'Action<br/>(AP)"]
-    AP -->|spécifie les tâches| Dev
-    AP -->|spécifie les cas de test| QA
-    AP -->|spécifie quoi documenter| Doc
-    
-    Dev -->|implémente| Code["💾 Code"]
-    Code -->|notifie fin d'implémentation| QA
-    QA -->|valide avec tests| Tests["✔️ Tests"]
-    Tests -->|notifie tests ✅| Doc
-    Tests -->|notifie tests ✅| Human
-    
-    Dev -->|signale changements| Doc
-    Doc -->|met à jour| Docs["📖 Documentation"]
-    Docs -->|soumet pour ✅| Human
-    
-    Arch -->|soumet Plan pour ✅| Human
-    Dev -->|soumet Code pour ✅| Human
-    QA -->|soumet Tests pour ✅| Human
-    
-    Human -->|approuve| NextPhase["✅ Phase suivante<br/>(ou Plan suivant)"]
-    
-    style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
-    style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
-    style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
-    style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
-    style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
-    style AP fill:#FFC107,stroke:#333,stroke-width:2px
-    style Code fill:#8BC34A,stroke:#333,stroke-width:2px
-    style Tests fill:#00BCD4,stroke:#333,stroke-width:2px
-    style Docs fill:#E91E63,stroke:#333,stroke-width:2px
-    style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
-```
+> Diagramme complet : voir [README.md — Workflow Typique](../README.md#-workflow-typique)

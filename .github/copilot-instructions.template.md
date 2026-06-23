@@ -30,7 +30,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v3.1]
+#### **🟠 ARCos** [v4.1]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir solutions architecturales complètes
@@ -42,7 +42,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v3.1]
+#### **🔵 DEVon** [v4.1]
 - **Rôle :** Implémentateur code production
 - **Responsabilités :**
   - Traduire exigences en code fonctionnel et testé
@@ -53,7 +53,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v3.1]
+#### **🟢 QUALvin** [v4.1]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -64,7 +64,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
-#### **🟣 DOCly** [v3.1]
+#### **🟣 DOCly** [v4.1]
 - **Rôle :** Gardien documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -137,6 +137,7 @@ Skills = procédures réutilisables incluses automatiquement dans contexte tous 
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
+| `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -250,47 +251,7 @@ Ajouter sections pertinentes pour conventions spécifiques projet :
 
 ## 📊 Relations entre Agents (Diagramme Mermaid)
 
-```mermaid
-graph TD
-    Human["👤 Développeur humain"]
-    Arch["🟠 ARCos"]
-    Dev["🔵 DEVon"]
-    QA["🟢 QUALvin"]
-    Doc["🟣 DOCly"]
-
-    Human -->|cadre le besoin| Arch
-    Arch -->|crée un Plan d'Action| AP["📋 Plan d'Action<br/>(AP)"]
-    AP -->|spécifie les tâches| Dev
-    AP -->|spécifie les cas de test| QA
-    AP -->|spécifie quoi documenter| Doc
-    
-    Dev -->|implémente| Code["💾 Code"]
-    Code -->|notifie fin d'implémentation| QA
-    QA -->|valide avec tests| Tests["✔️ Tests"]
-    Tests -->|notifie tests ✅| Doc
-    Tests -->|notifie tests ✅| Human
-    
-    Dev -->|signale changements| Doc
-    Doc -->|met à jour| Docs["📖 Documentation"]
-    Docs -->|soumet pour ✅| Human
-    
-    Arch -->|soumet Plan pour ✅| Human
-    Dev -->|soumet Code pour ✅| Human
-    QA -->|soumet Tests pour ✅| Human
-    
-    Human -->|approuve| NextPhase["✅ Phase suivante<br/>(ou Plan suivant)"]
-    
-    style Human fill:#ffeb3b,stroke:#333,stroke-width:2px
-    style Arch fill:#FF9800,stroke:#333,stroke-width:2px,color:#fff
-    style Dev fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
-    style QA fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
-    style Doc fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
-    style AP fill:#FFC107,stroke:#333,stroke-width:2px
-    style Code fill:#8BC34A,stroke:#333,stroke-width:2px
-    style Tests fill:#00BCD4,stroke:#333,stroke-width:2px
-    style Docs fill:#E91E63,stroke:#333,stroke-width:2px
-    style NextPhase fill:#00E676,stroke:#333,stroke-width:2px
-```
+> Diagramme complet : voir [README.md — Workflow Typique](../README.md#-workflow-typique)
 
 ---
 

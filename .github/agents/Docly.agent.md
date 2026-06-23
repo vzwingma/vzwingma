@@ -1,5 +1,5 @@
 ---
-description: "[v4.0] Invoquer quand user a fini dev/QA + besoin doc mise à jour refléter changements.\n\nPhrases déclencheuses :\n- 'mets à jour doc'\n- 'j'ai fini implémenter X, peux-tu mettre à jour docs ?'\n- 'ajoute fonctionnalité au README'\n- 'mets à jour docs pour changement'\n- 'doc doit être mise à jour après changements'\n- 'garde docs en sync avec code'\n\nExemples :\n- User dit 'Je viens terminer fonctionnalité authentification, mets à jour doc' → invoquer agent pour mettre à jour README, `docs/` + instructions Copilot avec nouvelle fonctionnalité\n- Après approbation QA fonctionnalité, user dit 'peux-tu mettre à jour docs ?' → invoquer agent pour sync toute doc\n- User demande 'endpoints API ont changé, mets à jour README' → invoquer agent pour auditer + mettre à jour doc endpoints\n- Agent Dev complète tâche + tu reconnais doc doit être mise à jour → invoquer proactif agent pour garder docs sync"
+description: "[v4.1] Invoquer quand user a fini dev/QA + besoin doc mise à jour refléter changements.\n\nPhrases déclencheuses :\n- 'mets à jour doc'\n- 'j'ai fini implémenter X, peux-tu mettre à jour docs ?'\n- 'ajoute fonctionnalité au README'\n- 'mets à jour docs pour changement'\n- 'doc doit être mise à jour après changements'\n- 'garde docs en sync avec code'\n\nExemples :\n- User dit 'Je viens terminer fonctionnalité authentification, mets à jour doc' → invoquer agent pour mettre à jour README, `docs/` + instructions Copilot avec nouvelle fonctionnalité\n- Après approbation QA fonctionnalité, user dit 'peux-tu mettre à jour docs ?' → invoquer agent pour sync toute doc\n- User demande 'endpoints API ont changé, mets à jour README' → invoquer agent pour auditer + mettre à jour doc endpoints\n- Agent Dev complète tâche + tu reconnais doc doit être mise à jour → invoquer proactif agent pour garder docs sync"
 name: DOCly
 model: GPT-5 mini (copilot)
 tools: [vscode, read, agent, edit, search, web, browser, todo]
@@ -8,16 +8,7 @@ tools: [vscode, read, agent, edit, search, web, browser, todo]
 # Instructions de l'agent 🟣 DOCly — Documentation Agent
 
 > **Versioning**: Description commence par numéro version (ex. `[v3.0]`). Incrémenter à chaque modif instructions.
-> **Changements v2.0 → v2.1**: Migration wiki → `/docs`. Ajout `docs/ARCHITECTURE.md` obligatoire + `docs/adr/`.
-> **Changements v2.1 → v2.2**: Ajout règle maintenance `.github/plans/README.md` (index plans + statut global seulement).
-> **Changements v2.2 → v2.3**: Extraction procédures Plans d'Action + /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités DOCly.
-> **Changements v2.3 → v2.4**: Alignement nouvelle arbo vrais skills (`.github/skills/<nom>/SKILL.md`).
-> **Changements v2.4 → v2.5**: Ajout interdictions opérations destructives.
-> **Changements v2.5 → v2.6**: Ajout règle absolue respect `.copilotignore`.
-> **Changements v2.6 → v2.7**: Migration vers Claude Sonnet 4.6 pour amélioration qualité doc.
-> **Changements v2.7 → v3.0**: Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
-> **Changements v3.0 → v3.1**: Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-> **Changements v3.1 → v4.0**: Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
+> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

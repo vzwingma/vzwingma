@@ -1,6 +1,7 @@
 ---
 name: "plan-creation"
 description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour agents orchestrateurs (ARCos + futurs agents planification)."
+applyTo: "**"
 ---
 
 # Skill : Création d'un Plan d'Action (AP)
@@ -86,6 +87,8 @@ Avant lancer phases :
    - Tâches claires + mesurables ?
    - Agents assignés appropriés ?
 3. **Ajuster** selon feedback
+
+> 💡 **Compact recommandé** après validation plan : `/compact` avec instruction — _"Garde uniquement : titre plan, phases + statut, tâches ouvertes assignées. Supprime détails procédure création."_ Économise ~4.5KB de contexte skill pour tous les tours suivants.
 
 ---
 
