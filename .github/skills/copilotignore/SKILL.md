@@ -1,6 +1,7 @@
 ---
 name: "copilotignore"
 description: Absolute rule for respecting `.copilotignore` — no agent may ever read/access listed files.
+applyTo: "**"
 ---
 
 # 🚫 Absolute rule: Respecting `.copilotignore`

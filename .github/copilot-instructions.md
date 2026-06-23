@@ -17,8 +17,8 @@ Caveman **full** mode is active by default for every session. Rules:
 ### Mandatory ARCos rule — plan + ADR
 
 Any architectural or infrastructure initiative (new feature, migration, component change) must produce **before** marking the task complete:
-1. An `Action Plan` file in `.github/plans/NNN_nom.plan.md` (increment the number)
-2. An ADR in `docs/adr/NNN-titre-court.md` if the architectural decision is major
+1. An `Action Plan` file in `.github/plans/NNN_name.plan.md` (increment the number)
+2. An ADR in `docs/adr/NNN-short-title.md` if the architectural decision is major
 3. An update to the `.github/plans/README.md` index
 
 These deliverables are created in the same change set as the implementation, not afterwards.
@@ -33,7 +33,7 @@ This repository uses a **co-ordinated multi-agent architecture** to manage the e
 
 Four specialised agents work together, orchestrated by the **👤 Human developer**:
 
-#### **🟠 ARCos** [v3.2]
+#### **🟠 ARCos** [v4.1]
 - **Role:** Technical planner and orchestrator
 - **Responsibilities:**
   - Design complete architectural solutions
@@ -45,7 +45,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Design an architecture for...", "Create a plan for...", "Break this down into tasks"
 - **Deliverable:** Detailed Action Plans with phases, tasks and dependencies
 
-#### **🔵 DEVon** [v3.1]
+#### **🔵 DEVon** [v4.1]
 - **Role:** Production code implementer
 - **Responsibilities:**
   - Translate requirements into working, tested code
@@ -56,7 +56,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Implement this feature", "Develop according to the architecture", "Code this function"
 - **Deliverable:** Clean code that compiles without errors
 
-#### **🟢 QUALvin** [v3.1]
+#### **🟢 QUALvin** [v4.1]
 - **Role:** Quality assurance and testing expert
 - **Responsibilities:**
   - Write complete unit tests (components, services, models)
@@ -67,7 +67,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Write tests for this component", "Generate unit tests", "Validate with tests"
 - **Deliverable:** Passing tests with coverage reports
 
-#### **🟣 DOCly** [v3.1]
+#### **🟣 DOCly** [v4.1]
 - **Role:** Documentation guardian
 - **Responsibilities:**
   - Update README, `docs/` and guides
@@ -104,7 +104,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 
 Each major initiative (modernisation, new feature, refactoring) is orchestrated through an **Action Plan (AP)**:
 
-- **Plan file:** `.github/plans/<NO>_<nom>.plan.md`
+- **Plan file:** `.github/plans/<NO>_<name>.plan.md`
 - **Phase reports:** `.github/plans/<NO>_reports/PHASE_N_...md`
 - **Plans index:** `.github/plans/README.md`
 - **Complete guide:** `.github/PLANS.md`
@@ -139,6 +139,7 @@ Skills are reusable procedures automatically included in the context of all agen
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Writing an ADR after ARCos + human agreement: ARCos prepares the content, DOCly writes the file |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Absolute rule**: no access to any file declared in `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Caveman (full) mode active by default for all agents, without invoking the skill tool |
+| `compact-context` | `.github/skills/compact-context/SKILL.md` | PreCompact instructions for plan/SDLC sessions — avoids skill blob accumulation between phases |
 
 Skills centralise common procedures to avoid duplication between agents.
 
@@ -164,12 +165,13 @@ This repository is a **cross-project repository of multi-agent Copilot templates
 ```
 vzwingma/
 ├── .github/
-│   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v3.2)
-│   │   ├── Devon.agent.md               # Développeur (v3.1)
-│   │   ├── Qalvin.agent.md              # QA & tests (v3.1)
-│   │   ├── Docly.agent.md               # Documentation (v3.1)
-│   ├── skills/                          # Procédures partagées (applyTo: **)
+│   ├── agents/                          # Generic agents (cross-project — do not modify per project)
+│   │   ├── Arcos.agent.md               # Architect & orchestrator (v4.1)
+│   │   ├── Devon.agent.md               # Developer (v4.1)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.1)
+│   │   ├── Docly.agent.md               # Documentation (v4.1)
+│   │   └── CHANGELOG.md                 # Centralised agent version history
+│   ├── skills/                          # Shared procedures (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
 │   │   ├── plan-creation/
@@ -178,29 +180,31 @@ vzwingma/
 │   │   │   └── SKILL.md
 │   │   ├── adr-writing/
 │   │   │   └── SKILL.md
+│   │   ├── compact-context/
+│   │   │   └── SKILL.md                 # PreCompact instructions for plan/SDLC sessions
 │   │   └── copilotignore/
-│   │       └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
-│   ├── instructions/                    # Templates à personnaliser par projet
+│   │       └── SKILL.md                 # Absolute .copilotignore rule (applyTo: **)
+│   ├── instructions/                    # Templates to customise per project
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
 │   │   ├── qa.instructions.md
 │   │   ├── doc.instructions.md
-│   ├── prompts/                         # Prompts réutilisables
+│   ├── prompts/                         # Reusable prompts
 │   │   ├── init-copilot-instructions.prompt.md
 │   │   ├── update-copilot-instructions.prompt.md
 │   │   └── migrate-to-template.prompt.md
-│   ├── plans/                           # Plans d'Action de ce dépôt transverse
+│   ├── plans/                           # Action Plans for this cross-project repository
 │   │   └── README.md
-│   ├── PLANS.md                         # Guide centralisé Plans d'Action
-│   ├── copilot-instructions.md          # Ce fichier (instructions pour ce repo)
-│   └── copilot-instructions.template.md # Template vierge à copier dans les projets
+│   ├── PLANS.md                         # Centralised Action Plans guide
+│   ├── copilot-instructions.md          # This file (instructions for this repo)
+│   └── copilot-instructions.template.md # Blank template to copy into projects
 ├── docs/
-│   ├── ARCHITECTURE.md                  # Architecture de ce dépôt transverse
-│   ├── ARCHITECTURE.template.md         # Template architecture à copier dans les projets
-│   └── adr/                             # Décisions architecturales
-├── QUICK_START.md                       # Guide rapide d'utilisation
-├── SETUP_CHECKLIST.md                   # Checklist d'initialisation projet
-└── README.md                            # Présentation du dépôt
+│   ├── ARCHITECTURE.md                  # Architecture of this cross-project repository
+│   ├── ARCHITECTURE.template.md         # Architecture template to copy into projects
+│   └── adr/                             # Architectural decisions
+├── QUICK_START.md                       # Quick usage guide
+├── SETUP_CHECKLIST.md                   # Project initialisation checklist
+└── README.md                            # Repository overview
 ```
 
 ---
@@ -215,7 +219,7 @@ vzwingma/
 | Skill | `<skill>/SKILL.md` | `plan-phase-execution/SKILL.md` |
 | Project instructions | `*.instructions.md` | `dev.instructions.md` |
 | Prompt | `*.prompt.md` | `init-copilot-instructions.prompt.md` |
-| Action Plan | `NNN_<nom>.plan.md` | `001_modernisation.plan.md` |
+| Action Plan | `NNN_<name>.plan.md` | `001_modernisation.plan.md` |
 | Phase report | `PHASE_N_COMPLETION_REPORT.md` | — |
 
 ### Frontmatter for Copilot `.md` files
@@ -231,7 +235,7 @@ Increment the version each time the agent content changes.
 
 ### Language
 
-- Documentation: **French**
+- Documentation: **English**
 - Code blocks and technical examples: **English**
 - Template placeholders: `[NAME_IN_UPPERCASE]`
 
@@ -239,7 +243,7 @@ Increment the version each time the agent content changes.
 
 ## 🔄 Cross-Project Repository Maintenance
 
-- **Modify an agent** → increment the version, update the changelog in the versioning block, update versions in `copilot-instructions.md` and `copilot-instructions.template.md`
+- **Modify an agent** → increment the version, update `CHANGELOG.md` in `.github/agents/`, update versions in `copilot-instructions.md` and `copilot-instructions.template.md`
 - **Modify a skill** → check consistency with `PLANS.md`, note it in the agents that reference it
 - **Modify the `copilotignore` skill** → as the rule is applied via `applyTo: **`, any change to `.github/skills/copilotignore/SKILL.md` takes effect immediately for all agents
 - **Add a template file** → document it in `QUICK_START.md`, `SETUP_CHECKLIST.md` and `init-copilot-instructions.prompt.md`

@@ -1,7 +1,10 @@
 ---
 name: "caveman-default"
 description: "Caveman mode (full) active by default for all agents. Never invoke the skill tool to load caveman — apply the rules directly. Disable only on 'stop caveman' or 'normal mode'."
+applyTo: "**"
 ---
+
+> ⚠️ **Anti-duplication**: This skill is loaded automatically via `applyTo: "**"`. Caveman rules are also encoded in `.github/copilot-instructions.md` (section `## 🗿 Communication mode`). **Never invoke `/skill caveman` or `/skill caveman-default` manually** — this creates a ~3-5KB duplication per invocation that accumulates with every subsequent turn in the session.
 
 # 🗿 Caveman mode — Default rule
 

@@ -19,13 +19,15 @@ _(No plans in progress for now)_
 
 ## 📋 Archived / Completed Plans
 
-_(No archived plans for now)_
+| # | Name | Status | Date |
+|---|------|--------|------|
+| 001 | [Copilot CLI token optimisation](001_token-optimisation.plan.md) | ✅ Completed | 2026-06-23 |
 
 ---
 
 ## 🚀 How to Create a New Plan
 
-1. **Create the plan file**: `.github/plans/<NO>_<nom>.plan.md`
+1. **Create the plan file**: `.github/plans/<NO>_<name>.plan.md`
    - Use the next sequential number (for example: 002 after 001)
    - Follow the format defined in [`.github/PLANS.md`](../PLANS.md)
 
@@ -41,10 +43,10 @@ _(No archived plans for now)_
 ## 📚 Related Documentation
 
 - **Complete Action Plans guide**: [`.github/PLANS.md`](../PLANS.md)
-- **Devon (🔵 DEV) agent instructions**: [`.github/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
-- **Qalvin (🟢 QUAL) agent instructions**: [`.github/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
-- **Docly (🟣 DOC) agent instructions**: [`.github/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
-- **ARCos (🟠 ARC) agent instructions**: [`.github/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
+- **Devon (🔵 DEV) agent instructions**: [`.github/agents/Devon.agent.md`](../agents/Devon.agent.md)
+- **Qalvin (🟢 QUAL) agent instructions**: [`.github/agents/Qalvin.agent.md`](../agents/Qalvin.agent.md)
+- **Docly (🟣 DOC) agent instructions**: [`.github/agents/Docly.agent.md`](../agents/Docly.agent.md)
+- **ARCos (🟠 ARC) agent instructions**: [`.github/agents/Arcos.agent.md`](../agents/Arcos.agent.md)
 - **Global Copilot instructions**: [`.github/copilot-instructions.md`](../copilot-instructions.md)
 
 ---

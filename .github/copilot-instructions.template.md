@@ -14,8 +14,8 @@ Caveman **full** mode is active by default for every session. Rules:
 ### Mandatory ARCos rule — plan + ADR
 
 Any architectural or infrastructure initiative (new feature, migration, component change) must produce **before** marking the task complete:
-1. An `Action Plan` file in `.github/plans/NNN_nom.plan.md` (increment the number)
-2. An ADR in `docs/adr/NNN-titre-court.md` if the architectural decision is major
+1. An `Action Plan` file in `.github/plans/NNN_name.plan.md` (increment the number)
+2. An ADR in `docs/adr/NNN-short-title.md` if the architectural decision is major
 3. An update to the `.github/plans/README.md` index
 
 These deliverables are created in the same change set as the implementation, not afterwards.
@@ -30,7 +30,7 @@ Project **[PROJECT_NAME]** uses a **co-ordinated multi-agent architecture** to m
 
 Four specialised agents work together, orchestrated by the **👤 Human developer** :
 
-#### **🟠 ARCos** [v3.1]
+#### **🟠 ARCos** [v4.1]
 - **Role:** Technical planner and orchestrator
 - **Responsibilities:**
   - Design complete architectural solutions
@@ -42,7 +42,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Design an architecture for...", "Create a plan for...", "Break this down into tasks"
 - **Deliverable:** Detailed Action Plans with phases, tasks and dependencies
 
-#### **🔵 DEVon** [v3.1]
+#### **🔵 DEVon** [v4.1]
 - **Role:** Production code implementer
 - **Responsibilities:**
   - Translate requirements into working, tested code
@@ -53,7 +53,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Implement this feature", "Develop according to the architecture", "Code this function"
 - **Deliverable:** Clean code that compiles without errors
 
-#### **🟢 QUALvin** [v3.1]
+#### **🟢 QUALvin** [v4.1]
 - **Role:** Quality assurance and testing expert
 - **Responsibilities:**
   - Write complete unit tests (components, services, models)
@@ -64,7 +64,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 - **When to use it:** "Write tests for this component", "Generate unit tests", "Validate with tests"
 - **Deliverable:** Passing tests with coverage reports
 
-#### **🟣 DOCly** [v3.1]
+#### **🟣 DOCly** [v4.1]
 - **Role:** Documentation guardian
 - **Responsibilities:**
   - Update README, `docs/` and guides
@@ -101,7 +101,7 @@ Four specialised agents work together, orchestrated by the **👤 Human develope
 
 Each major initiative (modernisation, new feature, refactoring) is orchestrated through an **Action Plan (AP)**:
 
-- **Plan file:** `.github/plans/<NO>_<nom>.plan.md`
+- **Plan file:** `.github/plans/<NO>_<name>.plan.md`
 - **Phase reports:** `.github/plans/<NO>_reports/PHASE_N_...md`
 - **Plans index:** `.github/plans/README.md`
 - **Complete guide:** `.github/PLANS.md`
@@ -137,6 +137,7 @@ Skills = reusable procedures automatically included in the context of all agents
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Writing an ADR after ARCos + human agreement: ARCos prepares the content, DOCly writes the file |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Absolute rule**: no access to any file declared in `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Caveman (full) mode active by default for all agents, without invoking the skill tool |
+| `compact-context` | `.github/skills/compact-context/SKILL.md` | PreCompact instructions for plan/SDLC sessions — avoids skill blob accumulation between phases |
 
 Skills centralise common procedures to avoid duplication between agents.
 

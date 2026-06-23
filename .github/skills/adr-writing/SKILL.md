@@ -1,6 +1,7 @@
 ---
 name: "adr-writing"
 description: "Skill — Procedure for writing an Architecture Decision Record (ADR) after agreement by ARCos + human. Automatically applied."
+applyTo: "**"
 ---
 
 # Skill: Writing an Architecture Decision Record (ADR)

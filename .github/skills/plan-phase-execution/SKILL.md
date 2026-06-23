@@ -1,6 +1,7 @@
 ---
 name: "plan-phase-execution"
 description: "Skill — Procedure for executing an Action Plan (AP) phase. Automatically applied to all agents."
+applyTo: "**"
 ---
 
 # Skill: Executing an Action Plan (AP) Phase
@@ -13,7 +14,7 @@ description: "Skill — Procedure for executing an Action Plan (AP) phase. Autom
 
 ## Before starting
 
-1. **Read the full plan**: `.github/plans/<NO>_<nom>.plan.md`
+1. **Read the full plan**: `.github/plans/<NO>_<name>.plan.md`
 2. **Identify your tasks**: Look for your agent identifier in the phase (for example: `🔵 DEVon`, `🟢 QUALvin`, etc.)
 3. **List the assigned tasks** (T<N>.X, T<N>.Y, etc.) and their sequence
 4. **Understand dependencies**: Which phase(s) must be completed before yours
@@ -36,20 +37,20 @@ For each task T<N>.<M>:
 
 **Documentation format per task:**
 ```markdown
-### T<N>.<M> - [Titre de la tâche]
+### T<N>.<M> - [Task title]
 
-**Statut :** ✅ DONE (ou 🔄 IN_PROGRESS, ❌ BLOCKED)
+**Status:** ✅ DONE (or 🔄 IN_PROGRESS, ❌ BLOCKED)
 
-**Fichiers Créés / Modifiés :**
-- `path/to/file1.ts` — [Brève description]
-- `path/to/file2.tsx` — [Brève description]
+**Files Created / Modified:**
+- `path/to/file1.ts` — [Brief description]
+- `path/to/file2.tsx` — [Brief description]
 
-**Résultats :**
-- Critère 1 : ✅ Atteint (ex: "Coverage 92% ≥90%")
-- Critère 2 : ✅ Atteint
+**Results:**
+- Criterion 1: ✅ Met (e.g. "Coverage 92% ≥90%")
+- Criterion 2: ✅ Met
 
-**Notes :**
-[Décisions, problèmes rencontrés, hypothèses]
+**Notes:**
+[Decisions, issues encountered, assumptions]
 ```
 
 ---
@@ -61,20 +62,34 @@ For each task T<N>.<M>:
 
 ---
 
+## ⚡ Compact before next phase (recommended)
+
+Before triggering the next phase, recommend `/compact` to avoid accumulating skill blobs in context:
+
+```
+/compact
+Instruction: Summarise in max 200 words — current phase, number, remaining tasks (T<N>.X), key decisions made.
+Remove: skill blobs from previous phases, detailed resolved history, confirmations ("yes", "go", etc.).
+```
+
+> 💡 Without compact between phases, each injected skill (~4-8KB) stays in context for all subsequent turns. Over 4 phases, this represents ~20-30KB of unnecessary accumulated context.
+
+---
+
 ## At the end of the phase
 
 Fill in the **Phase Summary** in the report:
 
 ```markdown
-## 📊 Synthèse de Phase
+## 📊 Phase Summary
 
-**Tâches Complétées :** X/Y ✅
-**Critères de Réussite Atteints :**
-- ✅ Critère 1
-- ✅ Critère 2
+**Tasks Completed:** X/Y ✅
+**Success Criteria Met:**
+- ✅ Criterion 1
+- ✅ Criterion 2
 
-**Bloqueurs :** Aucun ❌
-**Prochaine Phase :** Phase X peut démarrer (toutes les dépendances ✅)
+**Blockers:** None ❌
+**Next Phase:** Phase X can start (all dependencies ✅)
 ```
 
 Then **notify the next agent** according to your delegation instructions.
@@ -91,6 +106,6 @@ Then **notify the next agent** according to your delegation instructions.
 ## References
 
 - 📋 Full guide: `.github/PLANS.md`
-- 📋 Current plan: `.github/plans/<NO>_<nom>.plan.md`
+- 📋 Current plan: `.github/plans/<NO>_<name>.plan.md`
 - 📊 Existing reports: `.github/plans/<NO>_reports/`
 - 📌 Plans index (summary): `.github/plans/README.md`

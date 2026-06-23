@@ -1,6 +1,7 @@
 ---
 name: "plan-creation"
 description: "Skill — Procedure for creating + orchestrating an Action Plan (AP). For orchestrator agents (ARCos + future planning agents)."
+applyTo: "**"
 ---
 
 # Skill: Creating an Action Plan (AP)
