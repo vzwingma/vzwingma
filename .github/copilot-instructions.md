@@ -1,8 +1,8 @@
 Compressing markdown to caveman format. Preserving code blocks, backticks, URLs, headings, file paths.
 
-# Instructions Copilot — Dépôt Transverse vzwingma
+# Instructions Copilot — Dépôt Transverse 
 
-> Fichier décrit **dépôt transverse de templates Copilot multi-agents** (`vzwingma/vzwingma`).
+> Fichier décrit **dépôt transverse de templates Copilot multi-agents**.
 > Infrastructure réutilisable pour orchestrer développement dans n'importe quel projet.
 
 ## 🗿 Mode communication
@@ -147,7 +147,7 @@ Skills centralisent procédures communes pour éviter duplication entre agents.
 
 ## 🏗️ Présentation du Projet
 
-Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organisation `vzwingma`. Ne contient pas code applicatif mais **artefacts d'infrastructure Copilot** réutilisables:
+Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contient pas code applicatif mais **artefacts d'infrastructure Copilot** réutilisables:
 
 - **Agents génériques** (`.github/agents/`): ARCos, DEVon, QUALvin, DOCly
 - **Skills partagés** (`.github/skills/`): procédures AP et /fleet communes
@@ -163,7 +163,7 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organi
 ## 📁 Architecture du Dépôt
 
 ```
-vzwingma/
+/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
 │   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v4.1)

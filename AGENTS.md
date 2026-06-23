@@ -1,4 +1,4 @@
-# AGENTS.md — vzwingma/vzwingma
+# AGENTS.md
 
 Guide pour OpenCode lorsqu'on travaille sur du code dans le dépôt.
 

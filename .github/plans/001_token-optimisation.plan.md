@@ -8,7 +8,7 @@
 
 ## Objectif Global
 
-Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4 correctifs identifiés par `/chronicle cost-tips` sur la configuration `vzwingma/vzwingma` :
+Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4 correctifs identifiés par `/chronicle cost-tips` sur la configuration :
 
 - **Tip 1** : Guidance `/compact` entre phases SDLC/AP
 - **Tip 2** : Élimination du double-chargement du mode caveman
