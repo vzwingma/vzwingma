@@ -19,37 +19,33 @@ _(Aucun plan en cours pour l'instant)_
 
 ## 📋 Plans Archivés / Complétés
 
-### 001 — Cherry-pick agents Copilot feat/ai → main
-- **Statut :** ✅ Complété (Phase 1 ✅, Phase 2 ✅)
-- **Phase 1 :** Création structure `.github/agents/`, `.github/skills/`, `.github/instructions/`, `.github/prompts/`
-- **Phase 2 :** Alignement agents Copilot sur v4.0
-- **Rapports :** [Phase 1](001_reports/PHASE_1_COMPLETION_REPORT.md), [Phase 2](001_reports/PHASE_2_COMPLETION_REPORT.md)
+_(Aucun plan archivé pour l'instant)_
 
 ---
 
 ## 🚀 Comment Créer un Nouveau Plan
 
-1. **Créer le fichier plan** : `.opencode/plans/<NO>_<nom>.plan.md`
+1. **Créer le fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
    - Utiliser le numéro séquentiel suivant (ex: 002 après 001)
-   - Suivre le format défini dans [`.opencode/PLANS.md`](../PLANS.md)
+   - Suivre le format défini dans [`.github/PLANS.md`](../PLANS.md)
 
-2. **Créer le dossier reporting** : `.opencode/plans/<NO>_reports/`
+2. **Créer le dossier reporting** : `.github/plans/<NO>_reports/`
    - Contiendra les rapports de phase complétées
 
 3. **Soumettre pour validation** au 👤 Développeur humain ou lead du projet
 
-**Guide complet :** 📖 [`.opencode/PLANS.md`](../PLANS.md)
+**Guide complet :** 📖 [`.github/PLANS.md`](../PLANS.md)
 
 ---
 
 ## 📚 Documentation Associée
 
-- **Guide complet des Plans d'Action** : [`.opencode/PLANS.md`](../PLANS.md)
-- **Instructions agent Devon (🔵 DEV)** : [`.opencode/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
-- **Instructions agent Qalvin (🟢 QUAL)** : [`.opencode/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
-- **Instructions agent Docly (🟣 DOC)** : [`.opencode/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
-- **Instructions agent Arkos (🟠 ARC)** : [`.opencode/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
-- **Configuration OpenCode** : `AGENTS.md` à la racine du projet
+- **Guide complet des Plans d'Action** : [`.github/PLANS.md`](../PLANS.md)
+- **Instructions agent Devon (🔵 DEV)** : [`.github/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
+- **Instructions agent Qalvin (🟢 QUAL)** : [`.github/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
+- **Instructions agent Docly (🟣 DOC)** : [`.github/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
+- **Instructions agent Arkos (🟠 ARC)** : [`.github/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
+- **Instructions Copilot globales** : [`.github/copilot-instructions.md`](../copilot-instructions.md)
 
 ---
 
@@ -83,7 +79,7 @@ Pour contribuer ou modifier un plan existant :
 
 ---
 
-**Dernière mise à jour :** 2026-06-18  
+**Dernière mise à jour :** 2026-04-24  
 **Gestionnaire des Plans :** Arkos (🟠 ARC) & 👤 Développeur humain
 
 
