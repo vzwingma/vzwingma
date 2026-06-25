@@ -30,7 +30,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **🟠 ARCos** [v4.1]
+#### **🟠 ARCos** [v4.2]
 - **Rôle :** Planificateur et orchestrateur technique
 - **Responsabilités :**
   - Concevoir solutions architecturales complètes
@@ -42,7 +42,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v4.1]
+#### **🔵 DEVon** [v4.2]
 - **Rôle :** Implémentateur code production
 - **Responsabilités :**
   - Traduire exigences en code fonctionnel et testé
@@ -53,7 +53,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v4.1]
+#### **🟢 QUALvin** [v4.2]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -64,7 +64,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
-#### **🟣 DOCly** [v4.1]
+#### **🟣 DOCly** [v4.2]
 - **Rôle :** Gardien documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides

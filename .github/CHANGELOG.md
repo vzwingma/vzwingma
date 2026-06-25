@@ -21,6 +21,7 @@
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
+- **v4.1 → v4.2** : Descriptions frontmatter raccourcies. Relations inter-agents externalisées vers `.github/README.md`.
 
 ---
 
@@ -37,6 +38,7 @@
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
+- **v4.1 → v4.2** : Description réduite. Delegation gardee concise ; workflow global deplace vers `.github/README.md`.
 
 ---
 
@@ -54,6 +56,7 @@
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
+- **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.github/README.md`.
 
 ---
 
@@ -70,3 +73,4 @@
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
+- **v4.1 → v4.2** : Description réduite. Vue transverse centralisee dans `.github/README.md`.
