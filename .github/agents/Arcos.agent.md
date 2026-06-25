@@ -8,7 +8,7 @@ tools: [execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, exec
 # Instructions de l'agent 🟠 ARCos — Architecte
 
 > **Versioning** : Description démarre par numéro version (ex. `[v3.0]`). Incrémenter à chaque modif.
-> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
+> Historique des versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

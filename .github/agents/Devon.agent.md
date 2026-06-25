@@ -20,7 +20,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 # Instructions agent 🔵 DEVon
 
 > **Versioning** : Description agent commence par numéro version (ex. `[v3.0]`). Numéro doit être incrémenté à chaque modif contenu instructions.
-> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
+> Historique des versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

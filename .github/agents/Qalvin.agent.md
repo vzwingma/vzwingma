@@ -8,7 +8,7 @@ tools: [vscode, execute, read, agent, edit, search, web, browser, sonarsource.so
 # Instructions de l'agent 🟢 QUALvin
 
 > **Versioning**: Description agent commence par numéro version (ex. `[v3.0]`). Incrémenter à chaque modification contenu instructions.
-> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
+> Historique des versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

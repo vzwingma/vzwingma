@@ -8,7 +8,7 @@ tools: [vscode, read, agent, edit, search, web, browser, todo]
 # Instructions de l'agent 🟣 DOCly — Documentation Agent
 
 > **Versioning**: Description commence par numéro version (ex. `[v3.0]`). Incrémenter à chaque modif instructions.
-> Historique des versions : [`.github/agents/CHANGELOG.md`](CHANGELOG.md)
+> Historique des versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
 
 ## 📂 Spécificités projet
 

@@ -170,7 +170,6 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   │   ├── Devon.agent.md               # Développeur (v4.1)
 │   │   ├── Qalvin.agent.md              # QA & tests (v4.1)
 │   │   ├── Docly.agent.md               # Documentation (v4.1)
-│   │   └── CHANGELOG.md                 # Historique des versions de tous les agents
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -195,6 +194,7 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   │   └── migrate-to-template.prompt.md
 │   ├── plans/                           # Plans d'Action de ce dépôt transverse
 │   │   └── README.md
+│   ├── CHANGELOG.md                     # Historique des versions de tous les agents
 │   ├── PLANS.md                         # Guide centralisé Plans d'Action
 │   ├── copilot-instructions.md          # Ce fichier (instructions pour ce repo)
 │   └── copilot-instructions.template.md # Template vierge à copier dans les projets
@@ -243,7 +243,7 @@ Incrémenter version à chaque modification du contenu de l'agent.
 
 ## 🔄 Maintenance du Dépôt Transverse
 
-- **Modifier agent** → incrémenter version, ajouter entrée dans `.github/agents/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- **Modifier agent** → incrémenter version, ajouter entrée dans `.github/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
 - **Modifier skill** → vérifier cohérence avec `PLANS.md`, signaler dans agents qui y référencent
 - **Modifier skill `copilotignore`** → règle étant appliquée via `applyTo: **`, toute modification de `.github/skills/copilotignore/SKILL.md` prend effet immédiatement pour tous agents
 - **Ajouter fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
