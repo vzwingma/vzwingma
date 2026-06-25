@@ -14,7 +14,7 @@
       Platform-specific frontmatter fields (model/tools) are preserved.
 
     For standalone .md files:
-      Full file sync with automatic path substitution (.github/ → .opencode/).
+      Full file sync with automatic path substitution (.github/ -> .opencode/).
 
     Prompts are intentionally excluded (descriptions are tool-specific).
 
@@ -37,7 +37,7 @@ $repoRoot   = Split-Path $PSScriptRoot -Parent
 $moduleFile = Join-Path $PSScriptRoot 'Sync-Description.psm1'
 
 if (-not (Test-Path $moduleFile)) { Write-Error "Module not found: $moduleFile"; exit 1 }
-Import-Module $moduleFile -Force
+Import-Module $moduleFile -Force -DisableNameChecking
 
 $githubBase   = Join-Path $repoRoot '.github'
 $opencodeBase = Join-Path $repoRoot '.opencode'
@@ -52,7 +52,7 @@ function Add-Counts ($counts) {
 }
 
 # ── Agents ────────────────────────────────────────────────────────────────────
-Write-Host "`n==> Agents (.github/agents/ → .opencode/agents/)" -ForegroundColor Magenta
+Write-Host "`n==> Agents (.github/agents/ -> .opencode/agents/)" -ForegroundColor Magenta
 $agentFiles = Get-ChildItem (Join-Path $githubBase 'agents') -Filter '*.agent.md' -File |
               Select-Object -ExpandProperty FullName
 Add-Counts (Sync-AgentFiles -SourceFiles $agentFiles `
@@ -61,7 +61,7 @@ Add-Counts (Sync-AgentFiles -SourceFiles $agentFiles `
     -Direction $direction -WhatIf:$WhatIf)
 
 # ── Skills ────────────────────────────────────────────────────────────────────
-Write-Host "`n==> Skills (.github/skills/ → .opencode/skills/)" -ForegroundColor Magenta
+Write-Host "`n==> Skills (.github/skills/ -> .opencode/skills/)" -ForegroundColor Magenta
 $skillFiles = Get-ChildItem (Join-Path $githubBase 'skills') -Filter 'SKILL.md' -Recurse -File |
               Select-Object -ExpandProperty FullName
 Add-Counts (Sync-AgentFiles -SourceFiles $skillFiles `
@@ -70,18 +70,22 @@ Add-Counts (Sync-AgentFiles -SourceFiles $skillFiles `
     -Direction $direction -WhatIf:$WhatIf)
 
 # ── Instructions ──────────────────────────────────────────────────────────────
-Write-Host "`n==> Instructions (.github/instructions/ → .opencode/instructions/)" -ForegroundColor Magenta
+Write-Host "`n==> Instructions (.github/instructions/ -> .opencode/instructions/)" -ForegroundColor Magenta
 $instrFiles = Get-ChildItem (Join-Path $githubBase 'instructions') -Filter '*.md' -File |
               Where-Object { $_.Name -notmatch '\.template\.md$' } |
               Select-Object -ExpandProperty FullName
-Add-Counts (Sync-AgentFiles -SourceFiles $instrFiles `
-    -SourceBase (Join-Path $githubBase 'instructions') `
-    -TargetBase (Join-Path $opencodeBase 'instructions') `
-    -Direction $direction -WhatIf:$WhatIf)
+if ($instrFiles) {
+    Add-Counts (Sync-AgentFiles -SourceFiles $instrFiles `
+        -SourceBase (Join-Path $githubBase 'instructions') `
+        -TargetBase (Join-Path $opencodeBase 'instructions') `
+        -Direction $direction -WhatIf:$WhatIf)
+} else {
+    Write-Host "  [OK] No non-template instruction files to sync" -ForegroundColor Green
+}
 
 # ── MAINa Instructions Templates (Copy for reference) ──────────────────────
-Write-Host "`n==> MAINa Instructions Templates (.github/instructions/*.template.md → .opencode/instructions/templates/)" -ForegroundColor Cyan
-$templateDir = Join-Path $opencodeBase 'instructions' 'templates'
+Write-Host "`n==> MAINa Instructions Templates (.github/instructions/*.template.md -> .opencode/instructions/templates/)" -ForegroundColor Cyan
+$templateDir = Join-Path (Join-Path $opencodeBase 'instructions') 'templates'
 $templateFiles = Get-ChildItem (Join-Path $githubBase 'instructions') -Filter '*.template.md' -File
 foreach ($file in $templateFiles) {
     $relativePath = $file.Name
@@ -93,15 +97,15 @@ foreach ($file in $templateFiles) {
     }
     
     if ($WhatIf) {
-        Write-Host "  [COPY] $($file.FullName) → $targetPath" -ForegroundColor Cyan
+        Write-Host "  [COPY] $($file.FullName) -> $targetPath" -ForegroundColor Cyan
     } else {
         Copy-Item -Path $file.FullName -Destination $targetPath -Force
-        Write-Host "  [COPY] $relativePath ✓" -ForegroundColor Green
+        Write-Host "  [COPY] $relativePath OK" -ForegroundColor Green
     }
 }
 
 # ── Standalone .md files ──────────────────────────────────────────────────────
-Write-Host "`n==> Standalone files (.github/ → .opencode/)" -ForegroundColor Magenta
+Write-Host "`n==> Standalone files (.github/ -> .opencode/)" -ForegroundColor Magenta
 Add-Counts (Sync-StandaloneFiles `
     -FileNames @('CHANGELOG.md', 'PLANS.md', 'README.md') `
     -SourceBase $githubBase `
