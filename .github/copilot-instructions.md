@@ -1,8 +1,8 @@
 Compressing markdown to caveman format. Preserving code blocks, backticks, URLs, headings, file paths.
 
-# Instructions Copilot — Dépôt Transverse vzwingma
+# Instructions Copilot — Dépôt Transverse 
 
-> Fichier décrit **dépôt transverse de templates Copilot multi-agents** (`vzwingma/vzwingma`).
+> Fichier décrit **dépôt transverse de templates Copilot multi-agents**.
 > Infrastructure réutilisable pour orchestrer développement dans n'importe quel projet.
 
 ## 🗿 Mode communication
@@ -33,7 +33,7 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **🟠 ARCos** [v4.1]
+#### **🟠 ARCos** [v4.2]
 - **Rôle:** Planificateur et orchestrateur technique
 - **Responsabilités:**
   - Concevoir solutions architecturales complètes
@@ -45,7 +45,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
 - **Livrable:** Plans d'Action détaillés avec phases, tâches et dépendances
 
-#### **🔵 DEVon** [v4.1]
+#### **🔵 DEVon** [v4.2]
 - **Rôle:** Implémentateur de code de production
 - **Responsabilités:**
   - Traduire exigences en code fonctionnel et testé
@@ -56,7 +56,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v4.1]
+#### **🟢 QUALvin** [v4.2]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -67,7 +67,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable:** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v4.1]
+#### **🟣 DOCly** [v4.2]
 - **Rôle:** Gardien de documentation
 - **Responsabilités:**
   - Mettre à jour README, `docs/` et guides
@@ -147,13 +147,14 @@ Skills centralisent procédures communes pour éviter duplication entre agents.
 
 ## 🏗️ Présentation du Projet
 
-Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organisation `vzwingma`. Ne contient pas code applicatif mais **artefacts d'infrastructure Copilot** réutilisables:
+Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contient pas code applicatif mais **artefacts d'infrastructure Copilot** réutilisables:
 
 - **Agents génériques** (`.github/agents/`): ARCos, DEVon, QUALvin, DOCly
 - **Skills partagés** (`.github/skills/`): procédures AP et /fleet communes
 - **Templates d'instructions** (`.github/instructions/`): à personnaliser par projet
 - **Prompts** (`.github/prompts/`): initialisation et mise à jour des instructions
 - **Guide Plans d'Action** (`.github/PLANS.md`): référence pour orchestrer travail multi-phases
+- **README `.github/`** (`.github/README.md`): vue d'ensemble, workflow et relations entre agents
 - **Documentation** (`docs/`, `QUICK_START.md`, `SETUP_CHECKLIST.md`): guides d'utilisation
 
 **Usage:** Copier fichiers de ce dépôt vers projet cible, puis utiliser `init-copilot-instructions` pour personnaliser.
@@ -163,14 +164,13 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents** pour organi
 ## 📁 Architecture du Dépôt
 
 ```
-vzwingma/
+/
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v4.1)
-│   │   ├── Devon.agent.md               # Développeur (v4.1)
-│   │   ├── Qalvin.agent.md              # QA & tests (v4.1)
-│   │   ├── Docly.agent.md               # Documentation (v4.1)
-│   │   └── CHANGELOG.md                 # Historique des versions de tous les agents
+│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v4.2)
+│   │   ├── Devon.agent.md               # Développeur (v4.2)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.2)
+│   │   ├── Docly.agent.md               # Documentation (v4.2)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -195,6 +195,8 @@ vzwingma/
 │   │   └── migrate-to-template.prompt.md
 │   ├── plans/                           # Plans d'Action de ce dépôt transverse
 │   │   └── README.md
+│   ├── CHANGELOG.md                     # Historique des versions de tous les agents
+│   ├── README.md                        # Vue d'ensemble du sous-arbre .github
 │   ├── PLANS.md                         # Guide centralisé Plans d'Action
 │   ├── copilot-instructions.md          # Ce fichier (instructions pour ce repo)
 │   └── copilot-instructions.template.md # Template vierge à copier dans les projets
@@ -243,7 +245,7 @@ Incrémenter version à chaque modification du contenu de l'agent.
 
 ## 🔄 Maintenance du Dépôt Transverse
 
-- **Modifier agent** → incrémenter version, ajouter entrée dans `.github/agents/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- **Modifier agent** → incrémenter version, ajouter entrée dans `.github/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
 - **Modifier skill** → vérifier cohérence avec `PLANS.md`, signaler dans agents qui y référencent
 - **Modifier skill `copilotignore`** → règle étant appliquée via `applyTo: **`, toute modification de `.github/skills/copilotignore/SKILL.md` prend effet immédiatement pour tous agents
 - **Ajouter fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
@@ -251,6 +253,6 @@ Incrémenter version à chaque modification du contenu de l'agent.
 
 ---
 
-## 📊 Relations entre Agents (Diagramme Mermaid)
+## 📊 Relations entre Agents
 
-> Diagramme complet : voir [README.md — Workflow Typique](../README.md#-workflow-typique)
+> Vue transverse : voir [`.github/README.md`](README.md)

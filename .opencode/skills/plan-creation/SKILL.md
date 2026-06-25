@@ -87,6 +87,8 @@ Avant lancer phases :
    - Agents assignés appropriés ?
 3. **Ajuster** selon feedback
 
+> 💡 **Compact recommandé** après validation plan : `/compact` avec instruction — _"Garde uniquement : titre plan, phases + statut, tâches ouvertes assignées. Supprime détails procédure création."_ Économise ~4.5KB de contexte skill pour tous les tours suivants.
+
 ---
 
 ## Lancer une phase

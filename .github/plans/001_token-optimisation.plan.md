@@ -8,7 +8,7 @@
 
 ## Objectif Global
 
-Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4 correctifs identifiés par `/chronicle cost-tips` sur la configuration `vzwingma/vzwingma` :
+Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4 correctifs identifiés par `/chronicle cost-tips` sur la configuration :
 
 - **Tip 1** : Guidance `/compact` entre phases SDLC/AP
 - **Tip 2** : Élimination du double-chargement du mode caveman
@@ -36,13 +36,13 @@ Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4
 ## Phase 2 : Externalisation changelogs agents ✅
 
 **Critères atteints :**
-- ✅ `.github/agents/CHANGELOG.md` créé (historique complet 4 agents)
+- ✅ `.github/CHANGELOG.md` créé (historique complet 4 agents)
 - ✅ Blocs changelog inline remplacés par référence 1 ligne dans 4 agents
 - ✅ Tous les agents passés en v4.1
 - ✅ Réduction totale : 52.6KB → 47.4KB (−5.2KB)
 
 **Fichiers modifiés/créés :**
-- `.github/agents/CHANGELOG.md` (nouveau)
+- `.github/CHANGELOG.md` (nouveau)
 - `.github/agents/Arcos.agent.md` (18.5KB → 16.8KB)
 - `.github/agents/Devon.agent.md` (11.5KB → 10.4KB)
 - `.github/agents/Qalvin.agent.md` (12.4KB → 11.1KB)
@@ -72,5 +72,5 @@ Réduire la consommation de tokens dans les sessions Copilot CLI en appliquant 4
 | ARCos taille | 16.8KB (< 18KB cible) ✅ |
 | DEVon taille | 10.4KB ✅ |
 | `plan-phase-execution` contient "compact" | ✅ |
-| `CHANGELOG.md` existe | ✅ |
+| `.github/CHANGELOG.md` existe | ✅ |
 | `compact-context/SKILL.md` existe | ✅ |

@@ -61,6 +61,20 @@ Pour chaque tâche T<N>.<M> :
 
 ---
 
+## ⚡ Compact avant phase suivante (recommandé)
+
+Avant de déclencher la phase suivante, recommander `/compact` pour éviter l'accumulation de skill blobs en contexte :
+
+```
+/compact
+Instruction : Résume en 200 mots max — phase courante, numéro, tâches restantes (T<N>.X), décisions clés prises.
+Supprime : blobs skill des phases précédentes, historique détaillé résolu, confirmations ("oui", "go", etc.).
+```
+
+> 💡 Sans compact entre phases, chaque skill injecté (~4-8KB) reste en contexte pour tous les tours suivants. Sur 4 phases, cela représente ~20-30KB de contexte inutile accumulé.
+
+---
+
 ## À la fin de la phase
 
 Remplir **Synthèse Phase** dans rapport :
