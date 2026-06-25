@@ -64,7 +64,7 @@ Les agents peuvent ensuite etre invoques selon le besoin :
 
 | Agent | Role | Quand l'utiliser |
 |---|---|---|
-| **Maina.agent.md** (⚫ MAINa) | Maitre orchestrateur | "`/help`", "`@MAINa /help`", "orchestrer workflow complet" |
+| **Maina.agent.md** (⚫ MAINa) | Maitre orchestrateur | "`/maina-help`", "`@MAINa /maina-help`", "orchestrer workflow complet" |
 | **Arcos.agent.md** (🟠 ARC) | Planificateur / architecte | "Conçois une architecture pour..." |
 | **Devon.agent.md** (🔵 DEV) | Implementateur | "Implémente cette fonctionnalité" |
 | **Qalvin.agent.md** (🟢 QUAL) | QA / tests | "Écris des tests pour..." |

@@ -8,6 +8,7 @@
 ## ⚫ MAINa
 
 - **v1.0** : Création nouvel agent maitre-orchestrateur. Point d'entrée principal, support `/help` et `@MAINa /help`, orchestration stricte ARCos → DEVon → QALvin → DOCly avec validations humaines entre phases.
+- **v1.1** : Renommage commande `/help` → `/maina-help`. Création Skill `maina-help` (applyTo: **) pour aide orchestration. Version MAINa passe à v1.1.
 
 ---
 

@@ -18,7 +18,7 @@ Le flux cible impose sequence stricte `ARCos -> DEVon -> QALvin -> DOCly` avec v
 
 **Critères atteints :**
 - ✅ MAINa defini comme maitre orchestrateur
-- ✅ Commandes aide definies (`/help`, `@MAINa /help`)
+- ✅ Commandes aide definies (`/maina-help`, `@MAINa /maina-help`)
 - ✅ Workflow strict et gates humains explicites
 
 **Fichiers créés/modifiés :**
@@ -57,9 +57,26 @@ Le flux cible impose sequence stricte `ARCos -> DEVon -> QALvin -> DOCly` avec v
 - `docs/adr/001-maina-orchestrateur.md`
 - `.github/CHANGELOG.md`
 
+## Phase 4 : Skill aide MAINa (renommage `/help` → `/maina-help`) 🔄
+
+**Critères atteints :**
+- ✅ Skill `maina-help` créée (`.github/skills/maina-help/SKILL.md`)
+- ✅ Commande renommée `/help` → `/maina-help` pour éviter collision
+- ✅ MAINa v1.0 → v1.1 : support `/maina-help` et `@MAINa /maina-help`
+- ✅ Toute documentation mise à jour
+
+**Fichiers modifiés :**
+- `.github/skills/maina-help/SKILL.md` (création)
+- `.github/agents/Maina.agent.md` (v1.0 → v1.1)
+- `.github/copilot-instructions.md`
+- `.github/copilot-instructions.template.md`
+- `.github/README.md`
+- `.github/CHANGELOG.md`
+- `.github/plans/003_maina-orchestrateur.plan.md` (cette phase)
+
 ---
 
-## Résultats finaux
+
 
 | Critère | Résultat |
 |---|---|

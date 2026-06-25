@@ -30,14 +30,14 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **⚫ MAINa** [v1.0]
+#### **⚫ MAINa** [v1.1]
 - **Rôle :** Maître orchestrateur et point d'entrée principal
 - **Responsabilités :**
   - Cadrer la demande et piloter l'ordre des phases
   - Déclencher ARCos puis orchestrer `ARCos -> DEVon -> QALvin -> DOCly`
   - Imposer validations humaines entre chaque phase
-  - Expliquer fonctionnement via `/help` et `@MAINa /help`
-- **Quand l'utiliser :** "`/help`", "`@MAINa /help`", "organise le workflow", "pilote cette initiative"
+  - Expliquer fonctionnement via `/maina-help` et `@MAINa /maina-help`
+- **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Workflow orchestré, séquencé, traçable
 
 #### **🟠 ARCos** [v4.3]

@@ -33,14 +33,14 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **⚫ MAINa** [v1.0]
+#### **⚫ MAINa** [v1.1]
 - **Rôle:** Maître orchestrateur et point d'entrée principal
 - **Responsabilités:**
   - Comprendre la demande et cadrer le flux de travail
   - Orchestrer délégations dans l'ordre strict ARCos → DEVon → QALvin → DOCly
   - Imposer validations humaines entre phases
-  - Fournir aide via `/help` et `@MAINa /help`
-- **Quand l'utiliser:** "`/help`", "`@MAINa /help`", "organise ce workflow", "pilote cette initiative"
+  - Fournir aide via `/maina-help` et `@MAINa /maina-help`
+- **Quand l'utiliser:** "`/maina-help`", "`@MAINa /maina-help`", "organise ce workflow", "pilote cette initiative"
 - **Livrable:** Orchestration complète, séquencée et traçable
 
 #### **🟠 ARCos** [v4.3]
