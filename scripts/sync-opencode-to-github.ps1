@@ -73,11 +73,30 @@ Add-Counts (Sync-AgentFiles -SourceFiles $skillFiles `
 # ── Instructions ──────────────────────────────────────────────────────────────
 Write-Host "`n==> Instructions (.opencode/instructions/ → .github/instructions/)" -ForegroundColor Magenta
 $instrFiles = Get-ChildItem (Join-Path $opencodeBase 'instructions') -Filter '*.md' -File |
+              Where-Object { $_.Name -notmatch '\.template\.md$' } |
               Select-Object -ExpandProperty FullName
 Add-Counts (Sync-AgentFiles -SourceFiles $instrFiles `
     -SourceBase (Join-Path $opencodeBase 'instructions') `
     -TargetBase (Join-Path $githubBase 'instructions') `
     -Direction $direction -WhatIf:$WhatIf)
+
+# ── MAINa Instructions Templates (Copy for reference) ──────────────────────
+Write-Host "`n==> MAINa Instructions Templates (.opencode/instructions/templates/*.md → .github/instructions/)" -ForegroundColor Cyan
+$templateDir = Join-Path $opencodeBase 'instructions' 'templates'
+if (Test-Path $templateDir) {
+    $templateFiles = Get-ChildItem $templateDir -Filter '*.md' -File
+    foreach ($file in $templateFiles) {
+        $relativePath = $file.Name
+        $targetPath = Join-Path (Join-Path $githubBase 'instructions') $relativePath
+        
+        if ($WhatIf) {
+            Write-Host "  [COPY] $($file.FullName) → $targetPath" -ForegroundColor Cyan
+        } else {
+            Copy-Item -Path $file.FullName -Destination $targetPath -Force
+            Write-Host "  [COPY] $relativePath ✓" -ForegroundColor Green
+        }
+    }
+}
 
 # ── Standalone .md files ──────────────────────────────────────────────────────
 Write-Host "`n==> Standalone files (.opencode/ → .github/)" -ForegroundColor Magenta

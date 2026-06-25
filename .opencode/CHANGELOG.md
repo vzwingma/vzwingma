@@ -5,6 +5,13 @@
 
 ---
 
+## ⚫ MAINa
+
+- **v1.0** : Création nouvel agent maitre-orchestrateur. Point d'entrée principal, support `/help` et `@MAINa /help`, orchestration stricte ARCos → DEVon → QALvin → DOCly avec validations humaines entre phases.
+- **v1.1** : Renommage commande `/help` → `/maina-help`. Création Skill `maina-help` (applyTo: **) pour aide orchestration. Version MAINa passe à v1.1.
+
+---
+
 ## 🟠 ARCos
 
 - **v2.0 → v2.1** : Migration wiki → `/docs`. Ajout responsabilité ADR dans `docs/adr/`.
@@ -22,6 +29,7 @@
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter OpenCode conservé (model, tools). Chemins `.opencode/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Descriptions frontmatter raccourcies. Relations inter-agents externalisées vers `.opencode/README.md`.
+- **v4.2 → v4.3** : ARCos recentré sur architecture/planification. MAINa devient point d'entrée orchestration.
 
 ---
 

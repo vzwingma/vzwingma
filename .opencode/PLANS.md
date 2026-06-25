@@ -10,7 +10,7 @@
 Un **Plan d'Action (AP)** est un document structuré qui :
 - Décrit un **objectif global** (ex: modernisation, nouvelle feature, refactoring majeur)
 - Se décompose en **phases logiques** et **tâches détaillées**
-- Assigne les tâches à des **agents spécifiques** (Devon/🔵 DEV, Qalvin/🟢 QUAL, Arkos/🟠 ARC, Docly/🟣 DOC)
+- Assigne les tâches à des **agents spécifiques** (MAINa/⚫ orchestration, ARCos/🟠 ARC architecture, DEVon/🔵 DEV, QALvin/🟢 QUAL, DOCly/🟣 DOC)
 - Définit les **critères de réussite** et les **dépendances** entre phases
 - Génère des **rapports de phase** documentant l'exécution et les résultats
 
@@ -108,7 +108,7 @@ Chaque phase doit contenir :
 
 #### C. Tâches
 ```markdown
-### Tâches (Agent: [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)])
+### Tâches (Agent: [MAINa (⚫) | ARCos (🟠 ARC) | DEVon (🔵 DEV) | QALvin (🟢 QUAL) | DOCly (🟣 DOC)])
 
 #### T<N>.<M> - <Titre de la Tâche>
 - **Fichier :** `path/to/file.ts` (ou liste si multiple)
@@ -305,7 +305,7 @@ Fin du rapport Phase N
 
 ## 🔄 Workflow de Suivi
 
-### 1. Créer le Plan (Utilisateur / Arkos (🟠 ARC))
+### 1. Créer le Plan (Utilisateur / MAINa (⚫) / ARCos (🟠 ARC))
 
 ```bash
 # Créer le fichier plan
@@ -422,7 +422,9 @@ Exécute la Phase 1 du plan : .opencode/plans/001_modernisation_complète.plan.m
 
 **Chaîne de délégation entre agents :**
 ```
-Arkos (🟠 ARC) (plan)
+MAINa (⚫) (orchestration + gates humains)
+    ↓
+ARCos (🟠 ARC) (plan)
     ↓
 Devon (🔵 DEV) (T2.1-T3.5)
     ├→ Qalvin (🟢 QUAL) (valider + écrire tests)
@@ -491,6 +493,5 @@ Devon (🔵 DEV) (T2.1-T3.5)
 ---
 
 **Fin de la documentation sur les Plans d'Action**
-
 
 

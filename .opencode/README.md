@@ -10,7 +10,8 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 
 ```
 .opencode/
-├── agents/                              # 4 agents OpenCode generiques
+├── agents/                              # 5 agents OpenCode generiques
+│   ├── Maina.agent.md                   # Maitre orchestrateur
 │   ├── Arcos.agent.md                   # Planification / architecture
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
@@ -49,6 +50,7 @@ Utiliser le prompt `init-copilot-instructions` pour generer les fichiers d'instr
 
 Les agents peuvent ensuite etre invoques selon le besoin :
 
+- `MAINa` pour orchestrer workflow complet
 - `ARCos` pour concevoir et planifier
 - `DEVon` pour implementer
 - `QALvin` pour tester
@@ -62,6 +64,7 @@ Les agents peuvent ensuite etre invoques selon le besoin :
 
 | Agent | Role | Quand l'utiliser |
 |---|---|---|
+| **Maina.agent.md** (⚫ MAINa) | Maitre orchestrateur | "`/maina-help`", "`@MAINa /maina-help`", "orchestrer workflow complet" |
 | **Arcos.agent.md** (🟠 ARC) | Planificateur / architecte | "Conçois une architecture pour..." |
 | **Devon.agent.md** (🔵 DEV) | Implementateur | "Implémente cette fonctionnalité" |
 | **Qalvin.agent.md** (🟢 QUAL) | QA / tests | "Écris des tests pour..." |
@@ -92,23 +95,28 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 |---|---|
 | `PLANS.md` | Guide complet de creation / execution des Plans d'Action |
 | `plans/README.md` | Index des plans et statut global |
-| `CHANGELOG.md` | Historique de version des 4 agents |
+| `CHANGELOG.md` | Historique de version des 5 agents |
 
 ---
 
 ## 🤝 Relations entre agents
 
-Le workflow cible reste simple :
+Le workflow cible reste simple et strict :
 
 1. 👤 **Developpeur humain** cadre le besoin et valide chaque livrable cle.
-2. 🟠 **ARCos** conçoit la solution, compare les options et cree le plan.
-3. 🔵 **DEVon** implemente selon le plan valide.
-4. 🟢 **QALvin** ecrit et execute les tests.
-5. 🟣 **DOCly** synchronise la documentation.
+2. ⚫ **MAINa** orchestre sequence et delegations.
+3. 🟠 **ARCos** conçoit la solution, compare les options et cree le plan.
+4. ✅ **Validation humaine** du plan.
+5. 🔵 **DEVon** implemente selon le plan valide.
+6. ✅ **Validation humaine** du code.
+7. 🟢 **QALvin** ecrit et execute les tests.
+8. ✅ **Validation humaine** des tests.
+9. 🟣 **DOCly** synchronise la documentation.
+10. ✅ **Validation humaine** finale.
 
 Relations de passage :
 
-- `ARCos` → `DEVon`, `QALvin`, `DOCly`
+- `MAINa` → `ARCos` → `DEVon` → `QALvin` → `DOCly`
 - `DEVon` → `QALvin`, puis `DOCly`
 - `QALvin` → `DOCly`
 - chaque etape importante revient vers le 👤 Developpeur humain pour validation
@@ -122,15 +130,23 @@ Relations de passage :
 ```
 1. Besoin cadre par le developpeur humain
    ↓
-2. ARCos cree le plan et la cible
+2. MAINa orchestre et mandate ARCos
    ↓
-3. DEVon implemente
+3. Validation humaine plan
    ↓
-4. QALvin valide par les tests
+4. DEVon implemente
    ↓
-5. DOCly met a jour la documentation
+5. Validation humaine code
    ↓
-6. Phase suivante / cloture du plan
+6. QALvin valide par les tests
+   ↓
+7. Validation humaine tests
+   ↓
+8. DOCly met a jour la documentation
+   ↓
+9. Validation humaine finale
+   ↓
+10. Phase suivante / cloture du plan
 ```
 
 Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
