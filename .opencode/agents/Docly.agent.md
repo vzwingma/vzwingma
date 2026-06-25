@@ -128,7 +128,7 @@ Quand invoqué pour exécuter **Phase** Plan d'Action:
 
 - **Identifiant dans plans:** Chercher `🟣 DOCly` ou `Agent: DOCly` pour identifier tâches
 - **Procédure exécution:** Suivre skill `.opencode/skills/plan-phase-execution/SKILL.md`
-- **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QUALvin pour comprendre changements
+- **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QALvin pour comprendre changements
 
 ### Délégation après ta phase
 

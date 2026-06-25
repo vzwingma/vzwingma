@@ -14,7 +14,7 @@ description: "Skill — Procédure d'exécution de phase d'un Plan d'Action (AP)
 ## Avant de démarrer
 
 1. **Lire plan complet** : `.opencode/plans/<NO>_<nom>.plan.md`
-2. **Identifier tes tâches** : Chercher ton identifiant agent dans phase (ex: `🔵 DEVon`, `🟢 QUALvin`, etc.)
+2. **Identifier tes tâches** : Chercher ton identifiant agent dans phase (ex: `🔵 DEVon`, `🟢 QALvin`, etc.)
 3. **Lister tâches** assignées (T<N>.X, T<N>.Y, etc.) et séquence
 4. **Comprendre dépendances** : Quelle(s) phase(s) doit-on compléter avant tienne
 5. **Identifier rapport à remplir** : `.opencode/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`

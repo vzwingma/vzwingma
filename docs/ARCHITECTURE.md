@@ -49,7 +49,7 @@ Nouveau Projet
     → [Au démarrage de session, chaque agent lit son fichier d'instructions]
         ├── ARCos  (🟠 ARC) ← architect.instructions.md + docs/ARCHITECTURE.md
         ├── DEVon  (🔵 DEV) ← dev.instructions.md
-        ├── QUALvin(🟢 QUAL)← qa.instructions.md
+        ├── QALvin(🟢 QUAL)← qa.instructions.md
         └── DOCly  (🟣 DOC) ← doc.instructions.md
     → [L'équipe utilise les agents via Copilot]
 ```
@@ -86,10 +86,11 @@ Nouveau Projet
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Arcos.agent.md                       # Planificateur / orchestrateur [v3.1]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v3.1]
-    │   ├── Qalvin.agent.md                      # Expert QA [v3.1]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v3.1]
+    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.0]
+    │   ├── Arcos.agent.md                       # Planificateur / architecte [v4.3]
+    │   ├── Devon.agent.md                       # Implémentateur de code [v4.2]
+    │   ├── Qalvin.agent.md                      # Expert QA [v4.2]
+    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.2]
     │
     ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
     │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
@@ -102,7 +103,7 @@ Nouveau Projet
     ├── instructions/                            # 📐 Spécificités projet (à compléter par projet)
     │   ├── architect.instructions.md            # ARCos : architecture, SQL handoff, ADR
     │   ├── dev.instructions.md                  # DEVon : stack, code, HTTP, modèles
-    │   ├── qa.instructions.md                   # QUALvin : tests, commandes CI, couverture
+    │   ├── qa.instructions.md                   # QALvin : tests, commandes CI, couverture
     │   └── doc.instructions.md                  # DOCly : docs/, ARCHITECTURE.md, ADRs
     │
     ├── prompts/                                 # 🎯 Commandes réutilisables
@@ -127,10 +128,11 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| 🟠 ARCos | `Arcos.agent.md` | v3.1 | Planificateur / orchestrateur |
-| 🔵 DEVon | `Devon.agent.md` | v3.1 | Implémentateur de code |
-| 🟢 QUALvin | `Qalvin.agent.md` | v3.1 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v3.1 | Gestionnaire documentation |
+| ⚫ MAINa | `Maina.agent.md` | v1.0 | Maître orchestrateur (point d'entrée principal) |
+| 🟠 ARCos | `Arcos.agent.md` | v4.3 | Planificateur / architecte |
+| 🔵 DEVon | `Devon.agent.md` | v4.2 | Implémentateur de code |
+| 🟢 QALvin | `Qalvin.agent.md` | v4.2 | Expert QA et tests |
+| 🟣 DOCly | `Docly.agent.md` | v4.2 | Gestionnaire documentation |
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet spécifique)
@@ -146,7 +148,7 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 |---|---|---|
 | `architect.instructions.md` | 🟠 ARCos | Conventions architecturales, protocole SQL handoff, ADR |
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, conventions de code, organisation |
-| `qa.instructions.md` | 🟢 QUALvin | Stack de test, commandes CI, cas à couvrir |
+| `qa.instructions.md` | 🟢 QALvin | Stack de test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Structure `docs/`, conventions de rédaction |
 
 > **Différence avec les agents :** Agents = comportement réutilisable · Instructions = valeurs projet concrètes
@@ -155,7 +157,7 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 
 | Prompt | Rôle |
 |---|---|
-| `init-copilot-instructions` | Analyse le code source, remplit le template principal et les 4 fichiers `instructions/` |
+| `init-copilot-instructions` | Analyse le code source, remplit le template principal, conserve orchestration MAINa et génère les 4 fichiers `instructions/` |
 | `update-copilot-instructions` | Audite le code, vérifie les valeurs obsolètes et placeholders non remplis |
 | `migrate-to-template` | Guide pour transformer un projet legacy vers ce système |
 

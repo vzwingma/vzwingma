@@ -2,6 +2,7 @@
 description: "[v4.2] Utiliser cet agent pour synchroniser la documentation apres implementation et validation QA : README, docs d'architecture, ADR et instructions Copilot.\n\nDeclencheurs typiques : 'mets a jour doc', 'ajoute au README', 'garde la doc en sync'."
 name: DOCly
 model: GPT-5 mini (copilot)
+agents: ["MAINa"]
 tools: [vscode, read, agent, edit, search, web, browser, todo]
 ---
 
@@ -126,7 +127,7 @@ Quand invoqué pour exécuter **Phase** Plan d'Action:
 
 - **Identifiant dans plans:** Chercher `🟣 DOCly` ou `Agent: DOCly` pour identifier tâches
 - **Procédure exécution:** Suivre skill `.github/skills/plan-phase-execution/SKILL.md`
-- **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QUALvin pour comprendre changements
+- **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QALvin pour comprendre changements
 
 ### Délégation après ta phase
 

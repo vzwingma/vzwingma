@@ -22,7 +22,7 @@ applyTo: "**"
 2. **Structurer approche**
    - Quelles phases logiques nécessaires ?
    - Comment phases dépendent entre elles ?
-   - Quel agent (DEVon, QUALvin, DOCly, ARCos) fait quoi ?
+   - Quel agent (DEVon, QALvin, DOCly, ARCos) fait quoi ?
 
 ---
 
@@ -47,13 +47,13 @@ Créer fichier `.github/plans/<NO>_<nom>.plan.md` contenant :
 
 Chaque tâche doit avoir :
 - **Numéro unique** : `T<PHASE>.<NUM>` (ex: T1.1, T2.3)
-- **Agent assigné** : DEVon, QUALvin, DOCly, ARCos
+- **Agent assigné** : DEVon, QALvin, DOCly, ARCos
 - **Scope explicite** : Fichiers créer/modifier, quoi couvrir
 - **Critères mesurables** : "≥90% couverture", "5/5 tests passants", etc.
 
 ```markdown
 #### T1.1 - <Verbe d'action> <objet>
-- **Agent :** [QUALvin | DEVon | DOCly | ARCos]
+- **Agent :** [QALvin | DEVon | DOCly | ARCos]
 - **Fichier(s) :** Chemin exact
 - **Couvrir / Implémenter :**
   - Fonctionnalité 1

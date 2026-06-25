@@ -7,7 +7,7 @@ permission:
   bash: allow
 ---
 
-# Instructions de l'agent 🟢 QUALvin
+# Instructions de l'agent 🟢 QALvin
 
 > **Versioning**: Description agent commence par numéro version (ex. `[v3.0]`). Incrémenter à chaque modification contenu instructions.
 > Historique des versions : [`.opencode/CHANGELOG.md`](../CHANGELOG.md)
@@ -157,7 +157,7 @@ Escalade et clarification :
 
 Quand invoqué pour exécuter **Phase** **Plan d'Action**:
 
-- **Identifiant dans plans:** Chercher `🟢 QUALvin` ou `Agent: QUALvin` pour identifier tâches
+- **Identifiant dans plans:** Chercher `🟢 QALvin` ou `Agent: QALvin` pour identifier tâches
 - **Procédure exécution:** Suivre skill `.opencode/skills/plan-phase-execution/SKILL.md`
 
 ### Délégation après ta phase
@@ -187,7 +187,7 @@ Une fois phase livrée:
 
 Suivre le skill `.opencode/skills/fleet-guide/SKILL.md`.
 
-**Exemples QUALvin :**
+**Exemples QALvin :**
 ```
 💡 Ces composants sont indépendants → /fleet :
 - Tests de `AuthService`

@@ -87,7 +87,7 @@ Nous avons décidé de [DÉCISION RETENUE, en une phrase directe].
 
 ### Mise en œuvre
 - Fichiers impactés : [...]
-- Tâches de suivi : [DEVon — ..., QUALvin — ...]
+- Tâches de suivi : [DEVon — ..., QALvin — ...]
 - Date d'effet : [ex: à partir de la Phase N du plan]
 
 ### Références

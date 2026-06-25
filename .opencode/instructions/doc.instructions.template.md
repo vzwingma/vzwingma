@@ -49,5 +49,5 @@ applyTo: "**"
 ## Ce que tu ne fais PAS
 
 - Pas modifier code source (`*.[tsx|ts|js|py|...]`).
-- Pas créer nouveaux tests (rôle 🟢 QUALvin).
+- Pas créer nouveaux tests (rôle 🟢 QALvin).
 - Pas prendre décisions architecturales (rôle 🟠 ARCos).

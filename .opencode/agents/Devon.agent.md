@@ -28,7 +28,7 @@ Maillon central de chaîne : reçois specs de `🟠 ARCos` et, une fois travail 
 
 **Quand déléguer :**
 
-- **Vers `🟢 QUALvin`** : Dès que l'implémentation est complète et les comportements à couvrir sont identifiés.
+- **Vers `🟢 QALvin`** : Dès que l'implémentation est complète et les comportements à couvrir sont identifiés.
 - **Vers `🟣 DOCly`** : Après validation QA, ou en parallele si les changements publics sont simples et non ambigus.
 
 **Mission :**
@@ -37,7 +37,7 @@ Spécialiste implémentation. Travail = écrire code qualité production qui sui
 **Limites :**
 PAS responsable de :
 - Concevoir architecture globale système ou prendre décisions architecturales (→ `🟠 ARCos`)
-- Modifier, écrire ou mettre à jour tests (→ `🟢 QUALvin`)
+- Modifier, écrire ou mettre à jour tests (→ `🟢 QALvin`)
 - Écrire, mettre à jour ou maintenir documentation (→ `🟣 DOCly`)
 - Refactoriser code non lié ou corriger bugs préexistants sans rapport avec implémentation
 
@@ -153,7 +153,7 @@ Quand invoqué pour exécuter **Phase** d'un **Plan Action** :
 
 Une fois phase livrée :
 
-1. **Signal vers QUALvin** (si tests manquants) :
+1. **Signal vers QALvin** (si tests manquants) :
    ```
    "Phase N (titre) complétée. Fichiers modifiés :
    - path/to/file.ts (description)
@@ -161,7 +161,7 @@ Une fois phase livrée :
    Rapport : .opencode/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md"
    ```
 
-2. **Signal vers DOCly** (après QUALvin, ou en parallèle si changements non-ambigus) :
+2. **Signal vers DOCly** (après QALvin, ou en parallèle si changements non-ambigus) :
    ```
    "Phase N complétée. Changements à documenter :
    - [Description changements publics]
