@@ -1,40 +1,94 @@
 # 🤖 .claude — Configuration Claude Code
 
-Structure de configuration pour Claude Code (cli.claude.ai).
+Infrastructure orchestrée pour Claude Code (claude.ai/code, CLI, IDEs).
+**Parallèle Claude de `.github/`** pour Copilot.
 
 ## 📂 Structure
 
 ```
 .claude/
-├── README.md                  # Ce fichier
-├── agents/                    # Agents spécialisés
-│   ├── README.md             # Index agents
-│   ├── Arcos.agent.md        # 🟠 Architecte
-│   ├── Devon.agent.md        # 🔵 Implémentateur
-│   ├── Qalvin.agent.md       # 🟢 Expert QA
-│   ├── Docly.agent.md        # 🟣 Gardien docs
-│   └── Maina.agent.md        # ⚫ Orchestrateur
-├── templates/                # Templates réutilisables
-│   └── [à créer]
-└── workflows/                # Workflows Claude
-    └── [à créer]
+├── README.md                          # Ce fichier
+├── CLAUDE.md                          # Instructions système
+├── PLANS.md                           # Guide Plans d'Action
+├── CHANGELOG.md                       # Versioning agents
+├── agents/                            # Agents spécialisés
+│   ├── README.md                     # Index agents + exemples
+│   ├── Maina.agent.md                # ⚫ Orchestrateur
+│   ├── Arcos.agent.md                # 🟠 Architecte
+│   ├── Devon.agent.md                # 🔵 Implémentateur
+│   ├── Qalvin.agent.md               # 🟢 Expert QA
+│   └── Docly.agent.md                # 🟣 Gardien docs
+├── instructions/                      # Templates instructions projet
+│   ├── architect.instructions.template.md
+│   ├── dev.instructions.template.md
+│   ├── qa.instructions.template.md
+│   └── doc.instructions.template.md
+├── skills/                            # Procédures partagées
+│   ├── plan-creation/SKILL.md
+│   ├── plan-phase-execution/SKILL.md
+│   ├── fleet-guide/SKILL.md
+│   ├── adr-writing/SKILL.md
+│   ├── caveman-default/SKILL.md
+│   ├── compact-context/SKILL.md
+│   ├── maina-help/SKILL.md
+│   └── copilotignore/SKILL.md
+├── plans/                             # Plans d'Action + rapports
+│   ├── README.md                     # Index plans
+│   └── [plans + /reports/]
+├── prompts/                           # Prompts initialisation
+│   ├── init-copilot-instructions.prompt.md
+│   └── update-copilot-instructions.prompt.md
+├── templates/                         # Réservé templates futurs
+└── workflows/                         # Réservé workflows futurs
 ```
 
-## 🤖 Agents
+---
 
-5 agents spécialisés orchestrant développement :
+## 📚 Fichiers Clés
 
-| Agent | Rôle | Quand l'utiliser |
-|-------|------|------------------|
-| **⚫ MAINa** | Orchestrateur principal | Point d'entrée pour travail complexe |
-| **🟠 ARCos** | Architecte | "Conçois architecture", "Crée plan" |
+### `.claude/CLAUDE.md`
+Instructions système. Lire EN PREMIER.
+- Mode caveman
+- 5 agents + rôles
+- Workflow strict
+- Règles absolues
+
+### `.claude/PLANS.md`
+Guide complet Plans d'Action.
+- Création plans (ARCos)
+- Exécution phases (tous agents)
+- Format rapports phase
+- Tracking index
+
+### `.claude/CHANGELOG.md`
+Versioning agents + skills.
+- Historique modifications
+- Versions courantes
+- Dépendances
+
+### `.claude/agents/README.md`
+Index agents + exemples workflow.
+- Rôles agents
+- Quand utiliser
+- Exemples usage
+
+---
+
+## 🤖 Agents (5 spécialisés)
+
+| Agent | Rôle | Quand |
+|-------|------|-------|
+| **⚫ MAINa** | Orchestrateur principal | Workflow complet |
+| **🟠 ARCos** | Architecte/planification | "Conçois architecture" |
 | **🔵 DEVon** | Implémentateur | "Implémente fonctionnalité" |
-| **🟢 QALvin** | Expert QA | "Écris tests", "Ajoute couverture test" |
-| **🟣 DOCly** | Gardien docs | "Mets à jour doc", "Garde docs en sync" |
+| **🟢 QALvin** | Expert QA/tests | "Écris tests" |
+| **🟣 DOCly** | Gardien documentation | "Mets à jour doc" |
 
-**→ Voir [`agents/README.md`](./agents/README.md) pour détails complets.**
+**→ [agents/README.md](./agents/README.md) pour détails complets.**
 
-## 📖 Workflow strict
+---
+
+## 📖 Workflow Strict
 
 ```
 Besoin → MAINa intake
@@ -47,105 +101,102 @@ Besoin → MAINa intake
         ↓ (validation humaine)
        DOCly : documentation
         ↓ (validation humaine)
-       ✅ Clôture
+       ✅ Clôture initiative
 ```
 
-Chaque étape requiert **validation humaine** avant progression.
+Chaque étape = **validation humaine obligatoire** avant progression.
 
-## 🚀 Démarrage rapide
+---
 
-### Travail simple
+## 🚀 Démarrage Rapide
 
-Invoquer agent spécifique directement :
+### Travail Simple
 
-```bash
-# Concevoir architecture
-claude.ai/code → Mention ARCos → "Conçois architecture pour..."
+Invoquer agent directement :
 
-# Implémenter fonction
-claude.ai/code → Mention DEVon → "Implémente cette fonctionnalité..."
+```
+@ARCos "Conçois architecture pour..."
+@DEVon "Implémente cette fonctionnalité..."
+@QALvin "Écris tests pour..."
+@DOCly "Mets à jour documentation..."
 ```
 
-### Travail complexe (multi-phases)
+### Travail Complexe (Multi-Phases)
 
-Utiliser MAINa comme orchestrateur :
+Utiliser MAINa orchestrateur :
 
-```bash
-claude.ai/code → Mention MAINa → "J'ai ce besoin : ..."
+```
+@MAINa "J'ai ce besoin : [description]"
 
 # MAINa :
-# 1. Clarifie avec toi
+# 1. Clarifie besoin
 # 2. Active ARCos pour plan
 # 3. Attend validation
 # 4. Active DEVon pour code
-# ... etc jusqu'à clôture
+# 5. Attend validation
+# 6. Active QALvin pour tests
+# 7. Attend validation
+# 8. Active DOCly pour docs
+# 9. Clôture initiative
 ```
 
-## 🔐 Règles absolues
+---
+
+## 📋 Instructions Projet (Optionnelles)
+
+Personnaliser agents par projet. Agents lisent au démarrage si présent :
+
+- `.github/instructions/architect.instructions.md` → 🟠 ARCos
+- `.github/instructions/dev.instructions.md` → 🔵 DEVon
+- `.github/instructions/qa.instructions.md` → 🟢 QALvin
+- `.github/instructions/doc.instructions.md` → 🟣 DOCly
+
+Templates fournis dans `.claude/instructions/` (personnaliser + copier en `.github/`).
+
+---
+
+## 🛠️ Skills Partagés
+
+Procédures automatiquement incluses dans contexte tous agents :
+
+| Skill | Contenu |
+|-------|---------|
+| `plan-creation` | Créer Plans d'Action (ARCos orchestration) |
+| `plan-phase-execution` | Exécuter phases (avant/pendant/après, rapports) |
+| `fleet-guide` | Parallélisation `/fleet` |
+| `adr-writing` | Rédaction ADR (ARCos prépare, DOCly rédige) |
+| `caveman-default` | Mode caveman règles |
+| `compact-context` | Compression contexte mémoire |
+| `maina-help` | Aide MAINa + workflow |
+| `copilotignore` | Respect `.copilotignore` |
+
+---
+
+## 🔐 Règles Absolues
 
 Tous agents respectent :
 
-- ⛔ **Ne JAMAIS** supprimer fichiers/répertoires
-- ⛔ **Ne JAMAIS** exécuter commandes SQL destructives
-- ⛔ **Ne JAMAIS** `git clean`, `git reset --hard`
-- ⛔ **Ne JAMAIS** modifier fichiers hors périmètre
-- ⛔ **Respect ABSOLU** `.copilotignore`
+- ⛔ JAMAIS supprimer fichiers/répertoires
+- ⛔ JAMAIS commandes SQL destructives
+- ⛔ JAMAIS `git clean`, `git reset --hard`
+- ⛔ JAMAIS modifier fichiers hors périmètre
+- ⛔ **Respect ABSOLU `.copilotignore`**
 
 En cas doute → demander confirmation.
 
-## 📝 Instructions projet (optionnelles)
+---
 
-Personnaliser agents par projet :
+## 📖 Références Complètes
 
-- `.github/instructions/architect.instructions.md` → ARCos
-- `.github/instructions/dev.instructions.md` → DEVon
-- `.github/instructions/qa.instructions.md` → QALvin
-- `.github/instructions/doc.instructions.md` → DOCly
-
-Agents lisent automatiquement au démarrage si présent.
-
-## 🎓 Exemples
-
-### Exemple 1 : Feature simple
-
-```
-Toi : @Devon "Crée composant Card avec props title, description"
-
-Devon analyse patterns existants → code → signale
-↓ (tu valides)
-@QALvin "Écris tests pour ComponentCard"
-
-QALvin écrit tests → valide couverture → signale
-↓ (tu valides)
-@DOCly "Ajoute ComponentCard au README"
-
-DOCly met à jour docs → clôture
-```
-
-### Exemple 2 : Initiative complexe
-
-```
-Toi : @MAINa "Nous avons besoin d'un système auth complet"
-
-MAINa :
-1. Clarifie besoins, périmètre
-2. Appelle ARCos pour concevoir
-3. Attend ta décision sur plan
-4. Appelle DEVon pour coder
-5. Attend ta validation code
-6. Appelle QALvin pour tests
-7. Attend ta validation tests
-8. Appelle DOCly pour docs
-9. Clôture initiative
-```
-
-## 📚 Références
-
-- [ARCos Agent](./agents/Arcos.agent.md) — Planification et architecture
-- [DEVon Agent](./agents/Devon.agent.md) — Implémentation
-- [QALvin Agent](./agents/Qalvin.agent.md) — Tests
-- [DOCly Agent](./agents/Docly.agent.md) — Documentation
-- [MAINa Agent](./agents/Maina.agent.md) — Orchestration
+- [CLAUDE.md](./CLAUDE.md) — Instructions système (lire d'abord)
+- [PLANS.md](./PLANS.md) — Plans d'Action guide
+- [CHANGELOG.md](./CHANGELOG.md) — Versioning agents
+- [agents/README.md](./agents/README.md) — Index + exemples agents
+- [agents/Maina.agent.md](./agents/Maina.agent.md) — Orchestrateur
+- [agents/Arcos.agent.md](./agents/Arcos.agent.md) — Architecte
+- [agents/Devon.agent.md](./agents/Devon.agent.md) — Implémentateur
+- [agents/Qalvin.agent.md](./agents/Qalvin.agent.md) — Expert QA
+- [agents/Docly.agent.md](./agents/Docly.agent.md) — Gardien docs
 
 ---
 
