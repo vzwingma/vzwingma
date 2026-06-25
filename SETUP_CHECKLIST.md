@@ -77,9 +77,15 @@ Le prompt va :
 
 - [ ] Vérifier que vous pouvez appeler les agents :
   ```
-  👤 "Conçois une architecture pour une authentification JWT"
+  👤 "@MAINa /help"
   ```
-  → `Arcos (🟠 ARC)` doit répondre
+  → `MAINa (⚫)` doit expliquer workflow et commandes
+
+- [ ] Vérifier orchestration MAINa :
+  ```
+  👤 "Organise ce besoin de bout en bout"
+  ```
+  → `MAINa (⚫)` doit commencer par étape plan (ARCos) puis gates humains
 
 - [ ] Tester un prompt :
   ```
@@ -121,9 +127,9 @@ Le prompt va :
 
 ### Planifier une Grosse Tâche
 ```
-👤 "Conçois une architecture pour refactoriser la base de données et crée un plan d'action"
+👤 "MAINa, organise la refactorisation de la base de données de bout en bout"
 ```
-→ `Arcos (🟠 ARC)` crée un Plan d'Action
+→ `MAINa (⚫)` déclenche ARCos puis orchestre le workflow
 
 ### Mettre à Jour la Documentation
 ```
@@ -133,7 +139,7 @@ Le prompt va :
 
 ### Paralléliser des Tâches Indépendantes
 ```
-👤 "Lance DEVon sur le composant A et QUALvin sur le composant B en parallèle"
+👤 "Lance DEVon sur le composant A et QALvin sur le composant B en parallèle"
 ```
 → Utiliser `/fleet` : les tâches sans dépendance s'exécutent simultanément
 
@@ -144,7 +150,7 @@ Le prompt va :
 - [ ] **Chaque mois** : Exécuter `update-copilot-instructions` pour synchroniser
 - [ ] **Après un changement majeur** : Mettre à jour `.github/copilot-instructions.md`
 - [ ] **Quand une initiative grande** : Créer un Plan d'Action dans `.github/plans/`
-- [ ] **Tâches parallèles** : Utiliser `/fleet` quand DEVon, QUALvin ou DOCly ont des tâches indépendantes
+- [ ] **Tâches parallèles** : Utiliser `/fleet` quand DEVon, QALvin ou DOCly ont des tâches indépendantes
 
 ---
 
@@ -153,13 +159,14 @@ Le prompt va :
 Avant de considérer Copilot "prêt" :
 
 - [ ] `.github/copilot-instructions.md` existe et est customisé
-- [ ] `.github/agents/*.md` (4 fichiers) sont présents
+- [ ] `.github/agents/*.md` (5 fichiers) sont présents
 - [ ] `.github/skills/*/SKILL.md` (3 skills) présents
 - [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
 - [ ] `.github/PLANS.md` est accessible
 - [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées
 - [ ] `docs/adr/` existe (avec `ADR-TEMPLATE.md` comme modèle)
 - [ ] Aucun placeholder `[...]` dans copilot-instructions.md
+- [ ] Premier test avec `MAINa (⚫)` réussi ✅
 - [ ] Premier test avec `Arcos (🟠 ARC)` réussi ✅
 - [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅
 - [ ] Équipe sensibilisée au workflow multi-agents
@@ -172,6 +179,4 @@ Pour en savoir plus, consulter :
 - [`.github/README.md`](.github/README.md) — Guide complet
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — Instructions du projet
 - [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
-
-
 

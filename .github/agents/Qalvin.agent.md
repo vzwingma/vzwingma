@@ -2,10 +2,11 @@
 description: "[v4.2] Utiliser cet agent pour ecrire et executer des tests unitaires sur composants, services et comportements deja implementes.\n\nDeclencheurs typiques : 'ecris des tests', 'ajoute des tests unitaires', 'genere une couverture de test', 'valide avec des tests'."
 name: QALvin
 model: GPT-5.3-Codex (copilot)
+agents: ["DOCly", "MAINa"]
 tools: [vscode, execute, read, agent, edit, search, web, browser, sonarsource.sonarlint-vscode/sonarqube_getPotentialSecurityIssues, sonarsource.sonarlint-vscode/sonarqube_excludeFiles, sonarsource.sonarlint-vscode/sonarqube_setUpConnectedMode, sonarsource.sonarlint-vscode/sonarqube_analyzeFile, todo]
 ---
 
-# Instructions de l'agent 🟢 QUALvin
+# Instructions de l'agent 🟢 QALvin
 
 > **Versioning**: Description agent commence par numéro version (ex. `[v3.0]`). Incrémenter à chaque modification contenu instructions.
 > Historique des versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
@@ -155,7 +156,7 @@ Escalade et clarification :
 
 Quand invoqué pour exécuter **Phase** **Plan d'Action**:
 
-- **Identifiant dans plans:** Chercher `🟢 QUALvin` ou `Agent: QUALvin` pour identifier tâches
+- **Identifiant dans plans:** Chercher `🟢 QALvin` ou `Agent: QALvin` pour identifier tâches
 - **Procédure exécution:** Suivre skill `.github/skills/plan-phase-execution/SKILL.md`
 
 ### Délégation après ta phase
@@ -185,7 +186,7 @@ Une fois phase livrée:
 
 Suivre le skill `.github/skills/fleet-guide/SKILL.md`.
 
-**Exemples QUALvin :**
+**Exemples QALvin :**
 ```
 💡 Ces composants sont indépendants → /fleet :
 - Tests de `AuthService`

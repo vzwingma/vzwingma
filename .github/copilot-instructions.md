@@ -31,15 +31,25 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 ### 🤖 Les Agents et leurs Rôles
 
-Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
+Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **🟠 ARCos** [v4.2]
-- **Rôle:** Planificateur et orchestrateur technique
+#### **⚫ MAINa** [v1.0]
+- **Rôle:** Maître orchestrateur et point d'entrée principal
+- **Responsabilités:**
+  - Comprendre la demande et cadrer le flux de travail
+  - Orchestrer délégations dans l'ordre strict ARCos → DEVon → QALvin → DOCly
+  - Imposer validations humaines entre phases
+  - Fournir aide via `/help` et `@MAINa /help`
+- **Quand l'utiliser:** "`/help`", "`@MAINa /help`", "organise ce workflow", "pilote cette initiative"
+- **Livrable:** Orchestration complète, séquencée et traçable
+
+#### **🟠 ARCos** [v4.3]
+- **Rôle:** Planificateur et architecte technique
 - **Responsabilités:**
   - Concevoir solutions architecturales complètes
   - Créer et valider Plans d'Action multi-phases
   - Décomposer initiatives en tâches logiques
-  - Orchestrer travail entre Devon, Qalvin et Docly
+  - Définir lots de travail à déléguer via MAINa
   - Lire `.github/instructions/architect.instructions.md` au démarrage pour spécificités du projet
   - Lire `docs/ARCHITECTURE.md` au démarrage pour contexte architectural du projet
 - **Quand l'utiliser:** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
@@ -56,7 +66,7 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QUALvin** [v4.2]
+#### **🟢 QALvin** [v4.2]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -85,18 +95,19 @@ Quatre agents spécialisés travaillent ensemble, orchestrés par **👤 Dévelo
 ### 🔄 Workflow Typique
 
 1. **Cadrage (👤 Développeur humain)** → Définir besoin et critères d'acceptation
-2. **Planification (🟠 ARC - Arcos)** → Créer Plan d'Action avec phases et tâches
-3. **Validation Humaine** → Approuver plan avant lancer
-4. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
-5. **Validation Humaine** → Approuver code avant tests
-6. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
-7. **Validation Humaine** → Approuver tests avant doc
-8. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
-9. **Validation Humaine** → Approuver documentation
+2. **Orchestration (⚫ MAINa)** → Déclencher mode PLAN et déléguer ARCos
+3. **Planification (🟠 ARC - Arcos)** → Créer Plan d'Action avec phases et tâches
+4. **Validation Humaine** → Approuver plan avant lancer
+5. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
+6. **Validation Humaine** → Approuver code avant tests
+7. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
+8. **Validation Humaine** → Approuver tests avant doc
+9. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
+10. **Validation Humaine** → Approuver documentation
 11. **Validation Humaine** → Approuver plan d'amélioration
-12. **Phase Suivante** → Lancer phase suivante du plan (étape 2)
+12. **Phase Suivante** → Relancer cycle via MAINa
 
-> 💡 **Parallélisation**: Étapes 4→6 (DEVon) et 6→8 (QUALvin + DOCly) peuvent être parallélisées avec `/fleet` quand tâches indépendantes.
+> 💡 **Parallélisation**: Après validation code (étape 6), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
 
 ---
 
@@ -119,7 +130,7 @@ Chaque agent lit au démarrage son fichier d'instructions spécifique au projet:
 |---|---|---|
 | `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocole SQL handoff |
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions de code |
-| `qa.instructions.md` | 🟢 QUALvin | Framework de test, commandes CI, cas à couvrir |
+| `qa.instructions.md` | 🟢 QALvin | Framework de test, commandes CI, cas à couvrir |
 | `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions de documentation |
 
 Dans ce dépôt transverse, ces fichiers sont **templates** (avec placeholders `[...]`) destinés à être copiés et personnalisés dans chaque projet cible.
@@ -149,7 +160,7 @@ Skills centralisent procédures communes pour éviter duplication entre agents.
 
 Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contient pas code applicatif mais **artefacts d'infrastructure Copilot** réutilisables:
 
-- **Agents génériques** (`.github/agents/`): ARCos, DEVon, QUALvin, DOCly
+- **Agents génériques** (`.github/agents/`): MAINa, ARCos, DEVon, QALvin, DOCly
 - **Skills partagés** (`.github/skills/`): procédures AP et /fleet communes
 - **Templates d'instructions** (`.github/instructions/`): à personnaliser par projet
 - **Prompts** (`.github/prompts/`): initialisation et mise à jour des instructions
@@ -167,7 +178,8 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 /
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Arcos.agent.md               # Architecte & orchestrateur (v4.2)
+│   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.0)
+│   │   ├── Arcos.agent.md               # Architecte & planificateur (v4.3)
 │   │   ├── Devon.agent.md               # Développeur (v4.2)
 │   │   ├── Qalvin.agent.md              # QA & tests (v4.2)
 │   │   ├── Docly.agent.md               # Documentation (v4.2)

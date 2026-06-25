@@ -2,7 +2,7 @@
 
 Bienvenue dans le répertoire des Plans d'Action (AP) du projet . 
 
-Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (Devon (🔵 DEV), Qalvin (🟢 QUAL), Arkos (🟠 ARC), Docly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
+Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (MAINa (⚫), ARCos (🟠 ARC), DEVon (🔵 DEV), QALvin (🟢 QUAL), DOCly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
 
 Cet index liste uniquement les plans et leur **statut global**.
 
@@ -21,6 +21,7 @@ _(Aucun plan en cours pour l'instant)_
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
+| 003 | [Agent maitre MAINa](003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
 | 002 | [Rationalisation agents Copilot](002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
 | 001 | [Optimisation tokens Copilot CLI](001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
 
@@ -29,7 +30,7 @@ _(Aucun plan en cours pour l'instant)_
 ## 🚀 Comment Créer un Nouveau Plan
 
 1. **Créer le fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
-   - Utiliser le numéro séquentiel suivant (ex: 002 après 001)
+   - Utiliser le numéro séquentiel suivant (ex: 004 après 003)
    - Suivre le format défini dans [`.github/PLANS.md`](../PLANS.md)
 
 2. **Créer le dossier reporting** : `.github/plans/<NO>_reports/`
@@ -44,10 +45,11 @@ _(Aucun plan en cours pour l'instant)_
 ## 📚 Documentation Associée
 
 - **Guide complet des Plans d'Action** : [`.github/PLANS.md`](../PLANS.md)
-- **Instructions agent Devon (🔵 DEV)** : [`.github/agents/Devon (🔵 DEV).agent.md`](../agents/Devon (🔵 DEV).agent.md)
-- **Instructions agent Qalvin (🟢 QUAL)** : [`.github/agents/Qalvin (🟢 QUAL).agent.md`](../agents/Qalvin (🟢 QUAL).agent.md)
-- **Instructions agent Docly (🟣 DOC)** : [`.github/agents/Docly (🟣 DOC).agent.md`](../agents/Docly (🟣 DOC).agent.md)
-- **Instructions agent Arkos (🟠 ARC)** : [`.github/agents/Arkos (🟠 ARC).agent.md`](../agents/Arkos (🟠 ARC).agent.md)
+- **Instructions agent MAINa (⚫)** : [`.github/agents/Maina.agent.md`](../agents/Maina.agent.md)
+- **Instructions agent DEVon (🔵 DEV)** : [`.github/agents/Devon.agent.md`](../agents/Devon.agent.md)
+- **Instructions agent QALvin (🟢 QUAL)** : [`.github/agents/Qalvin.agent.md`](../agents/Qalvin.agent.md)
+- **Instructions agent DOCly (🟣 DOC)** : [`.github/agents/Docly.agent.md`](../agents/Docly.agent.md)
+- **Instructions agent ARCos (🟠 ARC)** : [`.github/agents/Arcos.agent.md`](../agents/Arcos.agent.md)
 - **Instructions Copilot globales** : [`.github/copilot-instructions.md`](../copilot-instructions.md)
 
 ---
@@ -83,7 +85,5 @@ Pour contribuer ou modifier un plan existant :
 ---
 
 **Dernière mise à jour :** 2026-06-25  
-**Gestionnaire des Plans :** Arkos (🟠 ARC) & 👤 Développeur humain
-
-
+**Gestionnaire des Plans :** MAINa (⚫), ARCos (🟠 ARC) & 👤 Développeur humain
 

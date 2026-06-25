@@ -51,7 +51,7 @@ Les agents peuvent ensuite etre invoques selon le besoin :
 
 - `ARCos` pour concevoir et planifier
 - `DEVon` pour implementer
-- `QUALvin` pour tester
+- `QALvin` pour tester
 - `DOCly` pour documenter
 
 ---
@@ -103,14 +103,14 @@ Le workflow cible reste simple :
 1. 👤 **Developpeur humain** cadre le besoin et valide chaque livrable cle.
 2. 🟠 **ARCos** conçoit la solution, compare les options et cree le plan.
 3. 🔵 **DEVon** implemente selon le plan valide.
-4. 🟢 **QUALvin** ecrit et execute les tests.
+4. 🟢 **QALvin** ecrit et execute les tests.
 5. 🟣 **DOCly** synchronise la documentation.
 
 Relations de passage :
 
-- `ARCos` → `DEVon`, `QUALvin`, `DOCly`
-- `DEVon` → `QUALvin`, puis `DOCly`
-- `QUALvin` → `DOCly`
+- `ARCos` → `DEVon`, `QALvin`, `DOCly`
+- `DEVon` → `QALvin`, puis `DOCly`
+- `QALvin` → `DOCly`
 - chaque etape importante revient vers le 👤 Developpeur humain pour validation
 
 > Les agents n'ont plus besoin de porter chacun ce schema ; ils pointent vers ce README.
@@ -126,7 +126,7 @@ Relations de passage :
    ↓
 3. DEVon implemente
    ↓
-4. QUALvin valide par les tests
+4. QALvin valide par les tests
    ↓
 5. DOCly met a jour la documentation
    ↓

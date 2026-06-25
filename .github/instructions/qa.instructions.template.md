@@ -1,11 +1,11 @@
 ---
-description: Spécificités projet [NOM_DU_PROJET] pour l'agent 🟢 QUALvin (qa)
+description: Spécificités projet [NOM_DU_PROJET] pour l'agent 🟢 QALvin (qa)
 applyTo: "**"
 ---
 
 # Spécificités projet — [NOM_DU_PROJET] (QA)
 
-> Fichier auto-lu par 🟢 QUALvin au démarrage.
+> Fichier auto-lu par 🟢 QALvin au démarrage.
 > Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
 
 ## Workflow

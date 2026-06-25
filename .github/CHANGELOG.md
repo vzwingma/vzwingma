@@ -5,6 +5,12 @@
 
 ---
 
+## ⚫ MAINa
+
+- **v1.0** : Création nouvel agent maitre-orchestrateur. Point d'entrée principal, support `/help` et `@MAINa /help`, orchestration stricte ARCos → DEVon → QALvin → DOCly avec validations humaines entre phases.
+
+---
+
 ## 🟠 ARCos
 
 - **v2.0 → v2.1** : Migration wiki → `/docs`. Ajout responsabilité ADR dans `docs/adr/`.
@@ -22,6 +28,7 @@
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Descriptions frontmatter raccourcies. Relations inter-agents externalisées vers `.github/README.md`.
+- **v4.2 → v4.3** : ARCos recentré sur architecture/planification. MAINa devient point d'entrée orchestration.
 
 ---
 
@@ -42,12 +49,12 @@
 
 ---
 
-## 🟢 QUALvin
+## 🟢 QALvin
 
 - **v1.9 → v2.0** : Ajout instruction parallélisation avec /fleet.
 - **v2.1 → v2.2** : Déplacement validations QA spécifiques projet vers `.github/instructions/qa.instructions.md`.
 - **v2.2 → v2.3** : Ajout synchronisation obligatoire `.github/plans/README.md` lors changements statut plan.
-- **v2.3 → v2.4** : Extraction procédures Plans d'Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités QUALvin.
+- **v2.3 → v2.4** : Extraction procédures Plans d'Action et /fleet en skills partagés (`.github/skills/`). Section AP réduite aux spécificités QALvin.
 - **v2.4 → v2.5** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.5 → v2.6** : Ajout interdictions opérations destructives.
 - **v2.6 → v2.7** : Ajout règle absolue respect `.copilotignore`.

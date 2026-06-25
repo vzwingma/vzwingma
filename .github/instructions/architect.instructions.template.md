@@ -61,7 +61,7 @@ Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
 | Icône | Nom      | Fichier agent          | Rôle                          |
 |-------|----------|------------------------|-------------------------------|
 | 🔵    | DEVon    | `Devon.agent.md`         | Implémentation [STACK_PRINCIPALE] |
-| 🟢    | QUALvin  | `Qalvin.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
+| 🟢    | QALvin  | `Qalvin.agent.md`          | Tests unitaires ([FRAMEWORK_TEST]) |
 | 🟣    | DOCly    | `Docly.agent.md`         | Documentation (README, /docs) |
 
 

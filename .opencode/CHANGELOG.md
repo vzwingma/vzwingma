@@ -42,12 +42,12 @@
 
 ---
 
-## 🟢 QUALvin
+## 🟢 QALvin
 
 - **v1.9 → v2.0** : Ajout instruction parallélisation avec /fleet.
 - **v2.1 → v2.2** : Déplacement validations QA spécifiques projet vers `.opencode/instructions/qa.instructions.md`.
 - **v2.2 → v2.3** : Ajout synchronisation obligatoire `.opencode/plans/README.md` lors changements statut plan.
-- **v2.3 → v2.4** : Extraction procédures Plans d'Action et /fleet en skills partagés (`.opencode/skills/`). Section AP réduite aux spécificités QUALvin.
+- **v2.3 → v2.4** : Extraction procédures Plans d'Action et /fleet en skills partagés (`.opencode/skills/`). Section AP réduite aux spécificités QALvin.
 - **v2.4 → v2.5** : Alignement sur nouvelle arborescence vrais skills (`.opencode/skills/<nom>/SKILL.md`).
 - **v2.5 → v2.6** : Ajout interdictions opérations destructives.
 - **v2.6 → v2.7** : Ajout règle absolue respect `.gitignore`.

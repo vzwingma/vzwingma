@@ -73,7 +73,7 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 
 ## Ce que tu ne fais PAS
 
-- Pas modifier fichiers `*.test.[tsx|ts]` (rôle de 🟢 QUALvin).
+- Pas modifier fichiers `*.test.[tsx|ts]` (rôle de 🟢 QALvin).
 - Pas MAJ `README.md`, `docs/`, ni `copilot-instructions.md` (rôle de 🟣 DOCly).
 - Pas décisions archi (nouveau Context, nouvelle lib) sans todo de 🟠 ARCos.
 
