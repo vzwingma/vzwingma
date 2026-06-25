@@ -38,6 +38,9 @@ function Apply-PathSubstitution {
     <#
     .SYNOPSIS
         Replaces .github/ with .opencode/ (or vice versa) in a string.
+        Also substitutes platform-specific terms:
+          github → opencode : .copilotignore → .gitignore  |  Copilot → OpenCode
+          opencode → github : .gitignore → .copilotignore  |  OpenCode → Copilot
     .PARAMETER Direction
         'github-to-opencode' or 'opencode-to-github'
     #>
@@ -46,9 +49,15 @@ function Apply-PathSubstitution {
         [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction
     )
     if ($Direction -eq 'github-to-opencode') {
-        return $Content.Replace('.github/', '.opencode/')
+        $r = $Content.Replace('.github/', '.opencode/')
+        $r = $r.Replace('.copilotignore', '.gitignore')
+        $r = $r.Replace('Copilot', 'OpenCode')
+        return $r
     } else {
-        return $Content.Replace('.opencode/', '.github/')
+        $r = $Content.Replace('.opencode/', '.github/')
+        $r = $r.Replace('.gitignore', '.copilotignore')
+        $r = $r.Replace('OpenCode', 'Copilot')
+        return $r
     }
 }
 

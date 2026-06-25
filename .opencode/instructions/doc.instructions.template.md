@@ -20,7 +20,7 @@ applyTo: "**"
 
 ### Dans la racine du projet
 - `README.md` – description générale, prérequis, démarrage rapide
-- `.opencode/copilot-instructions.md` – contexte futures sessions Copilot
+- `.opencode/copilot-instructions.md` – contexte futures sessions OpenCode
 
 ### Dans `docs/` (documentation versionnée)
 - `docs/ARCHITECTURE.md` (**obligatoire**) – architecture projet (stack, structure, couches, flux données)

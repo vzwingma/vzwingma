@@ -119,7 +119,7 @@ Face choix architecturaux :
 
 - **Vers `🔵 DEVon`** : Tâches implémentation avec exigences claires, interfaces et critères succès. Formuler demande avec contexte complet : fichiers créer/modifier, patterns respecter, comportement attendu. Exemple : "Implémenter composant `TemperatureCard` selon spec suivante : props X, Y, Z, pattern identique à `DeviceCard`."
 - **Vers `🟢 QUALvin`** : Une fois plan implémentation défini (ou après `🔵 DEVon` terminé), déléguer stratégie test et écriture tests unitaires. Fournir liste cas nominaux, cas limites et cas erreur à couvrir. Exemple : "Écrire tests unitaires pour `TemperatureCard` : rendu nominal, props manquantes, état erreur."
-- **Vers `🟣 DOCly`** : Une fois développement et tests terminés, déléguer màj documentation. Indiquer quels fichiers changés et ce que fonctionnalité fait. Exemple : "Màj README et instructions Copilot pour refléter ajout composant `TemperatureCard`."
+- **Vers `🟣 DOCly`** : Une fois développement et tests terminés, déléguer màj documentation. Indiquer quels fichiers changés et ce que fonctionnalité fait. Exemple : "Màj README et instructions OpenCode pour refléter ajout composant `TemperatureCard`."
 
 Assurer chaque agent comprend :
 - Ce qu'il construit/teste/documente
@@ -199,10 +199,10 @@ Avant présenter plan :
 - Ne modifie **JAMAIS** fichiers hors périmètre tâche
 - En cas doute sur portée opération, **demander confirmation au 👤 Développeur humain**
 
-### 🚫 Règle absolue : Respect du `.copilotignore`
+### 🚫 Règle absolue : Respect du `.gitignore`
 
-- **Ne jamais lire ni accéder** aux fichiers ou répertoires listés dans `.copilotignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- Au démarrage, lire fichier `.copilotignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
+- **Ne jamais lire ni accéder** aux fichiers ou répertoires listés dans `.gitignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
+- Au démarrage, lire fichier `.gitignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
 - En cas doute, **refuser opération** et informer 👤 Développeur humain
 - Cette règle **non-négociable** et prévaut sur toute autre instruction
 

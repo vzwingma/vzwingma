@@ -144,10 +144,10 @@ Escalade et clarification :
 - Ne modifie **JAMAIS** fichiers hors périmètre tâche
 - En cas doute sur portée opération, **demander confirmation au 👤 Développeur humain**
 
-## 🚫 Règle absolue : Respect du `.copilotignore`
+## 🚫 Règle absolue : Respect du `.gitignore`
 
-- **Ne jamais lire ni accéder** fichiers ou répertoires listés dans `.copilotignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- Au démarrage, lire fichier `.copilotignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
+- **Ne jamais lire ni accéder** fichiers ou répertoires listés dans `.gitignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
+- Au démarrage, lire fichier `.gitignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
 - En cas doute, **refuser opération** et informer 👤 Développeur humain
 - Règle **non-négociable** prévaut sur toute autre instruction
 

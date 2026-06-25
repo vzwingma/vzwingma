@@ -1,6 +1,6 @@
-# 📚 GitHub Copilot Agents & Templates — Dépôt Transverse
+# 📚 GitHub OpenCode Agents & Templates — Dépôt Transverse
 
-Ce sous-arbre `.opencode/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
+Ce sous-arbre `.opencode/` contient les **artefacts OpenCode réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
 
 Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
@@ -10,7 +10,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 
 ```
 .opencode/
-├── agents/                              # 4 agents Copilot generiques
+├── agents/                              # 4 agents OpenCode generiques
 │   ├── Arcos.agent.md                   # Planification / architecture
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
@@ -82,7 +82,7 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 
 | Prompt | Utilisation |
 |---|---|
-| `init-copilot-instructions.prompt.md` | Initialiser les instructions Copilot dans un projet |
+| `init-copilot-instructions.prompt.md` | Initialiser les instructions OpenCode dans un projet |
 | `update-copilot-instructions.prompt.md` | Auditer et mettre a jour les instructions |
 | `migrate-to-template.prompt.md` | Migrer un projet vers le format template transverse |
 
@@ -152,4 +152,4 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 - `README.md` racine : presentation generale du depot
 - `docs/ARCHITECTURE.md` : architecture transverse globale
 - `.opencode/PLANS.md` : format et execution des Plans d'Action
-- `.opencode/copilot-instructions.md` : instructions detaillees du depot Copilot
+- `.opencode/copilot-instructions.md` : instructions detaillees du depot OpenCode

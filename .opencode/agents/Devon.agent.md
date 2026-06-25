@@ -133,10 +133,10 @@ Quand demander clarification :
 - Modifie **JAMAIS** fichiers hors périmètre tâche
 - En cas doute sur portée opération, **demander confirmation au 👤 Développeur humain**
 
-## 🚫 Règle absolue : Respect `.copilotignore`
+## 🚫 Règle absolue : Respect `.gitignore`
 
-- **Jamais lire ni accéder** aux fichiers ou répertoires listés dans `.copilotignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- À démarrage, lire fichier `.copilotignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
+- **Jamais lire ni accéder** aux fichiers ou répertoires listés dans `.gitignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
+- À démarrage, lire fichier `.gitignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
 - En cas doute, **refuser opération** et informer 👤 Développeur humain
 - Règle **non-négociable** et prévaut sur toute autre instruction
 

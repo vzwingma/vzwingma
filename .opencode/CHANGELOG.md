@@ -15,11 +15,11 @@
 - **v2.5 → v2.6** : Alignement sur nouvelle arborescence vrais skills (`.opencode/skills/<nom>/SKILL.md`).
 - **v2.6 → v2.7** : Ajout skill `adr-writing` (`.opencode/skills/adr-writing/SKILL.md`). ARCos prépare contenu ADR, DOCly rédige fichier. Référence explicite skill après accord humain sur solution.
 - **v2.7 → v2.8** : Ajout interdictions opérations destructives.
-- **v2.8 → v2.9** : Ajout règle absolue respect `.copilotignore`.
+- **v2.8 → v2.9** : Ajout règle absolue respect `.gitignore`.
 - **v2.9 → v2.10** : Migration vers Sonnet 4.6 pour capacités planification/architecture améliorées.
 - **v2.10 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.opencode/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter OpenCode conservé (model, tools). Chemins `.opencode/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Descriptions frontmatter raccourcies. Relations inter-agents externalisées vers `.opencode/README.md`.
 
@@ -32,11 +32,11 @@
 - **v2.1 → v2.2** : Extraction procédures Plans Action et /fleet en skills partagés (`.opencode/skills/`). Section AP réduite aux spécificités DEVon.
 - **v2.2 → v2.3** : Alignement sur nouvelle arborescence vrais skills (`.opencode/skills/<nom>/SKILL.md`).
 - **v2.3 → v2.4** : Ajout interdictions opérations destructives.
-- **v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
+- **v2.4 → v2.5** : Ajout règle absolue respect `.gitignore`.
 - **v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
 - **v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.opencode/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter OpenCode conservé (model, tools). Chemins `.opencode/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Delegation gardee concise ; workflow global deplace vers `.opencode/README.md`.
 
@@ -50,11 +50,11 @@
 - **v2.3 → v2.4** : Extraction procédures Plans d'Action et /fleet en skills partagés (`.opencode/skills/`). Section AP réduite aux spécificités QUALvin.
 - **v2.4 → v2.5** : Alignement sur nouvelle arborescence vrais skills (`.opencode/skills/<nom>/SKILL.md`).
 - **v2.5 → v2.6** : Ajout interdictions opérations destructives.
-- **v2.6 → v2.7** : Ajout règle absolue respect `.copilotignore`.
+- **v2.6 → v2.7** : Ajout règle absolue respect `.gitignore`.
 - **v2.7 → v2.8** : Migration vers Claude Haiku 4.5 pour exécution rapide efficace tests.
 - **v2.8 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.opencode/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter OpenCode conservé (model, tools). Chemins `.opencode/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.opencode/README.md`.
 
@@ -67,10 +67,10 @@
 - **v2.2 → v2.3** : Extraction procédures Plans d'Action + /fleet en skills partagés (`.opencode/skills/`). Section AP réduite aux spécificités DOCly.
 - **v2.3 → v2.4** : Alignement nouvelle arbo vrais skills (`.opencode/skills/<nom>/SKILL.md`).
 - **v2.4 → v2.5** : Ajout interdictions opérations destructives.
-- **v2.5 → v2.6** : Ajout règle absolue respect `.copilotignore`.
+- **v2.5 → v2.6** : Ajout règle absolue respect `.gitignore`.
 - **v2.6 → v2.7** : Migration vers Claude Sonnet 4.6 pour amélioration qualité doc.
 - **v2.7 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.opencode/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter OpenCode conservé (model, tools). Chemins `.opencode/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Vue transverse centralisee dans `.opencode/README.md`.
