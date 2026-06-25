@@ -1,194 +1,155 @@
-# 📚 OpenCode Agents & Templates — Dépôt Transverse
+# 📚 GitHub Copilot Agents & Templates — Dépôt Transverse
 
-Ce dépôt contient les **modèles réutilisables** et les **agents OpenCode** pour orchestrer le développement avec OpenCode en utilisant une architecture **multi-agents coordonnée**.
+Ce sous-arbre `.opencode/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
+
+Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
 ---
 
 ## 📂 Structure
 
 ```
-.
-├── .opencode/
-│   ├── agents/                              # Définitions des agents OpenCode
-│   │   ├── Arcos.agent.md                   # Agent planificateur (🟠 ARC - Arcos)
-│   │   ├── Devon.agent.md                   # Agent implémenteur (🔵 DEV - Devon)
-│   │   ├── Qalvin.agent.md                  # Agent QA et tests (🟢 QUAL - Qalvin)
-│   │   └── Docly.agent.md                   # Agent documentation (🟣 DOC - Docly)
-│   │
-│   ├── instructions/                        # Instructions spécifiques projet (templates)
-│   │   ├── architect.instructions.template.md
-│   │   ├── dev.instructions.template.md
-│   │   ├── qa.instructions.template.md
-│   │   └── doc.instructions.template.md
-│   │
-│   ├── prompts/                             # Prompts pour initialiser des tâches
-│   │   ├── init-opencode.prompt.md           # Initialiser AGENTS.md et instructions
-│   │   └── update-opencode.prompt.md         # Auditer et mettre à jour les instructions
-│   │
-│   ├── plans/                               # (Optionnel) Exemples de Plans d'Action
-│   │   ├── README.md                        # Index des plans
-│   │   └── [plans et rapports]
-│   │
-│   ├── skills/                              # Skills partagés OpenCode
-│   │   ├── adr-writing/
-│   │   ├── caveman-default/
-│   │   ├── copilotignore/
-│   │   ├── fleet-guide/
-│   │   ├── plan-creation/
-│   │   └── plan-phase-execution/
-│   │
-│   ├── PLANS.md                             # Guide pour les Plans d'Action
-│   └── README.md                            # Ce fichier
-│
-├── .agents/                                 # Skills OpenCode (caveman family)
-├── docs/                                    # Documentation versionnée du dépôt
-│   ├── ARCHITECTURE.md
-│   ├── ARCHITECTURE.template.md
-│   └── adr/
-│       └── ADR-TEMPLATE.md
-│
-├── .github/                                 # Legacy Copilot (templates pour projets aval)
-│   ├── copilot-instructions.md
-│   └── copilot-instructions.template.md
-│
-├── AGENTS.md                                # Instructions OpenCode racine
-└── ...
+.opencode/
+├── agents/                              # 4 agents Copilot generiques
+│   ├── Arcos.agent.md                   # Planification / architecture
+│   ├── Devon.agent.md                   # Implementation
+│   ├── Qalvin.agent.md                  # Tests
+│   └── Docly.agent.md                   # Documentation
+├── instructions/                        # Templates d'instructions par role
+├── prompts/                             # Prompts d'initialisation / mise a jour
+├── skills/                              # Procedures partagees auto-chargees
+├── plans/                               # Plans d'Action et rapports
+├── CHANGELOG.md                         # Historique des versions des agents
+├── PLANS.md                             # Guide des Plans d'Action
+├── README.md                            # Ce fichier
+├── copilot-instructions.md              # Instructions de ce depot transverse
+└── copilot-instructions.template.md     # Template a copier dans les projets
 ```
 
 ---
 
-## 🚀 Quick Start : Initialiser OpenCode dans un Nouveau Projet
+## 🚀 Quick Start : reutiliser le sous-arbre `.opencode/`
 
-### Étape 1 : Copier les agents
+### Etape 1 : Copier les artefacts utiles
 
-Copier `.opencode/agents/` vers votre projet :
+Selon le projet cible, copier :
 
-```bash
-# Depuis le dépôt transverse vers votre projet
-cp -r .opencode/agents <votre_projet>/.opencode/agents
-```
+- `.opencode/agents/`
+- `.opencode/skills/`
+- `.opencode/instructions/`
+- `.opencode/prompts/`
+- `.opencode/PLANS.md`
+- `.opencode/copilot-instructions.template.md`
 
-### Étape 2 : Utiliser le prompt d'initiation
+### Etape 2 : Initialiser les instructions projet
 
-Utiliser le prompt **`init-opencode`** pour **générer automatiquement** la configuration :
+Utiliser le prompt `init-copilot-instructions` pour generer les fichiers d'instructions adaptes au projet consommateur.
 
-```
-👤 Utilisateur: "Initialise la configuration OpenCode pour ce projet"
-```
+### Etape 3 : Utiliser les agents
 
-Le prompt va :
-1. ✅ Analyser votre code source
-2. ✅ Générer `AGENTS.md` avec la structure du projet
-3. ✅ Créer les fichiers `.opencode/instructions/` personnalisés
+Les agents peuvent ensuite etre invoques selon le besoin :
 
-### Étape 3 : Utiliser les agents
-
-Les agents sont prêts ! Ouvrir OpenCode à la racine du projet :
-
-```bash
-opencode
-```
+- `ARCos` pour concevoir et planifier
+- `DEVon` pour implementer
+- `QUALvin` pour tester
+- `DOCly` pour documenter
 
 ---
 
-## 📖 Fichiers Clés
+## 📖 Fichiers cles
 
 ### Agents (`.opencode/agents/`)
 
-Chaque fichier agent définit un rôle, ses responsabilités et comment il interagit avec les autres agents.
-
-| Agent | Rôle | Quand l'utiliser |
+| Agent | Role | Quand l'utiliser |
 |---|---|---|
-| **Arkos.agent.md** (🟠 ARC) | Planificateur technique | "Conçois une architecture pour..." |
-| **Devon.agent.md** (🔵 DEV) | Implémentateur de code | "Implémente cette fonctionnalité" |
-| **Qalvin.agent.md** (🟢 QUAL) | Expert QA et tests | "Écris des tests pour ce composant" |
-| **Docly.agent.md** (🟣 DOC) | Gestionnaire documentation | "Mets à jour la documentation" |
+| **Arcos.agent.md** (🟠 ARC) | Planificateur / architecte | "Conçois une architecture pour..." |
+| **Devon.agent.md** (🔵 DEV) | Implementateur | "Implémente cette fonctionnalité" |
+| **Qalvin.agent.md** (🟢 QUAL) | QA / tests | "Écris des tests pour..." |
+| **Docly.agent.md** (🟣 DOC) | Documentation | "Mets à jour la documentation" |
 
-Tous les agents sont **génériques et réutilisables** dans n'importe quel projet. Les instructions spécifiques au projet se trouvent dans `.opencode/instructions/`.
+Les agents restent focalises sur leurs instructions runtime. La vue transverse et la coordination sont documentees ici pour eviter la duplication.
 
-> Les agents sont **génériques**. Ils lisent au démarrage leur fichier `instructions/` correspondant pour les spécificités du projet.
+### Instructions (`.opencode/instructions/`)
+
+| Fichier | Role |
+|---|---|
+| `architect.instructions.md` | Conventions architecture / SQL handoff |
+| `dev.instructions.md` | Stack technique, versions, conventions de code |
+| `qa.instructions.md` | Framework de test, commandes CI, cas a couvrir |
+| `doc.instructions.md` | Cibles documentaires et conventions de doc |
 
 ### Prompts (`.opencode/prompts/`)
 
-Prompts réutilisables pour des tâches récurrentes.
-
-| Prompt | Rôle | Utilisation |
-|---|---|---|
-| **init-opencode.prompt.md** | Initialiser `AGENTS.md` et les fichiers `instructions/` | `init-opencode` |
-| **update-opencode.prompt.md** | Auditer et mettre à jour `AGENTS.md` et les fichiers `instructions/` | `update-opencode` |
-
-### Documentation
-
-| Fichier | Rôle |
+| Prompt | Utilisation |
 |---|---|
-| **PLANS.md** | Guide complet pour créer et exécuter les Plans d'Action |
+| `init-copilot-instructions.prompt.md` | Initialiser les instructions Copilot dans un projet |
+| `update-copilot-instructions.prompt.md` | Auditer et mettre a jour les instructions |
+| `migrate-to-template.prompt.md` | Migrer un projet vers le format template transverse |
+
+### Plans et gouvernance
+
+| Fichier | Role |
+|---|---|
+| `PLANS.md` | Guide complet de creation / execution des Plans d'Action |
+| `plans/README.md` | Index des plans et statut global |
+| `CHANGELOG.md` | Historique de version des 4 agents |
 
 ---
 
-## 🎯 Workflow Typique avec OpenCode
+## 🤝 Relations entre agents
 
-```
-1️⃣ Utilisateur cadre le besoin
-   ↓
-2️⃣ Arkos (🟠 ARC) crée un Plan d'Action
-   ↓
-3️⃣ Devon (🔵 DEV) implémente les tâches
-   ↓
-4️⃣ Qalvin (🟢 QUAL) écrit les tests
-   ↓
-5️⃣ Docly (🟣 DOC) met à jour la documentation
-   ↓
-6️⃣ Phase suivante du plan (retour à 2️⃣)
-```
+Le workflow cible reste simple :
 
-Pour en savoir plus, lire `.opencode/PLANS.md`.
+1. 👤 **Developpeur humain** cadre le besoin et valide chaque livrable cle.
+2. 🟠 **ARCos** conçoit la solution, compare les options et cree le plan.
+3. 🔵 **DEVon** implemente selon le plan valide.
+4. 🟢 **QUALvin** ecrit et execute les tests.
+5. 🟣 **DOCly** synchronise la documentation.
+
+Relations de passage :
+
+- `ARCos` → `DEVon`, `QUALvin`, `DOCly`
+- `DEVon` → `QUALvin`, puis `DOCly`
+- `QUALvin` → `DOCly`
+- chaque etape importante revient vers le 👤 Developpeur humain pour validation
+
+> Les agents n'ont plus besoin de porter chacun ce schema ; ils pointent vers ce README.
 
 ---
 
-## ✅ Checklist pour Initialiser un Nouveau Projet
+## 🎯 Workflow typique
 
-- [ ] Copier `.opencode/agents/` → `.opencode/agents/` du projet
-- [ ] Copier `.opencode/skills/` → `.opencode/skills/` du projet
-- [ ] Copier `.opencode/PLANS.md` → `.opencode/PLANS.md` du projet
-- [ ] Utiliser le prompt `init-opencode` pour remplir les sections
-- [ ] Remplir les placeholders dans les 4 fichiers `instructions/`
-- [ ] Valider que tous les placeholders sont remplacés
-- [ ] Les agents sont prêts ! Utiliser `@ARCos`, `@DEVon`, etc.
+```
+1. Besoin cadre par le developpeur humain
+   ↓
+2. ARCos cree le plan et la cible
+   ↓
+3. DEVon implemente
+   ↓
+4. QUALvin valide par les tests
+   ↓
+5. DOCly met a jour la documentation
+   ↓
+6. Phase suivante / cloture du plan
+```
+
+Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
+
+---
+
+## ✅ Checklist de maintenance
+
+- Modifier un agent => incrementer sa version dans le frontmatter
+- Reporter la modification dans `CHANGELOG.md`
+- Synchroniser les versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- Mettre a jour `plans/README.md` a chaque nouveau Plan d'Action
+- Garder ce README comme source de verite pour la coordination transverse `.opencode/`
 
 ---
 
 ## 📚 Ressources
 
-- **Architecture** : `docs/ARCHITECTURE.md` — architecture de ce dépôt transverse
-- **Templates docs** : `docs/ARCHITECTURE.template.md` + `docs/adr/ADR-TEMPLATE.md`
-- **Agents génériques** : Présents dans `.opencode/agents/`, prêts à l'emploi
-- **Prompts réutilisables** : `.opencode/prompts/` — s'adapter au contexte du projet
-- **Instructions agents** : `.opencode/instructions/` — à personnaliser par projet
-- **Plans d'Action** : `.opencode/PLANS.md` — guide pour orchestrer le travail multi-phases
-
----
-
-## 🔄 Maintenance
-
-### Mettre à jour les agents
-
-Si les versions des agents changent (ex: `Devon [v4.0]`), mettre à jour les fichiers `.opencode/agents/*.md`.
-
-### Mettre à jour les instructions d'un projet
-
-Utiliser le prompt `update-opencode` régulièrement pour garder les instructions à jour avec le code réel.
-
----
-
-## 🤝 Contribution
-
-Pour ajouter un nouvel agent, prompt ou skill :
-
-1. Créer le fichier dans le dossier approprié (`.opencode/agents/`, `.opencode/prompts/`, etc.)
-2. Suivre les conventions existantes (format YAML frontmatter pour agents/prompts)
-3. Tester dans un projet de sandbox avant de committer
-4. Documenter dans ce README
-
----
-
-**Dernière mise à jour :** 2026-06-18
+- `README.md` racine : presentation generale du depot
+- `docs/ARCHITECTURE.md` : architecture transverse globale
+- `.opencode/PLANS.md` : format et execution des Plans d'Action
+- `.opencode/copilot-instructions.md` : instructions detaillees du depot Copilot
