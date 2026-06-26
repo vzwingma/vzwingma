@@ -48,7 +48,7 @@ Pour chaque placeholder `[...]` du template, fournir valeur adaptée :
 
 | Placeholder | Source d'information | Exemple |
 |---|---|---|
-| `[NOM_DU_PROJET]` | Nom repo ou package.json name | "Domoticz Mobile", "API-Gateway", "Design System" |
+| `[NOM_DU_PROJET]` | Nom repo ou package.json name | "Mon Projet", "API-Gateway", "Design System" |
 | **Présentation du Projet** | README, description, package.json, main.swift, etc. | Stack tech, domaine métier, plateformes |
 | **Commandes** | package.json scripts, Makefile, build scripts, etc. | `npm start`, `npm test`, `go build`, etc. |
 | **Architecture** | Structure dossiers + patterns observés | Diagram ASCII ou description hiérarchique |

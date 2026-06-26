@@ -111,9 +111,6 @@ Nouveau Projet
     │   ├── update-copilot-instructions.prompt.md# Maintenir les instructions à jour
     │   └── migrate-to-template.prompt.md        # Migrer un projet existant
     │
-    ├── examples/                                # 📖 Exemples concrets
-    │   └── copilot-instructions-domoticz.example.md  # React Native / Expo
-    │
     └── plans/                                   # 📅 Plans d'Action
         └── README.md                            # Index des plans
 ```

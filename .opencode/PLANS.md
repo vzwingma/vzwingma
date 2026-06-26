@@ -75,7 +75,7 @@ Un **Plan d'Action (AP)** est un document structuré qui :
 [Lister les domaines d'amélioration ou les outcomes attendus]
 
 Exemple :
-"Moderniser l'application domoticz-mobile en améliorant la couverture de test, 
+"Moderniser l'application cible en améliorant la couverture de test, 
 les dépendances à jour, l'architecture du code et la performance. 
 Objectifs : couverture ≥80%, 0 dépendances dépréciées, 0 breaking changes, 
 documentation exhaustive."

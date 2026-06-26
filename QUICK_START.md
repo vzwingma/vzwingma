@@ -60,7 +60,6 @@ Modèles prêts à l'emploi pour différents rôles :
 ### 📖 Documentation
 - **`.github/README.md`** — Guide complet du dépôt
 - **`SETUP_CHECKLIST.md`** — Checklist pour initialiser un projet
-- **`.github/examples/`** — Exemples concrets (Domoticz, etc.)
 
 ---
 
