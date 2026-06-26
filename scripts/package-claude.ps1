@@ -15,7 +15,7 @@
       - .claude/CHANGELOG.md
       - .claude/PLANS.md
       - .claude/CLAUDE.md
-      - docs/   (excluding ARCHITECTURE.md)
+      - docs/   (excluding ARCHITECTURE.md, adr/)
       - QUICK_START.md
       - SETUP_CHECKLIST.md
 
@@ -24,6 +24,7 @@
       - README.md (root), *.code-workspace
       - .claude/plans/  (internal action plans)
       - docs/ARCHITECTURE.md  (transverse repo architecture doc)
+      - docs/adr/  (ADR decisions)
       - dist/  (output directory itself)
 
 .PARAMETER OutputDir
@@ -105,12 +106,6 @@ try {
     Get-ChildItem (Join-Path $repoRoot 'docs') -File |
         Where-Object { $_.Name -ne 'ARCHITECTURE.md' } |
         ForEach-Object { Copy-Item $_.FullName $docsStaging -Force }
-    # docs/adr/ subtree
-    $adrSrc = Join-Path $repoRoot 'docs\adr'
-    if (Test-Path $adrSrc) {
-        Stage-Dir $adrSrc 'docs\adr'
-    }
-
     # ── Root files ────────────────────────────────────────────────────────────
     Write-Host "  + QUICK_START.md"
     Stage-File (Join-Path $repoRoot 'QUICK_START.md')
