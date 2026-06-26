@@ -22,7 +22,7 @@ Couvre :
 - Skills : `.github/skills/*/SKILL.md` → `.opencode/skills/`
 - Instructions : `.github/instructions/*.md` → `.opencode/instructions/`
 - Standalone : CHANGELOG.md, PLANS.md, README.md
-- Templates : Copiés dans `.opencode/instructions/templates/`
+- Templates : conservés dans `.opencode/instructions/` (pas de sous-dossier `templates/`)
 
 ---
 
