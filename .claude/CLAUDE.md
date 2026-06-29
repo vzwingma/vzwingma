@@ -45,7 +45,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟠 ARCos** [v4.4]
+### **🟠 ARCos** [v4.5]
 
 **Rôle** : Expert architecture consulté par MAINa
 

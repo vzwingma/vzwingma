@@ -204,7 +204,7 @@ Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 1. **Semaine 1-2 :** Lancer Phase 1 (Qalvin (🟢 QUAL) agent)
 2. **Semaine 2-3 :** Lancer Phase 2 (Devon (🔵 DEV) agent, après Phase 1 ✅)
 3. **Semaine 3-4 :** Lancer Phases 3-4 en parallèle (Devon (🔵 DEV) agent)
-4. **Semaine 4-5 :** Lancer Phase 5 (Arkos (🟠 ARC), après Phase 3 ✅)
+4. **Semaine 4-5 :** Lancer Phase 5 (ARCos (🟠 ARC), après Phase 3 ✅)
 5. **Semaine 5-6 :** Lancer Phase 6 en parallèle (Docly (🟣 DOC))
 
 **Triggers pour démarrer une phase :**
@@ -234,7 +234,7 @@ Pour chaque plan, créer un dossier `.github/plans/<NO>_reports/` avec un rappor
 ```markdown
 # Phase N : <Titre de la Phase>
 
-**Responsable Agent :** [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)]  
+**Responsable Agent :** [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | ARCos (🟠 ARC) | Docly (🟣 DOC)]  
 **Date Début :** YYYY-MM-DD  
 **Date Fin :** YYYY-MM-DD (ou TBD si en cours)  
 **Statut :** ✅ COMPLÉTÉE | 🔄 EN_COURS | ⏳ PLANIFIÉE | ❌ BLOQUÉE
@@ -305,7 +305,7 @@ Fin du rapport Phase N
 
 ## 🔄 Workflow de Suivi
 
-### 1. Créer le Plan (Utilisateur / MAINa (⚫) / ARCos (🟠 ARC))
+### 1. Créer le Plan (MAINa (⚫) — orchestrateur, après analyse ARCos)
 
 ```bash
 # Créer le fichier plan
@@ -422,9 +422,9 @@ Exécute la Phase 1 du plan : .github/plans/001_modernisation_complète.plan.md
 
 **Chaîne de délégation entre agents :**
 ```
-MAINa (⚫) (orchestration + gates humains)
+MAINa (⚫) (consulte ARCos, crée le plan, orchestre + gates humains)
     ↓
-ARCos (🟠 ARC) (plan)
+ARCos (🟠 ARC) (analyse solutions + recommandation → input plan)
     ↓
 Devon (🔵 DEV) (T2.1-T3.5)
     ├→ Qalvin (🟢 QUAL) (valider + écrire tests)

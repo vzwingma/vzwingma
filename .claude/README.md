@@ -12,7 +12,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 .claude/
 ├── agents/                              # 5 agents Claude generiques
 │   ├── Maina.agent.md                   # Maitre orchestrateur
-│   ├── Arcos.agent.md                   # Planification / architecture
+│   ├── Arcos.agent.md                   # Architecture (consulté par MAINa)
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
 │   └── Docly.agent.md                   # Documentation

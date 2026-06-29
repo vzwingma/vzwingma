@@ -42,7 +42,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
-#### **🟠 ARCos** [v4.4]
+#### **🟠 ARCos** [v4.5]
 - **Rôle :** Expert architecture consulté par MAINa
 - **Responsabilités :**
   - Analyser problèmes complexes et concevoir solutions architecturales

@@ -22,8 +22,8 @@ Quand utilisateur demande `/maina-help`, `@MAINa /maina-help`, ou `@maina /maina
 
 2. **Décrire les 5 agents**
    ```
-   🟠 ARCos — Architecte & Planificateur
-   Conçoit solutions, crée Plans d'Action détaillés avec phases & tâches
+   🟠 ARCos — Architecte (consulté par MAINa)
+   Analyse les options, compare les solutions, fournit une recommandation
    
    🔵 DEVon — Développeur
    Implémente code selon architecture
@@ -35,17 +35,18 @@ Quand utilisateur demande `/maina-help`, `@MAINa /maina-help`, ou `@maina /maina
    Garde docs, README et ADRs en sync avec code
    
    ⚫ MAINa — Maître Orchestrateur
-   Cadre demande, orchestrate workflow, impose gates humains
+   Cadre demande, crée le Plan d'Action, orchestre workflow, impose gates humains
    ```
 
 3. **Expliquer workflow strict**
    ```
    1. Intake MAINa — clarifier besoin + critères acceptation
-   2. Plan & conception (ARCos) — 👤 validation obligatoire
-   3. Implémentation (DEVon) — 👤 validation obligatoire
-   4. QA (QALvin) — tests en parallèle si indépendants
-   5. Documentation (DOCly) — docs en parallèle si indépendants
-   6. 👤 validation finale — initiative close
+   2. Analyse solutions (ARCos) — ≥2 options + recommandation → 👤 choisit (Gate #0)
+   3. Plan d'Action (MAINa) — créer le plan complet → 👤 validation (Gate #1)
+   4. Implémentation (DEVon) — 👤 validation (Gate #2)
+   5. QA (QALvin) — 👤 validation (Gate #3)
+   6. Documentation (DOCly) — 👤 validation (Gate #4)
+   7. Initiative close
    ```
 
 4. **Donner exemples de commandes**
@@ -53,7 +54,7 @@ Quand utilisateur demande `/maina-help`, `@MAINa /maina-help`, ou `@maina /maina
    - "Implémente cette fonctionnalité" → après plan approuvé
    - "Écris tests unitaires pour..." → après implémentation approuvée
    - "Mets à jour documentation" → après tests approuvés
-   - "Organise ce workflow" → MAINa cadre et orchester
+   - "Organise ce workflow" → MAINa cadre et orchestre
 
 5. **Format minimal input attendu**
    - Besoin fonctionnel clair

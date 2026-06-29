@@ -140,13 +140,15 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 - **T1.4** — ✅ (A1) Prompts inclus au sync `github→claude` avec substitution → `.claude/prompts/` peuplé (2 fichiers). **Reste Phase 6** : nommage fichiers (`init-copilot-*` conservé) + référencement package.
 - **Bonus** — Ligne parasite (`Compressing markdown to caveman format…`) retirée de `.github/copilot-instructions.md`.
 
-### Phase 2 — Réaligner workflow & rôles sur MAINa v1.2 (source `.github/`) — Agent : 🟠 ARCos → 🟣 DOCly
+### Phase 2 — Réaligner workflow & rôles sur MAINa v1.2 (source `.github/`) — ✅ TERMINÉE (2026-06-29)
 **Contexte :** F-M1/M2/M3/M4. Corriger dans `.github/` (source) puis re-sync.
 **Critères :** ✅ aucun fichier ne dit « ARCos crée le Plan d'Action » ✅ Gate #0 présent partout.
-- **T2.1** — Réécrire `agents/README.md` (MAINa crée le plan, Gate #0, 5 gates, invocation homogène).
-- **T2.2** — Nettoyer `Arcos.agent.md` : retirer/atténuer « créer WBS », « orchestrer entre agents », « format sortie = plan complet ».
-- **T2.3** — Corriger `maina-help/SKILL.md` (rôle ARCos, workflow).
-- **T2.4** — Corriger `.claude/PLANS.md` (exemple AP-001, chaîne de délégation).
+**Résultat (sync réel) :** 6 fichiers régénérés, 13 en sync, 0 erreur. Vérif `.claude/` : 0 occurrence « Architecte & Planificateur » / « Invoke-AIAgent » / « Planificateur » hors doc d'audit 004 (qui les cite comme findings). ARCos bumpé **v4.5** partout (agent, CLAUDE, CLAUDE.template, CHANGELOG). `CLAUDE.md` + `agents/README.md` (hand-maintained) préservés.
+- **T2.1** — ✅ `.claude/agents/README.md` réécrit (Claude-only, hors sync) : MAINa crée le plan, Gate #0 + 5 gates, ARCos = architecte consulté, invocation `@MAINa`/`@ARCos`.
+- **T2.2** — ✅ `Arcos.agent.md` nettoyé (v4.4→**v4.5**) : retrait « créer WBS / orchestrer entre agents / format sortie = plan ». Recentré analyse & conception ; découpage = entrée pour MAINa.
+- **T2.3** — ✅ `maina-help/SKILL.md` corrigé : rôle ARCos (analyse/reco), MAINa crée le plan, workflow 7 étapes avec Gate #0→#4, typo « orchester »→« orchestre ».
+- **T2.4** — ✅ `.github/PLANS.md` corrigé : « Créer le Plan » = MAINa, chaîne de délégation (ARCos = input analyse), typo « Arkos »→« ARCos » (×2).
+- **Bonus** — `.github/README.md` l.15 (arbre) recadré. Cascade version : `copilot-instructions(.template).md` + `CLAUDE.md` + `CHANGELOG.md` (entrée v4.5). Typos « Arkos »/« orchester » de T6.2 traités ici.
 
 ### Phase 3 — Rafraîchir doc d'architecture & index — Agent : 🟣 DOCly
 **Contexte :** F-C2, F-M11, F-M8, F-M9, F-m1.
