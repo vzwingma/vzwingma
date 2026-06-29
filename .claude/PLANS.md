@@ -1,325 +1,497 @@
-# 📋 Plans d'Action (AP) — Guide Centralisé
+# 📋 Plans d'Action (AP) — Documentation Centralisée
 
-**Document** : `.claude/PLANS.md`  
-**Objectif** : Guide créer, exécuter, tracker plans d'action multi-phases.
+**Document :** `.claude/PLANS.md`  
+**Objectif :** Guide centralisé pour créer, exécuter et tracker les plans d'action multi-phases.
 
 ---
 
 ## 🎯 Qu'est-ce qu'un Plan d'Action (AP) ?
 
-Plan d'Action (AP) = document structuré :
-- Décrit **objectif global** (modernisation, feature, refactoring)
-- Décompose en **phases logiques** + **tâches détaillées**
-- Assigne tâches agents spécifiques (MAINa/ARCos/DEVon/QALvin/DOCly)
-- Définit **critères réussite** + **dépendances phases**
-- Génère **rapports phase** documenting exécution
+Un **Plan d'Action (AP)** est un document structuré qui :
+- Décrit un **objectif global** (ex: modernisation, nouvelle feature, refactoring majeur)
+- Se décompose en **phases logiques** et **tâches détaillées**
+- Assigne les tâches à des **agents spécifiques** (MAINa/⚫ orchestration, ARCos/🟠 ARC architecture, DEVon/🔵 DEV, QALvin/🟢 QUAL, DOCly/🟣 DOC)
+- Définit les **critères de réussite** et les **dépendances** entre phases
+- Génère des **rapports de phase** documentant l'exécution et les résultats
 
-**Cas d'usage** :
-- Moderniser infrastructure + tests
-- Feature complexe cross-équipes
-- Refactoring domaine métier
-- Mises à jour dépendantes coordonnées
+**Cas d'usage :**
+- Moderniser l'infrastructure et les tests (AP-001 : Modernisation Complète)
+- Implémenter une grande fonctionnalité cross-team
+- Refactoriser un domaine métier complexe
+- Coordonner des mises à jour dépendantes
 
 ---
 
-## 📂 Structure Répertoires
+## 📂 Structure des Répertoires
 
 ```
 .claude/
-├── PLANS.md                              # Ce document
+├── PLANS.md                              # Ce document (guide centralisé)
 ├── plans/
-│   ├── 001_feature_1.plan.md            # Fichier plan
-│   ├── 001_reports/                     # Dossier reporting
+│   ├── 001_feature_1.plan.md    # Fichier plan principal
+│   ├── 001_reports/                          # Dossier de reporting
 │   │   ├── PHASE_1_COMPLETION_REPORT.md
 │   │   ├── PHASE_2_COMPLETION_REPORT.md
 │   │   └── PHASE_N_FINAL_REVIEW.md
-│   ├── 002_nouvelle_feature.plan.md
+│   ├── 002_nouvelle_feature.plan.md          # Autre plan
 │   ├── 002_reports/
 │   │   └── PHASE_1_...
-│   └── README.md                        # Index plans actifs/archivés
+│   └── README.md                        # Index des plans actifs/archivés
+└── ...
 ```
 
-**Conventions nommage** :
-- Plan fichier : `.claude/plans/<NO>_<nom_descriptif>.plan.md`
-  - `<NO>` : Numéro séquentiel (001, 002...)
-  - `<nom_descriptif>` : Slug lisible FR/EN
-  - Exemple : `001_modernisation_complete.plan.md`
+**Conventions de nommage :**
+- Fichier plan : `.claude/plans/<NO>_<nom_descriptif>.plan.md`
+  - `<NO>` : Numéro séquentiel (001, 002, 003...)
+  - `<nom_descriptif>` : Slug lisible en français ou anglais
+  - Exemple : `001_modernisation_complète.plan.md`
 - Dossier reporting : `.claude/plans/<NO>_reports/`
-  - Rapports phase (`PHASE_1_...`, `PHASE_2_...`)
+  - Contient les rapports de phase (`PHASE_1_...`, `PHASE_2_...`, etc.)
   - Un rapport par phase complétée
 
 ---
 
-## 📝 Format Fichier Plan (`.plan.md`)
+## 📝 Format du Fichier Plan (`.plan.md`)
 
-### En-tête (Métadonnées)
+### 1. En-tête (Métadonnées)
 
 ```markdown
 # Plan d'Action : <Titre Explicite>
 
-**Document** : `.claude/plans/<NO>_<nom>.plan.md`  
-**Création** : YYYY-MM-DD  
-**Statut** : ✅ Complété | 🔄 En cours | ⏳ Planifié | ❌ Bloqué  
-**Priorité** : HIGH | MEDIUM | LOW
+**Document :** `.claude/plans/<NO>_<nom>.plan.md`  
+**Date de création :** YYYY-MM-DD  
+**Statut :** ✅ Complété | 🔄 En cours | ⏳ Planifié | ❌ Bloqué  
+**Objectif Prioritaire :** [HIGH | MEDIUM | LOW]
+
+---
 ```
 
-### Objectif Global
+### 2. Objectif Global (1-2 paragraphes)
 
 ```markdown
 ## 🎯 Objectif Global
 
-[Problème/besoin 1-2 phrases]
-[Domaines amélioration / outcomes attendus]
+[Décrire le problème ou le besoin en 1-2 phrases]
+[Lister les domaines d'amélioration ou les outcomes attendus]
 
 Exemple :
-"Moderniser application en améliorant couverture test, 
-dépendances, architecture, performance.
-Objectifs : couverture ≥80%, 0 dépréciées, docs exhaustive."
+"Moderniser l'application cible en améliorant la couverture de test, 
+les dépendances à jour, l'architecture du code et la performance. 
+Objectifs : couverture ≥80%, 0 dépendances dépréciées, 0 breaking changes, 
+documentation exhaustive."
 ```
 
-### Phases
+### 3. Phases (Une par section)
 
-Chaque phase contient :
+Chaque phase doit contenir :
 
 #### A. Contexte
 ```markdown
 ### Contexte
 - [Situation actuelle / problèmes identifiés]
-- [Dépendances avec autres phases]
+- [Dépendances avec d'autres phases]
 - [Ressources/outils disponibles]
 ```
 
-#### B. Critères Réussite
+#### B. Critères de Réussite
 ```markdown
-### Critères Réussite
+### Critères de Réussite
 ✅ [Condition testable 1]  
-✅ [Condition testable 2]
+✅ [Condition testable 2]  
+✅ [Condition testable 3]  
 ```
 
-#### C. Tâches Détaillées
+**Bonnes pratiques :**
+- Utiliser "≥X%" plutôt que "bien", "suffisant"
+- Mesurable et vérifiable
+- Lister 3-5 critères max par phase
+
+#### C. Tâches
 ```markdown
-### Tâches
+### Tâches (Agent: [MAINa (⚫) | ARCos (🟠 ARC) | DEVon (🔵 DEV) | QALvin (🟢 QUAL) | DOCly (🟣 DOC)])
 
-**T<PHASE>.<NUM> (Agent assigné)** — [Description courte]
-- Input : [What given]
-- Output : [What produced]
-- Critères : [How verify completion]
+#### T<N>.<M> - <Titre de la Tâche>
+- **Fichier :** `path/to/file.ts` (ou liste si multiple)
+- **Couvrir/Implémenter :**
+  - Point 1
+  - Point 2
+- **Acceptation :** Condition mesurable
 
-Exemple:
-**T1.1 (ARCos)** — Analyser architecture actuelle
-- Input : Code existant
-- Output : Rapport analyse architecture
-- Critères : Couches identifiées, dépendances mappées
+#### T<N>.<M+1> - <Autre Tâche>
+- ...
 ```
 
-#### D. Dépendances
+**Numérotation :**
+- `T<PHASE>.<NUMERO>` : T1.1, T1.2, T2.1, T3.3, etc.
+- Unique par phase
+- Ordre d'exécution recommandé
+
+**Template de tâche :**
 ```markdown
-### Dépendances
-- Phase 1 → Phase 2 (Code implémentation avant tests)
-- Phase 2 ↔ Phase 3 (Parallélisable)
+#### T<N>.<M> - <Verbe d'action> <objet> (<scope optionnel>)
+
+- **Fichier(s) :** Chemin exact des fichiers à créer/modifier
+- **Couvrir / Implémenter :**
+  - Fonctionnalité 1 (avec détails)
+  - Fonctionnalité 2
+  - Cas d'erreur ou edge cases
+- **Acceptation :** Condition mesurable et testable
+  - ✓ ≥90% couverture (si tests)
+  - ✓ Tous les cas couverts (si logique)
+  - ✓ Performance < 1s (si perf)
 ```
 
----
-
-## 🚀 Procédure Création Plan (ARCos)
-
-### Étape 1 : Comprendre Besoin (AVT développeur)
-
-- Clarifier objectif global
-- Identifier domaines à améliorer
-- Définir critères acceptation
-- Identifier contraintes
-
-### Étape 2 : Analyser Situation Actuelle (ARCos)
-
-- Auditer code/infrastructure
-- Identifier pain points
-- Cartographier dépendances
-- Documenter blocages
-
-### Étape 3 : Proposer Solutions (ARCos)
-
-- Générer ≥2 approches
-- Tableau comparatif avantages/inconvénients/risques/impacts/effort
-- Recommandation motivée
-- **Attendre décision développeur**
-
-### Étape 4 : Concevoir Solution (ARCos)
-
-- Affiner conception solution choisie
-- Identifier phases logiques
-- Décomposer tâches
-- Mapper agents responsables
-
-### Étape 5 : Documenter Plan (ARCos)
-
-- Remplir format `.plan.md`
-- Définir critères réussite
-- Documenter tâches numérotées
-- Identifier risques/mitigations
-
-### Étape 6 : Valider Plan (Développeur)
-
-- Revue plan complet
-- Validation tâches clarté
-- Validation dépendances
-- Approbation avant exécution
-
----
-
-## ▶️ Procédure Exécution Phase
-
-### Avant Phase (MAINa)
-
-1. Vérifier prérequis phase (phases amont complétées)
-2. Invoquer agent responsable phase
-3. Passer tâches assignées agent
-4. Définir critères succès
-5. Pointer rapports à remplir
-
-### Pendant Phase (Agent assigné)
-
-1. Lire contexte + critères phase
-2. Exécuter tâches T<N>.X assignées
-3. Documenter progrès
-4. Signaler blocages
-
-### Après Phase (Agent + Développeur)
-
-1. Agent remplit rapport phase `.claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
-2. Rapport = résumé livrables, métriques, blocages, approvals
-3. Développeur revue + valide
-4. MAINa orchestre phase suivante (ou signale blocage)
-
----
-
-## 📄 Format Rapport Phase
+### 4. Résumé des Tâches par Agent
 
 ```markdown
-# PHASE N Completion Report
+## 📊 Résumé des Tâches par Agent
 
-**Plan** : `.claude/plans/<NO>_<nom>.plan.md`  
-**Phase** : N — [Titre phase]  
-**Agent** : [🟠 ARCos | 🔵 DEVon | 🟢 QALvin | 🟣 DOCly]  
-**Date Complétion** : YYYY-MM-DD  
-**Statut** : ✅ Complété | ⚠️ Complété avec risques | ❌ Bloqué
+### Devon (🔵 DEV) Agent
+- T2.1 à T2.8 : Mise à jour des dépendances
+- T3.1 à T3.5 : Refactorisation architecture
+- **Livrable :** Dépendances à jour, code refactorisé, tests passant
+- **Durée estimée :** 2-3 semaines
 
----
-
-## Livrables
-
-### Tâches Complétées
-- **T<N>.1** [ARCos] ✅ [Décription] → [Fichier/Résultat]
-- **T<N>.2** [DEVon] ✅ [Décription] → [Fichier/Résultat]
-
-### Métriques
-- Couverture test : X%
-- Dépendances mises à jour : N
-- Docs mises à jour : Y fichiers
-
-### Points Bloquants
-[Si aucun, noter "Aucun"; sinon lister + actions correctives]
-
-### Notes + Recommandations
-[Observations, amélioration possibles, impacts aval]
+### Qalvin (🟢 QUAL) Agent
+- T1.1 à T1.7 : Tests unitaires + rapport de couverture
+- **Livrable :** Tests ≥80% couverture
+- **Durée estimée :** 1-2 semaines
 ```
 
----
-
-## 🔄 Parallélisation (`/fleet`)
-
-Phases peuvent paralleliser quand indépendantes.
-
-**Exemple** :
-```
-Phase 2 (DEVon implementation) + Phase 3 (QALvin tests)
-→ Après validation Phase 1, MAINa peut lancer DEVon + QALvin parallelisme
-
-A faire : orchestrer via skill fleet-guide
-```
-
----
-
-## 📊 Tracking Index
-
-Fichier `.claude/plans/README.md` = index plans :
+### 5. Dépendances entre Phases
 
 ```markdown
-# Plans d'Action Index
+## 📍 Dépendances entre Phases
 
-| # | Titre | Statut | Phases | Créé | Modifié |
-|---|-------|--------|--------|------|---------|
-| 001 | Feature X | ✅ Complété | 5 | 2026-01-15 | 2026-02-28 |
-| 002 | Refactor Y | 🔄 Phase 2 | 4 | 2026-03-01 | 2026-06-15 |
-| 003 | Modernisation Z | ⏳ Planifié | 6 | 2026-06-01 | 2026-06-01 |
+```
+Phase 1 (Tests)
+    ↓
+Phase 2 (Dépendances) ← [Phase 1 doit être ✅]
+    ↓
+Phase 3 (Architecture) ← [Phase 2 doit être ✅]
+    ↓
+Phase 4 (Performance) ← [Phase 3 doit être ✅]
+    ↓
+Phase 5 (CI/CD) ← [Phases 1, 2, 3 doivent être ✅]
+    ↓
+Phase 6 (Docs) ← [Phases 1-5 doivent être ✅]
 ```
 
----
+**Règles :**
+- Phase X peut démarrer si toutes ses dépendances sont ✅
+- Indiquer explicitement les "dépend de" avec `←`
+- Phases sans dépendances = peuvent démarrer en parallèle
+```
 
-## 🎓 Exemple Minimal Plan
+### 6. Critères de Succès Globaux
 
 ```markdown
-# Plan d'Action : Feature Auth
+## ✅ Critères de Succès Globaux
 
-**Document** : `.claude/plans/001_feature_auth.plan.md`  
-**Création** : 2026-06-25  
-**Statut** : ⏳ Planifié  
-**Priorité** : HIGH
+1. **Couverture de test ≥80%** (Phase 1)
+2. **0 dépendances dépréciées** (Phase 2)
+3. **0 `any` non-justifiés** (Phase 3)
+4. **Bundle size stable ou ↓** (Phase 4)
+5. **CI/CD 100% passing** (Phase 5)
+6. **Documentation à jour** (Phase 6)
+```
 
-## 🎯 Objectif Global
+### 7. Plan d'Exécution
 
-Implémenter système authentification complet avec tests couvrant.
-Objectifs : OAuth2 flow, couverture ≥80%, zero dépréciées.
+```markdown
+## 🚀 Plan d'Exécution
 
----
+1. **Semaine 1-2 :** Lancer Phase 1 (Qalvin (🟢 QUAL) agent)
+2. **Semaine 2-3 :** Lancer Phase 2 (Devon (🔵 DEV) agent, après Phase 1 ✅)
+3. **Semaine 3-4 :** Lancer Phases 3-4 en parallèle (Devon (🔵 DEV) agent)
+4. **Semaine 4-5 :** Lancer Phase 5 (Arkos (🟠 ARC), après Phase 3 ✅)
+5. **Semaine 5-6 :** Lancer Phase 6 en parallèle (Docly (🟣 DOC))
 
-## Phase 1 : Architecture
-
-### Contexte
-- App utilise session tokens, besoin migration OAuth2
-- Dépend de : DB users setup
-
-### Critères Réussite
-✅ Architecture OAuth2 documentée
-✅ Intégration services tiers mapped
-
-### Tâches
-**T1.1 (ARCos)** — Concevoir architecture OAuth2
-- Input : Exigences auth, contraintes légales
-- Output : Diagramme architecture + spec
-- Critères : Schéma clair, flux identifiés, risques mappés
-
----
-
-## Phase 2 : Implémentation
-
-**T2.1 (DEVon)** — Coder endpoints auth
-**T2.2 (DEVon)** — Intégrer DB users
-
----
-
-## Phase 3 : Tests
-
-**T3.1 (QALvin)** — Tests endpoints auth
-**T3.2 (QALvin)** — Tests erreurs + limites
-
----
-
-## Phase 4 : Docs
-
-**T4.1 (DOCly)** — Documenter flow auth
-**T4.2 (DOCly)** — Ajouter exemples code
+**Triggers pour démarrer une phase :**
+- Tous les rapports de la phase précédente ✅ COMPLÉTÉE
+- Tous les critères de réussite atteints
+- Pas de bloqueurs signalés
 ```
 
 ---
 
-## 🔐 Règles Plans
+## 📈 Rapports de Phase (Execution Tracking)
 
-- **Validation humaine obligatoire** : Plan complet avant exécution
-- **Rapports obligatoires** : Chaque phase génère rapport
-- **Traçabilité** : Tous tâches numérotées, agents assignés
-- **Pas dérives scope** : Tâches périmètre strict
+### Structure du Reporting
+
+Pour chaque plan, créer un dossier `.claude/plans/<NO>_reports/` avec un rapport par phase :
+
+```
+.claude/plans/001_reports/
+├── PHASE_1_COMPLETION_REPORT.md
+├── PHASE_2_COMPLETION_REPORT.md
+├── PHASE_3_COMPLETION_REPORT.md
+└── PHASE_6_FINAL_REVIEW.md
+```
+
+### Format d'un Rapport de Phase
+
+```markdown
+# Phase N : <Titre de la Phase>
+
+**Responsable Agent :** [Devon (🔵 DEV) | Qalvin (🟢 QUAL) | Arkos (🟠 ARC) | Docly (🟣 DOC)]  
+**Date Début :** YYYY-MM-DD  
+**Date Fin :** YYYY-MM-DD (ou TBD si en cours)  
+**Statut :** ✅ COMPLÉTÉE | 🔄 EN_COURS | ⏳ PLANIFIÉE | ❌ BLOQUÉE
 
 ---
 
-**Dernière mise à jour** : 2026-06-25
+## 📝 Tâches
+
+### T<N>.<M> - <Titre Tâche>
+
+**Statut :** ✅ DONE | 🔄 IN_PROGRESS | ⏳ PENDING | ❌ BLOCKED  
+**Date Fin :** YYYY-MM-DD (ou en cours si 🔄)
+
+**Fichiers Modifiés / Créés :**
+- `path/to/file1.ts` — [Brève description des changements]
+- `path/to/file2.tsx` — [Ajout du composant X, refactorisation de Y]
+
+**Résultats Quantifiés :**
+- Coverage : 92% (critère : ≥90% ✅)
+- Tests : 25/25 passants ✅
+- Build time : 4min45s (vs. 5min avant) ✅
+
+**Notes / Décisions :**
+- [Problème rencontré et comment il a été résolu]
+- [Hypothèses faites]
+- [Améliorations futures identifiées (non implémentées)]
+
+---
+
+### T<N>.<M+1> - ...
+
+[Répéter pour chaque tâche]
+
+---
+
+## 📊 Synthèse de Phase
+
+**Tâches Complétées :** 7/7 ✅  
+**Critères de Réussite Atteints :**
+- ✅ Couverture ≥80%
+- ✅ Tous les services testés
+- ✅ Tous les controllers testés
+- ✅ Composants critiques testés
+- ✅ Aucun regression
+
+**Bloqueurs :** Aucun ❌  
+**Améliorations Futures :**
+- [ ] Ajouter tests E2E pour les workflows critiques
+- [ ] Augmenter couverture à ≥90%
+
+---
+
+## 📦 Livrables
+
+✅ Tous les tests unitaires écrits et passants  
+✅ Rapport de couverture dans `coverage/`  
+✅ Aucune regression (tous les tests existants passent)  
+
+---
+
+**Rapport approuvé par :** [Utilisateur/Lead]  
+**Date d'approbation :** YYYY-MM-DD  
+
+Fin du rapport Phase N
+```
+
+---
+
+## 🔄 Workflow de Suivi
+
+### 1. Créer le Plan (Utilisateur / MAINa (⚫) / ARCos (🟠 ARC))
+
+```bash
+# Créer le fichier plan
+touch .claude/plans/00X_<nom>.plan.md
+
+# Remplir :
+# - Objectif global
+# - Phases avec contexte, critères, tâches
+# - Dépendances
+# - Critères de succès
+# - Plan d'exécution
+```
+
+**Validation :**
+- [ ] Phases bien séparées avec dépendances claires
+- [ ] Chaque tâche a un scope explicite et des critères mesurables
+- [ ] Agents assignés sont cohérents avec les tâches
+- [ ] Plan de dépendances est acyclique
+
+### 2. Démarrer une Phase (Agent Responsable)
+
+```bash
+# 1. Lire le plan complet
+cat .claude/plans/<NO>_<nom>.plan.md
+
+# 2. Identifier les tâches assignées
+# Exemple : Agent Qalvin (🟢 QUAL) cherche "T<N>.<M>" où l'agent est "Qalvin (🟢 QUAL)"
+
+# 3. Créer le rapport de phase
+mkdir -p .claude/plans/<NO>_reports/
+touch .claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md
+
+# 4. Exécuter les tâches T<N>.1, T<N>.2, etc.
+# 5. Documenter en temps réel dans le rapport
+```
+
+### 3. Documenter Pendant l'Exécution
+
+Pour chaque tâche complétée :
+```markdown
+### T<N>.<M> - [Titre]
+
+**Statut :** ✅ DONE (mise à jour depuis 🔄 IN_PROGRESS)
+**Date Fin :** YYYY-MM-DD
+
+**Fichiers Modifiés :**
+- `app/services/__tests__/ClientHTTP.service.test.ts` — Ajout 50 tests
+- `app/services/ClientHTTP.service.ts` — Nettoyage lint
+
+**Résultats :**
+- Coverage : 92% (critère ≥90% ✅)
+- Tests : 50/50 passing
+
+**Notes :**
+- Découvert et fixé [bug X] qui bloquait les tests de mock API
+```
+
+### 4. Compléter le Reporting (Après la Phase)
+
+Remplir la **synthèse de phase** :
+```markdown
+## 📊 Synthèse de Phase
+
+**Tâches Complétées :** 7/7 ✅
+**Critères de Réussite Atteints :**
+- ✅ Critère 1
+- ✅ Critère 2
+- ✅ Critère 3
+
+**Bloqueurs :** Aucun
+**Prochaine Phase :** Phase X peut démarrer (toutes les dépendances ✅)
+```
+
+### 5. Valider et Archiver (Utilisateur / Lead)
+
+```bash
+# Approuver le rapport
+# Lister dans README si archivé
+# Créer issue GitHub pour tracking si souhaité
+```
+
+---
+
+## 🎯 Intégration avec les Agents
+
+Chaque agent doit recevoir un **prompt structuré** qui :
+1. **Pointe vers le plan** (`.claude/plans/<NO>_<nom>.plan.md`)
+2. **Identifie ses tâches** (T<N>.X où agent = [son rôle])
+3. **Spécifie le rapport à remplir** (`.claude/plans/<NO>_reports/PHASE_N_...`)
+
+**Exemple de prompt pour Qalvin (🟢 QUAL) :**
+```
+Exécute la Phase 1 du plan : .claude/plans/001_modernisation_complète.plan.md
+
+**Tâches assignées :**
+- T1.1 : Tests ClientHTTP.service
+- T1.2 : Tests DataUtils.service
+- ... (T1.1 à T1.7)
+
+**Rapport à remplir :**
+- `.claude/plans/001_reports/PHASE_1_COMPLETION_REPORT.md`
+
+**Pour chaque tâche, documenter :**
+- Fichiers créés/modifiés
+- Résultats (coverage %, test count, etc.)
+- Notes et décisions
+- Statut final (✅ DONE ou ❌ BLOCKED + raison)
+
+**À la fin :**
+- Remplir la synthèse de phase
+- Confirmer critères de réussite atteints
+- Signaler tout bloqueur pour la phase suivante
+```
+
+**Chaîne de délégation entre agents :**
+```
+MAINa (⚫) (orchestration + gates humains)
+    ↓
+ARCos (🟠 ARC) (plan)
+    ↓
+Devon (🔵 DEV) (T2.1-T3.5)
+    ├→ Qalvin (🟢 QUAL) (valider + écrire tests)
+    └→ Docly (🟣 DOC) (documenter changements)
+```
+
+---
+
+## ✅ Checklist pour un Bon Plan
+
+- [ ] **Titre explicite** (ex: "Modernisation Complète", pas "AP-001")
+- [ ] **Objectif clair** (1-2 phrases, mesurable)
+- [ ] **Phases bien séparées** (3-6 phases généralement)
+- [ ] **Chaque phase a :**
+  - [ ] Contexte (situation actuelle)
+  - [ ] Critères de réussite (3-5, mesurables)
+  - [ ] Tâches numérotées (T<N>.<M>)
+  - [ ] Agent responsable identifié
+- [ ] **Chaque tâche a :**
+  - [ ] Titre avec verbe d'action
+  - [ ] Fichiers précis
+  - [ ] Scope explicite (quoi couvrir / implémenter)
+  - [ ] Critères d'acceptation testables
+- [ ] **Dépendances explicites** (diagramme ou liste)
+- [ ] **Critères de succès globaux** (5-7 items)
+- [ ] **Plan d'exécution** (quand démarrer chaque phase, triggers)
+
+---
+
+## ✅ Checklist pour un Bon Rapport de Phase
+
+- [ ] **En-tête complet** (Agent, dates, statut)
+- [ ] **Chaque tâche documente :**
+  - [ ] Statut final (✅ DONE, ❌ BLOCKED, etc.)
+  - [ ] Fichiers modifiés/créés (paths précis)
+  - [ ] Résultats mesurés (coverage %, count, etc.)
+  - [ ] Notes pertinentes
+- [ ] **Synthèse de phase :**
+  - [ ] Tâches complétées (X/Y)
+  - [ ] Critères de réussite atteints (checklist)
+  - [ ] Bloqueurs identifiés (le cas échéant)
+  - [ ] Améliorations futures (optional)
+- [ ] **Livrables clairs** (liste de ce qui a été produit)
+
+---
+
+## 📚 Exemples Existants
+
+- **AP-001 :** Modernisation Complète
+  - Plan : `.claude/plans/001_modernisation_complète.plan.md`
+  - Rapports : `.claude/plans/001_reports/PHASE_*_*.md`
+  - Phases : 1 (Tests), 2 (Dépendances), 3 (Architecture), 4 (Performance), 5 (CI/CD), 6 (Docs)
+  - Statut : 🔄 Phase 1 en cours
+
+---
+
+## 🚀 Lancer un Nouveau Plan
+
+1. **Créer le fichier** `.claude/plans/<NO>_<nom>.plan.md`
+2. **Remplir** objectif global, phases, tâches, dépendances
+3. **Valider** que les tâches sont mesurables et les agents assignés
+4. **Créer le dossier** `.claude/plans/<NO>_reports/`
+5. **Lancer la Phase 1** avec l'agent responsable
+6. **Suivre** via les rapports de phase
+
+---
+
+**Fin de la documentation sur les Plans d'Action**
+
+

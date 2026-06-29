@@ -8,17 +8,17 @@ applyTo: "**"
 
 > Skill décrit **procédure standard** pour agent exécute phase Plan Action.
 > Chaque agent connaît propre identifiant et cibles délégation (voir instructions).
-> Référence complète format AP : `.github/PLANS.md`
+> Référence complète format AP : `.claude/PLANS.md`
 
 ---
 
 ## Avant de démarrer
 
-1. **Lire plan complet** : `.github/plans/<NO>_<nom>.plan.md`
+1. **Lire plan complet** : `.claude/plans/<NO>_<nom>.plan.md`
 2. **Identifier tes tâches** : Chercher ton identifiant agent dans phase (ex: `🔵 DEVon`, `🟢 QALvin`, etc.)
 3. **Lister tâches** assignées (T<N>.X, T<N>.Y, etc.) et séquence
 4. **Comprendre dépendances** : Quelle(s) phase(s) doit-on compléter avant tienne
-5. **Identifier rapport à remplir** : `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
+5. **Identifier rapport à remplir** : `.claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
 
 ---
 
@@ -98,14 +98,14 @@ Puis **signaler à agent suivant** selon tes instructions délégation.
 
 ## Règle obligatoire — Synchronisation de l'index des plans
 
-- `.github/plans/README.md` est index **plans + statut global uniquement** (jamais détails phases).
-- Si tes mises à jour entraînent changement **statut global** plan, mets à jour `.github/plans/README.md` dans **même changement**.
+- `.claude/plans/README.md` est index **plans + statut global uniquement** (jamais détails phases).
+- Si tes mises à jour entraînent changement **statut global** plan, mets à jour `.claude/plans/README.md` dans **même changement**.
 
 ---
 
 ## Références
 
-- 📋 Guide complet : `.github/PLANS.md`
-- 📋 Plan courant : `.github/plans/<NO>_<nom>.plan.md`
-- 📊 Rapports existants : `.github/plans/<NO>_reports/`
-- 📌 Index plans (synthétique) : `.github/plans/README.md`
+- 📋 Guide complet : `.claude/PLANS.md`
+- 📋 Plan courant : `.claude/plans/<NO>_<nom>.plan.md`
+- 📊 Rapports existants : `.claude/plans/<NO>_reports/`
+- 📌 Index plans (synthétique) : `.claude/plans/README.md`

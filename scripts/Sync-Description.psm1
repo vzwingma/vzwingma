@@ -12,6 +12,9 @@
       opencode → github : .opencode/ replaced by .github/
 #>
 
+# Supported directions
+$script:ValidDirections = @('github-to-opencode','opencode-to-github','github-to-claude','claude-to-github')
+
 $script:Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 # ── Internal helpers ──────────────────────────────────────────────────────────
@@ -46,18 +49,27 @@ function Apply-PathSubstitution {
     #>
     param(
         [Parameter(Mandatory)][string]$Content,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction
     )
-    if ($Direction -eq 'github-to-opencode') {
-        $r = $Content.Replace('.github/', '.opencode/')
-        $r = $r.Replace('.copilotignore', '.gitignore')
-        $r = $r.Replace('Copilot', 'OpenCode')
-        return $r
-    } else {
-        $r = $Content.Replace('.opencode/', '.github/')
-        $r = $r.Replace('.gitignore', '.copilotignore')
-        $r = $r.Replace('OpenCode', 'Copilot')
-        return $r
+    switch ($Direction) {
+        'github-to-opencode' {
+            $r = $Content.Replace('.github/', '.opencode/')
+            $r = $r.Replace('.copilotignore', '.gitignore')
+            $r = $r.Replace('Copilot', 'OpenCode')
+            return $r
+        }
+        'opencode-to-github' {
+            $r = $Content.Replace('.opencode/', '.github/')
+            $r = $r.Replace('.gitignore', '.copilotignore')
+            $r = $r.Replace('OpenCode', 'Copilot')
+            return $r
+        }
+        'github-to-claude' {
+            return $Content.Replace('.github/', '.claude/')
+        }
+        'claude-to-github' {
+            return $Content.Replace('.claude/', '.github/')
+        }
     }
 }
 
@@ -190,15 +202,11 @@ function Sync-StructuredFile {
     param(
         [Parameter(Mandatory)][string]$SourceFile,
         [Parameter(Mandatory)][string]$TargetFile,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
     if (-not (Test-Path $SourceFile)) {
-        Write-Host "  [WARN] Source not found: $(Split-Path $SourceFile -Leaf)" -ForegroundColor Yellow
-        return 'warn'
-    }
-    if (-not (Test-Path $TargetFile)) {
         Write-Host "  [WARN] Target not found: $(Split-Path $TargetFile -Leaf)" -ForegroundColor Yellow
         return 'warn'
     }
@@ -246,7 +254,7 @@ function Sync-StandaloneFile {
     param(
         [Parameter(Mandatory)][string]$SourceFile,
         [Parameter(Mandatory)][string]$TargetFile,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
@@ -302,7 +310,7 @@ function Sync-AgentFiles {
         [Parameter(Mandatory)][string[]]$SourceFiles,
         [Parameter(Mandatory)][string]$SourceBase,
         [Parameter(Mandatory)][string]$TargetBase,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
@@ -330,7 +338,7 @@ function Sync-StandaloneFiles {
         [Parameter(Mandatory)][string[]]$FileNames,
         [Parameter(Mandatory)][string]$SourceBase,
         [Parameter(Mandatory)][string]$TargetBase,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
