@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/004_analyse-critique-infra-agents.plan.md`
 **Date de création :** 2026-06-29
-**Statut :** 🔄 En cours — Phase 1 (tooling) ✅ terminée + synchronisée (2026-06-29) ; Phases 2-6 en attente de gate 👤
+**Statut :** ✅ Complété — 6/6 phases terminées et validées 👤 (clôture 2026-06-30)
 **Objectif Prioritaire :** HIGH
 
 > Ce document est **double** : (1) une **analyse critique** de l'existant, (2) un **plan de remédiation**
@@ -237,7 +237,7 @@ après P1 (`/fleet`). Phase 4 quasi indépendante. Phase 6 en dernier.
 3. **Re-sync** `.github/`→`.claude/` — ✅ exécuté ; critères 1-2 vérifiés (0 `.github/` injecté, `CLAUDE.md` préservé).
 4. **Phases 2/3/5 en `/fleet`** (après P1) ; **Phase 4** en parallèle.
 5. **Phase 6** — ✅ finitions packaging + cosmétique (README dans package, footers de date retirés, typos déjà traitées en P2).
-6. **Gate final** — ⏳ en attente validation 👤 (clôture initiative + bascule `.claude/plans/README.md` → ✅ Complété).
+6. **Gate final** — ✅ validé 👤 (2026-06-30) — initiative close ; `.claude/plans/README.md` basculé (004 → ✅ Complété, archivé).
 
 > ✅ **ADR créé** : `docs/adr/002-claude-miroir-genere.md` — décision « `.claude/` = miroir généré,
 > source unique `.github/` + tooling ; `CLAUDE.md` hand-maintained (B1-bis) » (règle MAINa plan+ADR).

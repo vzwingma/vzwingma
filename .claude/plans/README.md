@@ -13,18 +13,17 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 📂 Plans Actifs / En Cours
 
-| # | Nom | Statut | Date |
-|---|-----|--------|------|
-| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ⏳ Finalisation (Phases 1-5 ✅, Phase 6 ✅ — validation finale 👤 en attente) | 2026-06-29 |
+_(Aucun plan en cours pour l'instant)_
 
 ---
 
 ## 📋 Plans Archivés / Complétés
 
-> Fichiers archivés sous `.github/plans/` (source de vérité).
+> Fichiers archivés sous `.github/plans/` (source de vérité) ; le plan 004 (analyse Claude-scope) réside localement sous `.claude/plans/`.
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
+| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ✅ Complété | 2026-06-30 |
 | 003 | [Agent maitre MAINa](../../.github/plans/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
 | 002 | [Rationalisation agents Copilot](../../.github/plans/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
 | 001 | [Optimisation tokens Copilot CLI](../../.github/plans/001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
