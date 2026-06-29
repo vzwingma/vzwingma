@@ -31,7 +31,7 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **⚫ MAINa** [v1.2]
+#### **⚫ MAINa** [v1.3]
 - **Rôle:** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités:**
   - Comprendre la demande et cadrer le flux de travail
@@ -43,7 +43,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "`/maina-help`", "`@MAINa /maina-help`", "organise ce workflow", "pilote cette initiative"
 - **Livrable:** Plan d'Action validé + orchestration complète, séquencée et traçable
 
-#### **🟠 ARCos** [v4.5]
+#### **🟠 ARCos** [v4.6]
 - **Rôle:** Expert architecture consulté par MAINa
 - **Responsabilités:**
   - Analyser problèmes complexes et concevoir solutions architecturales
@@ -56,7 +56,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
 - **Livrable:** Analyse comparative solutions + recommandation motivée
 
-#### **🔵 DEVon** [v4.2]
+#### **🔵 DEVon** [v4.3]
 - **Rôle:** Implémentateur de code de production
 - **Responsabilités:**
   - Traduire exigences en code fonctionnel et testé
@@ -67,7 +67,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.2]
+#### **🟢 QALvin** [v4.3]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -78,7 +78,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable:** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v4.2]
+#### **🟣 DOCly** [v4.3]
 - **Rôle:** Gardien de documentation
 - **Responsabilités:**
   - Mettre à jour README, `docs/` et guides

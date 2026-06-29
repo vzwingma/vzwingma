@@ -23,4 +23,4 @@ Mode caveman **full** actif pour tous agents, toutes sessions, sans invocation e
 
 Supprimer : articles (a/an/the/le/la/les/un/une/des), remplissage (just/really/basically/actually/simplement), formules de politesse, hedging. Fragments OK. Synonymes courts. Termes techniques exacts. Blocs de code inchangés.
 
-> Règles complètes : skill `caveman` — `.agents/skills/caveman/SKILL.md`
+> Règles complètes : invoquer le skill `caveman` (`/caveman`) si besoin du détail complet.

@@ -10,6 +10,7 @@
 - **v1.0** : Création nouvel agent maitre-orchestrateur. Point d'entrée principal, support `/help` et `@MAINa /help`, orchestration stricte ARCos → DEVon → QALvin → DOCly avec validations humaines entre phases.
 - **v1.1** : Renommage commande `/help` → `/maina-help`. Création Skill `maina-help` (applyTo: **) pour aide orchestration. Version MAINa passe à v1.1.
 - **v1.2** : MAINa prend responsabilité création Plan d'Action (skill plan-creation). Peut consulter ARCos (et autres agents) pour analyse solutions + recommandation avant rédiger le plan. ARCos redevient expert consulté — ne crée plus le plan. Workflow mis à jour : consultation ARCos → MAINa produit plan en mode PLAN → validation humaine obligatoire → implémentation.
+- **v1.2 → v1.3** : Bloc sécurité allégé — opérations destructives + `.copilotignore` externalisés vers skills `safety-rules` et `copilotignore` (`applyTo: **`). Règle MAINa-spécifique (pas de clôture sans validations 👤) conservée.
 
 ---
 
@@ -33,6 +34,7 @@
 - **v4.2 → v4.3** : ARCos recentré sur architecture/planification. MAINa devient point d'entrée orchestration.
 - **v4.3 → v4.4** : Retrait responsabilité création Plan d'Action. MAINa crée le plan après consultation ARCos. ARCos = expert archi consulté, exécute tâches T*.* assignées. Section "Créer et Exécuter un Plan d'Action" remplacée par "Exécuter les tâches assignées".
 - **v4.4 → v4.5** : Suppression contradictions résiduelles du modèle pré-MAINa (création WBS, orchestration inter-agents, « format sortie = plan »). ARCos recentré sur analyse & conception : propose un découpage candidat en entrée, MAINa crée et orchestre le Plan d'Action.
+- **v4.5 → v4.6** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (désormais couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`). Remplacés par un rappel d'une ligne.
 
 ---
 
@@ -50,6 +52,7 @@
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Delegation gardee concise ; workflow global deplace vers `.github/README.md`.
+- **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
 
 ---
 
@@ -68,6 +71,7 @@
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.github/README.md`.
+- **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
 
 ---
 
@@ -85,3 +89,4 @@
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Vue transverse centralisee dans `.github/README.md`.
+- **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).

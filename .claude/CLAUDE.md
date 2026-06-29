@@ -27,7 +27,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 5 agents spécialisés, orchestrés par développeur humain.
 
-### **⚫ MAINa** [v1.2]
+### **⚫ MAINa** [v1.3]
 
 **Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 
@@ -45,7 +45,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟠 ARCos** [v4.5]
+### **🟠 ARCos** [v4.6]
 
 **Rôle** : Expert architecture consulté par MAINa
 
@@ -64,7 +64,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🔵 DEVon** [v4.2]
+### **🔵 DEVon** [v4.3]
 
 **Rôle** : Implémentateur code production
 
@@ -80,7 +80,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟢 QALvin** [v4.2]
+### **🟢 QALvin** [v4.3]
 
 **Rôle** : Expert assurance qualité et tests
 
@@ -96,7 +96,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟣 DOCly** [v4.2]
+### **🟣 DOCly** [v4.3]
 
 **Rôle** : Gardien documentation
 
@@ -173,6 +173,7 @@ Procédures réutilisables, incluses auto dans contexte tous agents :
 | `compact-context` | Compression contexte mémoire |
 | `maina-help` | Aide MAINa + workflow |
 | `copilotignore` | Respect fichier `.copilotignore` |
+| `safety-rules` | Sécurité : opérations destructives interdites |
 
 ---
 

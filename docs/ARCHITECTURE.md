@@ -92,11 +92,11 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.2]
-    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.5]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v4.2]
-    │   ├── Qalvin.agent.md                      # Expert QA [v4.2]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.2]
+    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.3]
+    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.6]
+    │   ├── Devon.agent.md                       # Implémentateur de code [v4.3]
+    │   ├── Qalvin.agent.md                      # Expert QA [v4.3]
+    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.3]
     │
     ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
     │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
@@ -133,11 +133,11 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| ⚫ MAINa | `Maina.agent.md` | v1.2 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
-| 🟠 ARCos | `Arcos.agent.md` | v4.5 | Architecte (consulté par MAINa : analyse + recommandation) |
-| 🔵 DEVon | `Devon.agent.md` | v4.2 | Implémentateur de code |
-| 🟢 QALvin | `Qalvin.agent.md` | v4.2 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v4.2 | Gestionnaire documentation |
+| ⚫ MAINa | `Maina.agent.md` | v1.3 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
+| 🟠 ARCos | `Arcos.agent.md` | v4.6 | Architecte (consulté par MAINa : analyse + recommandation) |
+| 🔵 DEVon | `Devon.agent.md` | v4.3 | Implémentateur de code |
+| 🟢 QALvin | `Qalvin.agent.md` | v4.3 | Expert QA et tests |
+| 🟣 DOCly | `Docly.agent.md` | v4.3 | Gestionnaire documentation |
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet spécifique)
@@ -159,6 +159,7 @@ Procédures réutilisables incluses automatiquement dans le contexte de tous les
 | `copilotignore` | Règle absolue de respect de `.copilotignore` |
 | `caveman-default` | Mode caveman (full) actif par défaut |
 | `compact-context` | Instructions preCompact pour sessions plans/SDLC |
+| `safety-rules` | Règles de sécurité : opérations destructives interdites |
 
 ### 📐 Instructions agents (`.github/instructions/`)
 
