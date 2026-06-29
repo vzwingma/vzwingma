@@ -15,9 +15,9 @@ Mode caveman **full** actif par défaut. Règles :
 ## Règle obligatoire MAINa — Plan + ADR
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
-1. Fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md`
+1. Fichier `Plan d'Action` dans `.claude/plans/NNN_nom.plan.md`
 2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure
-3. Mise à jour `.github/plans/README.md`
+3. Mise à jour `.claude/plans/README.md`
 
 Créés dans même lot que implémentation, pas après coup.
 
@@ -54,7 +54,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Présenter ≥2 options comparées avec recommandation motivée
 - Prendre décisions stratégiques concernant techno, structure et approche
 - Préparer contenu ADR après décisions architecturales majeures
-- Lire `.github/instructions/architect.instructions.md` au démarrage
+- Lire `.claude/instructions/architect.instructions.md` au démarrage
 - Lire `docs/ARCHITECTURE.md` au démarrage
 - Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
 
@@ -72,7 +72,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Traduire exigences en code fonctionnel testé
 - Respecter patterns architecturaux + conventions projet
 - Code propre, maintenable, compilant
-- Lire `.github/instructions/dev.instructions.md` au démarrage
+- Lire `.claude/instructions/dev.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Implémente cette fonctionnalité", "Code selon architecture"
 
@@ -88,7 +88,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Écrire tests unitaires complets (composants, services)
 - Couverture test ≥80%
 - Tester cas limites, scénarios erreur
-- Lire `.github/instructions/qa.instructions.md` au démarrage
+- Lire `.claude/instructions/qa.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Écris tests pour...", "Génère tests unitaires"
 
@@ -104,7 +104,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Mettre à jour README, `docs/`, guides
 - Maintenir `docs/ARCHITECTURE.md` à jour
 - Créer ADRs dans `docs/adr/` sur délégation ARCos
-- Lire `.github/instructions/doc.instructions.md` au démarrage
+- Lire `.claude/instructions/doc.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Mets à jour doc", "Garde docs en sync"
 
@@ -135,16 +135,16 @@ Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en 
 
 Initiatives majeures orchestrées via Plan d'Action :
 
-- **Fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
-- **Rapports phase** : `.github/plans/<NO>_reports/PHASE_N_...md`
-- **Index** : `.github/plans/README.md`
-- **Guide complet** : `.github/PLANS.md`
+- **Fichier plan** : `.claude/plans/<NO>_<nom>.plan.md`
+- **Rapports phase** : `.claude/plans/<NO>_reports/PHASE_N_...md`
+- **Index** : `.claude/plans/README.md`
+- **Guide complet** : `.claude/PLANS.md`
 
 Plans coordonnent travail multi-phases, garantissent traçabilité.
 
 ---
 
-## 📐 Instructions Projet (`.github/instructions/`)
+## 📐 Instructions Projet (`.claude/instructions/`)
 
 Chaque agent lit au démarrage son fichier instructions spécifique :
 
@@ -251,13 +251,13 @@ En cas doute → demander confirmation développeur.
 
 ## 📖 Références
 
-- [ARCos](./agents/Arcos.agent.md) — Planification + architecture
+- [ARCos](./agents/Arcos.agent.md) — Architecture (analyse solutions)
 - [DEVon](./agents/Devon.agent.md) — Implémentation
 - [QALvin](./agents/Qalvin.agent.md) — Tests
 - [DOCly](./agents/Docly.agent.md) — Documentation
-- [MAINa](./agents/Maina.agent.md) — Orchestration
+- [MAINa](./agents/Maina.agent.md) — Orchestration + Plan d'Action
 - [Plans d'Action](./PLANS.md) — Guide complet
 
 ---
 
-**Dernière mise à jour** : 2026-06-25
+**Dernière mise à jour** : 2026-06-29

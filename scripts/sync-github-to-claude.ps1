@@ -8,7 +8,7 @@
       - Skills      : .github/skills/*/SKILL.md      → .claude/skills/*/SKILL.md
       - Instructions: .github/instructions/*.md      → .claude/instructions/*.md
       - Prompts     : .github/prompts/*.prompt.md     → .claude/prompts/*.prompt.md
-      - Root instr. : .github/copilot-instructions.md → .claude/CLAUDE.md
+      - Root tmpl.  : .github/copilot-instructions.template.md → .claude/CLAUDE.template.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md
 
     For structured files (agents/skills/instructions):
@@ -18,8 +18,9 @@
     For standalone .md files:
       Full file sync with automatic path substitution (.github/ -> .claude/).
 
-    Prompts and root instruction files are synced with path/term substitution
+    Prompts and the root instruction template are synced with path/term substitution
     (.github/ -> .claude/, GitHub Copilot -> Claude Code, copilot-instructions.md -> CLAUDE.md).
+    Note: .claude/CLAUDE.md is hand-maintained (curated, project-agnostic), not generated.
 
 .PARAMETER WhatIf
     Dry-run: shows what would change without writing any files.
@@ -112,10 +113,10 @@ if (Test-Path $promptDir) {
     Write-Host "  [OK] No prompts directory to sync" -ForegroundColor Green
 }
 
-# ── Root instruction files (.github/copilot-instructions*.md -> .claude/CLAUDE*.md) ─
-Write-Host "`n==> Root instructions (.github/copilot-instructions.md -> .claude/CLAUDE.md)" -ForegroundColor Magenta
+# ── Root instruction template (.github/copilot-instructions.template.md -> .claude/CLAUDE.template.md) ─
+# Note: .claude/CLAUDE.md is hand-maintained (curated, project-agnostic) and intentionally NOT synced.
+Write-Host "`n==> Root instruction template (.github/copilot-instructions.template.md -> .claude/CLAUDE.template.md)" -ForegroundColor Magenta
 $rootMap = @(
-    @{ Source = 'copilot-instructions.md';         Target = 'CLAUDE.md' }
     @{ Source = 'copilot-instructions.template.md'; Target = 'CLAUDE.template.md' }
 )
 $rc = @{ synced = 0; ok = 0; warn = 0 }

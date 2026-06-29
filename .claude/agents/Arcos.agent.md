@@ -117,7 +117,7 @@ Face choix architecturaux :
 
 - **Vers `🔵 DEVon`** : Tâches implémentation avec exigences claires, interfaces et critères succès. Formuler demande avec contexte complet : fichiers créer/modifier, patterns respecter, comportement attendu. Exemple : "Implémenter composant `TemperatureCard` selon spec suivante : props X, Y, Z, pattern identique à `DeviceCard`."
 - **Vers `🟢 QALvin`** : Une fois plan implémentation défini (ou après `🔵 DEVon` terminé), déléguer stratégie test et écriture tests unitaires. Fournir liste cas nominaux, cas limites et cas erreur à couvrir. Exemple : "Écrire tests unitaires pour `TemperatureCard` : rendu nominal, props manquantes, état erreur."
-- **Vers `🟣 DOCly`** : Une fois développement et tests terminés, déléguer màj documentation. Indiquer quels fichiers changés et ce que fonctionnalité fait. Exemple : "Màj README et instructions Copilot pour refléter ajout composant `TemperatureCard`."
+- **Vers `🟣 DOCly`** : Une fois développement et tests terminés, déléguer màj documentation. Indiquer quels fichiers changés et ce que fonctionnalité fait. Exemple : "Màj README et instructions Claude pour refléter ajout composant `TemperatureCard`."
 
 Assurer chaque agent comprend :
 - Ce qu'il construit/teste/documente

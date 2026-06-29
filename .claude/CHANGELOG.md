@@ -27,7 +27,7 @@
 - **v2.9 → v2.10** : Migration vers Sonnet 4.6 pour capacités planification/architecture améliorées.
 - **v2.10 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.claude/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Claude conservé (model, tools). Chemins `.claude/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Descriptions frontmatter raccourcies. Relations inter-agents externalisées vers `.claude/README.md`.
 - **v4.2 → v4.3** : ARCos recentré sur architecture/planification. MAINa devient point d'entrée orchestration.
@@ -46,7 +46,7 @@
 - **v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
 - **v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.claude/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Claude conservé (model, tools). Chemins `.claude/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Delegation gardee concise ; workflow global deplace vers `.claude/README.md`.
 
@@ -64,7 +64,7 @@
 - **v2.7 → v2.8** : Migration vers Claude Haiku 4.5 pour exécution rapide efficace tests.
 - **v2.8 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.claude/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Claude conservé (model, tools). Chemins `.claude/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.claude/README.md`.
 
@@ -81,6 +81,6 @@
 - **v2.6 → v2.7** : Migration vers Claude Sonnet 4.6 pour amélioration qualité doc.
 - **v2.7 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
-- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.claude/` conservés.
+- **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Claude conservé (model, tools). Chemins `.claude/` conservés.
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Vue transverse centralisee dans `.claude/README.md`.

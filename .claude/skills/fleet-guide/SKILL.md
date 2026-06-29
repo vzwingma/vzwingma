@@ -6,7 +6,7 @@ applyTo: "**"
 
 # Skill : Parallélisation avec /fleet
 
-> `/fleet` = mode exécution parallèle CLI Copilot. Dispatche plusieurs sous-agents simultanément, réduit temps total.
+> `/fleet` = mode exécution parallèle CLI Claude. Dispatche plusieurs sous-agents simultanément, réduit temps total.
 
 ---
 

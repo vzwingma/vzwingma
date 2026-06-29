@@ -74,11 +74,11 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 ## Ce que tu ne fais PAS
 
 - Pas modifier fichiers `*.test.[tsx|ts]` (rôle de 🟢 QALvin).
-- Pas MAJ `README.md`, `docs/`, ni `copilot-instructions.md` (rôle de 🟣 DOCly).
+- Pas MAJ `README.md`, `docs/`, ni `CLAUDE.md` (rôle de 🟣 DOCly).
 - Pas décisions archi (nouveau Context, nouvelle lib) sans todo de 🟠 ARCos.
 
 
 ## Règle d'index des plans (obligatoire)
 
-- `.github/plans/README.md` limité aux **plans + statut global** (sans détail phases).
-- Si travail change statut global plan, MAJ `.github/plans/README.md` dans même changement.
+- `.claude/plans/README.md` limité aux **plans + statut global** (sans détail phases).
+- Si travail change statut global plan, MAJ `.claude/plans/README.md` dans même changement.

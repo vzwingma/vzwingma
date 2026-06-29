@@ -1,6 +1,6 @@
-# 📚 GitHub Copilot Agents & Templates — Dépôt Transverse
+# 📚 Claude Code Agents & Templates — Dépôt Transverse
 
-Ce sous-arbre `.claude/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
+Ce sous-arbre `.claude/` contient les **artefacts Claude réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
 
 Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
@@ -10,7 +10,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 
 ```
 .claude/
-├── agents/                              # 5 agents Copilot generiques
+├── agents/                              # 5 agents Claude generiques
 │   ├── Maina.agent.md                   # Maitre orchestrateur
 │   ├── Arcos.agent.md                   # Planification / architecture
 │   ├── Devon.agent.md                   # Implementation
@@ -23,8 +23,8 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 ├── CHANGELOG.md                         # Historique des versions des agents
 ├── PLANS.md                             # Guide des Plans d'Action
 ├── README.md                            # Ce fichier
-├── copilot-instructions.md              # Instructions de ce depot transverse
-└── copilot-instructions.template.md     # Template a copier dans les projets
+├── CLAUDE.md              # Instructions de ce depot transverse
+└── CLAUDE.template.md     # Template a copier dans les projets
 ```
 
 ---
@@ -40,7 +40,7 @@ Selon le projet cible, copier :
 - `.claude/instructions/`
 - `.claude/prompts/`
 - `.claude/PLANS.md`
-- `.claude/copilot-instructions.template.md`
+- `.claude/CLAUDE.template.md`
 
 ### Etape 2 : Initialiser les instructions projet
 
@@ -85,7 +85,7 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 
 | Prompt | Utilisation |
 |---|---|
-| `init-copilot-instructions.prompt.md` | Initialiser les instructions Copilot dans un projet |
+| `init-copilot-instructions.prompt.md` | Initialiser les instructions Claude dans un projet |
 | `update-copilot-instructions.prompt.md` | Auditer et mettre a jour les instructions |
 | `migrate-to-template.prompt.md` | Migrer un projet vers le format template transverse |
 
@@ -163,7 +163,7 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 
 - Modifier un agent => incrementer sa version dans le frontmatter
 - Reporter la modification dans `CHANGELOG.md`
-- Synchroniser les versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- Synchroniser les versions dans `CLAUDE.md` et `CLAUDE.template.md`
 - Mettre a jour `plans/README.md` a chaque nouveau Plan d'Action
 - Garder ce README comme source de verite pour la coordination transverse `.claude/`
 
@@ -174,4 +174,4 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 - `README.md` racine : presentation generale du depot
 - `docs/ARCHITECTURE.md` : architecture transverse globale
 - `.claude/PLANS.md` : format et execution des Plans d'Action
-- `.claude/copilot-instructions.md` : instructions detaillees du depot Copilot
+- `.claude/CLAUDE.md` : instructions detaillees du depot Claude
