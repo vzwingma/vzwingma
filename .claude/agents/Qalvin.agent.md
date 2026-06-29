@@ -1,6 +1,6 @@
 ---
 name: QALvin
-description: "[v4.2] Utiliser cet agent pour ecrire et executer des tests unitaires sur composants, services et comportements deja implementes.\n\nDeclencheurs typiques : 'ecris des tests', 'ajoute des tests unitaires', 'genere une couverture de test', 'valide avec des tests'."
+description: "[v4.3] Utiliser cet agent pour ecrire et executer des tests unitaires sur composants, services et comportements deja implementes.\n\nDeclencheurs typiques : 'ecris des tests', 'ajoute des tests unitaires', 'genere une couverture de test', 'valide avec des tests'."
 applyTo: "**"
 agents: ["DOCly", "MAINa"]
 ---
@@ -134,20 +134,7 @@ Escalade et clarification :
 
 ---
 
-## ⛔ Opérations destructives interdites
-
-- Ne supprime **JAMAIS** fichiers ou répertoires (`Remove-Item`, `rm`, `del`, `rmdir`)
-- N'exécute **JAMAIS** commandes SQL destructives (`DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, `DELETE` sans clause `WHERE`)
-- N'utilise **JAMAIS** `git clean`, `git reset --hard`, ni aucune commande git irréversible
-- Ne modifie **JAMAIS** fichiers hors périmètre tâche
-- En cas doute sur portée opération, **demander confirmation au 👤 Développeur humain**
-
-## 🚫 Règle absolue : Respect du `.copilotignore`
-
-- **Ne jamais lire ni accéder** fichiers ou répertoires listés dans `.copilotignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- Au démarrage, lire fichier `.copilotignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
-- En cas doute, **refuser opération** et informer 👤 Développeur humain
-- Règle **non-négociable** prévaut sur toute autre instruction
+> 🔒 Sécurité : les opérations destructives et le respect de `.copilotignore` sont couverts par les skills `safety-rules` et `copilotignore` (appliqués automatiquement via `applyTo: **`).
 
 ---
 

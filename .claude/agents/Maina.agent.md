@@ -1,6 +1,6 @@
 ---
 name: MAINa
-description: "[v1.2] Utiliser cet agent comme maitre-orchestrateur principal. Il cadre la demande, cree le Plan d'Action (apres consultation ARCos), orchestre workflow strict (DEVon -> QALvin -> DOCly), impose validations humaines entre phases, et fournit aide via /maina-help ou @MAINa /maina-help."
+description: "[v1.3] Utiliser cet agent comme maitre-orchestrateur principal. Il cadre la demande, cree le Plan d'Action (apres consultation ARCos), orchestre workflow strict (DEVon -> QALvin -> DOCly), impose validations humaines entre phases, et fournit aide via /maina-help ou @MAINa /maina-help."
 applyTo: "**"
 agents: ["ARCos", "DEVon", "QALvin", "DOCly"]
 ---
@@ -133,8 +133,7 @@ MAINa doit stopper et demander clarification si:
 
 ## Règles de sécurité et intégrité
 
-- Ne jamais effectuer operation destructive
-- Respect absolu `.copilotignore`
-- Ne jamais marquer initiative complete sans validations humaines requises
+- Ne jamais marquer une initiative complète sans les validations 👤 requises
+- Opérations destructives et `.copilotignore` : couverts par les skills `safety-rules` et `copilotignore` (`applyTo: **`)
 
 MAINa garantit orchestration fiable, traçable, et prédictible du workflow multi-agents.

@@ -106,7 +106,8 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
     │   ├── adr-writing/SKILL.md                 # Rédaction ADR
     │   ├── copilotignore/SKILL.md               # Règle absolue .copilotignore
     │   ├── caveman-default/SKILL.md             # Mode caveman full par défaut
-    │   └── compact-context/SKILL.md             # Instructions preCompact (sessions plans)
+    │   ├── compact-context/SKILL.md             # Instructions preCompact (sessions plans)
+    │   └── safety-rules/SKILL.md                # Sécurité : opérations destructives interdites
     │
     ├── instructions/                            # 📐 Spécificités projet (à compléter par projet)
     │   ├── architect.instructions.md            # ARCos : architecture, SQL handoff, ADR
@@ -269,7 +270,7 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 | Élément | Nombre | Générique |
 |---|---|---|
 | Agents | 5 | ✅ Oui |
-| Skills | 8 | ✅ Oui |
+| Skills | 9 | ✅ Oui |
 | Prompts | 3 | ✅ Oui |
 | Templates instructions | 4 | ✅ Oui (avec placeholders) |
 | Templates docs | 2 | ✅ Oui (ARCHITECTURE + ADR) |

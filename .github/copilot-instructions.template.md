@@ -146,12 +146,14 @@ Skills = procédures réutilisables incluses automatiquement dans contexte tous 
 | Skill | Emplacement | Contenu |
 |---|---|---|
 | `plan-phase-execution` | `.github/skills/plan-phase-execution/SKILL.md` | Procédure standard exécution phase AP (avant/pendant/après, formats rapport) |
-| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (ARCos + agents orchestrateurs) |
+| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (MAINa) |
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide parallélisation `/fleet` (quand utiliser, règle décision) |
 | `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 | `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
+| `maina-help` | `.github/skills/maina-help/SKILL.md` | Aide à l'orchestration MAINa (`/maina-help`) : workflow strict et gates humains |
+| `safety-rules` | `.github/skills/safety-rules/SKILL.md` | **Règle absolue**: interdiction des opérations destructives (suppression, SQL/git irréversibles, hors périmètre) |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 

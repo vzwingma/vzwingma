@@ -7,7 +7,7 @@ Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates
 ## 🚀 Étape 1 : Copier les Templates et Agents
 
 - [ ] Copier `.github/agents/*.md` vers votre projet
-- [ ] Copier `.github/skills/` (8 dossiers de skills) vers votre projet
+- [ ] Copier `.github/skills/` (9 dossiers de skills) vers votre projet
 - [ ] Copier `.github/PLANS.md` vers votre projet
 - [ ] Copier `.github/copilot-instructions.template.md` vers votre projet
 - [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
@@ -160,7 +160,7 @@ Avant de considérer Copilot "prêt" :
 
 - [ ] `.github/copilot-instructions.md` existe et est customisé
 - [ ] `.github/agents/*.md` (5 fichiers) sont présents
-- [ ] `.github/skills/*/SKILL.md` (8 skills) présents
+- [ ] `.github/skills/*/SKILL.md` (9 skills) présents
 - [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
 - [ ] `.github/PLANS.md` est accessible
 - [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées

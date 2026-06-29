@@ -152,6 +152,8 @@ Skills sont procédures réutilisables incluses automatiquement dans contexte de
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 | `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
+| `maina-help` | `.github/skills/maina-help/SKILL.md` | Aide à l'orchestration MAINa (`/maina-help`) : workflow strict et gates humains |
+| `safety-rules` | `.github/skills/safety-rules/SKILL.md` | **Règle absolue**: interdiction des opérations destructives (suppression, SQL/git irréversibles, hors périmètre) |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -179,11 +181,11 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 /
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.0)
-│   │   ├── Arcos.agent.md               # Architecte & planificateur (v4.3)
-│   │   ├── Devon.agent.md               # Développeur (v4.2)
-│   │   ├── Qalvin.agent.md              # QA & tests (v4.2)
-│   │   ├── Docly.agent.md               # Documentation (v4.2)
+│   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.3)
+│   │   ├── Arcos.agent.md               # Architecte consulté par MAINa (v4.6)
+│   │   ├── Devon.agent.md               # Développeur (v4.3)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.3)
+│   │   ├── Docly.agent.md               # Documentation (v4.3)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -195,8 +197,14 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   │   │   └── SKILL.md
 │   │   ├── compact-context/
 │   │   │   └── SKILL.md                 # Instructions preCompact pour sessions plans/SDLC (applyTo: **)
-│   │   └── copilotignore/
-│   │       └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
+│   │   ├── copilotignore/
+│   │   │   └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
+│   │   ├── maina-help/
+│   │   │   └── SKILL.md                 # Aide orchestration MAINa (/maina-help)
+│   │   ├── caveman-default/
+│   │   │   └── SKILL.md                 # Mode caveman full par défaut (applyTo: **)
+│   │   └── safety-rules/
+│   │       └── SKILL.md                 # Sécurité : opérations destructives interdites (applyTo: **)
 │   ├── instructions/                    # Templates à personnaliser par projet
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
