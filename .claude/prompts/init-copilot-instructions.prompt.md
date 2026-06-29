@@ -1,26 +1,26 @@
 ---
 name: init-copilot-instructions
 description: >
-  Initialise les instructions Copilot pour un nouveau projet. Utiliser pour :
-  "initialise les instructions Copilot", "génère les instructions pour ce projet",
-  "crée un copilot-instructions.md", "configure Copilot pour ce projet".
+  Initialise les instructions Claude pour un nouveau projet. Utiliser pour :
+  "initialise les instructions Claude", "génère les instructions pour ce projet",
+  "crée un CLAUDE.md", "configure Claude pour ce projet".
   Prend en paramètre le type de projet et extrait les informations du code source.
 agent: agent
 ---
 
-# Initialisation des Instructions Copilot
+# Initialisation des Instructions Claude
 
 > **Prérequis** : Avant lancer prompt, fichiers suivants doivent exister projet cible (copiés depuis dépôt transverse) :
-> - `.github/agents/` — 5 agents génériques (`Maina.agent.md`, `Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
-> - `.github/prompts/` — prompts réutilisables
-> - `.github/PLANS.md` — guide Plans d'Action
+> - `.claude/agents/` — 5 agents génériques (`Maina.agent.md`, `Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+> - `.claude/prompts/` — prompts réutilisables
+> - `.claude/PLANS.md` — guide Plans d'Action
 >
-> Prompt initialise uniquement fichiers **spécifiques projet** : `copilot-instructions.md` et 4 fichiers `instructions/`.
+> Prompt initialise uniquement fichiers **spécifiques projet** : `CLAUDE.md` et 4 fichiers `instructions/`.
 > Pour copier prérequis, utiliser d'abord prompt `migrate-to-template`.
 
-Mission : **générer et initialiser** fichier `.github/copilot-instructions.md` pour nouveau projet, basé sur :
+Mission : **générer et initialiser** fichier `.claude/CLAUDE.md` pour nouveau projet, basé sur :
 
-1. **Template générique** (`.github/copilot-instructions.template.md`) présent dans dépôt transverse
+1. **Template générique** (`.claude/CLAUDE.template.md`) présent dans dépôt transverse
 2. **Analyse code source** projet cible
 3. **Conventions réelles** appliquées dans code
 
@@ -28,7 +28,7 @@ Mission : **générer et initialiser** fichier `.github/copilot-instructions.md`
 
 ### 1. Lire le template générique
 
-Lire intégralement `.github/copilot-instructions.template.md` pour comprendre structure base.
+Lire intégralement `.claude/CLAUDE.template.md` pour comprendre structure base.
 
 ### 2. Analyser le projet cible
 
@@ -55,11 +55,11 @@ Pour chaque placeholder `[...]` du template, fournir valeur adaptée :
 | **Conventions Clés** | Fichiers existants du code | Nommage, TypeScript config, ESLint, Prettier, etc. |
 | **État du Projet** | Code analysis + notes | État maintenance, patterns erreur, dépendances clés |
 
-> 💡 **Parallélisation possible** : Étapes 4 et 5 (génération `copilot-instructions.md` et 4 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si infos analyse (étape 2) disponibles.
+> 💡 **Parallélisation possible** : Étapes 4 et 5 (génération `CLAUDE.md` et 4 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si infos analyse (étape 2) disponibles.
 
 ### 4. Générer le fichier
 
-Créer `.github/copilot-instructions.md` en :
+Créer `.claude/CLAUDE.md` en :
 1. Copiant template
 2. Remplaçant tous placeholders par valeurs projet
 3. Supprimant sections `[📌 À COMPLÉTER : ...]` si remplies
@@ -67,7 +67,7 @@ Créer `.github/copilot-instructions.md` en :
 
 ### 5. Générer les fichiers d'instructions agents
 
-Lire 4 templates dans `.github/instructions/` du dépôt transverse :
+Lire 4 templates dans `.claude/instructions/` du dépôt transverse :
 - `architect.instructions.template.md` — template instructions pour agent ARCos
 - `dev.instructions.template.md` — template instructions pour agent DEVon
 - `qa.instructions.template.md` — template instructions pour agent QALvin
@@ -81,7 +81,7 @@ Pour chaque fichier, remplir placeholders avec valeurs identifiées lors analyse
 - Pour `doc.instructions.md` : chemin docs/ local, noms fichiers documentation, frameworks + versions pour `.puml`
 - Pour `architect.instructions.md` : couches projet, noms providers état, service HTTP, routing
 
-Créer 4 fichiers dans `.github/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
+Créer 4 fichiers dans `.claude/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
 Si certaines valeurs non déterminables depuis code, conserver placeholders `[...]` et signaler explicitement.
 
 ### 6. Auditer et enrichir (optionnel)
@@ -90,8 +90,8 @@ Si projet dispose autres fichiers référence (CONTRIBUTING.md, ARCHITECTURE.md,
 
 ## ✅ Checklist de Livraison
 
-- [ ] Fichier `.github/copilot-instructions.md` créé
-- [ ] Fichiers `.github/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (4 fichiers : architect, dev, qa, doc)
+- [ ] Fichier `.claude/CLAUDE.md` créé
+- [ ] Fichiers `.claude/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (4 fichiers : architect, dev, qa, doc)
 - [ ] Tous placeholders `[...]` remplacés par valeurs réelles
 - [ ] Placeholders critiques remplacés (minimum : NOM_DU_PROJET, stack technique)
 - [ ] Sections `[📌 À COMPLÉTER : ...]` supprimées ou complétées
@@ -101,23 +101,23 @@ Si projet dispose autres fichiers référence (CONTRIBUTING.md, ARCHITECTURE.md,
 - [ ] Pas références fichiers inexistants
 - [ ] Langue française conservée pour tout texte narratif
 - [ ] Fichier lisible et bien formaté (Markdown)
-- [ ] `.github/agents/` contient 5 fichiers (`Maina.agent.md`, `Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
-- [ ] `.github/skills/` contient 4 skills partagés (`plan-phase-execution/SKILL.md`, `plan-creation/SKILL.md`, `fleet-guide/SKILL.md`, `adr-writing/SKILL.md`)
-- [ ] `.github/PLANS.md` accessible
+- [ ] `.claude/agents/` contient 5 fichiers (`Maina.agent.md`, `Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+- [ ] `.claude/skills/` contient 4 skills partagés (`plan-phase-execution/SKILL.md`, `plan-creation/SKILL.md`, `fleet-guide/SKILL.md`, `adr-writing/SKILL.md`)
+- [ ] `.claude/PLANS.md` accessible
 - [ ] `docs/ARCHITECTURE.md` existe (créer depuis template : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
 - [ ] `docs/adr/` existe (créer si absent : `mkdir -p docs/adr`)
 
 ## 💡 Conseils
 
 1. **Soyez précis** : Observer et décrire ce qui existe réellement, pas hypothèses
-2. **Soyez concis** : Instructions Copilot lues régulièrement ; rester synthétique
+2. **Soyez concis** : Instructions Claude lues régulièrement ; rester synthétique
 3. **Soyez pratiques** : Inclure commandes réelles, patterns réels observés
 4. **Conservez la structure** : Pas réorganiser sections template, sauf si très pertinent
 5. **Exemples du code** : Quand utile, inclure patterns extraits code source réel
 
 ## 🎯 Résultat
 
-À fin, fichier `.github/copilot-instructions.md` doit être **source de vérité** pour Copilot :
+À fin, fichier `.claude/CLAUDE.md` doit être **source de vérité** pour Claude :
 - Décrit fidèlement état projet
 - Fournit conventions claires et appliquées
 - Guide agents dans contexte projet spécifique

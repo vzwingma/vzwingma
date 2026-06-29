@@ -7,13 +7,13 @@
 
 ## 🎯 Vue d'ensemble
 
-Le **dépôt transverse Copilot** est un ensemble réutilisable de templates, agents et prompts pour orchestrer le développement avec GitHub Copilot via une architecture **multi-agents coordonnée**.
+Le **dépôt transverse Copilot** est un ensemble réutilisable de templates, agents et prompts pour orchestrer le développement avec des assistants IA (GitHub Copilot comme source, Claude Code en miroir généré) via une architecture **multi-agents coordonnée**.
 
 | Propriété | Valeur |
 |---|---|
 | **Type** | Dépôt de templates / infrastructure Copilot |
 | **Stack principale** | Markdown, YAML (frontmatter agents) |
-| **Plateforme cible** | GitHub Copilot CLI (tout type de projet consommateur) |
+| **Plateformes cibles** | GitHub Copilot CLI (source) + Claude Code (miroir généré) |
 | **Langue** | Français (contenu), Anglais (exemples de code) |
 | **Statut** | En développement actif |
 
@@ -63,6 +63,12 @@ Nouveau Projet
 | **Versionning** | Chaque agent commence par `[vX.Y]` pour tracker les changements |
 | **Customisation minimale** | Le template permet une initialisation rapide et complète en 3 étapes |
 
+### Modèle miroir : source unique + génération
+
+Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.github/` (source de vérité Copilot), puis **générés** vers `.claude/` (Claude Code) par `scripts/sync-github-to-claude.ps1` avec substitution de chemins/termes (`.github/`→`.claude/`, `GitHub Copilot`→`Claude Code`). Voir [ADR 002](adr/002-claude-miroir-genere.md).
+
+> Exception : `.claude/CLAUDE.md` est **maintenu à la main** (curé, agnostique-projet) ; seul `CLAUDE.template.md` est généré.
+
 ---
 
 ## 📂 Structure des Dossiers
@@ -86,19 +92,22 @@ Nouveau Projet
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.0]
-    │   ├── Arcos.agent.md                       # Planificateur / architecte [v4.3]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v4.2]
-    │   ├── Qalvin.agent.md                      # Expert QA [v4.2]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.2]
+    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.3]
+    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.6]
+    │   ├── Devon.agent.md                       # Implémentateur de code [v4.3]
+    │   ├── Qalvin.agent.md                      # Expert QA [v4.4]
+    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.3]
     │
     ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
     │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
-    │   ├── plan-creation/SKILL.md               # Création Plan d'Action
+    │   ├── plan-creation/SKILL.md               # Création Plan d'Action (MAINa)
+    │   ├── maina-help/SKILL.md                  # Aide orchestration MAINa
     │   ├── fleet-guide/SKILL.md                 # Guide parallélisation /fleet
     │   ├── adr-writing/SKILL.md                 # Rédaction ADR
     │   ├── copilotignore/SKILL.md               # Règle absolue .copilotignore
-    │   └── caveman-default/SKILL.md             # Mode caveman full par défaut
+    │   ├── caveman-default/SKILL.md             # Mode caveman full par défaut
+    │   ├── compact-context/SKILL.md             # Instructions preCompact (sessions plans)
+    │   └── safety-rules/SKILL.md                # Sécurité : opérations destructives interdites
     │
     ├── instructions/                            # 📐 Spécificités projet (à compléter par projet)
     │   ├── architect.instructions.md            # ARCos : architecture, SQL handoff, ADR
@@ -110,9 +119,6 @@ Nouveau Projet
     │   ├── init-copilot-instructions.prompt.md  # Initialiser un nouveau projet
     │   ├── update-copilot-instructions.prompt.md# Maintenir les instructions à jour
     │   └── migrate-to-template.prompt.md        # Migrer un projet existant
-    │
-    ├── examples/                                # 📖 Exemples concrets
-    │   └── copilot-instructions-domoticz.example.md  # React Native / Expo
     │
     └── plans/                                   # 📅 Plans d'Action
         └── README.md                            # Index des plans
@@ -128,17 +134,33 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| ⚫ MAINa | `Maina.agent.md` | v1.0 | Maître orchestrateur (point d'entrée principal) |
-| 🟠 ARCos | `Arcos.agent.md` | v4.3 | Planificateur / architecte |
-| 🔵 DEVon | `Devon.agent.md` | v4.2 | Implémentateur de code |
-| 🟢 QALvin | `Qalvin.agent.md` | v4.2 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v4.2 | Gestionnaire documentation |
+| ⚫ MAINa | `Maina.agent.md` | v1.3 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
+| 🟠 ARCos | `Arcos.agent.md` | v4.6 | Architecte (consulté par MAINa : analyse + recommandation) |
+| 🔵 DEVon | `Devon.agent.md` | v4.3 | Implémentateur de code |
+| 🟢 QALvin | `Qalvin.agent.md` | v4.4 | Expert QA et tests |
+| 🟣 DOCly | `Docly.agent.md` | v4.3 | Gestionnaire documentation |
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet spécifique)
 - ✅ Versionnés (incrémentés à chaque modification comportementale)
 - ✅ Indépendants (peuvent être copiés isolément dans un projet)
 - ✅ Prêts à l'emploi (pas besoin de modification pour démarrer)
+
+### 🛠️ Skills partagés (`.github/skills/`)
+
+Procédures réutilisables incluses automatiquement dans le contexte de tous les agents (`applyTo: **`).
+
+| Skill | Rôle |
+|---|---|
+| `plan-creation` | Création / orchestration d'un Plan d'Action (MAINa) |
+| `plan-phase-execution` | Exécution standard d'une phase d'AP |
+| `maina-help` | Aide à l'orchestration MAINa (`/maina-help`) |
+| `fleet-guide` | Guide de parallélisation `/fleet` |
+| `adr-writing` | Rédaction d'un ADR (ARCos prépare, DOCly rédige) |
+| `copilotignore` | Règle absolue de respect de `.copilotignore` |
+| `caveman-default` | Mode caveman (full) actif par défaut |
+| `compact-context` | Instructions preCompact pour sessions plans/SDLC |
+| `safety-rules` | Règles de sécurité : opérations destructives interdites |
 
 ### 📐 Instructions agents (`.github/instructions/`)
 
@@ -207,8 +229,8 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 
 | # | Décision | Statut | Date |
 |---|---|---|---|
-| 001 | Migration documentation Wiki → `/docs` | Acceptée | 2026-05-07 |
-| 002 | ARCos lit `docs/ARCHITECTURE.md` au démarrage | Acceptée | 2026-05-07 |
+| 001 | [Ajouter MAINa comme orchestrateur principal](adr/001-maina-orchestrateur.md) | Acceptée | 2026-06-25 |
+| 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Acceptée | 2026-06-29 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 
@@ -247,11 +269,11 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 | Élément | Nombre | Générique |
 |---|---|---|
-| Agents | 4 | ✅ Oui |
+| Agents | 5 | ✅ Oui |
+| Skills | 9 | ✅ Oui |
 | Prompts | 3 | ✅ Oui |
 | Templates instructions | 4 | ✅ Oui (avec placeholders) |
 | Templates docs | 2 | ✅ Oui (ARCHITECTURE + ADR) |
-| Exemples | 1 | ✅ Oui |
 
 ---
 
@@ -261,7 +283,7 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 1. Modifier `.github/agents/<Agent>.agent.md`
 2. Incrémenter la version : `[vX.Y]` → `[vX.Y+1]`
-3. Documenter les changements dans le frontmatter (ligne `> **Changements...`)
+3. Documenter les changements dans `.github/CHANGELOG.md`
 4. Mettre à jour le tableau d'inventaire ci-dessus
 
 ### Mise à jour des templates
@@ -281,6 +303,8 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 | Version | Date | Changements majeurs |
 |---|---|---|
+| v4.0 | 2026-06-29 | Modèle miroir : `.github/` source → `.claude/` généré (sync) ; ADR 002 ; ARCos recentré (MAINa crée le plan) |
+| v3.2 | 2026-06-25 | Ajout MAINa (maître-orchestrateur) ; rationalisation agents ; skills `maina-help`, `compact-context` |
 | v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |
 | v3.0 | 2026-05-28 | Activation globale du mode `caveman` dans tous les agents + compression des instructions |
 | v2.1 | 2026-05-07 | Migration wiki → `/docs` ; ajout templates ARCHITECTURE.md et ADR |
@@ -294,4 +318,4 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 - **Guide Plans d'Action** : [`.github/PLANS.md`](.github/PLANS.md)
 - **Checklist** : [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md)
 - **ADRs** : [`docs/adr/`](./adr/)
-- **Exemples** : [`.github/examples/`](.github/examples/)
+

@@ -1,5 +1,5 @@
 ---
-description: "[v4.2] Utiliser cet agent pour implementer une fonctionnalite deja architecturee. Il prend une spec claire, code dans le perimetre defini, puis prepare le relais vers tests et documentation.\n\nDeclencheurs typiques : 'implemente cette fonctionnalite', 'code cette fonction', 'developpe selon architecture'."
+description: "[v4.3] Utiliser cet agent pour implementer une fonctionnalite deja architecturee. Il prend une spec claire, code dans le perimetre defini, puis prepare le relais vers tests et documentation.\n\nDeclencheurs typiques : 'implemente cette fonctionnalite', 'code cette fonction', 'developpe selon architecture'."
 name: DEVon
 model: Claude Sonnet 4.6 (copilot)
 agents: ["QALvin", "DOCly", "MAINa"]
@@ -124,20 +124,7 @@ Quand demander clarification :
 
 ---
 
-## ⛔ Opérations destructives interdites
-
-- Supprime **JAMAIS** fichiers ou répertoires (`Remove-Item`, `rm`, `del`, `rmdir`)
-- Exécute **JAMAIS** commandes SQL destructives (`DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, `DELETE` sans clause `WHERE`)
-- Utilise **JAMAIS** `git clean`, `git reset --hard`, ni aucune commande git irréversible
-- Modifie **JAMAIS** fichiers hors périmètre tâche
-- En cas doute sur portée opération, **demander confirmation au 👤 Développeur humain**
-
-## 🚫 Règle absolue : Respect `.copilotignore`
-
-- **Jamais lire ni accéder** aux fichiers ou répertoires listés dans `.copilotignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- À démarrage, lire fichier `.copilotignore` lui-même pour connaître patterns exclus, puis appliquer systématiquement
-- En cas doute, **refuser opération** et informer 👤 Développeur humain
-- Règle **non-négociable** et prévaut sur toute autre instruction
+> 🔒 Sécurité : les opérations destructives et le respect de `.copilotignore` sont couverts par les skills `safety-rules` et `copilotignore` (appliqués automatiquement via `applyTo: **`).
 
 ---
 

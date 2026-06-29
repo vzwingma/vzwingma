@@ -7,6 +7,8 @@
       - Agents      : .github/agents/*.agent.md      → .claude/agents/*.agent.md
       - Skills      : .github/skills/*/SKILL.md      → .claude/skills/*/SKILL.md
       - Instructions: .github/instructions/*.md      → .claude/instructions/*.md
+      - Prompts     : .github/prompts/*.prompt.md     → .claude/prompts/*.prompt.md
+      - Root tmpl.  : .github/copilot-instructions.template.md → .claude/CLAUDE.template.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md
 
     For structured files (agents/skills/instructions):
@@ -16,7 +18,9 @@
     For standalone .md files:
       Full file sync with automatic path substitution (.github/ -> .claude/).
 
-    Prompts are intentionally excluded (descriptions are tool-specific).
+    Prompts and the root instruction template are synced with path/term substitution
+    (.github/ -> .claude/, GitHub Copilot -> Claude Code, copilot-instructions.md -> CLAUDE.md).
+    Note: .claude/CLAUDE.md is hand-maintained (curated, project-agnostic), not generated.
 
 .PARAMETER WhatIf
     Dry-run: shows what would change without writing any files.
@@ -83,20 +87,45 @@ if ($instrFiles) {
     Write-Host "  [OK] No non-template instruction files to sync" -ForegroundColor Green
 }
 
-# ── Instructions Templates (Copy for reference) ──────────────────────────────
+# ── Instructions Templates (sync with path/term substitution) ────────────────
 Write-Host "`n==> Instructions Templates (.github/instructions/*.template.md -> .claude/instructions/)" -ForegroundColor Cyan
 $templateFiles = Get-ChildItem (Join-Path $githubBase 'instructions') -Filter '*.template.md' -File
 foreach ($file in $templateFiles) {
-    $relativePath = $file.Name
-    $targetPath = Join-Path (Join-Path $claudeBase 'instructions') $relativePath
-
-    if ($WhatIf) {
-        Write-Host "  [COPY] $($file.FullName) -> $targetPath" -ForegroundColor Cyan
-    } else {
-        Copy-Item -Path $file.FullName -Destination $targetPath -Force
-        Write-Host "  [COPY] $relativePath OK" -ForegroundColor Green
-    }
+    $targetPath = Join-Path (Join-Path $claudeBase 'instructions') $file.Name
+    # Was a raw Copy-Item -> left .github/ paths in .claude templates. Now applies path/term substitution.
+    Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $targetPath `
+        -Direction $direction -WhatIf:$WhatIf | Out-Null
 }
+
+# ── Prompts (.github/prompts/ -> .claude/prompts/, with substitution) ─────────
+Write-Host "`n==> Prompts (.github/prompts/*.prompt.md -> .claude/prompts/)" -ForegroundColor Magenta
+$promptDir = Join-Path $githubBase 'prompts'
+if (Test-Path $promptDir) {
+    $promptFiles = Get-ChildItem $promptDir -Filter '*.prompt.md' -File
+    $pc = @{ synced = 0; ok = 0; warn = 0 }
+    foreach ($file in $promptFiles) {
+        $targetPath = Join-Path (Join-Path $claudeBase 'prompts') $file.Name
+        $pc[(Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $targetPath `
+            -Direction $direction -WhatIf:$WhatIf)]++
+    }
+    Add-Counts $pc
+} else {
+    Write-Host "  [OK] No prompts directory to sync" -ForegroundColor Green
+}
+
+# ── Root instruction template (.github/copilot-instructions.template.md -> .claude/CLAUDE.template.md) ─
+# Note: .claude/CLAUDE.md is hand-maintained (curated, project-agnostic) and intentionally NOT synced.
+Write-Host "`n==> Root instruction template (.github/copilot-instructions.template.md -> .claude/CLAUDE.template.md)" -ForegroundColor Magenta
+$rootMap = @(
+    @{ Source = 'copilot-instructions.template.md'; Target = 'CLAUDE.template.md' }
+)
+$rc = @{ synced = 0; ok = 0; warn = 0 }
+foreach ($m in $rootMap) {
+    $rc[(Sync-StandaloneFile -SourceFile (Join-Path $githubBase $m.Source) `
+        -TargetFile (Join-Path $claudeBase $m.Target) `
+        -Direction $direction -WhatIf:$WhatIf)]++
+}
+Add-Counts $rc
 
 # ── Standalone .md files ──────────────────────────────────────────────────────
 Write-Host "`n==> Standalone files (.github/ -> .claude/)" -ForegroundColor Magenta

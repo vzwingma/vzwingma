@@ -1,14 +1,14 @@
 ---
 name: "plan-creation"
-description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour agents orchestrateurs (ARCos + futurs agents planification)."
+description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour MAINa — agent orchestrateur responsable création et validation Plan d'Action."
 applyTo: "**"
 ---
 
 # Skill : Création d'un Plan d'Action (AP)
 
 > Skill décrit procédure standard créer, valider, lancer Plan d'Action.
-> Réservé agents orchestration (ex: 🟠 ARCos).
-> Référence complète format AP : `.github/PLANS.md`
+> Réservé à ⚫ MAINa — responsable création et orchestration des Plans d'Action.
+> Référence complète format AP : `.claude/PLANS.md`
 
 ---
 
@@ -28,7 +28,7 @@ applyTo: "**"
 
 ## Créer le fichier plan
 
-Créer fichier `.github/plans/<NO>_<nom>.plan.md` contenant :
+Créer fichier `.claude/plans/<NO>_<nom>.plan.md` contenant :
 
 1. **En-tête** : Titre, date, statut (`⏳ Planifié`), lien document
 2. **Objectif Global** : 1-2 paragraphes problème + outcomes attendus
@@ -41,7 +41,7 @@ Créer fichier `.github/plans/<NO>_<nom>.plan.md` contenant :
 6. **Critères Succès Globaux** : Mesures finales projet
 7. **Plan d'Exécution** : Quand démarrer chaque phase, triggers
 
-**Référence complète format** : `.github/PLANS.md` (section "Format du Fichier Plan")
+**Référence complète format** : `.claude/PLANS.md` (section "Format du Fichier Plan")
 
 ### Structurer les tâches
 
@@ -66,7 +66,7 @@ Chaque tâche doit avoir :
 ## Créer le dossier reporting
 
 ```
-.github/plans/<NO>_reports/
+.claude/plans/<NO>_reports/
 ```
 
 Dossier contiendra rapport par phase :
@@ -98,7 +98,7 @@ Quand plan validé + dépendances satisfaites :
 
 1. **Vérifier dépendances** : Toutes phases précédentes sont ✅
 2. **Identifier agent responsable** phase
-3. **Créer rapport vide** : `.github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
+3. **Créer rapport vide** : `.claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md`
 4. **Déléguer à agent** avec prompt structuré incluant :
    - Lien vers plan complet
    - Liste tâches assignées (T<N>.X à T<N>.Y)
@@ -107,10 +107,10 @@ Quand plan validé + dépendances satisfaites :
 
 **Exemple prompt lancement :**
 ```
-Exécute la Phase N du plan : .github/plans/<NO>_<nom>.plan.md
+Exécute la Phase N du plan : .claude/plans/<NO>_<nom>.plan.md
 
 Tâches assignées : T<N>.1 à T<N>.M
-Rapport à remplir : .github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md
+Rapport à remplir : .claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md
 
 Critères de réussite :
 - ✅ [Critère 1]
@@ -123,7 +123,7 @@ Critères de réussite :
 
 Après phase signalée complétée :
 
-1. **Lire rapport** : `.github/plans/<NO>_reports/PHASE_N_...md`
+1. **Lire rapport** : `.claude/plans/<NO>_reports/PHASE_N_...md`
 2. **Vérifier** : Tous critères ✅, aucun bloqueur, livrables présents
 3. **Décider** : Phase suivante peut démarrer ?
 4. **Mettre à jour** statut plan si changement global
@@ -132,8 +132,8 @@ Après phase signalée complétée :
 
 ## Règle obligatoire — Synchronisation de l'index des plans
 
-- `.github/plans/README.md` doit contenir **uniquement** liste plans + **statut global**.
-- À chaque création plan ou changement statut global, mettre à jour `.github/plans/README.md` dans **même changement**.
+- `.claude/plans/README.md` doit contenir **uniquement** liste plans + **statut global**.
+- À chaque création plan ou changement statut global, mettre à jour `.claude/plans/README.md` dans **même changement**.
 
 ---
 
@@ -150,5 +150,5 @@ Après phase signalée complétée :
 
 ## Références
 
-- 📋 Guide complet : `.github/PLANS.md`
-- 📌 Index des plans : `.github/plans/README.md`
+- 📋 Guide complet : `.claude/PLANS.md`
+- 📌 Index des plans : `.claude/plans/README.md`

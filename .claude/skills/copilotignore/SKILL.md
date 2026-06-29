@@ -6,7 +6,7 @@ applyTo: "**"
 
 # 🚫 Règle absolue : Respect de `.copilotignore`
 
-Règle applique **tous agents + Copilot**, sans exception ni dérogation.
+Règle applique **tous agents + Claude**, sans exception ni dérogation.
 
 ## Interdiction absolue
 

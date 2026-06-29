@@ -7,7 +7,7 @@ Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates
 ## 🚀 Étape 1 : Copier les Templates et Agents
 
 - [ ] Copier `.github/agents/*.md` vers votre projet
-- [ ] Copier `.github/skills/` (3 dossiers de skills) vers votre projet
+- [ ] Copier `.github/skills/` (9 dossiers de skills) vers votre projet
 - [ ] Copier `.github/PLANS.md` vers votre projet
 - [ ] Copier `.github/copilot-instructions.template.md` vers votre projet
 - [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
@@ -77,7 +77,7 @@ Le prompt va :
 
 - [ ] Vérifier que vous pouvez appeler les agents :
   ```
-  👤 "@MAINa /help"
+  👤 "@MAINa /maina-help"
   ```
   → `MAINa (⚫)` doit expliquer workflow et commandes
 
@@ -85,7 +85,7 @@ Le prompt va :
   ```
   👤 "Organise ce besoin de bout en bout"
   ```
-  → `MAINa (⚫)` doit commencer par étape plan (ARCos) puis gates humains
+  → `MAINa (⚫)` doit présenter des options (ARCos), créer le Plan d'Action, puis imposer les gates humains
 
 - [ ] Tester un prompt :
   ```
@@ -160,7 +160,7 @@ Avant de considérer Copilot "prêt" :
 
 - [ ] `.github/copilot-instructions.md` existe et est customisé
 - [ ] `.github/agents/*.md` (5 fichiers) sont présents
-- [ ] `.github/skills/*/SKILL.md` (3 skills) présents
+- [ ] `.github/skills/*/SKILL.md` (9 skills) présents
 - [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
 - [ ] `.github/PLANS.md` est accessible
 - [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées

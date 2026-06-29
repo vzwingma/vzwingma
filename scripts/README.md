@@ -22,7 +22,7 @@ Couvre :
 - Skills : `.github/skills/*/SKILL.md` → `.opencode/skills/`
 - Instructions : `.github/instructions/*.md` → `.opencode/instructions/`
 - Standalone : CHANGELOG.md, PLANS.md, README.md
-- Templates : Copiés dans `.opencode/instructions/templates/`
+- Templates : conservés dans `.opencode/instructions/` (pas de sous-dossier `templates/`)
 
 ---
 
@@ -212,7 +212,3 @@ Après modifications agents OpenCode (`.opencode/`) :
 | Créer package Claude distribué | `package-claude.ps1` | ZIP avec agents Claude |
 | Créer package OpenCode distribué | `package-opencode.ps1` | ZIP avec agents OpenCode |
 | Mettre à jour Claude depuis GitHub | `sync-github-to-claude.ps1` | Force cohérence plateformes |
-
----
-
-**Dernière mise à jour** : 2026-06-25

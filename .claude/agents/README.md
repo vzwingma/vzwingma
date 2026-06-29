@@ -8,39 +8,41 @@ Système orchestré de 5 agents spécialisés pour structurer développement via
 
 **Quand** : Point d'entrée pour tout travail complexe
 
-Rôle : Comprendre besoin, orchestrer workflow strict, imposer validations humaines entre phases.
+Rôle : Comprendre besoin, créer le Plan d'Action, orchestrer workflow strict, imposer validations humaines entre phases.
 
 **Workflow strict** :
 1. Intake → Clarifier besoin
-2. ARCos → Plan & conception
-3. Gate #1 → Validation plan
-4. DEVon → Implémentation
-5. Gate #2 → Validation code
-6. QALvin → Tests
-7. Gate #3 → Validation tests
-8. DOCly → Documentation
-9. Gate #4 → Clôture
+2. ARCos → Analyse solutions (≥2 options + reco)
+3. Gate #0 → Choix solution par développeur
+4. MAINa → Crée le Plan d'Action
+5. Gate #1 → Validation plan
+6. DEVon → Implémentation
+7. Gate #2 → Validation code
+8. QALvin → Tests
+9. Gate #3 → Validation tests
+10. DOCly → Documentation
+11. Gate #4 → Clôture
 
 ---
 
-### 🟠 [ARCos](./Arcos.agent.md) — Architecte
+### 🟠 [ARCos](./Arcos.agent.md) — Architecte (consulté par MAINa)
 
-**Quand** : "Conçois une architecture pour", "Crée un plan pour"
+**Quand** : "Conçois une architecture pour", "Analyse les options pour"
 
-Rôle : Planification, conception, décisions architecturales.
+Rôle : Analyse de solutions, conception, décisions architecturales. **MAINa** crée le Plan d'Action.
 
 **Responsabilités** :
 - Poser clarifications nécessaires
 - Présenter ≥2 solutions alternatives + comparaison
-- Obtenir décision développeur
-- Concevoir solution retenue
-- Créer Plan d'Action avec découpage travail
-- Orchestrer délégation ARCos → DEVon/QALvin/DOCly
+- Fournir une recommandation motivée à MAINa
+- Concevoir solution retenue + préparer contenu ADR
+- Fournir le découpage candidat comme entrée au Plan d'Action de MAINa
 
 **Points clés** :
 - ✅ Pas coder — Réfléchir stratégiquement
 - ✅ Proposer options, laisser choix au développeur
-- ✅ Specs claires pour agents en aval
+- ✅ Specs claires pour MAINa et agents en aval
+- ❌ Pas créer le Plan d'Action (rôle MAINa)
 - ❌ Pas présupposer détails implémentation
 
 ---
@@ -123,15 +125,15 @@ Rôle : Documentation après code + tests validés.
     ↓
 ⚫ MAINa intake + clarification
     ↓
-🟠 ARCos présente options → ✅ décision développeur
+🟠 ARCos présente options → ✅ décision développeur (Gate #0)
     ↓
-🟠 ARCos crée Plan d'Action → ✅ validation développeur
+⚫ MAINa crée Plan d'Action → ✅ validation développeur (Gate #1)
     ↓
-🔵 DEVon implémente → ✅ validation développeur
+🔵 DEVon implémente → ✅ validation développeur (Gate #2)
     ↓
-🟢 QALvin écrit tests → ✅ validation développeur
+🟢 QALvin écrit tests → ✅ validation développeur (Gate #3)
     ↓
-🟣 DOCly synchronise docs → ✅ validation développeur
+🟣 DOCly synchronise docs → ✅ validation développeur (Gate #4)
     ↓
 ✅ Clôture initiative
 ```
@@ -157,10 +159,10 @@ En cas doute → demander confirmation développeur.
 
 ```bash
 # Pour projet simple ou décision rapide
-Invoke-AIAgent ARCos "Conçois architecture pour..."
+@ARCos "Conçois architecture pour..."
 
 # Pour initiative complète
-Invoke-AIAgent MAINa "Voici besoin : ..."
+@MAINa "Voici besoin : ..."
 ```
 
 Chaque agent lit automatiquement ses instructions projet au démarrage si présentes.

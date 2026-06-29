@@ -12,6 +12,9 @@
       opencode → github : .opencode/ replaced by .github/
 #>
 
+# Supported directions
+$script:ValidDirections = @('github-to-opencode','opencode-to-github','github-to-claude','claude-to-github')
+
 $script:Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 # ── Internal helpers ──────────────────────────────────────────────────────────
@@ -41,23 +44,44 @@ function Apply-PathSubstitution {
         Also substitutes platform-specific terms:
           github → opencode : .copilotignore → .gitignore  |  Copilot → OpenCode
           opencode → github : .gitignore → .copilotignore  |  OpenCode → Copilot
+          github → claude   : GitHub Copilot → Claude Code  |  Copilot → Claude  |  copilot-instructions.md → CLAUDE.md
+          claude → github   : Claude Code → GitHub Copilot  |  Claude → Copilot  |  CLAUDE.md → copilot-instructions.md
     .PARAMETER Direction
         'github-to-opencode' or 'opencode-to-github'
     #>
     param(
         [Parameter(Mandatory)][string]$Content,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction
     )
-    if ($Direction -eq 'github-to-opencode') {
-        $r = $Content.Replace('.github/', '.opencode/')
-        $r = $r.Replace('.copilotignore', '.gitignore')
-        $r = $r.Replace('Copilot', 'OpenCode')
-        return $r
-    } else {
-        $r = $Content.Replace('.opencode/', '.github/')
-        $r = $r.Replace('.gitignore', '.copilotignore')
-        $r = $r.Replace('OpenCode', 'Copilot')
-        return $r
+    switch ($Direction) {
+        'github-to-opencode' {
+            $r = $Content.Replace('.github/', '.opencode/')
+            $r = $r.Replace('.copilotignore', '.gitignore')
+            $r = $r.Replace('Copilot', 'OpenCode')
+            return $r
+        }
+        'opencode-to-github' {
+            $r = $Content.Replace('.opencode/', '.github/')
+            $r = $r.Replace('.gitignore', '.copilotignore')
+            $r = $r.Replace('OpenCode', 'Copilot')
+            return $r
+        }
+        'github-to-claude' {
+            $r = $Content.Replace('.github/', '.claude/')
+            $r = $r.Replace('GitHub Copilot', 'Claude Code')
+            $r = $r.Replace('Copilot', 'Claude')
+            $r = $r.Replace('copilot-instructions.template.md', 'CLAUDE.template.md')
+            $r = $r.Replace('copilot-instructions.md', 'CLAUDE.md')
+            return $r
+        }
+        'claude-to-github' {
+            $r = $Content.Replace('.claude/', '.github/')
+            $r = $r.Replace('Claude Code', 'GitHub Copilot')
+            $r = $r.Replace('Claude', 'Copilot')
+            $r = $r.Replace('CLAUDE.template.md', 'copilot-instructions.template.md')
+            $r = $r.Replace('CLAUDE.md', 'copilot-instructions.md')
+            return $r
+        }
     }
 }
 
@@ -190,21 +214,34 @@ function Sync-StructuredFile {
     param(
         [Parameter(Mandatory)][string]$SourceFile,
         [Parameter(Mandatory)][string]$TargetFile,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
     if (-not (Test-Path $SourceFile)) {
-        Write-Host "  [WARN] Source not found: $(Split-Path $SourceFile -Leaf)" -ForegroundColor Yellow
-        return 'warn'
-    }
-    if (-not (Test-Path $TargetFile)) {
         Write-Host "  [WARN] Target not found: $(Split-Path $TargetFile -Leaf)" -ForegroundColor Yellow
         return 'warn'
     }
 
     $label = Split-Path $TargetFile -Leaf
     $changed = $false
+
+    # Bootstrap a brand-new target from source (full content + path substitution).
+    # Prevents Set-YamlDescription/Set-FileBody from reading a non-existent target,
+    # which aborts the run under $ErrorActionPreference = 'Stop' whenever a new
+    # agent/skill/instruction is added on the source side (e.g. a new skill folder).
+    if (-not (Test-Path $TargetFile)) {
+        $bootContent = Apply-PathSubstitution -Content (Get-Content $SourceFile -Raw -Encoding UTF8) -Direction $Direction
+        if ($WhatIf) {
+            Write-Host "  [WHATIF] Would CREATE $label" -ForegroundColor Cyan
+            return 'synced'
+        }
+        $dir = Split-Path $TargetFile -Parent
+        if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+        Write-File $TargetFile $bootContent
+        Write-Host "  [CREATE]  $label" -ForegroundColor Cyan
+        return 'synced'
+    }
 
     # 1. Sync description (with path substitution)
     $srcDesc = Get-YamlDescription -FilePath $SourceFile
@@ -246,7 +283,7 @@ function Sync-StandaloneFile {
     param(
         [Parameter(Mandatory)][string]$SourceFile,
         [Parameter(Mandatory)][string]$TargetFile,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
@@ -302,7 +339,7 @@ function Sync-AgentFiles {
         [Parameter(Mandatory)][string[]]$SourceFiles,
         [Parameter(Mandatory)][string]$SourceBase,
         [Parameter(Mandatory)][string]$TargetBase,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 
@@ -330,7 +367,7 @@ function Sync-StandaloneFiles {
         [Parameter(Mandatory)][string[]]$FileNames,
         [Parameter(Mandatory)][string]$SourceBase,
         [Parameter(Mandatory)][string]$TargetBase,
-        [Parameter(Mandatory)][ValidateSet('github-to-opencode','opencode-to-github')][string]$Direction,
+        [Parameter(Mandatory)][ValidateScript({ if ($_ -in $script:ValidDirections) { $true } else { throw "Direction must be one of: $($script:ValidDirections -join ', ')" } })][string]$Direction,
         [switch]$WhatIf
     )
 

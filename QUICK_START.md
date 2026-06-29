@@ -48,7 +48,7 @@ Modèles prêts à l'emploi pour différents rôles :
 - **⚫ MAINa** — Orchestration maître du workflow
 - **🔵 DEVon** — Implémente le code
 - **🟢 QALvin** — Écrit les tests
-- **🟠 ARCos** — Planifie et crée les Plans d'Action
+- **🟠 ARCos** — Analyse les options et conçoit l'architecture (consulté par MAINa)
 - **🟣 DOCly** — Maintient la documentation
 
 ### 📋 Templates
@@ -60,7 +60,6 @@ Modèles prêts à l'emploi pour différents rôles :
 ### 📖 Documentation
 - **`.github/README.md`** — Guide complet du dépôt
 - **`SETUP_CHECKLIST.md`** — Checklist pour initialiser un projet
-- **`.github/examples/`** — Exemples concrets (Domoticz, etc.)
 
 ---
 
@@ -71,21 +70,19 @@ Une fois Copilot configuré, voici comment collaborer :
 ```
 1️⃣ Vous décrivez le besoin
    ↓
-2️⃣ ⚫ MAINa orchestre et déclenche ARCos
+2️⃣ ⚫ MAINa consulte 🟠 ARCos → ≥2 options + recommandation
    ↓
-3️⃣ ✅ Validation humaine du plan
+3️⃣ ✅ Choix de la solution (Gate #0)
    ↓
-4️⃣ 🔵 DEVon implémente les tâches
+4️⃣ ⚫ MAINa crée le Plan d'Action → ✅ validation (Gate #1)
    ↓
-5️⃣ ✅ Validation humaine du code
+5️⃣ 🔵 DEVon implémente → ✅ validation (Gate #2)
    ↓
-6️⃣ 🟢 QALvin écrit les tests
+6️⃣ 🟢 QALvin écrit les tests → ✅ validation (Gate #3)
    ↓
-7️⃣ ✅ Validation humaine des tests
+7️⃣ 🟣 DOCly met à jour la doc → ✅ validation (Gate #4)
    ↓
-8️⃣ 🟣 DOCly met à jour la documentation
-   ↓
-9️⃣ ✅ Validation humaine finale
+8️⃣ ✅ Clôture de l'initiative
 ```
 
 > 💡 **Parallélisation** : Utiliser `/fleet` quand QALvin et DOCly peuvent travailler en parallèle après DEVon, ou quand plusieurs tâches DEVon sont indépendantes.
@@ -104,7 +101,7 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (5 fichiers)
-- `.github/skills/` (3 skills — un dossier par skill avec `SKILL.md`)
+- `.github/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
 - `.github/instructions/` (4 fichiers — à personnaliser)
 - `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
 - `.github/PLANS.md`
@@ -133,8 +130,7 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 
 1. **Lire** [`.github/README.md`](.github/README.md) — Guide complet
 2. **Consulter** [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
-3. **Regarder** [`.github/examples/`](.github/examples/) — Exemples concrets
-4. **Suivre** [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md) — Étape par étape
+3. **Suivre** [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md) — Étape par étape
 
 ---
 
@@ -143,11 +139,11 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 5 fichiers ✅
-- [ ] `.github/skills/` a 3 skills (dossiers avec `SKILL.md`) ✅
+- [ ] `.github/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
 - [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `MAINa` (⚫) ou `@MAINa /help` fonctionne ✅
+- [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
 - [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
 - [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
 

@@ -20,7 +20,7 @@ applyTo: "**"
 
 ### Dans la racine du projet
 - `README.md` – description générale, prérequis, démarrage rapide
-- `.github/copilot-instructions.md` – contexte futures sessions Copilot
+- `.claude/CLAUDE.md` – contexte futures sessions Claude
 
 ### Dans `docs/` (documentation versionnée)
 - `docs/ARCHITECTURE.md` (**obligatoire**) – architecture projet (stack, structure, couches, flux données)
@@ -29,12 +29,12 @@ applyTo: "**"
 - `[FICHIER_DEPLOIEMENT].md` – procédures déploiement [PLATEFORME_DEPLOIEMENT]
 - `schemas/*.puml` – diagrammes PlantUML C2/C3 (versions frameworks à maintenir)
 
-### Dans `.github/skills/` (procédures partagées)
+### Dans `.claude/skills/` (procédures partagées)
 - `plan-phase-execution/SKILL.md` – procédure d'exécution de phase AP
 - `plan-creation/SKILL.md` – procédure de création de plan
 - `fleet-guide/SKILL.md` – guide /fleet
 
-> Update fichiers si procédures AP ou /fleet changent (cohérence avec `.github/PLANS.md`).
+> Update fichiers si procédures AP ou /fleet changent (cohérence avec `.claude/PLANS.md`).
 
 ## Conventions de documentation
 
@@ -44,7 +44,7 @@ applyTo: "**"
 - **Versions à maintenir à jour** dans `.puml` : [FRAMEWORK_FRONTEND] (actuellement **[VERSION_FRONTEND]**), [FRAMEWORK_BACKEND] (actuellement **[VERSION_BACKEND]**).
 - **Ne jamais** mentionner ancien nom repo `[ANCIEN_NOM_REPO]` – désormais `[NOM_REPO_ACTUEL]`.
 - Nouvelle version livrée, ajouter entrée dans `[FICHIER_HISTORIQUE].md` **en tête** fichier.
-- Index `.github/plans/README.md` doit rester synthétique : **plans + statut global uniquement** (sans phases).
+- Index `.claude/plans/README.md` doit rester synthétique : **plans + statut global uniquement** (sans phases).
 
 ## Ce que tu ne fais PAS
 

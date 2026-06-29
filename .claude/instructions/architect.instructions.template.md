@@ -18,7 +18,7 @@ applyTo: "**"
 ## Conventions architecturales
 
 - **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).
-- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer nouveau Context sans validation.
+- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer de nouveau conteneur d'état global (ex: React Context, store) sans validation.
 - **HTTP** : toujours via `[SERVICE_HTTP]`. Pas utiliser `fetch` direct dans composant.
 - **Routing** : `[STRATEGIE_ROUTING]`. Nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
 - **Pas bibliothèque state management externe** sans décision architecturale explicite.
@@ -41,7 +41,7 @@ Quand tâche prête à être réalisée, insère todos dans table SQL avec ce fo
 INSERT INTO todos (id, title, description, status) VALUES
   ('feat-xxx-dev', 'Titre dev',  'Description précise : fichiers à créer/modifier, interfaces à respecter', 'pending'),
   ('feat-xxx-qa',  'Titre QA',   'Tests à écrire : cas nominaux, cas d''erreur, composants à tester',       'pending'),
-  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, copilot-instructions.md', 'pending');
+  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, CLAUDE.md', 'pending');
 
 INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('feat-xxx-qa',  'feat-xxx-dev'),
@@ -67,6 +67,6 @@ Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
 
 ## Règle d'index des plans (obligatoire)
 
-- Fichier `.github/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
+- Fichier `.claude/plans/README.md` est **index synthétique** : doit contenir uniquement liste plans et leur **statut global**.
 - Pas afficher statuts phases.
-- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.github/plans/README.md`.
+- Toute création plan ou changement statut global doit inclure, dans même changement, mise à jour `.claude/plans/README.md`.

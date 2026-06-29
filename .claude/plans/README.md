@@ -1,6 +1,6 @@
 # 📋 Plans d'Action (Action Plans)
 
-Bienvenue dans le répertoire des Plans d'Action (AP) du projet . 
+Bienvenue dans le répertoire des Plans d'Action (AP) de ce dépôt transverse. 
 
 Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (MAINa (⚫), ARCos (🟠 ARC), DEVon (🔵 DEV), QALvin (🟢 QUAL), DOCly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
 
@@ -19,38 +19,41 @@ _(Aucun plan en cours pour l'instant)_
 
 ## 📋 Plans Archivés / Complétés
 
+> Fichiers archivés sous `.github/plans/` (source de vérité) ; le plan 004 (analyse Claude-scope) réside localement sous `.claude/plans/`.
+
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
-| 003 | [Agent maitre MAINa](003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
-| 002 | [Rationalisation agents Copilot](002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
-| 001 | [Optimisation tokens Copilot CLI](001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
+| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ✅ Complété | 2026-06-30 |
+| 003 | [Agent maitre MAINa](../../.github/plans/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
+| 002 | [Rationalisation agents Copilot](../../.github/plans/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
+| 001 | [Optimisation tokens Copilot CLI](../../.github/plans/001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
 
 ---
 
 ## 🚀 Comment Créer un Nouveau Plan
 
-1. **Créer le fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
+1. **Créer le fichier plan** : `.claude/plans/<NO>_<nom>.plan.md`
    - Utiliser le numéro séquentiel suivant (ex: 004 après 003)
-   - Suivre le format défini dans [`.github/PLANS.md`](../PLANS.md)
+   - Suivre le format défini dans [`.claude/PLANS.md`](../PLANS.md)
 
-2. **Créer le dossier reporting** : `.github/plans/<NO>_reports/`
+2. **Créer le dossier reporting** : `.claude/plans/<NO>_reports/`
    - Contiendra les rapports de phase complétées
 
 3. **Soumettre pour validation** au 👤 Développeur humain ou lead du projet
 
-**Guide complet :** 📖 [`.github/PLANS.md`](../PLANS.md)
+**Guide complet :** 📖 [`.claude/PLANS.md`](../PLANS.md)
 
 ---
 
 ## 📚 Documentation Associée
 
-- **Guide complet des Plans d'Action** : [`.github/PLANS.md`](../PLANS.md)
-- **Instructions agent MAINa (⚫)** : [`.github/agents/Maina.agent.md`](../agents/Maina.agent.md)
-- **Instructions agent DEVon (🔵 DEV)** : [`.github/agents/Devon.agent.md`](../agents/Devon.agent.md)
-- **Instructions agent QALvin (🟢 QUAL)** : [`.github/agents/Qalvin.agent.md`](../agents/Qalvin.agent.md)
-- **Instructions agent DOCly (🟣 DOC)** : [`.github/agents/Docly.agent.md`](../agents/Docly.agent.md)
-- **Instructions agent ARCos (🟠 ARC)** : [`.github/agents/Arcos.agent.md`](../agents/Arcos.agent.md)
-- **Instructions Copilot globales** : [`.github/copilot-instructions.md`](../copilot-instructions.md)
+- **Guide complet des Plans d'Action** : [`.claude/PLANS.md`](../PLANS.md)
+- **Instructions agent MAINa (⚫)** : [`.claude/agents/Maina.agent.md`](../agents/Maina.agent.md)
+- **Instructions agent DEVon (🔵 DEV)** : [`.claude/agents/Devon.agent.md`](../agents/Devon.agent.md)
+- **Instructions agent QALvin (🟢 QUAL)** : [`.claude/agents/Qalvin.agent.md`](../agents/Qalvin.agent.md)
+- **Instructions agent DOCly (🟣 DOC)** : [`.claude/agents/Docly.agent.md`](../agents/Docly.agent.md)
+- **Instructions agent ARCos (🟠 ARC)** : [`.claude/agents/Arcos.agent.md`](../agents/Arcos.agent.md)
+- **Instructions globales** : [`.claude/CLAUDE.md`](../CLAUDE.md)
 
 ---
 
@@ -84,6 +87,5 @@ Pour contribuer ou modifier un plan existant :
 
 ---
 
-**Dernière mise à jour :** 2026-06-25  
-**Gestionnaire des Plans :** MAINa (⚫), ARCos (🟠 ARC) & 👤 Développeur humain
+**Gestionnaire des Plans :** MAINa (⚫) & 👤 Développeur humain
 

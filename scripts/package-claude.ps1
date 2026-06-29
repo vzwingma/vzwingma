@@ -7,7 +7,8 @@
     then compresses it into a ZIP file under /dist/.
 
     Included in the package:
-      - .claude/                               (everything)
+      - .claude/README.md
+      - .claude/                               (agents, instructions, prompts, skills — voir ci-dessous)
       - .claude/agents/
       - .claude/instructions/
       - .claude/prompts/
@@ -15,7 +16,7 @@
       - .claude/CHANGELOG.md
       - .claude/PLANS.md
       - .claude/CLAUDE.md
-      - docs/   (excluding ARCHITECTURE.md)
+      - docs/   (excluding ARCHITECTURE.md, adr/)
       - QUICK_START.md
       - SETUP_CHECKLIST.md
 
@@ -24,6 +25,7 @@
       - README.md (root), *.code-workspace
       - .claude/plans/  (internal action plans)
       - docs/ARCHITECTURE.md  (transverse repo architecture doc)
+      - docs/adr/  (ADR decisions)
       - dist/  (output directory itself)
 
 .PARAMETER OutputDir
@@ -98,6 +100,12 @@ try {
     Write-Host "  + .claude/CLAUDE.md"
     Stage-File (Join-Path $repoRoot '.claude\CLAUDE.md') '.claude'
 
+    Write-Host "  + .claude/README.md"
+    $claudeReadme = Join-Path $repoRoot '.claude\README.md'
+    if (Test-Path $claudeReadme) {
+        Stage-File $claudeReadme '.claude'
+    }
+
     # ── docs/ (excluding ARCHITECTURE.md) ────────────────────────────────────
     Write-Host "  + docs/ (excl. ARCHITECTURE.md)"
     $docsStaging = Join-Path $stagingDir 'docs'
@@ -105,12 +113,6 @@ try {
     Get-ChildItem (Join-Path $repoRoot 'docs') -File |
         Where-Object { $_.Name -ne 'ARCHITECTURE.md' } |
         ForEach-Object { Copy-Item $_.FullName $docsStaging -Force }
-    # docs/adr/ subtree
-    $adrSrc = Join-Path $repoRoot 'docs\adr'
-    if (Test-Path $adrSrc) {
-        Stage-Dir $adrSrc 'docs\adr'
-    }
-
     # ── Root files ────────────────────────────────────────────────────────────
     Write-Host "  + QUICK_START.md"
     Stage-File (Join-Path $repoRoot 'QUICK_START.md')

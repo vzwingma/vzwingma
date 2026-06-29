@@ -43,6 +43,8 @@ Rapport couverture généré dans `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_Q
 
 ### Composants [FRAMEWORK_PRINCIPAL]
 
+> 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` / `[FRAMEWORK_PRINCIPAL]`.
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -84,5 +86,5 @@ global.fetch = jest.fn(() => Promise.resolve({ status: 200, json: () => Promise.
 
 ## Règle d'index des plans (obligatoire)
 
-- `.github/plans/README.md` est index **plans + statut global** uniquement (pas phases).
-- Si phase QA livrée change statut global plan, synchronise `.github/plans/README.md` dans même changement.
+- `.claude/plans/README.md` est index **plans + statut global** uniquement (pas phases).
+- Si phase QA livrée change statut global plan, synchronise `.claude/plans/README.md` dans même changement.

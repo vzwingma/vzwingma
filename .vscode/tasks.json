@@ -17,6 +17,21 @@
       }
     },
     {
+      "label": "Package (OpenCode)",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/package-opencode.ps1"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },    
+    {
       "label": "Package (Claude)",
       "type": "shell",
       "command": "powershell",
@@ -60,6 +75,21 @@
         "reveal": "always",
         "panel": "new"
       }
-    }
+    },
+    {
+      "label": "Sync: GitHub → Claude",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/sync-github-to-claude.ps1"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },    
   ]
 }

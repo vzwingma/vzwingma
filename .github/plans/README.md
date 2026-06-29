@@ -1,6 +1,6 @@
 # 📋 Plans d'Action (Action Plans)
 
-Bienvenue dans le répertoire des Plans d'Action (AP) du projet . 
+Bienvenue dans le répertoire des Plans d'Action (AP) de ce dépôt transverse 
 
 Chaque plan orchestre une initiative multi-phases coordonnée entre plusieurs agents (MAINa (⚫), ARCos (🟠 ARC), DEVon (🔵 DEV), QALvin (🟢 QUAL), DOCly (🟣 DOC)) et produit des rapports de suivi documentant l'exécution.
 
@@ -84,6 +84,5 @@ Pour contribuer ou modifier un plan existant :
 
 ---
 
-**Dernière mise à jour :** 2026-06-25  
-**Gestionnaire des Plans :** MAINa (⚫), ARCos (🟠 ARC) & 👤 Développeur humain
+**Gestionnaire des Plans :** MAINa (⚫) & 👤 Développeur humain
 

@@ -12,12 +12,12 @@ Mode caveman **full** actif par défaut. Règles :
 
 ---
 
-## Règle obligatoire ARCos — Plan + ADR
+## Règle obligatoire MAINa — Plan + ADR
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
-1. Fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md`
+1. Fichier `Plan d'Action` dans `.claude/plans/NNN_nom.plan.md`
 2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure
-3. Mise à jour `.github/plans/README.md`
+3. Mise à jour `.claude/plans/README.md`
 
 Créés dans même lot que implémentation, pas après coup.
 
@@ -27,40 +27,44 @@ Créés dans même lot que implémentation, pas après coup.
 
 5 agents spécialisés, orchestrés par développeur humain.
 
-### **⚫ MAINa** [v1.1]
+### **⚫ MAINa** [v1.3]
 
-**Rôle** : Maître orchestrateur, point d'entrée principal
+**Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 
 **Responsabilités** :
 - Comprendre demande, cadrer flux travail
-- Orchestrer délégations strict : ARCos → DEVon → QALvin → DOCly
+- Consulter ARCos (et autres agents) pour analyse solutions avant créer le plan
+- Créer Plan d'Action complet (skill plan-creation)
+- Orchestrer délégations : DEVon → QALvin → DOCly
 - Imposer validations humaines entre phases
 - Fournir aide via `/maina-help`
 
 **Quand l'utiliser** : Workflow complet, orchestration multi-agents
 
-**Livrable** : Orchestration complète, séquencée, traçable
+**Livrable** : Plan d'Action validé + orchestration complète, séquencée, traçable
 
 ---
 
-### **🟠 ARCos** [v4.3]
+### **🟠 ARCos** [v4.6]
 
-**Rôle** : Planificateur, architecte technique
+**Rôle** : Expert architecture consulté par MAINa
 
 **Responsabilités** :
-- Concevoir solutions architecturales complètes
-- Créer Plans d'Action multi-phases
-- Décomposer initiatives en tâches logiques
-- Lire `.github/instructions/architect.instructions.md` au démarrage
+- Analyser problèmes complexes et concevoir solutions architecturales
+- Présenter ≥2 options comparées avec recommandation motivée
+- Prendre décisions stratégiques concernant techno, structure et approche
+- Préparer contenu ADR après décisions architecturales majeures
+- Lire `.claude/instructions/architect.instructions.md` au démarrage
 - Lire `docs/ARCHITECTURE.md` au démarrage
+- Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
 
-**Quand l'utiliser** : "Conçois architecture pour...", "Crée plan pour...", "Découpe ça"
+**Quand l'utiliser** : "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
 
-**Livrable** : Plans d'Action détaillés phases/tâches/dépendances
+**Livrable** : Analyse comparative solutions + recommandation motivée
 
 ---
 
-### **🔵 DEVon** [v4.2]
+### **🔵 DEVon** [v4.3]
 
 **Rôle** : Implémentateur code production
 
@@ -68,7 +72,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Traduire exigences en code fonctionnel testé
 - Respecter patterns architecturaux + conventions projet
 - Code propre, maintenable, compilant
-- Lire `.github/instructions/dev.instructions.md` au démarrage
+- Lire `.claude/instructions/dev.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Implémente cette fonctionnalité", "Code selon architecture"
 
@@ -76,7 +80,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟢 QALvin** [v4.2]
+### **🟢 QALvin** [v4.4]
 
 **Rôle** : Expert assurance qualité et tests
 
@@ -84,7 +88,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Écrire tests unitaires complets (composants, services)
 - Couverture test ≥80%
 - Tester cas limites, scénarios erreur
-- Lire `.github/instructions/qa.instructions.md` au démarrage
+- Lire `.claude/instructions/qa.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Écris tests pour...", "Génère tests unitaires"
 
@@ -92,7 +96,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟣 DOCly** [v4.2]
+### **🟣 DOCly** [v4.3]
 
 **Rôle** : Gardien documentation
 
@@ -100,7 +104,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Mettre à jour README, `docs/`, guides
 - Maintenir `docs/ARCHITECTURE.md` à jour
 - Créer ADRs dans `docs/adr/` sur délégation ARCos
-- Lire `.github/instructions/doc.instructions.md` au démarrage
+- Lire `.claude/instructions/doc.instructions.md` au démarrage
 
 **Quand l'utiliser** : "Mets à jour doc", "Garde docs en sync"
 
@@ -111,15 +115,17 @@ Créés dans même lot que implémentation, pas après coup.
 ## 🔄 Workflow strict
 
 1. **Cadrage** (développeur) → Besoin + critères
-2. **Orchestration** (MAINa) → Déclencher mode PLAN
-3. **Planification** (ARCos) → Plan d'Action phases/tâches
-4. **Gate #1** → Validation plan avant implémentation
-5. **Implémentation** (DEVon) → Code tâches assignées
-6. **Gate #2** → Validation code avant tests
-7. **Tests** (QALvin) → Écrire tests nominaux + erreurs + limites
-8. **Gate #3** → Validation tests avant doc
-9. **Documentation** (DOCly) → Mettre à jour docs
-10. **Gate #4** → Validation doc + clôture initiative
+2. **Orchestration** (MAINa) → Déclencher mode PLAN, consulter ARCos
+3. **Analyse solutions** (ARCos) → ≥2 options + recommandation
+4. **Gate #0** → Choix solution par développeur
+5. **Plan d'Action** (MAINa) → Créer plan complet (skill plan-creation)
+6. **Gate #1** → Validation plan avant implémentation
+7. **Implémentation** (DEVon) → Code tâches assignées
+8. **Gate #2** → Validation code avant tests
+9. **Tests** (QALvin) → Écrire tests nominaux + erreurs + limites
+10. **Gate #3** → Validation tests avant doc
+11. **Documentation** (DOCly) → Mettre à jour docs
+12. **Gate #4** → Validation doc + clôture initiative
 
 Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en parallèle si tâches indépendantes.
 
@@ -129,16 +135,16 @@ Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en 
 
 Initiatives majeures orchestrées via Plan d'Action :
 
-- **Fichier plan** : `.github/plans/<NO>_<nom>.plan.md`
-- **Rapports phase** : `.github/plans/<NO>_reports/PHASE_N_...md`
-- **Index** : `.github/plans/README.md`
-- **Guide complet** : `.github/PLANS.md`
+- **Fichier plan** : `.claude/plans/<NO>_<nom>.plan.md`
+- **Rapports phase** : `.claude/plans/<NO>_reports/PHASE_N_...md`
+- **Index** : `.claude/plans/README.md`
+- **Guide complet** : `.claude/PLANS.md`
 
 Plans coordonnent travail multi-phases, garantissent traçabilité.
 
 ---
 
-## 📐 Instructions Projet (`.github/instructions/`)
+## 📐 Instructions Projet (`.claude/instructions/`)
 
 Chaque agent lit au démarrage son fichier instructions spécifique :
 
@@ -160,13 +166,14 @@ Procédures réutilisables, incluses auto dans contexte tous agents :
 | Skill | Contenu |
 |---|---|
 | `plan-phase-execution` | Procédure exécution phase (avant/pendant/après, rapports) |
-| `plan-creation` | Création Plan d'Action (ARCos + orchestration) |
+| `plan-creation` | Création Plan d'Action (MAINa — orchestrateur) |
 | `fleet-guide` | Guide parallélisation `/fleet` |
 | `adr-writing` | Rédaction ADR (ARCos prépare, DOCly rédige) |
 | `caveman-default` | Mode caveman règles par défaut |
 | `compact-context` | Compression contexte mémoire |
 | `maina-help` | Aide MAINa + workflow |
 | `copilotignore` | Respect fichier `.copilotignore` |
+| `safety-rules` | Sécurité : opérations destructives interdites |
 
 ---
 
@@ -245,13 +252,9 @@ En cas doute → demander confirmation développeur.
 
 ## 📖 Références
 
-- [ARCos](./agents/Arcos.agent.md) — Planification + architecture
+- [ARCos](./agents/Arcos.agent.md) — Architecture (analyse solutions)
 - [DEVon](./agents/Devon.agent.md) — Implémentation
 - [QALvin](./agents/Qalvin.agent.md) — Tests
 - [DOCly](./agents/Docly.agent.md) — Documentation
-- [MAINa](./agents/Maina.agent.md) — Orchestration
+- [MAINa](./agents/Maina.agent.md) — Orchestration + Plan d'Action
 - [Plans d'Action](./PLANS.md) — Guide complet
-
----
-
-**Dernière mise à jour** : 2026-06-25

@@ -84,24 +84,6 @@ if ($instrFiles) {
     Write-Host "  [OK] No non-template instruction files to sync" -ForegroundColor Green
 }
 
-# ── MAINa Instructions Templates (Copy for reference) ──────────────────────
-Write-Host "`n==> MAINa Instructions Templates (.opencode/instructions/templates/*.md -> .github/instructions/)" -ForegroundColor Cyan
-$templateDir = Join-Path (Join-Path $opencodeBase 'instructions') 'templates'
-if (Test-Path $templateDir) {
-    $templateFiles = Get-ChildItem $templateDir -Filter '*.md' -File
-    foreach ($file in $templateFiles) {
-        $relativePath = $file.Name
-        $targetPath = Join-Path (Join-Path $githubBase 'instructions') $relativePath
-        
-        if ($WhatIf) {
-            Write-Host "  [COPY] $($file.FullName) -> $targetPath" -ForegroundColor Cyan
-        } else {
-            Copy-Item -Path $file.FullName -Destination $targetPath -Force
-            Write-Host "  [COPY] $relativePath OK" -ForegroundColor Green
-        }
-    }
-}
-
 # ── Standalone .md files ──────────────────────────────────────────────────────
 Write-Host "`n==> Standalone files (.opencode/ -> .github/)" -ForegroundColor Magenta
 Add-Counts (Sync-StandaloneFiles `

@@ -1,6 +1,4 @@
-Compressing markdown to caveman format. Preserving code blocks, backticks, URLs, headings, file paths.
-
-# Instructions Copilot — Dépôt Transverse 
+# Instructions Copilot — Dépôt Transverse
 
 > Fichier décrit **dépôt transverse de templates Copilot multi-agents**.
 > Infrastructure réutilisable pour orchestrer développement dans n'importe quel projet.
@@ -14,7 +12,7 @@ Mode caveman **full** actif par défaut pour toute session. Règles :
 
 ---
 
-### Regle obligatoire ARCos — plan + ADR
+### Regle obligatoire MAINa — plan + ADR
 
 Toute initiative architecturale ou infrastructure (nouvelle fonctionnalite, migration, changement de composant) doit produire **avant** de marquer la tache terminee :
 1. Un fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md` (incrementer le numero)
@@ -33,29 +31,32 @@ Dépôt utilise **architecture multi-agents** orchestrée pour coordonner évolu
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain**:
 
-#### **⚫ MAINa** [v1.1]
-- **Rôle:** Maître orchestrateur et point d'entrée principal
+#### **⚫ MAINa** [v1.3]
+- **Rôle:** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités:**
   - Comprendre la demande et cadrer le flux de travail
-  - Orchestrer délégations dans l'ordre strict ARCos → DEVon → QALvin → DOCly
+  - Consulter ARCos (et autres agents) pour analyse solutions avant créer le plan
+  - Créer le Plan d'Action complet en mode PLAN (skill plan-creation)
+  - Orchestrer délégations dans l'ordre strict DEVon → QALvin → DOCly
   - Imposer validations humaines entre phases
   - Fournir aide via `/maina-help` et `@MAINa /maina-help`
 - **Quand l'utiliser:** "`/maina-help`", "`@MAINa /maina-help`", "organise ce workflow", "pilote cette initiative"
-- **Livrable:** Orchestration complète, séquencée et traçable
+- **Livrable:** Plan d'Action validé + orchestration complète, séquencée et traçable
 
-#### **🟠 ARCos** [v4.3]
-- **Rôle:** Planificateur et architecte technique
+#### **🟠 ARCos** [v4.6]
+- **Rôle:** Expert architecture consulté par MAINa
 - **Responsabilités:**
-  - Concevoir solutions architecturales complètes
-  - Créer et valider Plans d'Action multi-phases
-  - Décomposer initiatives en tâches logiques
-  - Définir lots de travail à déléguer via MAINa
+  - Analyser problèmes complexes et concevoir solutions architecturales
+  - Présenter ≥2 options comparées avec recommandation motivée à MAINa
+  - Prendre décisions stratégiques concernant techno, structure et approche
+  - Préparer contenu ADR après décisions architecturales majeures
   - Lire `.github/instructions/architect.instructions.md` au démarrage pour spécificités du projet
   - Lire `docs/ARCHITECTURE.md` au démarrage pour contexte architectural du projet
-- **Quand l'utiliser:** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
-- **Livrable:** Plans d'Action détaillés avec phases, tâches et dépendances
+  - Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
+- **Quand l'utiliser:** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
+- **Livrable:** Analyse comparative solutions + recommandation motivée
 
-#### **🔵 DEVon** [v4.2]
+#### **🔵 DEVon** [v4.3]
 - **Rôle:** Implémentateur de code de production
 - **Responsabilités:**
   - Traduire exigences en code fonctionnel et testé
@@ -66,7 +67,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.2]
+#### **🟢 QALvin** [v4.4]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -77,7 +78,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable:** Tests passants avec rapports de couverture
 
-#### **🟣 DOCly** [v4.2]
+#### **🟣 DOCly** [v4.3]
 - **Rôle:** Gardien de documentation
 - **Responsabilités:**
   - Mettre à jour README, `docs/` et guides
@@ -95,19 +96,19 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 ### 🔄 Workflow Typique
 
 1. **Cadrage (👤 Développeur humain)** → Définir besoin et critères d'acceptation
-2. **Orchestration (⚫ MAINa)** → Déclencher mode PLAN et déléguer ARCos
-3. **Planification (🟠 ARC - Arcos)** → Créer Plan d'Action avec phases et tâches
-4. **Validation Humaine** → Approuver plan avant lancer
-5. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
-6. **Validation Humaine** → Approuver code avant tests
-7. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
-8. **Validation Humaine** → Approuver tests avant doc
-9. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
-10. **Validation Humaine** → Approuver documentation
-11. **Validation Humaine** → Approuver plan d'amélioration
-12. **Phase Suivante** → Relancer cycle via MAINa
+2. **Orchestration (⚫ MAINa)** → Déclencher mode PLAN et consulter ARCos
+3. **Analyse solutions (🟠 ARCos)** → Présenter ≥2 options + recommandation
+4. **Validation Humaine** → Choisir solution
+5. **Plan d'Action (⚫ MAINa)** → Créer Plan d'Action complet (skill plan-creation)
+6. **Validation Humaine** → Approuver plan avant implémentation
+7. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
+8. **Validation Humaine** → Approuver code avant tests
+9. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
+10. **Validation Humaine** → Approuver tests avant doc
+11. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
+12. **Validation Humaine** → Approuver documentation et clôturer
 
-> 💡 **Parallélisation**: Après validation code (étape 6), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
+> 💡 **Parallélisation**: Après validation code (étape 8), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
 
 ---
 
@@ -145,12 +146,14 @@ Skills sont procédures réutilisables incluses automatiquement dans contexte de
 | Skill | Emplacement | Contenu |
 |---|---|---|
 | `plan-phase-execution` | `.github/skills/plan-phase-execution/SKILL.md` | Procédure standard d'exécution de phase AP (avant/pendant/après, formats de rapport) |
-| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure de création et d'orchestration d'un Plan d'Action (ARCos + agents orchestrateurs) |
+| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure de création et d'orchestration d'un Plan d'Action (MAINa) |
 | `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide de parallélisation `/fleet` (quand utiliser, règle de décision) |
-| `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain: ARCos prépare contenu, DOCly rédige fichier |
+| `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction d'un ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 | `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
+| `maina-help` | `.github/skills/maina-help/SKILL.md` | Aide à l'orchestration MAINa (`/maina-help`) : workflow strict et gates humains |
+| `safety-rules` | `.github/skills/safety-rules/SKILL.md` | **Règle absolue**: interdiction des opérations destructives (suppression, SQL/git irréversibles, hors périmètre) |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -178,11 +181,11 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 /
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
-│   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.0)
-│   │   ├── Arcos.agent.md               # Architecte & planificateur (v4.3)
-│   │   ├── Devon.agent.md               # Développeur (v4.2)
-│   │   ├── Qalvin.agent.md              # QA & tests (v4.2)
-│   │   ├── Docly.agent.md               # Documentation (v4.2)
+│   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.3)
+│   │   ├── Arcos.agent.md               # Architecte consulté par MAINa (v4.6)
+│   │   ├── Devon.agent.md               # Développeur (v4.3)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.4)
+│   │   ├── Docly.agent.md               # Documentation (v4.3)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/
 │   │   │   └── SKILL.md
@@ -194,8 +197,14 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   │   │   └── SKILL.md
 │   │   ├── compact-context/
 │   │   │   └── SKILL.md                 # Instructions preCompact pour sessions plans/SDLC (applyTo: **)
-│   │   └── copilotignore/
-│   │       └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
+│   │   ├── copilotignore/
+│   │   │   └── SKILL.md                 # Règle absolue .copilotignore (applyTo: **)
+│   │   ├── maina-help/
+│   │   │   └── SKILL.md                 # Aide orchestration MAINa (/maina-help)
+│   │   ├── caveman-default/
+│   │   │   └── SKILL.md                 # Mode caveman full par défaut (applyTo: **)
+│   │   └── safety-rules/
+│   │       └── SKILL.md                 # Sécurité : opérations destructives interdites (applyTo: **)
 │   ├── instructions/                    # Templates à personnaliser par projet
 │   │   ├── architect.instructions.md
 │   │   ├── dev.instructions.md
