@@ -150,13 +150,14 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 - **T2.4** — ✅ `.github/PLANS.md` corrigé : « Créer le Plan » = MAINa, chaîne de délégation (ARCos = input analyse), typo « Arkos »→« ARCos » (×2).
 - **Bonus** — `.github/README.md` l.15 (arbre) recadré. Cascade version : `copilot-instructions(.template).md` + `CLAUDE.md` + `CHANGELOG.md` (entrée v4.5). Typos « Arkos »/« orchester » de T6.2 traités ici.
 
-### Phase 3 — Rafraîchir doc d'architecture & index — Agent : 🟣 DOCly
+### Phase 3 — Rafraîchir doc d'architecture & index — ✅ TERMINÉE (2026-06-29)
 **Contexte :** F-C2, F-M11, F-M8, F-M9, F-m1.
 **Critères :** ✅ `ARCHITECTURE.md` reflète 5 agents / versions réelles / 8 skills / ADR réels ✅ guides à jour.
-- **T3.1** — Réécrire `docs/ARCHITECTURE.md` (inventaire, versions, skills, table ADR, historique).
-- **T3.2** — Corriger `.claude/plans/README.md` (liens, chemins).
-- **T3.3** — Mettre à jour `QUICK_START.md` + `SETUP_CHECKLIST.md` (8 skills, `/maina-help`, examples).
-- **T3.4** — Réconcilier la numérotation ADR (001 réel vs table ARCHITECTURE).
+**Résultat (vérif sous-agent, 5/7 PASS, 2 faux positifs) :** aucun fichier `.github/` source touché → **pas de re-sync** (cibles = `docs/`, racine, `.claude/` direct). Faux positifs écartés : `compact-context/SKILL.md:66` (« 3 skills injectés » = exemple de compaction, pas l'inventaire) ; `CHANGELOG.md:10` (historique v1.0 exact, renommage `/maina-help` documenté en v1.1).
+- **T3.1** — ✅ `docs/ARCHITECTURE.md` réécrit : MAINa v1.2 / ARCos v4.5 / 5 agents ; section + inventaire **8 skills** ; **modèle miroir** (`.github/`→`.claude/`, sync, ADR 002) ; table ADR réelle (001 MAINa, 002 miroir) ; historique v3.2/v4.0 ; liens morts `examples/` retirés ; changelog externalisé.
+- **T3.2** — ✅ `.claude/plans/README.md` : nom projet vide corrigé, 004 statut « en cours », archives 001-003 repointées vers `.github/plans/` (réelles), chemins `.github/`→`.claude/` + `copilot-instructions.md`→`CLAUDE.md`, date + gestionnaire (ARCos retiré).
+- **T3.3** — ✅ `QUICK_START.md` + `SETUP_CHECKLIST.md` : **8 skills** (×4), workflow Gate #0→#4, rôle ARCos (analyse/conception), `/help`→`/maina-help`, lien mort `examples/` retiré.
+- **T3.4** — ✅ Table ADR réconciliée dans `ARCHITECTURE.md` (001-maina-orchestrateur, 002-claude-miroir-genere) ; anciens sujets supprimés.
 
 ### Phase 4 — Réduire la duplication (efficacité) — Agent : 🟠 ARCos → 🔵 DEVon
 **Contexte :** F-M6, F-M13, F-m3/4.
