@@ -11,7 +11,7 @@ Mode caveman **full** actif par défaut pour toute session. Règles :
 
 ---
 
-### Regle obligatoire ARCos — plan + ADR
+### Regle obligatoire MAINa — plan + ADR
 
 Toute initiative architecturale ou infrastructure (nouvelle fonctionnalite, migration, changement de composant) doit produire **avant** de marquer la tache terminee :
 1. Un fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md` (incrementer le numero)
@@ -30,27 +30,30 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **⚫ MAINa** [v1.1]
-- **Rôle :** Maître orchestrateur et point d'entrée principal
+#### **⚫ MAINa** [v1.2]
+- **Rôle :** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités :**
   - Cadrer la demande et piloter l'ordre des phases
-  - Déclencher ARCos puis orchestrer `ARCos -> DEVon -> QALvin -> DOCly`
+  - Consulter ARCos (et autres agents) pour analyse solutions avant créer le plan
+  - Créer le Plan d'Action complet en mode PLAN (skill plan-creation)
+  - Orchestrer `DEVon -> QALvin -> DOCly`
   - Imposer validations humaines entre chaque phase
   - Expliquer fonctionnement via `/maina-help` et `@MAINa /maina-help`
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
-- **Livrable :** Workflow orchestré, séquencé, traçable
+- **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
-#### **🟠 ARCos** [v4.3]
-- **Rôle :** Planificateur et architecte technique
+#### **🟠 ARCos** [v4.4]
+- **Rôle :** Expert architecture consulté par MAINa
 - **Responsabilités :**
-  - Concevoir solutions architecturales complètes
-  - Créer et valider Plans d'Action multi-phases
-  - Décomposer initiatives en tâches logiques
-  - Définir lots de travail à déléguer via MAINa
+  - Analyser problèmes complexes et concevoir solutions architecturales
+  - Présenter ≥2 options comparées avec recommandation motivée à MAINa
+  - Prendre décisions stratégiques concernant techno, structure et approche
+  - Préparer contenu ADR après décisions architecturales majeures
   - Lire `.github/instructions/architect.instructions.md` au démarrage pour spécificités projet
   - Lire `docs/ARCHITECTURE.md` au démarrage pour comprendre contexte architectural projet
-- **Quand l'utiliser :** "Conçois architecture pour...", "Crée plan pour...", "Découpe ça en tâches"
-- **Livrable :** Plans d'Action détaillés avec phases, tâches et dépendances
+  - Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
+- **Quand l'utiliser :** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
+- **Livrable :** Analyse comparative solutions + recommandation motivée
 
 #### **🔵 DEVon** [v4.2]
 - **Rôle :** Implémentateur code production
@@ -92,19 +95,19 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 ### 🔄 Workflow Typique
 
 1. **Cadrage (👤 Développeur humain)** → Définir besoin et critères d'acceptation
-2. **Orchestration (⚫ MAINa)** → Déclencher mode PLAN et déléguer ARCos
-3. **Planification (🟠 ARC - Arcos)** → Créer Plan d'Action avec phases et tâches
-4. **Validation Humaine** → Approuver plan avant lancer
-5. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
-6. **Validation Humaine** → Approuver code avant tests
-7. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
-8. **Validation Humaine** → Approuver tests avant doc
-9. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
-10. **Validation Humaine** → Approuver documentation
-11. **Validation Humaine** → Approuver plan d'amélioration
-12. **Phase Suivante** → Relancer cycle via MAINa
+2. **Orchestration (⚫ MAINa)** → Déclencher mode PLAN et consulter ARCos
+3. **Analyse solutions (🟠 ARCos)** → Présenter ≥2 options + recommandation
+4. **Validation Humaine** → Choisir solution
+5. **Plan d'Action (⚫ MAINa)** → Créer Plan d'Action complet (skill plan-creation)
+6. **Validation Humaine** → Approuver plan avant implémentation
+7. **Implémentation (🔵 DEV - Devon)** → Coder tâches assignées
+8. **Validation Humaine** → Approuver code avant tests
+9. **Tests (🟢 QUAL - Qalvin)** → Écrire et valider tests
+10. **Validation Humaine** → Approuver tests avant doc
+11. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
+12. **Validation Humaine** → Approuver documentation et clôturer
 
-> 💡 **Parallélisation** : Après validation code (étape 6), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
+> 💡 **Parallélisation** : Après validation code (étape 8), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
 
 ---
 

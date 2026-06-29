@@ -12,7 +12,7 @@ Mode caveman **full** actif par défaut. Règles :
 
 ---
 
-## Règle obligatoire ARCos — Plan + ADR
+## Règle obligatoire MAINa — Plan + ADR
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
 1. Fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md`
@@ -27,36 +27,40 @@ Créés dans même lot que implémentation, pas après coup.
 
 5 agents spécialisés, orchestrés par développeur humain.
 
-### **⚫ MAINa** [v1.1]
+### **⚫ MAINa** [v1.2]
 
-**Rôle** : Maître orchestrateur, point d'entrée principal
+**Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 
 **Responsabilités** :
 - Comprendre demande, cadrer flux travail
-- Orchestrer délégations strict : ARCos → DEVon → QALvin → DOCly
+- Consulter ARCos (et autres agents) pour analyse solutions avant créer le plan
+- Créer Plan d'Action complet (skill plan-creation)
+- Orchestrer délégations : DEVon → QALvin → DOCly
 - Imposer validations humaines entre phases
 - Fournir aide via `/maina-help`
 
 **Quand l'utiliser** : Workflow complet, orchestration multi-agents
 
-**Livrable** : Orchestration complète, séquencée, traçable
+**Livrable** : Plan d'Action validé + orchestration complète, séquencée, traçable
 
 ---
 
-### **🟠 ARCos** [v4.3]
+### **🟠 ARCos** [v4.4]
 
-**Rôle** : Planificateur, architecte technique
+**Rôle** : Expert architecture consulté par MAINa
 
 **Responsabilités** :
-- Concevoir solutions architecturales complètes
-- Créer Plans d'Action multi-phases
-- Décomposer initiatives en tâches logiques
+- Analyser problèmes complexes et concevoir solutions architecturales
+- Présenter ≥2 options comparées avec recommandation motivée
+- Prendre décisions stratégiques concernant techno, structure et approche
+- Préparer contenu ADR après décisions architecturales majeures
 - Lire `.github/instructions/architect.instructions.md` au démarrage
 - Lire `docs/ARCHITECTURE.md` au démarrage
+- Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
 
-**Quand l'utiliser** : "Conçois architecture pour...", "Crée plan pour...", "Découpe ça"
+**Quand l'utiliser** : "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
 
-**Livrable** : Plans d'Action détaillés phases/tâches/dépendances
+**Livrable** : Analyse comparative solutions + recommandation motivée
 
 ---
 
@@ -111,15 +115,17 @@ Créés dans même lot que implémentation, pas après coup.
 ## 🔄 Workflow strict
 
 1. **Cadrage** (développeur) → Besoin + critères
-2. **Orchestration** (MAINa) → Déclencher mode PLAN
-3. **Planification** (ARCos) → Plan d'Action phases/tâches
-4. **Gate #1** → Validation plan avant implémentation
-5. **Implémentation** (DEVon) → Code tâches assignées
-6. **Gate #2** → Validation code avant tests
-7. **Tests** (QALvin) → Écrire tests nominaux + erreurs + limites
-8. **Gate #3** → Validation tests avant doc
-9. **Documentation** (DOCly) → Mettre à jour docs
-10. **Gate #4** → Validation doc + clôture initiative
+2. **Orchestration** (MAINa) → Déclencher mode PLAN, consulter ARCos
+3. **Analyse solutions** (ARCos) → ≥2 options + recommandation
+4. **Gate #0** → Choix solution par développeur
+5. **Plan d'Action** (MAINa) → Créer plan complet (skill plan-creation)
+6. **Gate #1** → Validation plan avant implémentation
+7. **Implémentation** (DEVon) → Code tâches assignées
+8. **Gate #2** → Validation code avant tests
+9. **Tests** (QALvin) → Écrire tests nominaux + erreurs + limites
+10. **Gate #3** → Validation tests avant doc
+11. **Documentation** (DOCly) → Mettre à jour docs
+12. **Gate #4** → Validation doc + clôture initiative
 
 Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en parallèle si tâches indépendantes.
 
@@ -160,7 +166,7 @@ Procédures réutilisables, incluses auto dans contexte tous agents :
 | Skill | Contenu |
 |---|---|
 | `plan-phase-execution` | Procédure exécution phase (avant/pendant/après, rapports) |
-| `plan-creation` | Création Plan d'Action (ARCos + orchestration) |
+| `plan-creation` | Création Plan d'Action (MAINa — orchestrateur) |
 | `fleet-guide` | Guide parallélisation `/fleet` |
 | `adr-writing` | Rédaction ADR (ARCos prépare, DOCly rédige) |
 | `caveman-default` | Mode caveman règles par défaut |

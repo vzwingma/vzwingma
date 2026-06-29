@@ -1,12 +1,12 @@
 ---
 name: "plan-creation"
-description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour agents orchestrateurs (ARCos + futurs agents planification)."
+description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour MAINa — agent orchestrateur responsable création et validation Plan d'Action."
 ---
 
 # Skill : Création d'un Plan d'Action (AP)
 
 > Skill décrit procédure standard créer, valider, lancer Plan d'Action.
-> Réservé agents orchestration (ex: 🟠 ARCos).
+> Réservé à ⚫ MAINa — responsable création et orchestration des Plans d'Action.
 > Référence complète format AP : `.opencode/PLANS.md`
 
 ---
