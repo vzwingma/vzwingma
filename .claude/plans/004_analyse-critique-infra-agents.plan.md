@@ -177,11 +177,14 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 - **T5.2** — ✅ `qa.instructions.template.md` conserve le concret React/Testing Library + `jest`/`fetch` mock comme **exemple encadré** (« 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` »). Placeholders déjà présents.
 - **T5.3** — ✅ `dev.instructions.template.md` : bloc composant React + `useMemo`/`useCallback` + `useContext`/`useState` encadrés « exemple, adapter au framework ». `architect.instructions.template.md` : « nouveau Context » → « nouveau conteneur d'état global (ex: React Context, store) ».
 
-### Phase 6 — Finitions packaging & cosmétique — Agent : 🔵 DEVon / 🟣 DOCly
+### Phase 6 — Finitions packaging & cosmétique — ✅ TERMINÉE (2026-06-30)
 **Contexte :** F-M12, F-C1 (volet package), F-m5/6/7.
-- **T6.1** — `package-claude.ps1` : inclure `.claude/README.md` ; corriger `.DESCRIPTION` (prompts).
-- **T6.2** — Homogénéiser nommage agents (typo « Arkos »), corriger typos (« orchester »).
-- **T6.3** — Automatiser/retirer les dates « Dernière mise à jour ».
+**Critères :** ✅ package Claude inclut `README.md` ✅ typos résolues ✅ footers de date manuels retirés.
+**Résultat :** aucun fichier `.github/` *synchronisé* touché (cibles = `scripts/`, `*/plans/README.md`, `CLAUDE.md` hand-maintained) → **pas de re-sync**. Edits cosmétiques + alignements de cohérence opportunistes.
+- **T6.1** — ✅ `package-claude.ps1` : staging `.claude/README.md` ajouté (garde `Test-Path`, calqué sur le bloc prompts) ; `.DESCRIPTION` corrigée (README listé ; « (everything) » → liste curée ; prompts déjà OK).
+- **T6.2** — ✅ Déjà traité en Phase 2 (typos « Arkos »→« ARCos » ×2 + « orchester »→« orchestre » corrigés en source). Seules subsistent les **citations descriptives** dans ce plan 004 (findings F-m5/F-m6) — volontairement conservées.
+- **T6.3** — ✅ Footers manuels « Dernière mise à jour » retirés (4) : `.claude/CLAUDE.md`, `.claude/plans/README.md`, `.github/plans/README.md`, `scripts/README.md`. Option retenue = **retrait** (pas de build step pour automatiser ; l'historique git couvre les dates).
+- **Bonus** — Cohérence opportuniste : `.github/plans/README.md` (nom de projet vide « du projet . » → « de ce dépôt transverse » ; gestionnaire « ARCos » pré-MAINa retiré, aligné sur `.claude/`) ; `.claude/plans/README.md` statut 004 rafraîchi (Phases 1-5 ✅, Phase 6 ✅).
 
 ---
 
@@ -233,8 +236,8 @@ après P1 (`/fleet`). Phase 4 quasi indépendante. Phase 6 en dernier.
 2. **Phase 1** (tooling) — ✅ implémentée (`Sync-Description.psm1`, `sync-github-to-claude.ps1`) + dry-run de contrôle.
 3. **Re-sync** `.github/`→`.claude/` — ✅ exécuté ; critères 1-2 vérifiés (0 `.github/` injecté, `CLAUDE.md` préservé).
 4. **Phases 2/3/5 en `/fleet`** (après P1) ; **Phase 4** en parallèle.
-5. **Phase 6** finitions ; QALvin valide le tooling (T1.x) ; DOCly clôture la doc.
-6. **Gate final** — 👤 valide, mise à jour `.claude/plans/README.md`.
+5. **Phase 6** — ✅ finitions packaging + cosmétique (README dans package, footers de date retirés, typos déjà traitées en P2).
+6. **Gate final** — ⏳ en attente validation 👤 (clôture initiative + bascule `.claude/plans/README.md` → ✅ Complété).
 
 > ✅ **ADR créé** : `docs/adr/002-claude-miroir-genere.md` — décision « `.claude/` = miroir généré,
 > source unique `.github/` + tooling ; `CLAUDE.md` hand-maintained (B1-bis) » (règle MAINa plan+ADR).

@@ -7,7 +7,8 @@
     then compresses it into a ZIP file under /dist/.
 
     Included in the package:
-      - .claude/                               (everything)
+      - .claude/README.md
+      - .claude/                               (agents, instructions, prompts, skills — voir ci-dessous)
       - .claude/agents/
       - .claude/instructions/
       - .claude/prompts/
@@ -98,6 +99,12 @@ try {
 
     Write-Host "  + .claude/CLAUDE.md"
     Stage-File (Join-Path $repoRoot '.claude\CLAUDE.md') '.claude'
+
+    Write-Host "  + .claude/README.md"
+    $claudeReadme = Join-Path $repoRoot '.claude\README.md'
+    if (Test-Path $claudeReadme) {
+        Stage-File $claudeReadme '.claude'
+    }
 
     # ── docs/ (excluding ARCHITECTURE.md) ────────────────────────────────────
     Write-Host "  + docs/ (excl. ARCHITECTURE.md)"

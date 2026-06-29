@@ -15,7 +15,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
-| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ⏳ En cours (Phases 1-2 ✅, Phase 3 en cours) | 2026-06-29 |
+| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ⏳ Finalisation (Phases 1-5 ✅, Phase 6 ✅ — validation finale 👤 en attente) | 2026-06-29 |
 
 ---
 
@@ -88,6 +88,5 @@ Pour contribuer ou modifier un plan existant :
 
 ---
 
-**Dernière mise à jour :** 2026-06-29  
 **Gestionnaire des Plans :** MAINa (⚫) & 👤 Développeur humain
 

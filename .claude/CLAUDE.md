@@ -258,7 +258,3 @@ En cas doute → demander confirmation développeur.
 - [DOCly](./agents/Docly.agent.md) — Documentation
 - [MAINa](./agents/Maina.agent.md) — Orchestration + Plan d'Action
 - [Plans d'Action](./PLANS.md) — Guide complet
-
----
-
-**Dernière mise à jour** : 2026-06-29
