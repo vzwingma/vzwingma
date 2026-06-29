@@ -13,7 +13,9 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 📂 Plans Actifs / En Cours
 
-_(Aucun plan en cours pour l'instant)_
+| # | Nom | Statut | Date |
+|---|-----|--------|------|
+| 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ⏳ Planifié (analyse livrée) | 2026-06-29 |
 
 ---
 

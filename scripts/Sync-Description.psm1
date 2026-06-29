@@ -44,6 +44,8 @@ function Apply-PathSubstitution {
         Also substitutes platform-specific terms:
           github → opencode : .copilotignore → .gitignore  |  Copilot → OpenCode
           opencode → github : .gitignore → .copilotignore  |  OpenCode → Copilot
+          github → claude   : GitHub Copilot → Claude Code  |  Copilot → Claude  |  copilot-instructions.md → CLAUDE.md
+          claude → github   : Claude Code → GitHub Copilot  |  Claude → Copilot  |  CLAUDE.md → copilot-instructions.md
     .PARAMETER Direction
         'github-to-opencode' or 'opencode-to-github'
     #>
@@ -65,10 +67,20 @@ function Apply-PathSubstitution {
             return $r
         }
         'github-to-claude' {
-            return $Content.Replace('.github/', '.claude/')
+            $r = $Content.Replace('.github/', '.claude/')
+            $r = $r.Replace('GitHub Copilot', 'Claude Code')
+            $r = $r.Replace('Copilot', 'Claude')
+            $r = $r.Replace('copilot-instructions.template.md', 'CLAUDE.template.md')
+            $r = $r.Replace('copilot-instructions.md', 'CLAUDE.md')
+            return $r
         }
         'claude-to-github' {
-            return $Content.Replace('.claude/', '.github/')
+            $r = $Content.Replace('.claude/', '.github/')
+            $r = $r.Replace('Claude Code', 'GitHub Copilot')
+            $r = $r.Replace('Claude', 'Copilot')
+            $r = $r.Replace('CLAUDE.template.md', 'copilot-instructions.template.md')
+            $r = $r.Replace('CLAUDE.md', 'copilot-instructions.md')
+            return $r
         }
     }
 }

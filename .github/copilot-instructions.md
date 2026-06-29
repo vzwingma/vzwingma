@@ -1,6 +1,4 @@
-Compressing markdown to caveman format. Preserving code blocks, backticks, URLs, headings, file paths.
-
-# Instructions Copilot — Dépôt Transverse 
+# Instructions Copilot — Dépôt Transverse
 
 > Fichier décrit **dépôt transverse de templates Copilot multi-agents**.
 > Infrastructure réutilisable pour orchestrer développement dans n'importe quel projet.
