@@ -72,6 +72,7 @@
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.claude/README.md`.
 - **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
+- **v4.3 → v4.4** : Agent rendu stack-neutre — React/Jest retirés du corps générique au profit de principes de test framework-agnostiques. Concret React/Testing Library conservé en exemples/placeholders dans `qa.instructions.template.md`.
 
 ---
 

@@ -80,7 +80,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟢 QALvin** [v4.3]
+### **🟢 QALvin** [v4.4]
 
 **Rôle** : Expert assurance qualité et tests
 

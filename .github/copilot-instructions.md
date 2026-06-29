@@ -67,7 +67,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable:** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.3]
+#### **🟢 QALvin** [v4.4]
 - **Rôle:** Expert en assurance qualité et tests
 - **Responsabilités:**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -184,7 +184,7 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.3)
 │   │   ├── Arcos.agent.md               # Architecte consulté par MAINa (v4.6)
 │   │   ├── Devon.agent.md               # Développeur (v4.3)
-│   │   ├── Qalvin.agent.md              # QA & tests (v4.3)
+│   │   ├── Qalvin.agent.md              # QA & tests (v4.4)
 │   │   ├── Docly.agent.md               # Documentation (v4.3)
 │   ├── skills/                          # Procédures partagées (applyTo: **)
 │   │   ├── plan-phase-execution/

@@ -66,7 +66,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.3]
+#### **🟢 QALvin** [v4.4]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)

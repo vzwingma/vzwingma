@@ -169,12 +169,13 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 - **Bonus 1** — Compteur skills 8→9 propagé partout : ARCHITECTURE (arbre+table+inventaire), copilot-instructions.md (table+arbre), template, CLAUDE.md, QUICK_START (×2), SETUP_CHECKLIST (×2). Ajout `maina-help` (manquant) + `caveman-default` dans l'arbre copilot-instructions.md ; versions/desc obsolètes de cet arbre corrigées (ARCos « planificateur »→« consulté par MAINa », MAINa v1.0→v1.3) ; template `plan-creation` « ARCos+orchestrateurs »→« MAINa ».
 - **Bonus 2** — 🐛 `Sync-Description.psm1` : `Sync-StructuredFile` ne gérait pas une cible inexistante (crash `Get-Content` sous `ErrorActionPreference=Stop` au 1er nouveau skill). Ajout d'un bootstrap (création depuis source + substitution), aligné sur `Sync-StandaloneFile`. Re-sync end-to-end OK.
 
-### Phase 5 — Neutraliser la stack dans les artefacts génériques (pertinence) — Agent : 🟠 ARCos → 🔵 DEVon / 🟣 DOCly
+### Phase 5 — Neutraliser la stack dans les artefacts génériques (pertinence) — ✅ TERMINÉE (2026-06-30)
 **Contexte :** F-M5.
 **Critères :** ✅ `Qalvin.agent.md` sans techno spécifique ✅ React/Jest concret en placeholders dans `qa.instructions`.
-- **T5.1** — Rendre `Qalvin.agent.md` stack-neutre (principes de test génériques).
-- **T5.2** — Porter le concret React/Jest vers `qa.instructions.template.md` (placeholders).
-- **T5.3** — Neutraliser hypothèses SPA dans `dev/architect.instructions.template.md` (ou marquer « exemple »).
+**Résultat (re-sync exit 0 ; vérif sous-agent : 0 occurrence React/jest/hooks dans l'agent miroir) :** corps générique de QALvin rendu framework-agnostique ; le concret React/Testing Library demeure (encadré « exemple ») dans les templates d'instructions. QALvin v4.3 → v4.4.
+- **T5.1** — ✅ `Qalvin.agent.md` neutralisé : « composants React » → « composants UI (selon framework) » ; « React Testing Library »/`act()`/`useContext`/`useReducer` → utilitaires de test du framework ; `jest.mock()`/`jest.fn()` → mécanisme de mock du framework ; « Hooks React »/« Context et Redux »/« APIs navigateur »/« Hooks personnalisés » → libellés génériques ; nommage `*.test.tsx` → « convention du projet ». Version + cascade (CHANGELOG, copilot-instructions(.template).md, CLAUDE.md, ARCHITECTURE.md).
+- **T5.2** — ✅ `qa.instructions.template.md` conserve le concret React/Testing Library + `jest`/`fetch` mock comme **exemple encadré** (« 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` »). Placeholders déjà présents.
+- **T5.3** — ✅ `dev.instructions.template.md` : bloc composant React + `useMemo`/`useCallback` + `useContext`/`useState` encadrés « exemple, adapter au framework ». `architect.instructions.template.md` : « nouveau Context » → « nouveau conteneur d'état global (ex: React Context, store) ».
 
 ### Phase 6 — Finitions packaging & cosmétique — Agent : 🔵 DEVon / 🟣 DOCly
 **Contexte :** F-M12, F-C1 (volet package), F-m5/6/7.

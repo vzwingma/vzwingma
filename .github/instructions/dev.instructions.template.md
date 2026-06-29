@@ -38,6 +38,8 @@ AND NOT EXISTS (
 
 ### Composants
 
+> 💡 Exemples ci-dessous en React/TypeScript — adapter à `[FRAMEWORK_PRINCIPAL]`.
+
 ```typescript
 // Toujours : composant fonctionnel typé
 export const MonComposant: React.FC<MonComposantProps> = ({ prop1, prop2 }): JSX.Element => {
@@ -47,7 +49,7 @@ export const MonComposant: React.FC<MonComposantProps> = ({ prop1, prop2 }): JSX
 
 - Props interfaces dans `[FICHIER_PROPS]`.
 - Sous-composants page dans `[DOSSIER_SUBCOMPONENTS]/`, boutons action dans `[DOSSIER_ACTIONS]/`.
-- Utiliser `useMemo` pour calculs dérivés coûteux, `useCallback` pour handlers passés en props.
+- Utiliser le mécanisme de mémoïsation du framework pour calculs dérivés coûteux et handlers passés en props (ex: `useMemo`/`useCallback`).
 - Responsive via `[METHODE_RESPONSIVE]`.
 
 ### Appels HTTP
@@ -62,8 +64,8 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 ### Modèles et état
 
 - Classes données dans `[DOSSIER_MODELS]`.
-- État global via `useContext([NOM_CONTEXT])`.
-- État local UI via `useState`.
+- État global via le provider du projet (ex: `useContext([NOM_CONTEXT])`).
+- État local UI via le mécanisme du framework (ex: `useState`).
 
 ### Enums et constantes
 

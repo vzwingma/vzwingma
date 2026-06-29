@@ -18,7 +18,7 @@ applyTo: "**"
 ## Conventions architecturales
 
 - **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).
-- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer nouveau Context sans validation.
+- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer de nouveau conteneur d'état global (ex: React Context, store) sans validation.
 - **HTTP** : toujours via `[SERVICE_HTTP]`. Pas utiliser `fetch` direct dans composant.
 - **Routing** : `[STRATEGIE_ROUTING]`. Nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
 - **Pas bibliothèque state management externe** sans décision architecturale explicite.

@@ -43,6 +43,8 @@ Rapport couverture généré dans `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_Q
 
 ### Composants [FRAMEWORK_PRINCIPAL]
 
+> 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` / `[FRAMEWORK_PRINCIPAL]`.
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
