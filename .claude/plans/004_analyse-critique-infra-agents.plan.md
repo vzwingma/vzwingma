@@ -159,12 +159,15 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 - **T3.3** — ✅ `QUICK_START.md` + `SETUP_CHECKLIST.md` : **8 skills** (×4), workflow Gate #0→#4, rôle ARCos (analyse/conception), `/help`→`/maina-help`, lien mort `examples/` retiré.
 - **T3.4** — ✅ Table ADR réconciliée dans `ARCHITECTURE.md` (001-maina-orchestrateur, 002-claude-miroir-genere) ; anciens sujets supprimés.
 
-### Phase 4 — Réduire la duplication (efficacité) — Agent : 🟠 ARCos → 🔵 DEVon
+### Phase 4 — Réduire la duplication (efficacité) — ✅ TERMINÉE (2026-06-29)
 **Contexte :** F-M6, F-M13, F-m3/4.
 **Critères :** ✅ blocs sécurité externalisés ✅ agents allégés sans perte de règle.
-- **T4.1** — Créer skill `safety-rules` (`applyTo:**`) pour « opérations destructives ».
-- **T4.2** — Retirer les blocs inline « destructives » + « copilotignore » des 5 agents (déjà couverts par skills).
-- **T4.3** — Corriger `caveman-default` (chemins) + micro-références mortes (F-m3/4).
+**Résultat (re-sync exit 0 ; 9/9 checks PASS) :** sécurité unifiée via 2 skills `applyTo:**` (`safety-rules` + `copilotignore`) — aucune perte comportementale. Cascade version + compteur 8→9 propagée. Bug latent du moteur de sync corrigé (voir Bonus 2).
+- **T4.1** — ✅ Skill `safety-rules` créé (`applyTo:**`, opérations destructives) + miroir `.claude/skills/`.
+- **T4.2** — ✅ Blocs inline « destructives » + « copilotignore » retirés des 5 agents → pointeur 1 ligne. MAINa garde sa règle propre (pas de clôture sans validations 👤). Versions bumpées : MAINa v1.3, ARCos v4.6, DEVon/QALvin/DOCly v4.3 (frontmatter + CHANGELOG + copilot-instructions(.template).md + CLAUDE.md + ARCHITECTURE.md).
+- **T4.3** — ✅ `caveman-default` : chemin mort `.agents/skills/caveman/SKILL.md` corrigé (→ « invoquer le skill caveman »).
+- **Bonus 1** — Compteur skills 8→9 propagé partout : ARCHITECTURE (arbre+table+inventaire), copilot-instructions.md (table+arbre), template, CLAUDE.md, QUICK_START (×2), SETUP_CHECKLIST (×2). Ajout `maina-help` (manquant) + `caveman-default` dans l'arbre copilot-instructions.md ; versions/desc obsolètes de cet arbre corrigées (ARCos « planificateur »→« consulté par MAINa », MAINa v1.0→v1.3) ; template `plan-creation` « ARCos+orchestrateurs »→« MAINa ».
+- **Bonus 2** — 🐛 `Sync-Description.psm1` : `Sync-StructuredFile` ne gérait pas une cible inexistante (crash `Get-Content` sous `ErrorActionPreference=Stop` au 1er nouveau skill). Ajout d'un bootstrap (création depuis source + substitution), aligné sur `Sync-StandaloneFile`. Re-sync end-to-end OK.
 
 ### Phase 5 — Neutraliser la stack dans les artefacts génériques (pertinence) — Agent : 🟠 ARCos → 🔵 DEVon / 🟣 DOCly
 **Contexte :** F-M5.

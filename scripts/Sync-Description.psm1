@@ -226,6 +226,23 @@ function Sync-StructuredFile {
     $label = Split-Path $TargetFile -Leaf
     $changed = $false
 
+    # Bootstrap a brand-new target from source (full content + path substitution).
+    # Prevents Set-YamlDescription/Set-FileBody from reading a non-existent target,
+    # which aborts the run under $ErrorActionPreference = 'Stop' whenever a new
+    # agent/skill/instruction is added on the source side (e.g. a new skill folder).
+    if (-not (Test-Path $TargetFile)) {
+        $bootContent = Apply-PathSubstitution -Content (Get-Content $SourceFile -Raw -Encoding UTF8) -Direction $Direction
+        if ($WhatIf) {
+            Write-Host "  [WHATIF] Would CREATE $label" -ForegroundColor Cyan
+            return 'synced'
+        }
+        $dir = Split-Path $TargetFile -Parent
+        if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
+        Write-File $TargetFile $bootContent
+        Write-Host "  [CREATE]  $label" -ForegroundColor Cyan
+        return 'synced'
+    }
+
     # 1. Sync description (with path substitution)
     $srcDesc = Get-YamlDescription -FilePath $SourceFile
     if ($null -eq $srcDesc) {

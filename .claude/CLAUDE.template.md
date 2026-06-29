@@ -30,7 +30,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **⚫ MAINa** [v1.2]
+#### **⚫ MAINa** [v1.3]
 - **Rôle :** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités :**
   - Cadrer la demande et piloter l'ordre des phases
@@ -42,7 +42,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
-#### **🟠 ARCos** [v4.5]
+#### **🟠 ARCos** [v4.6]
 - **Rôle :** Expert architecture consulté par MAINa
 - **Responsabilités :**
   - Analyser problèmes complexes et concevoir solutions architecturales
@@ -55,7 +55,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
 - **Livrable :** Analyse comparative solutions + recommandation motivée
 
-#### **🔵 DEVon** [v4.2]
+#### **🔵 DEVon** [v4.3]
 - **Rôle :** Implémentateur code production
 - **Responsabilités :**
   - Traduire exigences en code fonctionnel et testé
@@ -66,7 +66,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.2]
+#### **🟢 QALvin** [v4.3]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -77,7 +77,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
-#### **🟣 DOCly** [v4.2]
+#### **🟣 DOCly** [v4.3]
 - **Rôle :** Gardien documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -146,12 +146,14 @@ Skills = procédures réutilisables incluses automatiquement dans contexte tous 
 | Skill | Emplacement | Contenu |
 |---|---|---|
 | `plan-phase-execution` | `.claude/skills/plan-phase-execution/SKILL.md` | Procédure standard exécution phase AP (avant/pendant/après, formats rapport) |
-| `plan-creation` | `.claude/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (ARCos + agents orchestrateurs) |
+| `plan-creation` | `.claude/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (MAINa) |
 | `fleet-guide` | `.claude/skills/fleet-guide/SKILL.md` | Guide parallélisation `/fleet` (quand utiliser, règle décision) |
 | `adr-writing` | `.claude/skills/adr-writing/SKILL.md` | Rédaction ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
 | `copilotignore` | `.claude/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
 | `caveman-default` | `.claude/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
 | `compact-context` | `.claude/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
+| `maina-help` | `.claude/skills/maina-help/SKILL.md` | Aide à l'orchestration MAINa (`/maina-help`) : workflow strict et gates humains |
+| `safety-rules` | `.claude/skills/safety-rules/SKILL.md` | **Règle absolue**: interdiction des opérations destructives (suppression, SQL/git irréversibles, hors périmètre) |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
