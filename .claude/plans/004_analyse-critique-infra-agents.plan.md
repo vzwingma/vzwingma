@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/004_analyse-critique-infra-agents.plan.md`
 **Date de création :** 2026-06-29
-**Statut :** ⏳ Planifié (analyse livrée — remédiation en attente de validation 👤)
+**Statut :** 🔄 En cours — Phase 1 (tooling) ✅ terminée + synchronisée (2026-06-29) ; Phases 2-6 en attente de gate 👤
 **Objectif Prioritaire :** HIGH
 
 > Ce document est **double** : (1) une **analyse critique** de l'existant, (2) un **plan de remédiation**
@@ -130,13 +130,15 @@ seulement `.claude/` serait écrasé au prochain sync. (Voir §Causes racines et
 > Ordre conçu pour traiter d'abord les **causes racines** (tooling), sinon les corrections `.claude/`
 > seraient écrasées au prochain sync. Agents indicatifs — MAINa orchestrera après validation.
 
-### Phase 1 — Corriger la chaîne de génération (tooling) — Agent : 🟠 ARCos → 🔵 DEVon
+### Phase 1 — Corriger la chaîne de génération (tooling) — ✅ TERMINÉE (2026-06-29)
 **Contexte :** RC1-RC4. Source de la majorité des incohérences.
-**Critères de réussite :** ✅ un `sync-github-to-claude` produit un `.claude/` sans chemin `.github/` ni terme « Copilot » résiduel ✅ politique prompts tranchée et appliquée.
-- **T1.1** — Étendre `Apply-PathSubstitution` (`github-to-claude`) : ajouter `Copilot`→`Claude` (et décider sort de `.copilotignore`). Fichier : `scripts/Sync-Description.psm1`. Acceptation : run dry montre 0 « Copilot » résiduel injecté.
-- **T1.2** — Couvrir `CLAUDE.md` par la substitution de chemins (ajout liste standalone ou règle dédiée). Fichier : `scripts/sync-github-to-claude.ps1`. Acceptation : `CLAUDE.md` ne contient plus `.github/`.
-- **T1.3** — Substituer les chemins lors de la copie des templates instructions. Fichier : `scripts/sync-github-to-claude.ps1` l.86-99. Acceptation : `.claude/instructions/*.template.md` → `.claude/plans/`.
-- **T1.4** — Trancher la politique **prompts** Claude (inclure vs retirer refs) et l'appliquer au sync + package. Acceptation : 0 référence morte aux prompts OU prompts présents.
+**Décisions 👤 :** **A1** (prompts inclus au sync) · **B1-bis** (CLAUDE.md reste hand-maintained/curé, **non** régénéré ; seul `CLAUDE.template.md` est généré) · **C-ok** (corrections en source `.github/` + 1 sync réel). ADR : `docs/adr/002-claude-miroir-genere.md`.
+**Résultat (sync réel exécuté) :** 0 chemin `.github/` ni terme « Copilot » résiduel injecté ; `CLAUDE.md` préservé ; 10 fichiers régénérés, 9 déjà en sync, 0 erreur.
+- **T1.1** — ✅ `Apply-PathSubstitution` (`github-to-claude`) étendu : `GitHub Copilot`→`Claude Code`, `Copilot`→`Claude`, `copilot-instructions(.template).md`→`CLAUDE(.template).md` ; miroir inverse `claude-to-github`. Casse respectée → `.copilotignore` / `copilot-instructions` lowercase intacts. `scripts/Sync-Description.psm1`.
+- **T1.2** — ✅ (B1-bis) `CLAUDE.md` **exclu** du sync (curé, agnostique-projet) ; fuites `.github/`→`.claude/` (×10) + réf ARCos obsolète corrigées **à la main**. `CLAUDE.template.md` **généré** depuis `copilot-instructions.template.md`. `scripts/sync-github-to-claude.ps1`.
+- **T1.3** — ✅ Templates d'instructions passés en `Sync-StandaloneFile` (substitution) au lieu de `Copy-Item` brut. `scripts/sync-github-to-claude.ps1`.
+- **T1.4** — ✅ (A1) Prompts inclus au sync `github→claude` avec substitution → `.claude/prompts/` peuplé (2 fichiers). **Reste Phase 6** : nommage fichiers (`init-copilot-*` conservé) + référencement package.
+- **Bonus** — Ligne parasite (`Compressing markdown to caveman format…`) retirée de `.github/copilot-instructions.md`.
 
 ### Phase 2 — Réaligner workflow & rôles sur MAINa v1.2 (source `.github/`) — Agent : 🟠 ARCos → 🟣 DOCly
 **Contexte :** F-M1/M2/M3/M4. Corriger dans `.github/` (source) puis re-sync.
@@ -220,15 +222,15 @@ après P1 (`/fleet`). Phase 4 quasi indépendante. Phase 6 en dernier.
 
 ## 🚀 Plan d'Exécution (post-validation)
 
-1. **Gate #0** — 👤 valide cette analyse + priorisation.
-2. **Phase 1** (tooling) — ARCos cadre, DEVon implémente, dry-run de contrôle.
-3. **Re-sync** `.github/`→`.claude/`, vérifier critères 1-2.
+1. **Gate #0** — ✅ 👤 a validé l'analyse + priorisation.
+2. **Phase 1** (tooling) — ✅ implémentée (`Sync-Description.psm1`, `sync-github-to-claude.ps1`) + dry-run de contrôle.
+3. **Re-sync** `.github/`→`.claude/` — ✅ exécuté ; critères 1-2 vérifiés (0 `.github/` injecté, `CLAUDE.md` préservé).
 4. **Phases 2/3/5 en `/fleet`** (après P1) ; **Phase 4** en parallèle.
 5. **Phase 6** finitions ; QALvin valide le tooling (T1.x) ; DOCly clôture la doc.
 6. **Gate final** — 👤 valide, mise à jour `.claude/plans/README.md`.
 
-> ⚠️ **ADR recommandé** lors de l'implémentation : décision « `.claude/` = miroir généré, source unique
-> `.github/` + tooling » mérite un `docs/adr/002-...md` (règle MAINa plan+ADR).
+> ✅ **ADR créé** : `docs/adr/002-claude-miroir-genere.md` — décision « `.claude/` = miroir généré,
+> source unique `.github/` + tooling ; `CLAUDE.md` hand-maintained (B1-bis) » (règle MAINa plan+ADR).
 
 ---
 
