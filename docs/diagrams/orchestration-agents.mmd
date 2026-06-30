@@ -6,6 +6,7 @@ flowchart TD
   Qalvin[🟢 QALvin<br/>Tests / QA]
   Docly[🟣DOCly<br/>Documentation]
   Commands[Commandes / prompts]
+  ValidCommande[Validation]
 
   subgraph Deliverables[Livrables]
     ActionPlan[(Plan d'Action)]
@@ -19,8 +20,12 @@ flowchart TD
   end
 
   Human -->|Cadre le besoin| Maina
+  Human -->|Valide| ActionPlan
   Human -->|Declenche| Commands
   Commands -->|Active workflow| Maina
+
+Human -->|Relis et valide| ValidCommande
+ValidCommande -->|Décision| Maina
 
   Maina -->|Delegue conception| Arcos
   Maina -->|Delegue implementation| Devon
