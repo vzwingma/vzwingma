@@ -1,12 +1,12 @@
-# 🚀 Guide Rapide : Utiliser Ce Dépôt de Templates Claude Code
+# 🚀 Guide Rapide : Utiliser Ce Dépôt de Templates
 
-Bienvenue ! Ce dépôt contient les **templates et agents réutilisables** pour orchestrer le développement avec Claude Code.
+Bienvenue ! Ce dépôt contient les **templates et agents réutilisables** pour orchestrer le développement avec Claude.
 
 ---
 
 ## ⚡ TL;DR — 3 Étapes Rapides
 
-Si vous avez un **nouveau projet** et voulez initialiser Claude Code rapidement :
+Si vous avez un **nouveau projet** et voulez initialiser Claude rapidement :
 
 ### 1️⃣ Copier les Fichiers Essentiels
 
@@ -16,7 +16,6 @@ cp -r .claude/agents <votre_projet>/.claude/
 cp -r .claude/instructions <votre_projet>/.claude/
 cp -r .claude/skills <votre_projet>/.claude/
 cp .claude/PLANS.md <votre_projet>/.claude/
-cp .claude/README.md <votre_projet>/.claude/
 cp .claude/CLAUDE.template.md <votre_projet>/.claude/CLAUDE.md
 mkdir -p <votre_projet>/.claude/prompts
 cp .claude/prompts/*.prompt.md <votre_projet>/.claude/prompts/
@@ -24,7 +23,7 @@ cp .claude/prompts/*.prompt.md <votre_projet>/.claude/prompts/
 
 ### 2️⃣ Initialiser les Instructions
 
-Ouvrir Claude Code dans votre projet et lancer le prompt d'initialisation :
+Ouvrir Claude dans votre projet et lancer le prompt d'initialisation :
 
 - [`.claude/prompts/init-copilot-instructions.prompt.md`](.claude/prompts/init-copilot-instructions.prompt.md) — pour initialiser un nouveau projet
 - [`.claude/prompts/update-copilot-instructions.prompt.md`](.claude/prompts/update-copilot-instructions.prompt.md) — pour auditer et mettre à jour un projet existant
@@ -56,9 +55,7 @@ Ou, pour une mise à jour après évolution du projet :
 ## 📚 Contenus de Ce Dépôt
 
 ### 🤖 Agents (5)
-
 Modèles prêts à l'emploi pour différents rôles :
-
 - **⚫ MAINa** — Orchestration maître du workflow
 - **🔵 DEVon** — Implémente le code
 - **🟢 QALvin** — Écrit les tests
@@ -66,22 +63,20 @@ Modèles prêts à l'emploi pour différents rôles :
 - **🟣 DOCly** — Maintient la documentation
 
 ### 📋 Templates
-
-- **`.claude/CLAUDE.template.md`** — template générique à customiser en `.claude/CLAUDE.md`
-- **`.claude/instructions/`** — templates d'instructions agents à personnaliser par projet
-- **`.claude/PLANS.md`** — guide pour orchestrer le travail multi-phases
-- **`.claude/prompts/`** — prompts pour initialiser automatiquement les instructions
+- **`CLAUDE.template.md`** — Template générique à customiser
+- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
+- **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
+- **Prompts** — Pour initialiser automatiquement les instructions
 
 ### 📖 Documentation
-
-- **`.claude/README.md`** — guide complet du sous-arbre Claude
-- **`SETUP_CHECKLIST.md`** — checklist pour initialiser un projet
+- **`.claude/README.md`** — Guide complet du dépôt
+- **`SETUP_CHECKLIST.md`** — Checklist pour initialiser un projet
 
 ---
 
 ## 🎯 Workflow Typique
 
-Une fois Claude Code configuré, voici comment collaborer :
+Une fois Claude configuré, voici comment collaborer :
 
 ```
 1️⃣ Vous décrivez le besoin
@@ -111,11 +106,15 @@ Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif 
 
 ### 1️⃣ Activer le mode plan
 
+Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+
 ```
 > "/plan"
 ```
 
 ### 2️⃣ Activer MAINa
+
+Invoquez MAINa explicitement pour qu'il orchestre le workflow :
 
 ```
 👤 "/agent MAINa"
@@ -128,6 +127,8 @@ Vous pouvez aussi demander l'aide intégrée :
 ```
 
 ### 3️⃣ Expliquer la demande
+
+Décrivez le besoin avec le plus de contexte utile possible :
 
 ```
 👤 "Besoin : [objectif].
@@ -145,6 +146,8 @@ MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé
 ```
 
 ### 5️⃣ Valider le Plan d'Action
+
+MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
 
 ```
 👤 "Plan validé. Tu peux lancer la phase d'implémentation."
@@ -165,47 +168,40 @@ Ne clôturez l'initiative qu'après validation du code, des tests et de la docum
 ## ❓ FAQ
 
 ### Q: Comment copier rapidement ce dépôt vers mon projet ?
-
-A:
-
+A: 
 ```bash
-git clone <ce_repo> claude-templates
-cp -r claude-templates/.claude/* mon-projet/.claude/
+git clone <ce_repo> copilot-templates
+cp -r copilot-templates/.claude/* mon-projet/.claude/
 ```
 
 ### Q: Est-ce que je dois tout copier ?
-
 A: Non ! Minimum requis :
-
 - `.claude/agents/` (5 fichiers)
 - `.claude/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
-- `.claude/instructions/` (fichiers à personnaliser)
+- `.claude/instructions/` (4 fichiers — à personnaliser)
 - `.claude/CLAUDE.template.md` (renommer en `CLAUDE.md`)
 - `.claude/PLANS.md`
 
 ### Q: Comment initialiser rapidement ?
-
 A: Une fois les fichiers copiés, exécuter dans votre projet :
-
 ```
 👤 "Initialise les instructions Claude pour ce projet"
 ```
-
 Prompt associé : [`.claude/prompts/init-copilot-instructions.prompt.md`](.claude/prompts/init-copilot-instructions.prompt.md).
 
 Pour mettre à jour des instructions existantes, utiliser : [`.claude/prompts/update-copilot-instructions.prompt.md`](.claude/prompts/update-copilot-instructions.prompt.md).
 
 ### Q: Les agents sont-ils customisables ?
-
-A: Les agents sont **génériques**, la customisation se fait dans `.claude/CLAUDE.md` et `.claude/instructions/*.instructions.md`.
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.claude/CLAUDE.md` (contexte global) et `.claude/instructions/*.instructions.md` (spécificités par agent).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes.
+A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
 
 ### Q: Où stocker mes Plans d'Action ?
-
 A: Dans `.claude/plans/` — utiliser le format `XXX_<nom>.plan.md`.
+
+### Q: Quelle est la licence ?
+A: Libre d'utilisation — c'est un dépôt de templates transverse.
 
 ---
 
@@ -223,15 +219,17 @@ Après configuration, vérifier que :
 
 - [ ] `.claude/agents/` a 5 fichiers ✅
 - [ ] `.claude/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.claude/instructions/` contient les instructions agents ✅
+- [ ] `.claude/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
 - [ ] `.claude/CLAUDE.md` existe et est customisé ✅
 - [ ] `.claude/PLANS.md` est accessible ✅
 - [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
-- [ ] Appeler `ARCos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `DEVon` (🔵 DEV) fonctionne ✅
+- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
+- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
 
 ---
 
-**C'est tout ! Vous êtes prêt à collaborer avec Claude Code. 🚀**
+**C'est tout ! Vous êtes prêt à collaborer avec Claude. 🚀**
 
 Lisez [`.claude/README.md`](.claude/README.md) pour plus de détails sur chaque agent et prompt.
+
+
