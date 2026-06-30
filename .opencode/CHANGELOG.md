@@ -11,6 +11,7 @@
 - **v1.1** : Renommage commande `/help` → `/maina-help`. Création Skill `maina-help` (applyTo: **) pour aide orchestration. Version MAINa passe à v1.1.
 - **v1.2** : MAINa prend responsabilité création Plan d'Action (skill plan-creation). Peut consulter ARCos (et autres agents) pour analyse solutions + recommandation avant rédiger le plan. ARCos redevient expert consulté — ne crée plus le plan. Workflow mis à jour : consultation ARCos → MAINa produit plan en mode PLAN → validation humaine obligatoire → implémentation.
 - **v1.2 → v1.3** : Bloc sécurité allégé — opérations destructives + `.gitignore` externalisés vers skills `safety-rules` et `copilotignore` (`applyTo: **`). Règle MAINa-spécifique (pas de clôture sans validations 👤) conservée.
+- **v1.3 → v1.4** : Ajout lecture `.opencode/instructions/orchestrator.instructions.md` au démarrage pour appliquer les spécificités projet MAINa.
 
 ---
 

@@ -11,7 +11,7 @@ agent: agent
 # Initialisation de la Configuration OpenCode
 
 > **Prérequis** : Avant de lancer ce prompt, les fichiers suivants doivent exister dans le projet cible (copiés depuis le dépôt transverse) :
-> - `.opencode/agents/` — 4 agents génériques (`Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
+> - `.opencode/agents/` — 5 agents génériques (`Maina.agent.md`, `Arcos.agent.md`, `Devon.agent.md`, `Qalvin.agent.md`, `Docly.agent.md`)
 > - `.opencode/skills/` — skills partagés
 > - `.opencode/PLANS.md` — guide Plans d'Action
 
@@ -43,12 +43,12 @@ Créer `AGENTS.md` à la racine du projet en suivant la structure OpenCode stand
 
 ### 3. Générer les fichiers d'instructions agents
 
-Lire les 4 templates dans `.opencode/instructions/` du dépôt transverse et créer les fichiers correspondants dans `.opencode/instructions/` du projet cible, en remplissant les placeholders avec les valeurs identifiées lors de l'analyse.
+Lire les 5 templates dans `.opencode/instructions/` du dépôt transverse et créer les fichiers correspondants dans `.opencode/instructions/` du projet cible, en remplissant les placeholders avec les valeurs identifiées lors de l'analyse.
 
 ## ✅ Checklist de Livraison
 
 - [ ] Fichier `AGENTS.md` créé
-- [ ] Fichiers `.opencode/instructions/*.instructions.md` créés depuis les templates (4 fichiers)
+- [ ] Fichiers `.opencode/instructions/*.instructions.md` créés depuis les templates (5 fichiers)
 - [ ] Tous les placeholders `[...]` remplacés par des valeurs réelles
 - [ ] Structure des sections conservée
 - [ ] Exemples de code issus de la codebase réelle (si pertinent)

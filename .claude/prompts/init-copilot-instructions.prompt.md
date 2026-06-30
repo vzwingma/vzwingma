@@ -15,7 +15,7 @@ agent: agent
 > - `.claude/prompts/` — prompts réutilisables
 > - `.claude/PLANS.md` — guide Plans d'Action
 >
-> Prompt initialise uniquement fichiers **spécifiques projet** : `CLAUDE.md` et 4 fichiers `instructions/`.
+> Prompt initialise uniquement fichiers **spécifiques projet** : `CLAUDE.md` et 5 fichiers `instructions/`.
 > Pour copier prérequis, utiliser d'abord prompt `migrate-to-template`.
 
 Mission : **générer et initialiser** fichier `.claude/CLAUDE.md` pour nouveau projet, basé sur :
@@ -55,7 +55,7 @@ Pour chaque placeholder `[...]` du template, fournir valeur adaptée :
 | **Conventions Clés** | Fichiers existants du code | Nommage, TypeScript config, ESLint, Prettier, etc. |
 | **État du Projet** | Code analysis + notes | État maintenance, patterns erreur, dépendances clés |
 
-> 💡 **Parallélisation possible** : Étapes 4 et 5 (génération `CLAUDE.md` et 4 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si infos analyse (étape 2) disponibles.
+> 💡 **Parallélisation possible** : Étapes 4 et 5 (génération `CLAUDE.md` et 5 fichiers `instructions/`) peuvent être exécutées en parallèle avec `/fleet` si infos analyse (étape 2) disponibles.
 
 ### 4. Générer le fichier
 
@@ -67,7 +67,8 @@ Créer `.claude/CLAUDE.md` en :
 
 ### 5. Générer les fichiers d'instructions agents
 
-Lire 4 templates dans `.claude/instructions/` du dépôt transverse :
+Lire 5 templates dans `.claude/instructions/` du dépôt transverse :
+- `orchestrator.instructions.template.md` — template instructions pour agent MAINa
 - `architect.instructions.template.md` — template instructions pour agent ARCos
 - `dev.instructions.template.md` — template instructions pour agent DEVon
 - `qa.instructions.template.md` — template instructions pour agent QALvin
@@ -76,12 +77,13 @@ Lire 4 templates dans `.claude/instructions/` du dépôt transverse :
 Pour chaque fichier, remplir placeholders avec valeurs identifiées lors analyse (étape 2) :
 - `[NOM_DU_PROJET]` → nom projet
 - `[DESCRIPTION_COURTE_DU_PROJET]` → description courte (ex: frontend React/TypeScript)
+- Pour `orchestrator.instructions.md` : conventions d'orchestration, gates humains, protocoles de délégation, handoff projet
 - Pour `dev.instructions.md` : stack, versions, fichiers constantes, service HTTP, dossiers conventions
 - Pour `qa.instructions.md` : framework test, commandes CI, chemins rapport couverture, noms contexts
 - Pour `doc.instructions.md` : chemin docs/ local, noms fichiers documentation, frameworks + versions pour `.puml`
 - Pour `architect.instructions.md` : couches projet, noms providers état, service HTTP, routing
 
-Créer 4 fichiers dans `.claude/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
+Créer 5 fichiers dans `.claude/instructions/` du projet cible (ou mettre à jour si existent déjà), nommés `orchestrator.instructions.md`, `architect.instructions.md`, `dev.instructions.md`, `qa.instructions.md`, `doc.instructions.md`.
 Si certaines valeurs non déterminables depuis code, conserver placeholders `[...]` et signaler explicitement.
 
 ### 6. Auditer et enrichir (optionnel)
@@ -91,7 +93,7 @@ Si projet dispose autres fichiers référence (CONTRIBUTING.md, ARCHITECTURE.md,
 ## ✅ Checklist de Livraison
 
 - [ ] Fichier `.claude/CLAUDE.md` créé
-- [ ] Fichiers `.claude/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (4 fichiers : architect, dev, qa, doc)
+- [ ] Fichiers `.claude/instructions/*.instructions.md` créés depuis templates `*.instructions.template.md` (5 fichiers : orchestrator, architect, dev, qa, doc)
 - [ ] Tous placeholders `[...]` remplacés par valeurs réelles
 - [ ] Placeholders critiques remplacés (minimum : NOM_DU_PROJET, stack technique)
 - [ ] Sections `[📌 À COMPLÉTER : ...]` supprimées ou complétées

@@ -27,7 +27,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 5 agents spécialisés, orchestrés par développeur humain.
 
-### **⚫ MAINa** [v1.3]
+### **⚫ MAINa** [v1.4]
 
 **Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 
@@ -38,6 +38,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Orchestrer délégations : DEVon → QALvin → DOCly
 - Imposer validations humaines entre phases
 - Fournir aide via `/maina-help`
+- Lire `.claude/instructions/orchestrator.instructions.md` au démarrage
 
 **Quand l'utiliser** : Workflow complet, orchestration multi-agents
 
@@ -150,6 +151,7 @@ Chaque agent lit au démarrage son fichier instructions spécifique :
 
 | Fichier | Agent | Contenu |
 |---|---|---|
+| `orchestrator.instructions.md` | ⚫ MAINa | Orchestration, gates humains, délégations |
 | `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocoles |
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions |
 | `qa.instructions.md` | 🟢 QALvin | Framework test, commandes, cas à couvrir |

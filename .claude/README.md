@@ -76,6 +76,7 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 
 | Fichier | Role |
 |---|---|
+| `orchestrator.instructions.md` | Conventions d'orchestration MAINa / gates humains / délégation |
 | `architect.instructions.md` | Conventions architecture / SQL handoff |
 | `dev.instructions.md` | Stack technique, versions, conventions de code |
 | `qa.instructions.md` | Framework de test, commandes CI, cas a couvrir |
