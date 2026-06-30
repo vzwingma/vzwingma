@@ -23,13 +23,24 @@ cp .github/prompts/*.prompt.md <votre_projet>/.github/prompts/
 
 ### 2️⃣ Initialiser les Instructions
 
-Ouvrir Copilot dans votre projet et exécuter :
+Ouvrir Copilot dans votre projet et lancer le prompt d'initialisation :
+
+- [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md) — pour initialiser un nouveau projet
+- [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md) — pour auditer et mettre à jour un projet existant
+
+Commande typique :
 
 ```
-👤 "Initialise les instructions Copilot pour ce projet"
+👤 "Initialise les instructions Copilot pour ce projet grâce au prompt d'initialisation init-copilot-instructions.prompt.md."
 ```
 
 ✅ Cela va analyser votre code et générer les instructions automatiquement.
+
+Ou, pour une mise à jour après évolution du projet :
+
+```
+👤 "Mets à jour les instructions Copilot depuis le code source grâce au prompt de mise à jour update-copilot-instructions.prompt.md."
+```
 
 ### 3️⃣ Valider
 
@@ -89,6 +100,71 @@ Une fois Copilot configuré, voici comment collaborer :
 
 ---
 
+## 🧭 Lancer Une Demande Avec MAINa
+
+Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif est de cadrer avant d'implémenter, puis de valider chaque gate humain.
+
+### 1️⃣ Activer le mode plan
+
+Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+
+```
+> "/plan"
+```
+
+### 2️⃣ Activer MAINa
+
+Invoquez MAINa explicitement pour qu'il orchestre le workflow :
+
+```
+👤 "/agent MAINa"
+```
+
+Vous pouvez aussi demander l'aide intégrée :
+
+```
+👤 "/maina-help"
+```
+
+### 3️⃣ Expliquer la demande
+
+Décrivez le besoin avec le plus de contexte utile possible :
+
+```
+👤 "Besoin : [objectif].
+Contexte : [code, métier, contrainte technique].
+Contraintes : [délais, compatibilité, sécurité, tests].
+Livrables attendus : [code, tests, documentation, ADR]."
+```
+
+### 4️⃣ Valider l'option recommandée
+
+MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé, validez le choix de solution proposé.
+
+```
+👤 "Je valide l'option 2. Crée le Plan d'Action."
+```
+
+### 5️⃣ Valider le Plan d'Action
+
+MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
+
+```
+👤 "Plan validé. Tu peux lancer la phase d'implémentation."
+```
+
+### 6️⃣ Suivre les phases et gates
+
+Chaque phase revient vers vous pour validation avant de continuer :
+
+- **DEVon** implémente le code, puis demande validation code
+- **QALvin** écrit et exécute les tests, puis demande validation tests
+- **DOCly** synchronise la documentation, puis demande validation finale
+
+Ne clôturez l'initiative qu'après validation du code, des tests et de la documentation.
+
+---
+
 ## ❓ FAQ
 
 ### Q: Comment copier rapidement ce dépôt vers mon projet ?
@@ -111,6 +187,9 @@ A: Une fois les fichiers copiés, exécuter dans votre projet :
 ```
 👤 "Initialise les instructions Copilot pour ce projet"
 ```
+Prompt associé : [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md).
+
+Pour mettre à jour des instructions existantes, utiliser : [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md).
 
 ### Q: Les agents sont-ils customisables ?
 A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).

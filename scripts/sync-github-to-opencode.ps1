@@ -8,6 +8,7 @@
       - Skills      : .github/skills/*/SKILL.md      → .opencode/skills/*/SKILL.md
       - Instructions: .github/instructions/*.md      → .opencode/instructions/*.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md  (created if absent in .opencode/)
+      - Quick Start : QUICK_START_COPILOT.md → QUICK_START_OPENCODE.md
 
     For structured files (agents/skills/instructions):
       Syncs both the `description` frontmatter field AND the body content.
@@ -90,6 +91,15 @@ Add-Counts (Sync-StandaloneFiles `
     -SourceBase $githubBase `
     -TargetBase $opencodeBase `
     -Direction $direction -WhatIf:$WhatIf)
+
+# ── Root Quick Start ──────────────────────────────────────────────────────────
+Write-Host "`n==> Quick Start (QUICK_START_COPILOT.md -> QUICK_START_OPENCODE.md)" -ForegroundColor Magenta
+$qsc = @{ synced = 0; ok = 0; warn = 0 }
+$qsc[(Sync-StandaloneFile `
+    -SourceFile (Join-Path $repoRoot 'QUICK_START_COPILOT.md') `
+    -TargetFile (Join-Path $repoRoot 'QUICK_START_OPENCODE.md') `
+    -Direction $direction -WhatIf:$WhatIf)]++
+Add-Counts $qsc
 
 # ── Summary ───────────────────────────────────────────────────────────────────
 $mode = if ($WhatIf) { ' (dry-run)' } else { '' }

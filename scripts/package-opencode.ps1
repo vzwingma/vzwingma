@@ -16,7 +16,7 @@
       - .opencode/PLANS.md
       - .opencode/README.md
       - docs/   (excluding ARCHITECTURE.md, adr/)
-      - QUICK_START.md
+      - QUICK_START_OPENCODE.md
       - SETUP_CHECKLIST.md
 
     Excluded:
@@ -107,8 +107,8 @@ try {
         Where-Object { $_.Name -ne 'ARCHITECTURE.md' } |
         ForEach-Object { Copy-Item $_.FullName $docsStaging -Force }
     # ── Root files ────────────────────────────────────────────────────────────
-    Write-Host "  + QUICK_START.md"
-    Stage-File (Join-Path $repoRoot 'QUICK_START.md')
+    Write-Host "  + QUICK_START_OPENCODE.md"
+    Stage-File (Join-Path $repoRoot 'QUICK_START_OPENCODE.md')
 
     Write-Host "  + SETUP_CHECKLIST.md"
     Stage-File (Join-Path $repoRoot 'SETUP_CHECKLIST.md')

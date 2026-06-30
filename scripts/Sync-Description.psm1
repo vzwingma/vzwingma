@@ -13,7 +13,7 @@
 #>
 
 # Supported directions
-$script:ValidDirections = @('github-to-opencode','opencode-to-github','github-to-claude','claude-to-github')
+$script:ValidDirections = @('github-to-opencode','opencode-to-github','github-to-claude','opencode-to-claude','claude-to-github')
 
 $script:Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
@@ -58,18 +58,31 @@ function Apply-PathSubstitution {
             $r = $Content.Replace('.github/', '.opencode/')
             $r = $r.Replace('.copilotignore', '.gitignore')
             $r = $r.Replace('Copilot', 'OpenCode')
+            $r = $r.Replace('copilot-instructions.template.md', 'instructions/*.instructions.template.md')
+            $r = $r.Replace('copilot-instructions.md', 'instructions/*.instructions.md')
             return $r
         }
         'opencode-to-github' {
             $r = $Content.Replace('.opencode/', '.github/')
             $r = $r.Replace('.gitignore', '.copilotignore')
             $r = $r.Replace('OpenCode', 'Copilot')
+            $r = $r.Replace('.github/instructions/*.instructions.template.md', '.github/copilot-instructions.template.md')
+            $r = $r.Replace('.github/instructions/*.instructions.md', '.github/copilot-instructions.md')
             return $r
         }
         'github-to-claude' {
             $r = $Content.Replace('.github/', '.claude/')
             $r = $r.Replace('GitHub Copilot', 'Claude Code')
             $r = $r.Replace('Copilot', 'Claude')
+            $r = $r.Replace('copilot-instructions.template.md', 'CLAUDE.template.md')
+            $r = $r.Replace('copilot-instructions.md', 'CLAUDE.md')
+            return $r
+        }
+        'opencode-to-claude' {
+            $r = $Content.Replace('.opencode/', '.claude/')
+            $r = $r.Replace('OpenCode', 'Claude Code')
+            $r = $r.Replace('.claude/instructions/*.instructions.template.md', '.claude/CLAUDE.template.md')
+            $r = $r.Replace('.claude/instructions/*.instructions.md', '.claude/CLAUDE.md')
             $r = $r.Replace('copilot-instructions.template.md', 'CLAUDE.template.md')
             $r = $r.Replace('copilot-instructions.md', 'CLAUDE.md')
             return $r

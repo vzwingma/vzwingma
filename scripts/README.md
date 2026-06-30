@@ -10,7 +10,7 @@ Utilitaires PowerShell pour synchroniser agents + skills entre `.github/`, `.ope
 
 **Copilot → OpenCode**
 
-Sync agents, skills, instructions, CHANGELOG, PLANS, README depuis `.github/` vers `.opencode/`.
+Sync agents, skills, instructions, CHANGELOG, PLANS, README et quickstart depuis `.github/` vers `.opencode/`.
 
 ```bash
 .\scripts\sync-github-to-opencode.ps1      # Execute
@@ -22,6 +22,7 @@ Couvre :
 - Skills : `.github/skills/*/SKILL.md` → `.opencode/skills/`
 - Instructions : `.github/instructions/*.md` → `.opencode/instructions/`
 - Standalone : CHANGELOG.md, PLANS.md, README.md
+- Quick Start : `QUICK_START_COPILOT.md` → `QUICK_START_OPENCODE.md`
 - Templates : conservés dans `.opencode/instructions/` (pas de sous-dossier `templates/`)
 
 ---
@@ -30,7 +31,7 @@ Couvre :
 
 **Copilot → Claude**
 
-Sync agents, skills, instructions depuis `.github/` vers `.claude/`.
+Sync agents, skills, instructions et quickstart depuis `.github/` vers `.claude/`.
 
 ```bash
 .\scripts\sync-github-to-claude.ps1        # Execute
@@ -42,6 +43,7 @@ Couvre :
 - Skills : `.github/skills/*/SKILL.md` → `.claude/skills/`
 - Instructions : `.github/instructions/*.md` → `.claude/instructions/`
 - Standalone : CHANGELOG.md, PLANS.md, README.md
+- Quick Start : `QUICK_START_COPILOT.md` → `QUICK_START_CLAUDE.md`
 - Templates : Copiés dans `.claude/instructions/`
 
 ---
@@ -50,7 +52,7 @@ Couvre :
 
 **OpenCode → Claude**
 
-Sync agents, skills, instructions depuis `.opencode/` vers `.claude/`.
+Sync agents, skills, instructions et quickstart depuis `.opencode/` vers `.claude/`.
 
 ```bash
 .\scripts\sync-opencode-to-claude.ps1      # Execute
@@ -62,6 +64,7 @@ Couvre :
 - Skills : `.opencode/skills/*/SKILL.md` → `.claude/skills/`
 - Instructions : `.opencode/instructions/*.md` → `.claude/instructions/`
 - Standalone : CHANGELOG.md, PLANS.md, README.md
+- Quick Start : `QUICK_START_OPENCODE.md` → `QUICK_START_CLAUDE.md`
 - Templates : Copiés dans `.claude/instructions/`
 
 ---
@@ -71,6 +74,8 @@ Couvre :
 **OpenCode ← Copilot** (reverse sync)
 
 Sync agents, skills, instructions depuis `.opencode/` vers `.github/`.
+
+Couvre aussi `QUICK_START_OPENCODE.md` → `QUICK_START_COPILOT.md`.
 
 ```bash
 .\scripts\sync-opencode-to-github.ps1      # Execute
@@ -99,7 +104,7 @@ Inclus :
 - `.github/skills/`
 - `.github/CHANGELOG.md`, `PLANS.md`
 - `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START.md`, `SETUP_CHECKLIST.md`
+- `QUICK_START_COPILOT.md`, `SETUP_CHECKLIST.md`
 
 Exclu : `.opencode/`, `.claude/`, scripts/, plans/, `.git/`, dist/
 
@@ -125,7 +130,7 @@ Inclus :
 - `.claude/skills/`
 - `.claude/CHANGELOG.md`, `PLANS.md`, `CLAUDE.md`
 - `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START.md`, `SETUP_CHECKLIST.md`
+- `QUICK_START_CLAUDE.md`, `SETUP_CHECKLIST.md`
 
 Exclu : `.github/`, `.opencode/`, scripts/, plans/, `.git/`, dist/
 
@@ -151,7 +156,7 @@ Inclus :
 - `.opencode/skills/`
 - `.opencode/CHANGELOG.md`, `PLANS.md`, `README.md`
 - `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START.md`, `SETUP_CHECKLIST.md`
+- `QUICK_START_OPENCODE.md`, `SETUP_CHECKLIST.md`
 
 Exclu : `.github/`, `.claude/`, scripts/, plans/, `.git/`, dist/
 
