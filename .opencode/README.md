@@ -23,8 +23,8 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 ├── CHANGELOG.md                         # Historique des versions des agents
 ├── PLANS.md                             # Guide des Plans d'Action
 ├── README.md                            # Ce fichier
-├── copilot-instructions.md              # Instructions de ce depot transverse
-└── copilot-instructions.template.md     # Template a copier dans les projets
+├── instructions/*.instructions.md              # Instructions de ce depot transverse
+└── instructions/*.instructions.template.md     # Template a copier dans les projets
 ```
 
 ---
@@ -40,7 +40,7 @@ Selon le projet cible, copier :
 - `.opencode/instructions/`
 - `.opencode/prompts/`
 - `.opencode/PLANS.md`
-- `.opencode/copilot-instructions.template.md`
+- `.opencode/instructions/*.instructions.template.md`
 
 ### Etape 2 : Initialiser les instructions projet
 
@@ -164,7 +164,7 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 
 - Modifier un agent => incrementer sa version dans le frontmatter
 - Reporter la modification dans `CHANGELOG.md`
-- Synchroniser les versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
+- Synchroniser les versions dans `instructions/*.instructions.md` et `instructions/*.instructions.template.md`
 - Mettre a jour `plans/README.md` a chaque nouveau Plan d'Action
 - Garder ce README comme source de verite pour la coordination transverse `.opencode/`
 
@@ -175,4 +175,4 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 - `README.md` racine : presentation generale du depot
 - `docs/ARCHITECTURE.md` : architecture transverse globale
 - `.opencode/PLANS.md` : format et execution des Plans d'Action
-- `.opencode/copilot-instructions.md` : instructions detaillees du depot OpenCode
+- `.opencode/instructions/*.instructions.md` : instructions detaillees du depot OpenCode

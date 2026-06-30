@@ -1,4 +1,4 @@
-# 🚀 Guide Rapide : Utiliser Ce Dépôt de Templates OpenCode
+# 🚀 Guide Rapide : Utiliser Ce Dépôt de Templates
 
 Bienvenue ! Ce dépôt contient les **templates et agents réutilisables** pour orchestrer le développement avec OpenCode.
 
@@ -16,7 +16,7 @@ cp -r .opencode/agents <votre_projet>/.opencode/
 cp -r .opencode/instructions <votre_projet>/.opencode/
 cp -r .opencode/skills <votre_projet>/.opencode/
 cp .opencode/PLANS.md <votre_projet>/.opencode/
-cp .opencode/README.md <votre_projet>/.opencode/
+cp .opencode/instructions/*.instructions.template.md <votre_projet>/.opencode/instructions/*.instructions.md
 mkdir -p <votre_projet>/.opencode/prompts
 cp .opencode/prompts/*.prompt.md <votre_projet>/.opencode/prompts/
 ```
@@ -55,9 +55,7 @@ Ou, pour une mise à jour après évolution du projet :
 ## 📚 Contenus de Ce Dépôt
 
 ### 🤖 Agents (5)
-
 Modèles prêts à l'emploi pour différents rôles :
-
 - **⚫ MAINa** — Orchestration maître du workflow
 - **🔵 DEVon** — Implémente le code
 - **🟢 QALvin** — Écrit les tests
@@ -65,15 +63,14 @@ Modèles prêts à l'emploi pour différents rôles :
 - **🟣 DOCly** — Maintient la documentation
 
 ### 📋 Templates
-
-- **`.opencode/instructions/`** — templates d'instructions agents à personnaliser par projet
-- **`.opencode/PLANS.md`** — guide pour orchestrer le travail multi-phases
-- **`.opencode/prompts/`** — prompts pour initialiser automatiquement les instructions
+- **`instructions/*.instructions.template.md`** — Template générique à customiser
+- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
+- **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
+- **Prompts** — Pour initialiser automatiquement les instructions
 
 ### 📖 Documentation
-
-- **`.opencode/README.md`** — guide complet du sous-arbre OpenCode
-- **`SETUP_CHECKLIST.md`** — checklist pour initialiser un projet
+- **`.opencode/README.md`** — Guide complet du dépôt
+- **`SETUP_CHECKLIST.md`** — Checklist pour initialiser un projet
 
 ---
 
@@ -109,11 +106,15 @@ Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif 
 
 ### 1️⃣ Activer le mode plan
 
+Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+
 ```
-> Utiliser le mode `plan` d'OpenCode
+> "/plan"
 ```
 
 ### 2️⃣ Activer MAINa
+
+Invoquez MAINa explicitement pour qu'il orchestre le workflow :
 
 ```
 👤 "/agent MAINa"
@@ -126,6 +127,8 @@ Vous pouvez aussi demander l'aide intégrée :
 ```
 
 ### 3️⃣ Expliquer la demande
+
+Décrivez le besoin avec le plus de contexte utile possible :
 
 ```
 👤 "Besoin : [objectif].
@@ -143,6 +146,8 @@ MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé
 ```
 
 ### 5️⃣ Valider le Plan d'Action
+
+MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
 
 ```
 👤 "Plan validé. Tu peux lancer la phase d'implémentation."
@@ -163,46 +168,40 @@ Ne clôturez l'initiative qu'après validation du code, des tests et de la docum
 ## ❓ FAQ
 
 ### Q: Comment copier rapidement ce dépôt vers mon projet ?
-
-A:
-
+A: 
 ```bash
-git clone <ce_repo> opencode-templates
-cp -r opencode-templates/.opencode/* mon-projet/.opencode/
+git clone <ce_repo> copilot-templates
+cp -r copilot-templates/.opencode/* mon-projet/.opencode/
 ```
 
 ### Q: Est-ce que je dois tout copier ?
-
 A: Non ! Minimum requis :
-
 - `.opencode/agents/` (5 fichiers)
 - `.opencode/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
-- `.opencode/instructions/` (fichiers à personnaliser)
+- `.opencode/instructions/` (4 fichiers — à personnaliser)
+- `.opencode/instructions/*.instructions.template.md` (renommer en `instructions/*.instructions.md`)
 - `.opencode/PLANS.md`
 
 ### Q: Comment initialiser rapidement ?
-
 A: Une fois les fichiers copiés, exécuter dans votre projet :
-
 ```
 👤 "Initialise les instructions OpenCode pour ce projet"
 ```
-
 Prompt associé : [`.opencode/prompts/init-copilot-instructions.prompt.md`](.opencode/prompts/init-copilot-instructions.prompt.md).
 
 Pour mettre à jour des instructions existantes, utiliser : [`.opencode/prompts/update-copilot-instructions.prompt.md`](.opencode/prompts/update-copilot-instructions.prompt.md).
 
 ### Q: Les agents sont-ils customisables ?
-
-A: Les agents sont **génériques**, la customisation se fait dans `.opencode/instructions/*.instructions.md` et dans les instructions projet OpenCode.
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.opencode/instructions/*.instructions.md` (contexte global) et `.opencode/instructions/*.instructions.md` (spécificités par agent).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes.
+A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
 
 ### Q: Où stocker mes Plans d'Action ?
-
 A: Dans `.opencode/plans/` — utiliser le format `XXX_<nom>.plan.md`.
+
+### Q: Quelle est la licence ?
+A: Libre d'utilisation — c'est un dépôt de templates transverse.
 
 ---
 
@@ -220,14 +219,17 @@ Après configuration, vérifier que :
 
 - [ ] `.opencode/agents/` a 5 fichiers ✅
 - [ ] `.opencode/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.opencode/instructions/` contient les instructions agents ✅
+- [ ] `.opencode/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
+- [ ] `.opencode/instructions/*.instructions.md` existe et est customisé ✅
 - [ ] `.opencode/PLANS.md` est accessible ✅
 - [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
-- [ ] Appeler `ARCos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `DEVon` (🔵 DEV) fonctionne ✅
+- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
+- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
 
 ---
 
 **C'est tout ! Vous êtes prêt à collaborer avec OpenCode. 🚀**
 
 Lisez [`.opencode/README.md`](.opencode/README.md) pour plus de détails sur chaque agent et prompt.
+
+
