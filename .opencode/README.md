@@ -12,7 +12,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 .opencode/
 ├── agents/                              # 5 agents OpenCode generiques
 │   ├── Maina.agent.md                   # Maitre orchestrateur
-│   ├── Arcos.agent.md                   # Planification / architecture
+│   ├── Arcos.agent.md                   # Architecture (consulté par MAINa)
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
 │   └── Docly.agent.md                   # Documentation
@@ -76,6 +76,7 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 
 | Fichier | Role |
 |---|---|
+| `orchestrator.instructions.md` | Conventions d'orchestration MAINa / gates humains / délégation |
 | `architect.instructions.md` | Conventions architecture / SQL handoff |
 | `dev.instructions.md` | Stack technique, versions, conventions de code |
 | `qa.instructions.md` | Framework de test, commandes CI, cas a couvrir |

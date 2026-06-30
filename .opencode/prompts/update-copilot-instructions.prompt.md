@@ -35,7 +35,8 @@ Mettre à jour les sections pertinentes du fichier :
 
 ### 4. Mettre à jour les fichiers instructions
 
-Vérifier et mettre à jour les 4 fichiers dans `.opencode/instructions/` :
+Vérifier et mettre à jour les 5 fichiers dans `.opencode/instructions/` :
+- `orchestrator.instructions.md`
 - `architect.instructions.md`
 - `dev.instructions.md`
 - `qa.instructions.md`
@@ -44,7 +45,7 @@ Vérifier et mettre à jour les 4 fichiers dans `.opencode/instructions/` :
 ## ✅ Checklist
 
 - [ ] `AGENTS.md` audité et mis à jour
-- [ ] 4 fichiers `.opencode/instructions/*.instructions.md` vérifiés
+- [ ] 5 fichiers `.opencode/instructions/*.instructions.md` vérifiés
 - [ ] Tous les placeholders remplacés
 - [ ] Commandes réelles et à jour
 - [ ] Pas d'informations obsolètes
