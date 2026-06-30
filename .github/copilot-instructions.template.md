@@ -30,7 +30,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **⚫ MAINa** [v1.3]
+#### **⚫ MAINa** [v1.4]
 - **Rôle :** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités :**
   - Cadrer la demande et piloter l'ordre des phases
@@ -39,6 +39,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Orchestrer `DEVon -> QALvin -> DOCly`
   - Imposer validations humaines entre chaque phase
   - Expliquer fonctionnement via `/maina-help` et `@MAINa /maina-help`
+  - Lire `.github/instructions/orchestrator.instructions.md` au démarrage pour spécificités projet
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
@@ -128,6 +129,7 @@ Chaque agent lit au démarrage son fichier instructions spécifique projet :
 
 | Fichier | Agent | Contenu |
 |---|---|---|
+| `orchestrator.instructions.md` | ⚫ MAINa | Orchestration, gates humains, délégations |
 | `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocole SQL handoff |
 | `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions code |
 | `qa.instructions.md` | 🟢 QALvin | Framework test, commandes CI, cas à couvrir |

@@ -11,6 +11,7 @@
 - **v1.1** : Renommage commande `/help` → `/maina-help`. Création Skill `maina-help` (applyTo: **) pour aide orchestration. Version MAINa passe à v1.1.
 - **v1.2** : MAINa prend responsabilité création Plan d'Action (skill plan-creation). Peut consulter ARCos (et autres agents) pour analyse solutions + recommandation avant rédiger le plan. ARCos redevient expert consulté — ne crée plus le plan. Workflow mis à jour : consultation ARCos → MAINa produit plan en mode PLAN → validation humaine obligatoire → implémentation.
 - **v1.2 → v1.3** : Bloc sécurité allégé — opérations destructives + `.copilotignore` externalisés vers skills `safety-rules` et `copilotignore` (`applyTo: **`). Règle MAINa-spécifique (pas de clôture sans validations 👤) conservée.
+- **v1.3 → v1.4** : Ajout lecture `.github/instructions/orchestrator.instructions.md` au démarrage pour appliquer les spécificités projet MAINa.
 
 ---
 
@@ -46,7 +47,7 @@
 - **v2.2 → v2.3** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.3 → v2.4** : Ajout interdictions opérations destructives.
 - **v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
-- **v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
+- **v2.5 → v2.6** : Confirmation modèle Copilot Sonnet 4.6 pour développement optimal.
 - **v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
@@ -65,7 +66,7 @@
 - **v2.4 → v2.5** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.5 → v2.6** : Ajout interdictions opérations destructives.
 - **v2.6 → v2.7** : Ajout règle absolue respect `.copilotignore`.
-- **v2.7 → v2.8** : Migration vers Claude Haiku 4.5 pour exécution rapide efficace tests.
+- **v2.7 → v2.8** : Migration vers Copilot Haiku 4.5 pour exécution rapide efficace tests.
 - **v2.8 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
@@ -84,7 +85,7 @@
 - **v2.3 → v2.4** : Alignement nouvelle arbo vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.4 → v2.5** : Ajout interdictions opérations destructives.
 - **v2.5 → v2.6** : Ajout règle absolue respect `.copilotignore`.
-- **v2.6 → v2.7** : Migration vers Claude Sonnet 4.6 pour amélioration qualité doc.
+- **v2.6 → v2.7** : Migration vers Copilot Sonnet 4.6 pour amélioration qualité doc.
 - **v2.7 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.

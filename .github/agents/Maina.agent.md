@@ -1,5 +1,5 @@
 ---
-description: "[v1.3] Utiliser cet agent comme maitre-orchestrateur principal. Il cadre la demande, cree le Plan d'Action (apres consultation ARCos), orchestre workflow strict (DEVon -> QALvin -> DOCly), impose validations humaines entre phases, et fournit aide via /maina-help ou @MAINa /maina-help."
+description: "[v1.4] Utiliser cet agent comme maitre-orchestrateur principal. Il cadre la demande, cree le Plan d'Action (apres consultation ARCos), orchestre workflow strict (DEVon -> QALvin -> DOCly), impose validations humaines entre phases, et fournit aide via /maina-help ou @MAINa /maina-help."
 name: MAINa
 model: Claude Sonnet 4.6 (copilot)
 agents: ["ARCos", "DEVon", "QALvin", "DOCly"]
@@ -11,6 +11,15 @@ tools: [read, agent, edit, search, web, todo]
 > **Versioning** : Description agent commence par numero version (ex. `[v1.0]`). Incrementer a chaque modif contenu.
 > Historique versions : [`.github/CHANGELOG.md`](../CHANGELOG.md)
 > Vue transverse agents + workflow : [`.github/README.md`](../README.md)
+
+## 📂 Spécificités projet
+
+**Au démarrage chaque session**, vérifie si `.github/instructions/orchestrator.instructions.md` existe dans projet courant. Si oui :
+- Lis intégralement
+- Applique conventions d'orchestration, gates humains, protocoles de délégation et contraintes décrites
+- Spécificités projet ont **priorité** sur valeurs par défaut génériques
+
+Si absent, applique conventions génériques.
 
 ## Role et responsabilites
 
