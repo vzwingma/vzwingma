@@ -6,7 +6,17 @@ flowchart TD
   Qalvin[🟢 QALvin<br/>Tests / QA]
   Docly[🟣DOCly<br/>Documentation]
   Commands[Commandes / prompts<br/>/maina-help, /fleet, init, update]
-  Deliverables[(Livrables)]
+
+  subgraph Deliverables[Livrables]
+    ActionPlan[(Plan d'Action)]
+    Architecture[(Recommandation architecture)]
+    Adr[(ADR)]
+    Code[(Code)]
+    Tests[(Tests)]
+    QaReport[(Rapport QA)]
+    Documentation[(Documentation)]
+    FinalSummary[(Synthese finale)]
+  end
 
   Human -->|Cadre le besoin| Maina
   Human -->|Declenche commande optionnelle| Commands
@@ -14,14 +24,15 @@ flowchart TD
 
   Maina -->|Delegue analyse architecture| Arcos
   Arcos -->|Recommandation, risques, impacts| Maina
-  Arcos -->|Notes architecture / ADR si requis| Deliverables
+  Arcos -->|Produit| Architecture
+  Arcos -->|Decision structurante si requis| Adr
 
-  Maina -->|Redige Plan d'Action| Deliverables
+  Maina -->|Redige| ActionPlan
   Maina -->|Soumet plan a validation| Human
   Human -->|Valide / ajuste / refuse| Maina
 
   Maina -->|Delegue implementation validee| Devon
-  Devon -->|Code source, config, scripts| Deliverables
+  Devon -->|Code source, config, scripts| Code
   Devon -->|Notifie fin implementation| Maina
   Maina -->|Demande validation implementation| Human
   Human -->|Validation ou corrections| Maina
@@ -29,19 +40,45 @@ flowchart TD
   Maina -->|Corrections ciblees si besoin| Devon
 
   Maina -->|Delegue tests et validation| Qalvin
-  Qalvin -->|Tests, rapport QA, resultats commandes| Deliverables
+  Qalvin -->|Ecrit / ajuste| Tests
+  Qalvin -->|Produit resultats commandes| QaReport
   Qalvin -->|Validation QA ou anomalies| Maina
   Maina -->|Corrections issues QA si besoin| Devon
-  Devon -->|Correctifs| Deliverables
+  Devon -->|Correctifs| Code
   Maina -->|Soumet resultats QA| Human
   Human -->|Validation QA explicite| Maina
 
   Maina -->|Delegue synchronisation documentation| Docly
-  Docly -->|README, ARCHITECTURE, ADR, guides| Deliverables
+  Docly -->|README, ARCHITECTURE, guides| Documentation
+  Docly -->|Met a jour si necessaire| Adr
   Docly -->|Notifie fin documentation| Maina
 
+  Maina -->|Compile| FinalSummary
   Maina -->|Synthese finale des livrables| Human
   Human -->|Acceptation finale / ajustement| Maina
 
-  Deliverables -.->|Plan d'Action valide| Human
-  Deliverables -.->|Code, tests, docs, ADR| Human
+  ActionPlan -.->|Validation plan| Human
+  Code -.->|Validation implementation| Human
+  Tests -.->|Preuve de couverture| Human
+  QaReport -.->|Validation QA| Human
+  Documentation -.->|Documentation livree| Human
+  Adr -.->|Decision tracee| Human
+  FinalSummary -.->|Livraison finale| Human
+
+  classDef human fill:#f5f5f5,stroke:#666666,color:#111111,stroke-width:2px
+  classDef maina fill:#1f2937,stroke:#000000,color:#ffffff,stroke-width:2px
+  classDef arcos fill:#f59e0b,stroke:#92400e,color:#111111,stroke-width:2px
+  classDef devon fill:#3b82f6,stroke:#1e40af,color:#ffffff,stroke-width:2px
+  classDef qalvin fill:#22c55e,stroke:#166534,color:#111111,stroke-width:2px
+  classDef docly fill:#8b5cf6,stroke:#5b21b6,color:#ffffff,stroke-width:2px
+  classDef command fill:#e0f2fe,stroke:#0369a1,color:#0f172a,stroke-width:2px
+  classDef deliverable fill:#fff7ed,stroke:#c2410c,color:#7c2d12,stroke-width:2px
+
+  class Human human
+  class Maina maina
+  class Arcos arcos
+  class Devon devon
+  class Qalvin qalvin
+  class Docly docly
+  class Commands command
+  class ActionPlan,Architecture,Adr,Code,Tests,QaReport,Documentation,FinalSummary deliverable
