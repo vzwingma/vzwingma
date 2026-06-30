@@ -1,0 +1,47 @@
+flowchart TD
+  Human[Developpeur humain]
+  Maina[MAINa<br/>Maitre orchestrateur]
+  Arcos[ARCos<br/>Architecture]
+  Devon[DEVon<br/>Implementation]
+  Qalvin[QALvin<br/>Tests / QA]
+  Docly[DOCly<br/>Documentation]
+  Commands[Commandes / prompts<br/>/maina-help, /fleet, init, update]
+  Deliverables[(Livrables)]
+
+  Human -->|Cadre le besoin| Maina
+  Human -->|Declenche commande optionnelle| Commands
+  Commands -->|Contexte et regles workflow| Maina
+
+  Maina -->|Delegue analyse architecture| Arcos
+  Arcos -->|Recommandation, risques, impacts| Maina
+  Arcos -->|Notes architecture / ADR si requis| Deliverables
+
+  Maina -->|Redige Plan d'Action| Deliverables
+  Maina -->|Soumet plan a validation| Human
+  Human -->|Valide / ajuste / refuse| Maina
+
+  Maina -->|Delegue implementation validee| Devon
+  Devon -->|Code source, config, scripts| Deliverables
+  Devon -->|Notifie fin implementation| Maina
+  Maina -->|Demande validation implementation| Human
+  Human -->|Validation ou corrections| Maina
+
+  Maina -->|Corrections ciblees si besoin| Devon
+
+  Maina -->|Delegue tests et validation| Qalvin
+  Qalvin -->|Tests, rapport QA, resultats commandes| Deliverables
+  Qalvin -->|Validation QA ou anomalies| Maina
+  Maina -->|Corrections issues QA si besoin| Devon
+  Devon -->|Correctifs| Deliverables
+  Maina -->|Soumet resultats QA| Human
+  Human -->|Validation QA explicite| Maina
+
+  Maina -->|Delegue synchronisation documentation| Docly
+  Docly -->|README, ARCHITECTURE, ADR, guides| Deliverables
+  Docly -->|Notifie fin documentation| Maina
+
+  Maina -->|Synthese finale des livrables| Human
+  Human -->|Acceptation finale / ajustement| Maina
+
+  Deliverables -.->|Plan d'Action valide| Human
+  Deliverables -.->|Code, tests, docs, ADR| Human
