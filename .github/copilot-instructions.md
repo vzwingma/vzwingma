@@ -169,7 +169,7 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 - **Prompts** (`.github/prompts/`): initialisation et mise à jour des instructions
 - **Guide Plans d'Action** (`.github/PLANS.md`): référence pour orchestrer travail multi-phases
 - **README `.github/`** (`.github/README.md`): vue d'ensemble, workflow et relations entre agents
-- **Documentation** (`docs/`, `QUICK_START.md`, `SETUP_CHECKLIST.md`): guides d'utilisation
+- **Documentation** (`docs/`, `QUICK_START_*.md`, `SETUP_CHECKLIST.md`): guides d'utilisation
 
 **Usage:** Copier fichiers de ce dépôt vers projet cible, puis utiliser `init-copilot-instructions` pour personnaliser.
 
@@ -225,7 +225,9 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 │   ├── ARCHITECTURE.md                  # Architecture de ce dépôt transverse
 │   ├── ARCHITECTURE.template.md         # Template architecture à copier dans les projets
 │   └── adr/                             # Décisions architecturales
-├── QUICK_START.md                       # Guide rapide d'utilisation
+├── QUICK_START_COPILOT.md               # Guide rapide Copilot
+├── QUICK_START_OPENCODE.md              # Guide rapide OpenCode
+├── QUICK_START_CLAUDE.md                # Guide rapide Claude Code
 ├── SETUP_CHECKLIST.md                   # Checklist d'initialisation projet
 └── README.md                            # Présentation du dépôt
 ```
@@ -269,7 +271,7 @@ Incrémenter version à chaque modification du contenu de l'agent.
 - **Modifier agent** → incrémenter version, ajouter entrée dans `.github/CHANGELOG.md`, mettre à jour versions dans `copilot-instructions.md` et `copilot-instructions.template.md`
 - **Modifier skill** → vérifier cohérence avec `PLANS.md`, signaler dans agents qui y référencent
 - **Modifier skill `copilotignore`** → règle étant appliquée via `applyTo: **`, toute modification de `.github/skills/copilotignore/SKILL.md` prend effet immédiatement pour tous agents
-- **Ajouter fichier template** → documenter dans `QUICK_START.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
+- **Ajouter fichier template** → documenter dans les `QUICK_START_*.md`, `SETUP_CHECKLIST.md` et `init-copilot-instructions.prompt.md`
 - **Pas de commandes de build/test**: ce dépôt est documentation-only
 
 ---

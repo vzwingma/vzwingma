@@ -76,7 +76,9 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
 ```
 .                                                # Racine du dépôt transverse
 ├── README.md                                    # Présentation du dépôt
-├── QUICK_START.md                               # Démarrage rapide (3 étapes)
+├── QUICK_START_COPILOT.md                       # Démarrage rapide Copilot
+├── QUICK_START_OPENCODE.md                      # Démarrage rapide OpenCode
+├── QUICK_START_CLAUDE.md                        # Démarrage rapide Claude Code
 ├── SETUP_CHECKLIST.md                           # Checklist d'initialisation
 │
 ├── docs/                                        # Documentation versionnée
