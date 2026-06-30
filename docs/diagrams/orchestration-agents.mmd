@@ -5,7 +5,7 @@ flowchart TD
   Devon[🔵 DEVon<br/>Implementation]
   Qalvin[🟢 QALvin<br/>Tests / QA]
   Docly[🟣DOCly<br/>Documentation]
-  Commands[Commandes / prompts<br/>/maina-help, /fleet, init, update]
+  Commands[Commandes / prompts]
 
   subgraph Deliverables[Livrables]
     ActionPlan[(Plan d'Action)]
@@ -36,14 +36,7 @@ flowchart TD
   Docly -->|Livre| Documentation
   Maina -->|Livre| FinalSummary
 
-  Architecture -->|Remonte livrable| Maina
-  Adr -->|Remonte livrable| Maina
-  ActionPlan -->|Remonte livrable| Maina
-  Code -->|Remonte livrable| Maina
-  Tests -->|Remonte livrable| Maina
-  QaReport -->|Remonte livrable| Maina
-  Documentation -->|Remonte livrable| Maina
-  FinalSummary -->|Remonte livrable| Maina
+
 
   Maina -->|Soumet livrable / gate| Human
   Human -->|Valide / ajuste / refuse| Maina
