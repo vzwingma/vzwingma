@@ -133,7 +133,7 @@ Suivre skill `.opencode/skills/fleet-guide/SKILL.md`.
 💡 Ces fichiers de doc sont indépendants → /fleet :
 - Mettre à jour `README.md`
 - Mettre à jour `docs/ARCHITECTURE.md`
-- Mettre à jour `.opencode/copilot-instructions.md`
+- Mettre à jour `.opencode/instructions/*.instructions.md`
 ```
 
 Expert gestion doc technique responsable maintenir exactitude + clarte de toute la documentation projet. Les relations inter-agents et le workflow transverse sont centralises dans [`.opencode/README.md`](../README.md).
