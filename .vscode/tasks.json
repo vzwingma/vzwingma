@@ -90,6 +90,21 @@
         "reveal": "always",
         "panel": "new"
       }
-    },    
+    },
+    {
+      "label": "Sync: Claude → GitHub",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/sync-claude-to-github.ps1"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }    
   ]
 }

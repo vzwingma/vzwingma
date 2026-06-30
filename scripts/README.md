@@ -84,6 +84,27 @@ Couvre aussi `QUICK_START_OPENCODE.md` → `QUICK_START_COPILOT.md`.
 
 ---
 
+### `sync-claude-to-github.ps1`
+
+**Claude → Copilot** (reverse sync)
+
+Sync agents, skills, instructions, templates, CHANGELOG, PLANS, README et quickstart depuis `.claude/` vers `.github/`.
+
+```bash
+.\scripts\sync-claude-to-github.ps1      # Execute
+.\scripts\sync-claude-to-github.ps1 -WhatIf  # Dry-run
+```
+
+Couvre :
+- Agents : `.claude/agents/*.agent.md` → `.github/agents/`
+- Skills : `.claude/skills/*/SKILL.md` → `.github/skills/`
+- Instructions : `.claude/instructions/*.md` → `.github/instructions/`
+- Root template : `.claude/CLAUDE.template.md` → `.github/copilot-instructions.template.md`
+- Standalone : CHANGELOG.md, PLANS.md, README.md
+- Quick Start : `QUICK_START_CLAUDE.md` → `QUICK_START_COPILOT.md`
+
+---
+
 ## 📦 Packaging (Package Scripts)
 
 ### `package-github.ps1`
@@ -205,6 +226,13 @@ Après modifications agents OpenCode (`.opencode/`) :
 .\scripts\sync-opencode-to-github.ps1
 ```
 
+Après modifications agents Claude (`.claude/`) :
+
+```bash
+# Sync Claude → GitHub quand Claude est temporairement la source la plus à jour
+.\scripts\sync-claude-to-github.ps1
+```
+
 ---
 
 ## 🎯 Cas d'Utilisation
@@ -213,6 +241,7 @@ Après modifications agents OpenCode (`.opencode/`) :
 |--------|--------|-------|
 | Modifier agent Copilot | Modifier `.github/agents/*.agent.md` | → sync-github-to-* |
 | Modifier skill Copilot | Modifier `.github/skills/*/SKILL.md` | → sync-github-to-* |
+| Mettre à jour GitHub depuis Claude | `sync-claude-to-github.ps1` | Reverse sync ponctuelle |
 | Créer package Copilot distribué | `package-github.ps1` | ZIP avec agents Copilot |
 | Créer package Claude distribué | `package-claude.ps1` | ZIP avec agents Claude |
 | Créer package OpenCode distribué | `package-opencode.ps1` | ZIP avec agents OpenCode |
