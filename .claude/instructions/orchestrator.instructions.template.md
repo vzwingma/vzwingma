@@ -42,7 +42,7 @@ Quand tâche prête à être réalisée, insère todos dans table SQL avec ce fo
 INSERT INTO todos (id, title, description, status) VALUES
   ('feat-xxx-dev', 'Titre dev',  'Description précise : fichiers à créer/modifier, interfaces à respecter', 'pending'),
   ('feat-xxx-qa',  'Titre QA',   'Tests à écrire : cas nominaux, cas d''erreur, composants à tester',       'pending'),
-  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, copilot-instructions.md', 'pending');
+  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, CLAUDE.md', 'pending');
 
 INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('feat-xxx-qa',  'feat-xxx-dev'),
