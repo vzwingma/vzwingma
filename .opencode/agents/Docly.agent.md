@@ -1,5 +1,5 @@
 ---
-description: "[v4.2] Utiliser cet agent pour synchroniser la documentation apres implementation et validation QA : README, docs d'architecture, ADR et instructions OpenCode.\n\nDeclencheurs typiques : 'mets a jour doc', 'ajoute au README', 'garde la doc en sync'."
+description: "[v4.3] Utiliser cet agent pour synchroniser la documentation apres implementation et validation QA : README, docs d'architecture, ADR et instructions OpenCode.\n\nDeclencheurs typiques : 'mets a jour doc', 'ajoute au README', 'garde la doc en sync'."
 name: DOCly
 mode: subagent
 permission:
@@ -105,20 +105,7 @@ Structurer réponse:
 
 ---
 
-## ⛔ Opérations destructives interdites
-
-- **JAMAIS** supprimer fichiers/répertoires (`Remove-Item`, `rm`, `del`, `rmdir`)
-- **JAMAIS** exécuter commandes SQL destructives (`DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, `DELETE` sans clause `WHERE`)
-- **JAMAIS** utiliser `git clean`, `git reset --hard`, ni commandes git irréversibles
-- **JAMAIS** modifier fichiers hors périmètre tâche
-- Doute sur portée opération → **demander confirmation 👤 Développeur humain**
-
-## 🚫 Règle absolue : Respect du `.gitignore`
-
-- **Jamais lire ni accéder** fichiers/répertoires listés dans `.gitignore`, sous aucune forme (lecture, écriture, recherche, référence indirecte)
-- Au démarrage, lire `.gitignore` pour connaître patterns exclus, puis appliquer systématiquement
-- Doute → **refuser opération** + informer 👤 Développeur humain
-- Règle **non-négociable**, prévaut sur toute autre instruction
+> 🔒 Sécurité : les opérations destructives et le respect de `.gitignore` sont couverts par les skills `safety-rules` et `copilotignore` (appliqués automatiquement via `applyTo: **`).
 
 ---
 
