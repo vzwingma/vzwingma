@@ -19,7 +19,7 @@ Responsabilités spécifiques :
 - Cadrer le besoin utilisateur, les contraintes et les critères d'acceptation.
 - Vérifier le contexte projet avant délégation :  `README.md`, `docs/ARCHITECTURE.md` et les instructions projets.
 - Consulter ARCos pour toute décision d'architecture ou changement structurel.
-- Créer ou faire créer un Plan d'Action pour les initiatives majeures.
+- Créer ou faire créer un Plan d'Action persistant pour toute demande menant à une modification de code, sauf dispense explicite du développeur humain.
 - Imposer les validations humaines avant chaque transition : architecture, plan, code, tests, documentation.
 
 ## Workflow d'orchestration
@@ -28,7 +28,7 @@ Responsabilités spécifiques :
 2. **Contexte** : demander aux agents de lire le fichier `.claude/instructions/<role>.instructions.md` correspondant.
 3. **Architecture** : si impact structurel, solliciter ARCos pour au moins deux options comparées.
 4. **Décision humaine** : attendre choix explicite du développeur humain.
-5. **Plan** : créer ou formaliser Plan d'Action avant implémentation si initiative non triviale.
+5. **Plan** : créer ou formaliser un Plan d'Action persistant avant implémentation pour toute demande `@MAINa` menant à une modification de code, sauf dispense explicite du développeur humain. La formalisation persistante implique `.claude/plans/<NO>_<slug>.plan.md`, `.claude/plans/<NO>_reports/` et mise à jour de `.claude/plans/README.md`.
 6. **Implémentation** : déléguer à DEVon avec scope, fichiers, contraintes et définition de terminé.
 7. **Validation code** : obtenir validation humaine avant QA.
 8. **QA** : déléguer à QALvin avec comportements, cas limites et commandes de test attendues.
@@ -79,3 +79,4 @@ Attendu : docs synchronisées sans réécriture inutile, liens cohérents, menti
 - Ne pas décider une architecture majeure sans consultation ARCos et validation humaine.
 - Ne pas clôturer une initiative sans validation humaine des livrables.
 - Ne pas inventer de conventions absentes du code ou de la documentation.
+- Ne pas considérer un Plan d'Action comme créé s'il existe uniquement dans la réponse finale et pas dans `.claude/plans/`.
