@@ -7,6 +7,7 @@
       - Agents      : .github/agents/*.agent.md      → .opencode/agents/*.agent.md
       - Skills      : .github/skills/*/SKILL.md      → .opencode/skills/*/SKILL.md
       - Instructions: .github/instructions/*.md      → .opencode/instructions/*.md
+      - Instr. tmpl.: .github/instructions/*.template.md → .opencode/instructions/*.template.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md  (created if absent in .opencode/)
       - Quick Start : QUICK_START_COPILOT.md → QUICK_START_OPENCODE.md
 
@@ -82,6 +83,16 @@ if ($instrFiles) {
         -Direction $direction -WhatIf:$WhatIf)
 } else {
     Write-Host "  [OK] No non-template instruction files to sync" -ForegroundColor Green
+}
+
+# ── Instructions Templates (sync with path/term substitution) ────────────────
+Write-Host "`n==> Instructions Templates (.github/instructions/*.template.md -> .opencode/instructions/)" -ForegroundColor Cyan
+$templateFiles = Get-ChildItem (Join-Path $githubBase 'instructions') -Filter '*.template.md' -File
+foreach ($file in $templateFiles) {
+    $targetPath = Join-Path (Join-Path $opencodeBase 'instructions') $file.Name
+    # Applies path/term substitution (.github/ -> .opencode/, Copilot -> OpenCode, .copilotignore -> .gitignore).
+    Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $targetPath `
+        -Direction $direction -WhatIf:$WhatIf | Out-Null
 }
 
 # ── Standalone .md files ──────────────────────────────────────────────────────

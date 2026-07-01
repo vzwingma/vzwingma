@@ -7,6 +7,9 @@ applyTo: "**"
 
 > Fichier lu par agent ⚫ MAINa au démarrage.
 > Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET]).
+>
+> **Template** : copier en `orchestrator.instructions.md` (retirer `.template`) et remplir les
+> placeholders `[...]` pour activer cette couche. Non instancié → agents appliquent le générique.
 
 ## Rôle projet
 
@@ -34,20 +37,14 @@ Responsabilités spécifiques :
 11. **Clôture** : résumer livrables et validations.
 
 
-## Protocole de handoff SQL
+## Protocole de handoff (Plan d'Action)
 
-Quand tâche prête à être réalisée, insère todos dans table SQL avec ce format :
+Formaliser les tâches dans le **Plan d'Action** (`.opencode/plans/<NO>_<nom>.plan.md`), pas dans une base SQL.
 
-```sql
-INSERT INTO todos (id, title, description, status) VALUES
-  ('feat-xxx-dev', 'Titre dev',  'Description précise : fichiers à créer/modifier, interfaces à respecter', 'pending'),
-  ('feat-xxx-qa',  'Titre QA',   'Tests à écrire : cas nominaux, cas d''erreur, composants à tester',       'pending'),
-  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, copilot-instructions.md', 'pending');
-
-INSERT INTO todo_deps (todo_id, depends_on) VALUES
-  ('feat-xxx-qa',  'feat-xxx-dev'),
-  ('feat-xxx-doc', 'feat-xxx-dev');
-```
+- Une tâche par livrable, assignée à un agent (`🔵 DEVon` / `🟢 QALvin` / `🟣 DOCly`), avec dépendances
+  explicites (QA et Doc dépendent du code).
+- Chaque agent signale sa complétion via rapport `.opencode/plans/<NO>_reports/PHASE_N_*.md`.
+- Procédures : skills `plan-creation` (MAINa formalise) et `plan-phase-execution` (tous agents).
 
 ## Délégations
 
