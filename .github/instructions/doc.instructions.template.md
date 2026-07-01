@@ -7,14 +7,18 @@ applyTo: "**"
 
 > Fichier lu automatiquement par agent 🟣 DOCly au démarrage.
 > Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+>
+> **Template** : copier en `doc.instructions.md` (retirer `.template`) et remplir les placeholders
+> `[...]` pour activer cette couche. Non instancié → agent applique le générique.
 
 ## Workflow
 
-1. Consulte todos `*-doc` dont dépendances sont `done`.
-2. Passe todo en `in_progress`.
-3. Identifie fichiers doc impactés.
-4. Update précis (pas réécriture complète sauf si nécessaire).
-5. Passe en `done`.
+1. Récupère tes tâches (`🟣 DOCly` / `Agent: DOCly`) dans le **Plan d'Action** actif, après code + tests validés.
+2. Identifie fichiers doc impactés (lire rapports DEVon + QALvin).
+3. Update précis (pas réécriture complète sauf si nécessaire).
+4. Signale la complétion (rapport `PHASE_N_*.md`).
+
+Procédure détaillée : skill `plan-phase-execution`.
 
 ## Fichiers sous ta responsabilité
 

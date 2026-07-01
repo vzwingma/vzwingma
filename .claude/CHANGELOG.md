@@ -36,6 +36,7 @@
 - **v4.3 → v4.4** : Retrait responsabilité création Plan d'Action. MAINa crée le plan après consultation ARCos. ARCos = expert archi consulté, exécute tâches T*.* assignées. Section "Créer et Exécuter un Plan d'Action" remplacée par "Exécuter les tâches assignées".
 - **v4.4 → v4.5** : Suppression contradictions résiduelles du modèle pré-MAINa (création WBS, orchestration inter-agents, « format sortie = plan »). ARCos recentré sur analyse & conception : propose un découpage candidat en entrée, MAINa crée et orchestre le Plan d'Action.
 - **v4.5 → v4.6** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (désormais couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`). Remplacés par un rappel d'une ligne.
+- **v4.6 → v4.7** : Élagage (214 → ~110 lignes) — fusion des 5 restatements du workflow (Coordination/Séquencement/Points contrôle/Cas limites), suppression des sections « Découpage travail » + « Tâches DEVon/QALvin/DOCly » du format de sortie (résidu du modèle créateur-de-plan). Corps aligné sur le frontmatter : ARCos = analyse + conception + découpage candidat en entrée à MAINa. Workflow global renvoyé à `.claude/README.md` (source unique).
 
 ---
 

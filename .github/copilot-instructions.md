@@ -43,7 +43,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser:** "`/maina-help`", "`@MAINa /maina-help`", "organise ce workflow", "pilote cette initiative"
 - **Livrable:** Plan d'Action validé + orchestration complète, séquencée et traçable
 
-#### **🟠 ARCos** [v4.6]
+#### **🟠 ARCos** [v4.7]
 - **Rôle:** Expert architecture consulté par MAINa
 - **Responsabilités:**
   - Analyser problèmes complexes et concevoir solutions architecturales
@@ -182,7 +182,7 @@ Dépôt est **dépôt transverse de templates Copilot multi-agents**. Ne contien
 ├── .github/
 │   ├── agents/                          # Agents génériques (transverses — ne pas modifier par projet)
 │   │   ├── Maina.agent.md               # Maitre orchestrateur (v1.3)
-│   │   ├── Arcos.agent.md               # Architecte consulté par MAINa (v4.6)
+│   │   ├── Arcos.agent.md               # Architecte consulté par MAINa (v4.7)
 │   │   ├── Devon.agent.md               # Développeur (v4.3)
 │   │   ├── Qalvin.agent.md              # QA & tests (v4.4)
 │   │   ├── Docly.agent.md               # Documentation (v4.3)

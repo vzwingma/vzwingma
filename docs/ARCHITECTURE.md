@@ -95,7 +95,7 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
     │   ├── Maina.agent.md                       # Maître orchestrateur [v1.3]
-    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.6]
+    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.7]
     │   ├── Devon.agent.md                       # Implémentateur de code [v4.3]
     │   ├── Qalvin.agent.md                      # Expert QA [v4.4]
     │   └── Docly.agent.md                       # Gestionnaire documentation [v4.3]
@@ -137,7 +137,7 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
 | ⚫ MAINa | `Maina.agent.md` | v1.3 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
-| 🟠 ARCos | `Arcos.agent.md` | v4.6 | Architecte (consulté par MAINa : analyse + recommandation) |
+| 🟠 ARCos | `Arcos.agent.md` | v4.7 | Architecte (consulté par MAINa : analyse + recommandation) |
 | 🔵 DEVon | `Devon.agent.md` | v4.3 | Implémentateur de code |
 | 🟢 QALvin | `Qalvin.agent.md` | v4.4 | Expert QA et tests |
 | 🟣 DOCly | `Docly.agent.md` | v4.3 | Gestionnaire documentation |

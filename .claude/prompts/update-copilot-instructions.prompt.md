@@ -90,17 +90,15 @@ Pour chaque convention documentée dans `CLAUDE.md`:
 
 ### 5. Auditer les fichiers d'instructions agents
 
-Lire 5 fichiers suivants dans `.claude/instructions/`:
-- `orchestrator.instructions.md`
+Lire 4 fichiers suivants dans `.claude/instructions/`:
 - `architect.instructions.md`
 - `dev.instructions.md`
 - `qa.instructions.md`
 - `doc.instructions.md`
 
-> Si un fichier est absent, le créer depuis le template correspondant dans `.claude/instructions/` du dépôt transverse (`orchestrator.instructions.template.md`, `architect.instructions.template.md`, `dev.instructions.template.md`, `qa.instructions.template.md`, `doc.instructions.template.md`) et remplir les placeholders avec les valeurs du projet.
+> Si un fichier est absent, le créer depuis le template correspondant dans `.claude/instructions/` du dépôt transverse (`architect.instructions.template.md`, `dev.instructions.template.md`, `qa.instructions.template.md`, `doc.instructions.template.md`) et remplir les placeholders avec les valeurs du projet.
 
 Pour chaque fichier, vérifier cohérence avec code source:
-- `orchestrator.instructions.md`: conventions d'orchestration, gates humains, protocoles de délégation, handoff projet
 - `dev.instructions.md`: versions librairies, noms fichiers constantes, chemins dossiers
 - `qa.instructions.md`: versions packages test, commandes CI, chemins rapport couverture
 - `doc.instructions.md`: chemins docs/ locaux, noms fichiers doc, versions pour diagrammes `.puml`
