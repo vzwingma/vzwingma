@@ -6,25 +6,18 @@ applyTo: "**"
 # Spécificités projet — [NOM_DU_PROJET] (Dev)
 
 > Fichier lu auto par agent 🔵 DEVon au démarrage. Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+>
+> **Template** : copier en `dev.instructions.md` (retirer `.template`) et remplir les placeholders
+> `[...]` pour activer cette couche. Non instancié → agent applique le générique.
 
 ## Workflow
 
-1. Consulte table SQL `todos` pour tâches `owner = 'dev'` statut `pending` sans dépendances bloquantes.
-2. Passe todo en `in_progress` avant commencer.
-3. Implémente fonctionnalité selon conventions ci-dessous.
-4. Passe todo en `done` quand code prêt.
+1. Récupère tes tâches (`🔵 DEVon` / `Agent: DEVon`) dans le **Plan d'Action** actif (`.opencode/plans/`).
+2. Vérifie que les dépendances sont livrées avant de commencer.
+3. Implémente selon conventions ci-dessous ; ne pas élargir le scope.
+4. Signale la complétion (rapport `PHASE_N_*.md`) puis relaie vers `🟢 QALvin` / `🟣 DOCly`.
 
-```sql
--- Trouver les tâches dev disponibles
-SELECT t.* FROM todos t
-WHERE t.status = 'pending'
-AND (t.id LIKE '%-dev' OR t.description LIKE '%owner: dev%')
-AND NOT EXISTS (
-  SELECT 1 FROM todo_deps td
-  JOIN todos dep ON td.depends_on = dep.id
-  WHERE td.todo_id = t.id AND dep.status != 'done'
-);
-```
+Procédure détaillée : skill `plan-phase-execution`.
 
 ## Stack technique
 
@@ -38,6 +31,8 @@ AND NOT EXISTS (
 
 ### Composants
 
+> 💡 Exemples ci-dessous en React/TypeScript — adapter à `[FRAMEWORK_PRINCIPAL]`.
+
 ```typescript
 // Toujours : composant fonctionnel typé
 export const MonComposant: React.FC<MonComposantProps> = ({ prop1, prop2 }): JSX.Element => {
@@ -47,7 +42,7 @@ export const MonComposant: React.FC<MonComposantProps> = ({ prop1, prop2 }): JSX
 
 - Props interfaces dans `[FICHIER_PROPS]`.
 - Sous-composants page dans `[DOSSIER_SUBCOMPONENTS]/`, boutons action dans `[DOSSIER_ACTIONS]/`.
-- Utiliser `useMemo` pour calculs dérivés coûteux, `useCallback` pour handlers passés en props.
+- Utiliser le mécanisme de mémoïsation du framework pour calculs dérivés coûteux et handlers passés en props (ex: `useMemo`/`useCallback`).
 - Responsive via `[METHODE_RESPONSIVE]`.
 
 ### Appels HTTP
@@ -62,8 +57,8 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 ### Modèles et état
 
 - Classes données dans `[DOSSIER_MODELS]`.
-- État global via `useContext([NOM_CONTEXT])`.
-- État local UI via `useState`.
+- État global via le provider du projet (ex: `useContext([NOM_CONTEXT])`).
+- État local UI via le mécanisme du framework (ex: `useState`).
 
 ### Enums et constantes
 
@@ -74,8 +69,8 @@ call('GET', [CONFIG_URL_VARIABLE], '/[CHEMIN_API]/{{}}/[RESSOURCE]', [paramId]);
 ## Ce que tu ne fais PAS
 
 - Pas modifier fichiers `*.test.[tsx|ts]` (rôle de 🟢 QALvin).
-- Pas MAJ `README.md`, `docs/`, ni `copilot-instructions.md` (rôle de 🟣 DOCly).
-- Pas décisions archi (nouveau Context, nouvelle lib) sans todo de 🟠 ARCos.
+- Pas MAJ `README.md`, `docs/`, ni `instructions/*.instructions.md` (rôle de 🟣 DOCly).
+- Pas décisions archi (nouveau Context, nouvelle lib) sans tâche 🟠 ARCos dans le Plan d'Action.
 
 
 ## Règle d'index des plans (obligatoire)

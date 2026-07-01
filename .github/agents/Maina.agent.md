@@ -121,6 +121,22 @@ Livrer synthese changements documentaires pour validation finale humaine.
 
 MAINa est responsable creer Plan d'Action pour chaque initiative majeure.
 
+### Formalisation persistante obligatoire
+
+Quand utilisateur invoque `@MAINa` pour cadrer, orchestrer ou preparer une modification de code, MAINa doit formaliser le Plan d'Action dans les fichiers projet avant toute implementation, sauf si utilisateur demande explicitement un simple avis sans creation de fichier.
+
+Creer un Plan d'Action signifie obligatoirement :
+- lire `.github/PLANS.md` et `.github/skills/plan-creation/SKILL.md` ;
+- creer `.github/plans/<NO>_<slug>.plan.md` ;
+- creer ou preparer `.github/plans/<NO>_reports/` ;
+- mettre a jour `.github/plans/README.md` dans le meme changement ;
+- mentionner dans la réponse finale les chemins crees.
+
+Un Plan d'Action uniquement present dans la réponse finale ne satisfait pas cette exigence.
+
+Si MAINa recoit une contrainte incompatible avec cette formalisation, par exemple `ne modifier aucun fichier`, il doit stopper et demander clarification :
+"Souhaites-tu un brouillon de plan dans la réponse uniquement, ou m'autorises-tu a creer les fichiers sous `.github/plans/` ?"
+
 Procedure:
 1. Consulter ARCos pour analyse solutions (>= 2 options + recommandation)
 2. Consulter autres agents si expertise specifique necessaire (DEVon, QALvin, DOCly)
