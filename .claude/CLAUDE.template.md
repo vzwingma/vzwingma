@@ -159,6 +159,20 @@ Skills = procédures réutilisables incluses automatiquement dans contexte tous 
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
+### Skills d'activation directe (raccourcis agents)
+
+Chaque agent possède skill dédié pour activation via slash command :
+
+| Commande | Agent activé |
+|---|---|
+| `/maina : [prompt]` | ⚫ MAINa |
+| `/arcos : [prompt]` | 🟠 ARCos |
+| `/devon : [prompt]` | 🔵 DEVon |
+| `/qalvin : [prompt]` | 🟢 QALvin |
+| `/docly : [prompt]` | 🟣 DOCly |
+
+Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformulation. Équivalent à `@Agent "prompt"`.
+
 ---
 
 ## [📌 SECTION À COMPLÉTER : Présentation du Projet]
