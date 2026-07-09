@@ -43,6 +43,17 @@ Créer fichier `.claude/plans/<NO>_<nom>.plan.md` contenant :
 
 **Référence complète format** : `.claude/PLANS.md` (section "Format du Fichier Plan")
 
+## Règle de persistance obligatoire
+
+Le livrable du skill est un ensemble de fichiers persistés dans le dépôt :
+- `.claude/plans/<NO>_<nom>.plan.md`
+- `.claude/plans/<NO>_reports/`
+- `.claude/plans/README.md` mis à jour
+
+Si les outils d'édition sont interdits ou si le prompt demande de ne modifier aucun fichier, ne pas produire un faux plan "créé" dans la réponse finale. Demander au développeur humain s'il souhaite :
+1. autoriser la création des fichiers ;
+2. ou recevoir uniquement un brouillon non formalisé.
+
 ### Structurer les tâches
 
 Chaque tâche doit avoir :

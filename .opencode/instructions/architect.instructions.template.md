@@ -7,6 +7,9 @@ applyTo: "**"
 
 > Fichier auto-lu par agent 🟠 ARCos au démarrage.
 > Contient spécificités projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+>
+> **Template** : copier en `architect.instructions.md` (retirer `.template`) et remplir les
+> placeholders `[...]` pour activer cette couche. Non instancié → agent applique le générique.
 
 ## Lecture du document d'architecture
 
@@ -18,7 +21,7 @@ applyTo: "**"
 ## Conventions architecturales
 
 - **Couches** : `[COUCHE_UI]/` (UI) → `[COUCHE_ETAT]/` (état global) → `[COUCHE_HTTP]/` (HTTP) → `[COUCHE_UTILS]/` (constantes, helpers).
-- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer nouveau Context sans validation.
+- **État global** : uniquement via `[PROVIDER_ETAT_GLOBAL]`. Pas créer de nouveau conteneur d'état global (ex: React Context, store) sans validation.
 - **HTTP** : toujours via `[SERVICE_HTTP]`. Pas utiliser `fetch` direct dans composant.
 - **Routing** : `[STRATEGIE_ROUTING]`. Nouvelles routes s'ajoutent dans `[FICHIER_ROUTES]`.
 - **Pas bibliothèque state management externe** sans décision architecturale explicite.
@@ -33,22 +36,15 @@ Chaque décision architecturale majeure doit produire fichier ADR dans `docs/adr
 - **Quand créer ADR** : nouveau framework, changement pattern architectural, décision sécurité, choix structure majeur
 - Déléguer création ADR à 🟣 DOCly après validation décision
 
-## Protocole de handoff SQL
+## Handoff vers MAINa (pas de création de plan par ARCos)
 
-Quand tâche prête à être réalisée, insère todos dans table SQL avec ce format :
+ARCos **n'écrit pas** de tâches ni de base SQL. Livrer à MAINa :
 
-```sql
-INSERT INTO todos (id, title, description, status) VALUES
-  ('feat-xxx-dev', 'Titre dev',  'Description précise : fichiers à créer/modifier, interfaces à respecter', 'pending'),
-  ('feat-xxx-qa',  'Titre QA',   'Tests à écrire : cas nominaux, cas d''erreur, composants à tester',       'pending'),
-  ('feat-xxx-doc', 'Titre Doc',  'Documentation à mettre à jour : README, docs/ARCHITECTURE.md, docs/adr/, copilot-instructions.md', 'pending');
+- analyse comparative (≥ 2 options) + recommandation motivée ;
+- découpage **candidat** (tâches logiques + dépendances + effort) comme **entrée** au Plan d'Action.
 
-INSERT INTO todo_deps (todo_id, depends_on) VALUES
-  ('feat-xxx-qa',  'feat-xxx-dev'),
-  ('feat-xxx-doc', 'feat-xxx-dev');
-```
-
-Convention nommage IDs : `feat-<nom>-dev` / `feat-<nom>-qa` / `feat-<nom>-doc`.
+MAINa formalise le Plan d'Action (`.opencode/plans/`) et orchestre la délégation. ARCos exécute ensuite
+les tâches `T*.*` qui lui sont assignées (skill `plan-phase-execution`).
 
 ## Interactions avec l'agent partenaire ([NOM_PROJET_PARTENAIRE])
 

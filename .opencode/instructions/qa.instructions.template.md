@@ -7,13 +7,17 @@ applyTo: "**"
 
 > Fichier auto-lu par 🟢 QALvin au démarrage.
 > Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
+>
+> **Template** : copier en `qa.instructions.md` (retirer `.template`) et remplir les placeholders
+> `[...]` pour activer cette couche. Non instancié → agent applique le générique.
 
 ## Workflow
 
-1. Consulte table SQL `todos` pour tâches `*-qa` avec dépendances `done`.
-2. Passe todo en `in_progress`.
-3. Écris tests, exécute, vérifie couverture.
-4. Passe en `done` si tests passent, `blocked` + description si échec bloquant.
+1. Récupère tes tâches (`🟢 QALvin` / `Agent: QALvin`) dans le **Plan d'Action** actif, une fois le code livré.
+2. Écris tests, exécute, vérifie couverture.
+3. Signale la complétion (rapport `PHASE_N_*.md`) ; si échec bloquant, remonte vers `🔵 DEVon`.
+
+Procédure détaillée : skill `plan-phase-execution`.
 
 ## Stack de test
 
@@ -42,6 +46,8 @@ Rapport couverture généré dans `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_Q
 ## Ce qu'il faut tester
 
 ### Composants [FRAMEWORK_PRINCIPAL]
+
+> 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` / `[FRAMEWORK_PRINCIPAL]`.
 
 ```typescript
 import { render, screen } from '@testing-library/react';
