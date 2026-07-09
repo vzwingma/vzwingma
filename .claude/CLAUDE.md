@@ -177,6 +177,20 @@ Procédures réutilisables, incluses auto dans contexte tous agents :
 | `copilotignore` | Respect fichier `.copilotignore` |
 | `safety-rules` | Sécurité : opérations destructives interdites |
 
+### Skills d'activation directe (raccourcis agents)
+
+Chaque agent possède skill dédié pour activation via slash command :
+
+| Commande | Agent activé |
+|---|---|
+| `/maina : [prompt]` | ⚫ MAINa |
+| `/arcos : [prompt]` | 🟠 ARCos |
+| `/devon : [prompt]` | 🔵 DEVon |
+| `/qalvin : [prompt]` | 🟢 QALvin |
+| `/docly : [prompt]` | 🟣 DOCly |
+
+Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformulation. Équivalent à `@Agent "prompt"`.
+
 ---
 
 ## 📚 Fichiers clés
