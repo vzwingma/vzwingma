@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/005_claude-first.plan.md` (anciennement `.claude/plans/`, ADR 004)
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 🔄
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ✅ — scénarios réels + clôture en attente
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../adr/003-claude-first-copilot-genere.md)
 
@@ -240,7 +240,8 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 8 — Plans hors du chemin protégé `.claude/` — 🔄 En cours
+### Phase 8 — Plans hors du chemin protégé `.claude/` — ✅ TERMINÉE (2026-10-12)
+**Rapport :** [`005_reports/PHASE_8_COMPLETION_REPORT.md`](005_reports/PHASE_8_COMPLETION_REPORT.md)
 **Contexte :** constat P7 — `.claude/` est un chemin protégé : écritures de plans/rapports jamais
 auto-approuvées (confirmation à chaque écriture, refus en headless). Décision 👤 : option B (ADR 004).
 **Critères :** 0 référence active à `.claude/plans/` (hors historique) ; un agent écrit son rapport dans

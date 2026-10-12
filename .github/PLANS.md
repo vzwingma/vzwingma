@@ -114,5 +114,5 @@ changement de statut global le met à jour **dans le même changement**.
 
 ## 📚 Exemples réels
 
-- **AP 004** — Analyse critique & remédiation infra agents : [`plans/004_analyse-critique-infra-agents.plan.md`](../docs/plans/004_analyse-critique-infra-agents.plan.md) (✅ Complété)
-- **AP 005** — Refonte « Copilot-first » : [`plans/005_claude-first.plan.md`](../docs/plans/005_claude-first.plan.md) + [`plans/005_reports/`](../docs/plans/005_reports/) (journal des gates, rapports avec preuves)
+- **AP 004** — Analyse critique & remédiation infra agents : [`docs/plans/004_analyse-critique-infra-agents.plan.md`](../docs/plans/004_analyse-critique-infra-agents.plan.md) (✅ Complété)
+- **AP 005** — Refonte « Copilot-first » : [`docs/plans/005_claude-first.plan.md`](../docs/plans/005_claude-first.plan.md) + [`docs/plans/005_reports/`](../docs/plans/005_reports/) (journal des gates, rapports avec preuves)

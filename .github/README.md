@@ -1,6 +1,6 @@
 # 📚 GitHub Copilot Agents & Templates — Dépôt Transverse
 
-Ce sous-arbre `.github/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills (procédures, conventions projet, commandes) et plans d'action.
+Ce sous-arbre `.github/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills (procédures, conventions projet, commandes), hooks et settings. Les Plans d'Action vivent dans `docs/plans/` (hors du chemin protégé `.github/`, ADR 004).
 
 Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
@@ -17,7 +17,6 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 │   ├── Qalvin.agent.md                  # Tests
 │   └── Docly.agent.md                   # Documentation
 ├── skills/                              # Procédures, conventions par rôle (templates), commandes
-├── plans/                               # Plans d'Action et rapports
 ├── CHANGELOG.md                         # Historique des versions des agents
 ├── PLANS.md                             # Guide des Plans d'Action
 ├── README.md                            # Ce fichier
@@ -87,7 +86,7 @@ Un fichier par rôle (`orchestrator`, `architect`, `dev`, `qa`, `doc`) : `<rôle
 | Fichier | Role |
 |---|---|
 | `PLANS.md` | Guide complet de creation / execution des Plans d'Action |
-| `plans/README.md` | Index des plans et statut global |
+| `docs/plans/README.md` | Index des plans et statut global |
 | `CHANGELOG.md` | Historique de version des 5 agents |
 
 ---
@@ -156,7 +155,7 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 
 - Modifier un agent → incrémenter sa ligne `> **Version**` (corps de l'agent) + entrée `CHANGELOG.md`
 - Version reportée uniquement dans `docs/ARCHITECTURE.md` (table des agents) — vérifiée par `scripts/check-harness.ps1`
-- Mettre à jour `plans/README.md` à chaque nouveau Plan d'Action
+- Mettre à jour `docs/plans/README.md` à chaque nouveau Plan d'Action
 - Garder ce README comme source de vérité pour la coordination transverse
 
 ---

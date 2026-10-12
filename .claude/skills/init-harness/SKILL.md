@@ -21,6 +21,8 @@ Consignes de l'utilisateur (optionnel) : $ARGUMENTS
   sections génériques (agents, workflow, plans) par celles du template.
 - **Ancien format** : fichiers `.claude/instructions/*.instructions.md` présents → reprendre leurs valeurs
   dans les conventions par rôle (étape 4), puis signaler à 👤 que ces fichiers peuvent être retirés.
+- **Plans dans `.claude/plans/`** (ancien emplacement, chemin protégé : chaque écriture demande confirmation) →
+  proposer `git mv .claude/plans docs/plans` et mettre à jour les liens (ADR 004 du dépôt transverse).
 
 ## 2. Analyser le projet
 
