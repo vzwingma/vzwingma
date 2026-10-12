@@ -5,7 +5,13 @@
       "label": "Package (GitHub)",
       "type": "shell",
       "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/package-github.ps1"],
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/package-github.ps1"
+      ],
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -20,7 +26,13 @@
       "label": "Package (Claude)",
       "type": "shell",
       "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/package-claude.ps1"],
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/package-claude.ps1"
+      ],
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -35,7 +47,13 @@
       "label": "Sync: Claude → GitHub",
       "type": "shell",
       "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/sync-claude-to-github.ps1"],
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/sync-claude-to-github.ps1"
+      ],
       "problemMatcher": [],
       "group": {
         "kind": "test",
@@ -50,11 +68,39 @@
       "label": "Sync: Check (Claude → GitHub)",
       "type": "shell",
       "command": "powershell",
-      "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/scripts/sync-claude-to-github.ps1", "-Check"],
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/sync-claude-to-github.ps1",
+        "-Check"
+      ],
       "problemMatcher": [],
       "group": {
         "kind": "test",
         "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Check harness",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/check-harness.ps1"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
       },
       "presentation": {
         "reveal": "always",

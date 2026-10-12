@@ -1,182 +1,104 @@
-# ✅ Checklist : Initialiser Copilot dans un Nouveau Projet
+# ✅ Checklist : Installer le harnais multi-agents dans un projet
 
-Utiliser cette checklist pour **initialiser rapidement** ce dépôt de templates dans votre projet.
-
----
-
-## 🚀 Étape 1 : Copier les Templates et Agents
-
-- [ ] Copier `.github/agents/*.md` vers votre projet
-- [ ] Copier `.github/skills/` (9 dossiers de skills) vers votre projet
-- [ ] Copier `.github/PLANS.md` vers votre projet
-- [ ] Copier `.github/copilot-instructions.template.md` vers votre projet
-- [ ] Copier `.github/instructions/*.instructions.md` vers votre projet
-- [ ] Créer `.github/prompts/` si inexistant
-- [ ] Copier `.github/prompts/init-copilot-instructions.prompt.md` vers votre projet
-- [ ] Copier `docs/ARCHITECTURE.template.md` → `docs/ARCHITECTURE.md` de votre projet
-- [ ] Créer `docs/adr/` et y copier `docs/adr/ADR-TEMPLATE.md`
+Checklist pas à pas, depuis le ZIP (`claude-templates-*.zip` ou `copilot-templates-*.zip`) ou un clone de ce dépôt.
+Guide rapide : `QUICK_START_CLAUDE.md` (Claude Code) / `QUICK_START_COPILOT.md` (GitHub Copilot).
 
 ---
 
-## 🎯 Étape 2 : Initialiser les Instructions Copilot
+## 🚀 Étape 1 : Copier les fichiers
 
-### Option A : Automatique (Recommandée)
-```bash
-# Exécuter ce prompt
-👤 "Initialise les instructions Copilot pour ce projet"
-```
+### Claude Code
 
-Le prompt va :
-1. ✅ Analyser votre code source
-2. ✅ Identifier le stack technologique
-3. ✅ Remplir automatiquement `.github/copilot-instructions.md`
-4. ✅ Génère les fichiers `.github/instructions/*.instructions.md`
+- [ ] `.claude/agents/` (5 agents + `README.md`)
+- [ ] `.claude/skills/` (procédures, conventions par rôle, commandes)
+- [ ] `.claude/hooks/` + `.claude/settings.template.json` (garde-fous)
+- [ ] `.claude/PLANS.md` + `.claude/CLAUDE.template.md`
+- [ ] `docs/ARCHITECTURE.template.md` et `docs/adr/ADR-TEMPLATE.md`
 
-### Option B : Manuel
-1. [ ] Copier `copilot-instructions.template.md` → `copilot-instructions.md`
-2. [ ] Ouvrir et remplir les sections `[...]` :
-   - [ ] `[NOM_DU_PROJET]`
-   - [ ] **Présentation du Projet**
-   - [ ] **Commandes**
-   - [ ] **Architecture**
-   - [ ] **Conventions Clés**
-   - [ ] **État du Projet**
-3. [ ] Remplir les placeholders dans les 4 fichiers `instructions/` :
-   - [ ] `[NOM_DU_PROJET]` dans chaque fichier
-   - [ ] Stack technique dans `dev.instructions.md`
-   - [ ] Commandes de test dans `qa.instructions.md`
-   - [ ] Fichiers docs/ dans `doc.instructions.md`
+### GitHub Copilot
+
+- [ ] `.github/agents/`, `.github/skills/`, `.github/instructions/` (templates par rôle)
+- [ ] `.github/PLANS.md` + `.github/copilot-instructions.template.md`
+- [ ] `docs/ARCHITECTURE.template.md` et `docs/adr/ADR-TEMPLATE.md`
 
 ---
 
-## 🔧 Étape 3 : Valider et Enrichir
+## 🎯 Étape 2 : Initialiser
 
-- [ ] Exécuter ce prompt pour auditer le code :
-  ```
-  👤 "Complète les instructions Copilot depuis le code source"
-  ```
-
-- [ ] Vérifier que **AUCUN** placeholder `[...]` ne subsiste
-- [ ] Vérifier que les placeholders critiques (`[NOM_DU_PROJET]`, stack) sont remplis dans les fichiers `instructions/`
-- [ ] Vérifier que les sections sont pertinentes pour votre projet
-- [ ] Supprimer les sections non applicables (ex: conventions mobile si projet backend)
+- [ ] Lancer `/init-harness` dans le projet (Claude Code ou Copilot). Il :
+  1. analyse le code (stack, structure, commandes, conventions) ;
+  2. génère `CLAUDE.md` / `copilot-instructions.md` depuis le template (fusion si déjà présent) ;
+  3. remplit les conventions par rôle (Claude : skills `conventions-<rôle>` · Copilot : `.github/instructions/<rôle>.instructions.md`) ;
+  4. Claude Code : fusionne `settings.template.json` dans `.claude/settings.json`, convertit `.copilotignore` en règles `deny`, adapte `role-boundaries.conf`, ajoute `*.sh text eol=lf` à `.gitattributes` ;
+  5. crée `docs/ARCHITECTURE.md`, `docs/adr/`, `.claude/plans/README.md` si absents ;
+  6. liste les placeholders `[...]` restants.
 
 ---
 
-## 📋 Étape 4 : Configurer les Plans d'Action et la Documentation
+## 🔧 Étape 3 : Valider et compléter
 
-- [ ] Créer `.github/plans/` s'il n'existe pas
-- [ ] Créer `.github/plans/README.md` (ou utiliser le template)
-- [ ] Ajouter `.github/PLANS.md` comme guide de référence
-- [ ] Vérifier que `docs/ARCHITECTURE.md` est initialisé (sinon : `cp docs/ARCHITECTURE.template.md docs/ARCHITECTURE.md`)
-- [ ] Compléter les sections **⚠️ À COMPLÉTER** dans `docs/ARCHITECTURE.md`
-
----
-
-## ✨ Étape 5 : Premier Test
-
-- [ ] Vérifier que vous pouvez appeler les agents :
-  ```
-  👤 "@MAINa /maina-help"
-  ```
-  → `MAINa (⚫)` doit expliquer workflow et commandes
-
-- [ ] Vérifier orchestration MAINa :
-  ```
-  👤 "Organise ce besoin de bout en bout"
-  ```
-  → `MAINa (⚫)` doit présenter des options (ARCos), créer le Plan d'Action, puis imposer les gates humains
-
-- [ ] Tester un prompt :
-  ```
-  👤 "Initialise les instructions Copilot pour ce projet"
-  ```
+- [ ] Compléter les placeholders `[...]` signalés (aucun `[NOM_DU_PROJET]` restant)
+- [ ] Vérifier les commandes build / lint / test dans les conventions (utilisées comme preuves aux gates)
+- [ ] Supprimer les sections non applicables
+- [ ] Compléter les sections **⚠️ À COMPLÉTER** de `docs/ARCHITECTURE.md`
+- [ ] Plus tard, après évolution du projet : `/update-harness`
 
 ---
 
-## 📚 Étape 6 : Documenter
+## ✨ Étape 4 : Premier test
 
-- [ ] Ajouter une note dans `README.md` :
+### Claude Code (redémarrer la session après l'installation des settings)
+
+- [ ] `/agents` → 5 agents avec leur modèle et leurs outils
+- [ ] `/hooks` → hook `PreToolUse` `guard.sh` présent
+- [ ] `/maina-help` → aide workflow + commandes
+- [ ] `claude --agent MAINa` puis « Organise ce besoin de bout en bout : … » → options ARCos, **Gate #0** posé
+- [ ] Demander « exécute `rm -f /tmp/inexistant` » → refus attendu (garde-fou)
+
+### GitHub Copilot
+
+- [ ] Agents visibles dans le sélecteur d'agents du chat
+- [ ] `/maina-help` → aide workflow
+- [ ] Agent MAINa : « Organise ce besoin de bout en bout : … » → options ARCos, demande de décision
+
+---
+
+## 📚 Étape 5 : Documenter et committer
+
+- [ ] Ajouter au `README.md` du projet :
   ```markdown
-  ## 🤖 Copilot & Agents
-  
-  Ce projet utilise une architecture multi-agents orchestrée.
-  Voir [`.github/copilot-instructions.md`](.github/copilot-instructions.md) pour les conventions et les instructions.
+  ## 🤖 Agents
+  Ce projet utilise un harnais multi-agents orchestré (MAINa, ARCos, DEVon, QALvin, DOCly).
+  Conventions et workflow : `.claude/CLAUDE.md` (ou `.github/copilot-instructions.md`).
   ```
-
 - [ ] Committer :
   ```bash
-  git commit -m "chore: initialiser Copilot avec agents et templates transverses"
+  git commit -m "chore: installer le harnais multi-agents"
   ```
 
 ---
 
-## 🎓 Utilisation Après Configuration
+## 🎓 Utilisation courante
 
-### Lancer une Implémentation
-```
-👤 "Implémente l'authentification JWT dans le service d'auth"
-```
-→ `Devon (🔵 DEV)` s'en charge
+| Besoin | Commande |
+|---|---|
+| Initiative complète (cadrage → plan → code → tests → doc, 5 gates) | Claude : `claude --agent MAINa` ou `/maina <besoin>` · Copilot : agent MAINa |
+| Analyse d'options d'architecture | `/arcos <problème>` |
+| Implémentation d'une tâche du plan | `/devon <tâche>` |
+| Tests | `/qalvin <cible>` |
+| Documentation | `/docly <changements>` |
+| Aide | `/maina-help` |
 
-### Écrire des Tests
-```
-👤 "Écris des tests pour le service d'authentification"
-```
-→ `Qalvin (🟢 QUAL)` s'en charge
-
-### Planifier une Grosse Tâche
-```
-👤 "MAINa, organise la refactorisation de la base de données de bout en bout"
-```
-→ `MAINa (⚫)` déclenche ARCos puis orchestre le workflow
-
-### Mettre à Jour la Documentation
-```
-👤 "Mets à jour la documentation après cette implémentation"
-```
-→ `Docly (🟣 DOC)` s'en charge
-
-### Paralléliser des Tâches Indépendantes
-```
-👤 "Lance DEVon sur le composant A et QALvin sur le composant B en parallèle"
-```
-→ Utiliser `/fleet` : les tâches sans dépendance s'exécutent simultanément
+Parallélisation : seulement **au sein** d'une phase, jamais à travers un gate humain.
 
 ---
 
-## 🔄 Maintenance Continue
+## 🔄 Maintenance continue
 
-- [ ] **Chaque mois** : Exécuter `update-copilot-instructions` pour synchroniser
-- [ ] **Après un changement majeur** : Mettre à jour `.github/copilot-instructions.md`
-- [ ] **Quand une initiative grande** : Créer un Plan d'Action dans `.github/plans/`
-- [ ] **Tâches parallèles** : Utiliser `/fleet` quand DEVon, QALvin ou DOCly ont des tâches indépendantes
-
----
-
-## ✅ Checklist Finale
-
-Avant de considérer Copilot "prêt" :
-
-- [ ] `.github/copilot-instructions.md` existe et est customisé
-- [ ] `.github/agents/*.md` (5 fichiers) sont présents
-- [ ] `.github/skills/*/SKILL.md` (9 skills) présents
-- [ ] `.github/instructions/*.instructions.md` (4 fichiers) présents et personnalisés
-- [ ] `.github/PLANS.md` est accessible
-- [ ] `docs/ARCHITECTURE.md` existe et les sections ⚠️ sont complétées
-- [ ] `docs/adr/` existe (avec `ADR-TEMPLATE.md` comme modèle)
-- [ ] Aucun placeholder `[...]` dans copilot-instructions.md
-- [ ] Premier test avec `MAINa (⚫)` réussi ✅
-- [ ] Premier test avec `Arcos (🟠 ARC)` réussi ✅
-- [ ] Premier test avec `Devon (🔵 DEV)` réussi ✅
-- [ ] Équipe sensibilisée au workflow multi-agents
+- [ ] Après un changement majeur : `/update-harness`
+- [ ] Toute initiative structurante : Plan d'Action dans `.claude/plans/` + ADR si décision majeure
+- [ ] Mise à jour du harnais : récupérer le nouveau ZIP, comparer avec les fichiers projet (conventions et settings sont propres au projet)
 
 ---
 
-**🎉 Vous êtes prêt ! Commencez à collaborer avec Copilot et les agents.**
-
-Pour en savoir plus, consulter :
-- [`.github/README.md`](.github/README.md) — Guide complet
-- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — Instructions du projet
-- [`.github/PLANS.md`](.github/PLANS.md) — Guide des Plans d'Action
-
+**🎉 Prêt.** Guides : `.claude/README.md` · `.claude/PLANS.md` · `docs/ARCHITECTURE.md`.

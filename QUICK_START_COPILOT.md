@@ -98,29 +98,11 @@ Une fois Copilot configuré, voici comment collaborer :
 
 Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif est de cadrer avant d'implémenter, puis de valider chaque gate humain.
 
-### 1️⃣ Activer le mode plan
+### 1️⃣ Activer MAINa
 
-Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+Sélectionner l'agent **MAINa** dans le chat (ou `/agent MAINa` en CLI). Aide intégrée : `/maina-help`.
 
-```
-> "/plan"
-```
-
-### 2️⃣ Activer MAINa
-
-Invoquez MAINa explicitement pour qu'il orchestre le workflow :
-
-```
-👤 "/agent MAINa"
-```
-
-Vous pouvez aussi demander l'aide intégrée :
-
-```
-👤 "/maina-help"
-```
-
-### 3️⃣ Expliquer la demande
+### 2️⃣ Expliquer la demande
 
 Décrivez le besoin avec le plus de contexte utile possible :
 
@@ -131,7 +113,7 @@ Contraintes : [délais, compatibilité, sécurité, tests].
 Livrables attendus : [code, tests, documentation, ADR]."
 ```
 
-### 4️⃣ Valider l'option recommandée
+### 3️⃣ Valider l'option recommandée
 
 MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé, validez le choix de solution proposé.
 
@@ -139,7 +121,7 @@ MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé
 👤 "Je valide l'option 2. Crée le Plan d'Action."
 ```
 
-### 5️⃣ Valider le Plan d'Action
+### 4️⃣ Valider le Plan d'Action
 
 MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
 
@@ -147,15 +129,16 @@ MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les
 👤 "Plan validé. Tu peux lancer la phase d'implémentation."
 ```
 
-### 6️⃣ Suivre les phases et gates
+### 5️⃣ Suivre les phases et gates
 
-Chaque phase revient vers vous pour validation avant de continuer :
+Après chaque phase, MAINa vous présente le livrable et ses **preuves** (bloc `handoff` de l'agent), puis
+demande une décision `GO` / `AJUSTER` / `STOP`, consignée dans le journal des gates du plan :
 
-- **DEVon** implémente le code, puis demande validation code
-- **QALvin** écrit et exécute les tests, puis demande validation tests
-- **DOCly** synchronise la documentation, puis demande validation finale
+- **Gate #2** — code DEVon : build, lint, tests existants verts + revue automatique code et sécurité
+- **Gate #3** — tests QALvin : résultats, couverture, détection de régression
+- **Gate #4** — documentation DOCly : fichiers mis à jour, ADR `Acceptée`, plan clôturé
 
-Ne clôturez l'initiative qu'après validation du code, des tests et de la documentation.
+`AJUSTER` relance le même agent avec vos retours ; rien n'avance sans `GO`.
 
 ---
 
@@ -214,9 +197,8 @@ Après configuration, vérifier que :
 - [ ] Conventions par rôle remplies (aucun `[NOM_DU_PROJET]` restant) ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
-- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
+- [ ] `/maina-help` répond ✅
+- [ ] `/arcos <question>` et `/devon <tâche>` lancent l'agent et rendent un bloc `handoff` ✅
 
 ---
 

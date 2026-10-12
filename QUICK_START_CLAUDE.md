@@ -107,29 +107,27 @@ Une fois Claude configuré, voici comment collaborer :
 
 Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif est de cadrer avant d'implémenter, puis de valider chaque gate humain.
 
-### 1️⃣ Activer le mode plan
+<!-- claude-only -->
+### 1️⃣ Lancer MAINa
 
-Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+MAINa doit être l'**agent principal** de la session pour pouvoir poser les questions de gate :
 
-```
-> "/plan"
-```
-
-### 2️⃣ Activer MAINa
-
-Invoquez MAINa explicitement pour qu'il orchestre le workflow :
-
-```
-👤 "/agent MAINa"
+```bash
+claude --agent MAINa
 ```
 
-Vous pouvez aussi demander l'aide intégrée :
+Dans une session déjà ouverte : `/maina <besoin>`. Aide intégrée : `/maina-help`.
 
-```
-👤 "/maina-help"
-```
+> ⚠️ Ne pas activer le mode plan de Claude Code (Shift+Tab) : il interdit les écritures, donc la création du
+> Plan d'Action dans `.claude/plans/`. MAINa conduit lui-même cadrage, plan et gates.
+<!-- /claude-only -->
+<!-- copilot-only
+### 1️⃣ Activer MAINa
 
-### 3️⃣ Expliquer la demande
+Sélectionner l'agent **MAINa** dans le chat (ou `/agent MAINa` en CLI). Aide intégrée : `/maina-help`.
+-->
+
+### 2️⃣ Expliquer la demande
 
 Décrivez le besoin avec le plus de contexte utile possible :
 
@@ -140,7 +138,7 @@ Contraintes : [délais, compatibilité, sécurité, tests].
 Livrables attendus : [code, tests, documentation, ADR]."
 ```
 
-### 4️⃣ Valider l'option recommandée
+### 3️⃣ Valider l'option recommandée
 
 MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé, validez le choix de solution proposé.
 
@@ -148,7 +146,7 @@ MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé
 👤 "Je valide l'option 2. Crée le Plan d'Action."
 ```
 
-### 5️⃣ Valider le Plan d'Action
+### 4️⃣ Valider le Plan d'Action
 
 MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
 
@@ -156,15 +154,16 @@ MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les
 👤 "Plan validé. Tu peux lancer la phase d'implémentation."
 ```
 
-### 6️⃣ Suivre les phases et gates
+### 5️⃣ Suivre les phases et gates
 
-Chaque phase revient vers vous pour validation avant de continuer :
+Après chaque phase, MAINa vous présente le livrable et ses **preuves** (bloc `handoff` de l'agent), puis
+demande une décision `GO` / `AJUSTER` / `STOP`, consignée dans le journal des gates du plan :
 
-- **DEVon** implémente le code, puis demande validation code
-- **QALvin** écrit et exécute les tests, puis demande validation tests
-- **DOCly** synchronise la documentation, puis demande validation finale
+- **Gate #2** — code DEVon : build, lint, tests existants verts + revue automatique code et sécurité
+- **Gate #3** — tests QALvin : résultats, couverture, détection de régression
+- **Gate #4** — documentation DOCly : fichiers mis à jour, ADR `Acceptée`, plan clôturé
 
-Ne clôturez l'initiative qu'après validation du code, des tests et de la documentation.
+`AJUSTER` relance le même agent avec vos retours ; rien n'avance sans `GO`.
 
 ---
 
@@ -223,9 +222,12 @@ Après configuration, vérifier que :
 - [ ] Conventions par rôle remplies (aucun `[NOM_DU_PROJET]` restant) ✅
 - [ ] `.claude/CLAUDE.md` existe et est customisé ✅
 - [ ] `.claude/PLANS.md` est accessible ✅
-- [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
-- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
+<!-- claude-only -->
+- [ ] `/agents` liste les 5 agents (modèle, outils) ✅
+- [ ] `/hooks` affiche le hook `guard.sh` (après redémarrage de session) ✅
+<!-- /claude-only -->
+- [ ] `/maina-help` répond ✅
+- [ ] `/arcos <question>` et `/devon <tâche>` lancent l'agent et rendent un bloc `handoff` ✅
 
 ---
 

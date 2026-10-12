@@ -14,7 +14,7 @@ start
 
 partition "Developpeur humain" {
   :Exprimer et cadrer le besoin;
-  :Declencher MAINa\n(commande, prompt ou demande directe);
+  :Declencher MAINa\n(claude --agent MAINa, /maina ou demande directe);
 }
 
 partition "MAINa" {

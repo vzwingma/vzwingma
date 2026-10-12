@@ -201,6 +201,13 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 2. Agent : incrémenter la version (ligne `> **Version**`) et documenter dans `.claude/CHANGELOG.md`
 3. Régénérer Copilot : `scripts/sync-claude-to-github.ps1`, puis `-Check` (doit sortir en 0)
 
+### Contrôles automatiques
+
+- `scripts/check-harness.ps1` : cohérence (frontmatter, versions agent = CHANGELOG = ce document, liens,
+  compteurs, taille de `CLAUDE.md`, settings/hooks, index des plans, génération Copilot)
+- `scripts/tests/sync.tests.ps1` (générateur) · `scripts/tests/guard.tests.sh` (hook de garde)
+- CI : `.github/workflows/harness-check.yml` sur PR et push `main`
+
 ### Mapping Copilot
 
 Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [`scripts/README.md`](../scripts/README.md)).
@@ -211,7 +218,7 @@ Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [
 
 | Version | Date | Changements majeurs |
 |---|---|---|
-| v5.0 | 2026-10-12 | Claude-first (ADR 003) : `.claude/` source, Copilot généré, OpenCode retiré ; agents à frontmatter natif ; conventions par rôle en skills préchargés ; commandes `/init-harness`, `/update-harness` ; garde-fous déterministes (`settings.json` + hook `guard.sh`, frontières de rôle) |
+| v5.0 | 2026-10-12 | Claude-first (ADR 003) : `.claude/` source, Copilot généré, OpenCode retiré ; agents à frontmatter natif ; conventions par rôle en skills préchargés ; commandes `/init-harness`, `/update-harness` ; garde-fous déterministes (`settings.json` + hook `guard.sh`, frontières de rôle) ; gates outillés (`gate-protocol`, handoff) ; contrôles automatiques (`check-harness`, CI) |
 | v4.0 | 2026-06-29 | Modèle miroir : `.github/` source → `.claude/` généré (sync) ; ADR 002 ; ARCos recentré (MAINa crée le plan) |
 | v3.2 | 2026-06-25 | Ajout MAINa (maître-orchestrateur) ; rationalisation agents ; skills `maina-help`, `compact-context` |
 | v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |
@@ -226,5 +233,6 @@ Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [
 - **Guide `.claude/`** : [`.claude/README.md`](../.claude/README.md)
 - **Guide Plans d'Action** : [`.claude/PLANS.md`](../.claude/PLANS.md)
 - **Scripts** : [`scripts/README.md`](../scripts/README.md)
+- **Diagrammes** : [`docs/diagrams/`](diagrams/) (séquence, activité, flux Mermaid)
 - **Checklist** : [`SETUP_CHECKLIST.md`](../SETUP_CHECKLIST.md)
 - **ADRs** : [`docs/adr/`](./adr/)

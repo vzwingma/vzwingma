@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 🔄, P7 ⏳ Planifié
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 🔄
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -216,9 +216,10 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 6 — Copilot généré + docs + anti-dérive — ⏳ Planifié
+### Phase 6 — Copilot généré + docs + anti-dérive — ✅ TERMINÉE (2026-10-12)
 **Contexte :** M1, M6, M11, M12, m4-m6. Dépend de P1-P5.
-**Critères :** `check-harness` 0 erreur ; CI verte ; `CLAUDE.md` ≤ 200 l. ; ZIP complet.
+**Critères :** ✅ `check-harness` 0 erreur (PS 5.1 et 7) ⚠️ CI créée, première exécution au push ✅ `CLAUDE.md` 163 l. ✅ ZIP complets (séparateurs `/`).
+**Rapport :** [`005_reports/PHASE_6_COMPLETION_REPORT.md`](005_reports/PHASE_6_COMPLETION_REPORT.md) — écarts : tests du générateur sans Pester (Pester 3.4 local) ; pas d'`@imports` (ne réduisent pas le contexte) ; vérif visuelle VS Code Copilot à faire par 👤.
 
 - **T6.1** (🔵 DEVon) Régénérer `.github/` ; vérifier chargement agents/skills dans VS Code Copilot.
 - **T6.2** (🟣 DOCly) `CLAUDE.md` ≤ 200 l. ; `CLAUDE.template.md` épuré + `@imports` ; READMEs, `QUICK_START_CLAUDE.md` (`claude --agent MAINa`, Shift+Tab, `/agents`), `SETUP_CHECKLIST.md` neutre ; `docs/ARCHITECTURE.md` réécrit sans compteurs codés en dur.
@@ -285,7 +286,9 @@ Phase 7 (évaluation)
 | P5 | 2026-10-12 | Lancement P5 | ✅ GO | — |
 | P5-fin | 2026-10-12 | Revue livrables P5 (workflow fiabilisé) | ✅ GO | Commit + push demandés |
 | P6 | 2026-10-12 | Lancement P6 | ✅ GO | — |
-| P6-fin | — | Revue livrables P6 (Copilot, docs, anti-dérive) | ⏳ En attente | — |
+| P6-fin | 2026-10-12 | Revue livrables P6 (Copilot, docs, anti-dérive) | ✅ GO | Commit + push (1ʳᵉ exécution CI) ; vérif VS Code Copilot à faire par 👤 |
+| P7 | 2026-10-12 | Lancement P7 | ✅ GO | — |
+| P7-fin | — | Revue livrables P7 (évaluation) + clôture AP 005 | ⏳ En attente | — |
 
 ---
 

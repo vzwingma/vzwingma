@@ -43,7 +43,7 @@ Sources utiles : `README.md`, manifestes de dépendances, config lint/format, CI
 ## 4. Remplir les conventions par rôle
 
 <!-- claude-only -->
-Remplir les placeholders des 5 skills de conventions, préchargés par chaque agent :
+Remplir les placeholders des skills de conventions (un par rôle), préchargés par chaque agent :
 
 | Skill | Agent | Valeurs clés |
 |---|---|---|

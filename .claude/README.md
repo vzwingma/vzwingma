@@ -176,11 +176,13 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 
 ## ✅ Checklist de maintenance
 
-- Modifier un agent => incrementer sa version dans le frontmatter
-- Reporter la modification dans `CHANGELOG.md`
-- Synchroniser les versions dans `CLAUDE.md` et `CLAUDE.template.md`
-- Mettre a jour `plans/README.md` a chaque nouveau Plan d'Action
-- Garder ce README comme source de verite pour la coordination transverse `.claude/`
+- Modifier un agent → incrémenter sa ligne `> **Version**` (corps de l'agent) + entrée `CHANGELOG.md`
+- Version reportée uniquement dans `docs/ARCHITECTURE.md` (table des agents) — vérifiée par `scripts/check-harness.ps1`
+- Mettre à jour `plans/README.md` à chaque nouveau Plan d'Action
+<!-- claude-only -->
+- Régénérer Copilot : `scripts/sync-claude-to-github.ps1`, puis `scripts/check-harness.ps1` (doit sortir en 0)
+<!-- /claude-only -->
+- Garder ce README comme source de vérité pour la coordination transverse
 
 ---
 

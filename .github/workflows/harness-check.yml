@@ -1,0 +1,30 @@
+# Harness consistency checks (AP 005 P6).
+# Hand-maintained: .github/workflows/ is outside the scope of scripts/sync-claude-to-github.ps1.
+name: harness-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Harness consistency + Copilot generation check (Windows PowerShell 5.1)
+        shell: powershell
+        run: ./scripts/check-harness.ps1
+
+      - name: Generator unit tests (PowerShell 7)
+        shell: pwsh
+        run: ./scripts/tests/sync.tests.ps1
+
+      - name: Guard hook tests (bash)
+        shell: bash
+        run: bash scripts/tests/guard.tests.sh
