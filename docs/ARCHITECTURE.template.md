@@ -121,7 +121,7 @@ Rapport de couverture : `[CHEMIN_RAPPORT_COVERAGE]`
 
 ## 📐 Conventions et Patterns
 
-> Résumé des conventions clés — pour le détail, voir `.github/copilot-instructions.md`.
+> Résumé des conventions clés — pour le détail, voir `.claude/CLAUDE.md` et les conventions par rôle (Copilot : `.github/copilot-instructions.md`).
 
 - **Nommage fichiers** : [ex: `*.component.tsx`, `*.service.ts`, `*.test.ts`]
 - **Nommage variables** : [ex: camelCase pour variables, PascalCase pour composants]
@@ -180,7 +180,7 @@ Pipeline CI/CD : [ex: GitHub Actions — voir `.github/workflows/`]
 ## 🔗 Ressources
 
 - **README** : [`README.md`](../README.md)
-- **Instructions Copilot** : [`.github/copilot-instructions.md`](../.github/copilot-instructions.md)
-- **Plans d'Action** : [`.github/plans/`](../.github/plans/)
+- **Instructions des agents** : [`.claude/CLAUDE.md`](../.claude/CLAUDE.md) (Copilot : `.github/copilot-instructions.md`)
+- **Plans d'Action** : [`docs/plans/`](plans/)
 - **ADRs** : [`docs/adr/`](./adr/)
 - [**[LIEN_EXTERNE_1]**]([URL]) : [Description]

@@ -1,7 +1,7 @@
 # ADR 002 — `.claude/` est un miroir généré de `.github/` (source unique + tooling de sync)
 
 **Date :** 2026-06-29  
-**Statut :** Acceptée  
+**Statut :** Remplacée par [ADR 003](003-claude-first-copilot-genere.md) (2026-10-12)  
 **Décideurs :** ⚫ MAINa (orchestration) + 👤 Développeur humain (décisions A1 / B1-bis / C-ok)
 
 ---
@@ -98,6 +98,6 @@ et **n'est pas** régénéré ; sa source naturelle (`copilot-instructions.md`) 
 
 ## Références
 
-- Plan d'Action associé : `.claude/plans/004_analyse-critique-infra-agents.plan.md`
+- Plan d'Action associé : `docs/plans/004_analyse-critique-infra-agents.plan.md`
 - Tooling : `scripts/sync-github-to-claude.ps1`, `scripts/Sync-Description.psm1`
 - ADR liée : `docs/adr/001-maina-orchestrateur.md`

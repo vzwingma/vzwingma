@@ -13,40 +13,34 @@ Si vous avez un **nouveau projet** et voulez initialiser Copilot rapidement :
 ```bash
 # Depuis ce dépôt vers votre projet
 cp -r .github/agents <votre_projet>/.github/
-cp -r .github/instructions <votre_projet>/.github/
 cp -r .github/skills <votre_projet>/.github/
-cp .github/PLANS.md <votre_projet>/.github/
-cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
-mkdir -p <votre_projet>/.github/prompts
-cp .github/prompts/*.prompt.md <votre_projet>/.github/prompts/
+cp .github/PLANS.md .github/copilot-instructions.template.md <votre_projet>/.github/
+mkdir -p <votre_projet>/docs/adr
+cp docs/ARCHITECTURE.template.md <votre_projet>/docs/
+cp docs/adr/ADR-TEMPLATE.md <votre_projet>/docs/adr/
 ```
+Copilot : copier aussi `.github/instructions/` (templates d'instructions par rôle).
 
 ### 2️⃣ Initialiser les Instructions
 
-Ouvrir Copilot dans votre projet et lancer le prompt d'initialisation :
-
-- [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md) — pour initialiser un nouveau projet
-- [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md) — pour auditer et mettre à jour un projet existant
-
-Commande typique :
+Ouvrir Copilot dans votre projet et lancer :
 
 ```
-👤 "Initialise les instructions Copilot pour ce projet grâce au prompt d'initialisation init-copilot-instructions.prompt.md."
+/init-harness
 ```
 
-✅ Cela va analyser votre code et générer les instructions automatiquement.
+✅ Analyse le code, génère `copilot-instructions.md` depuis le template et remplit les conventions par rôle
+(nouveau projet ou projet existant).
 
-Ou, pour une mise à jour après évolution du projet :
+Pour une mise à jour après évolution du projet :
 
 ```
-👤 "Mets à jour les instructions Copilot depuis le code source grâce au prompt de mise à jour update-copilot-instructions.prompt.md."
+/update-harness
 ```
 
 ### 3️⃣ Valider
 
-```
-👤 "Complète les instructions Copilot depuis le code source"
-```
+Relire les placeholders `[...]` restants signalés par `/init-harness` et les compléter.
 
 ✅ Votre projet est prêt ! Commencez à utiliser les agents.
 
@@ -64,9 +58,9 @@ Modèles prêts à l'emploi pour différents rôles :
 
 ### 📋 Templates
 - **`copilot-instructions.template.md`** — Template générique à customiser
-- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
+- **`skills/conventions-<rôle>/`** — conventions projet par agent (templates remplis par `/init-harness`)
 - **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
-- **Prompts** — Pour initialiser automatiquement les instructions
+- **`/init-harness`, `/update-harness`** — initialisation et mise à jour automatiques
 
 ### 📖 Documentation
 - **`.github/README.md`** — Guide complet du dépôt
@@ -96,7 +90,7 @@ Une fois Copilot configuré, voici comment collaborer :
 8️⃣ ✅ Clôture de l'initiative
 ```
 
-> 💡 **Parallélisation** : Utiliser `/fleet` quand QALvin et DOCly peuvent travailler en parallèle après DEVon, ou quand plusieurs tâches DEVon sont indépendantes.
+> 💡 **Parallélisation** : jamais entre phases séparées par un gate (DOCly attend la validation des tests) ; possible au sein d'une phase quand plusieurs tâches sont indépendantes.
 
 ---
 
@@ -104,29 +98,11 @@ Une fois Copilot configuré, voici comment collaborer :
 
 Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif est de cadrer avant d'implémenter, puis de valider chaque gate humain.
 
-### 1️⃣ Activer le mode plan
+### 1️⃣ Activer MAINa
 
-Commencez par activer le mode plan pour que MAINa produise un plan d'action avant toute implémentation :
+Sélectionner l'agent **MAINa** dans le chat (ou `/agent MAINa` en CLI). Aide intégrée : `/maina-help`.
 
-```
-> "/plan"
-```
-
-### 2️⃣ Activer MAINa
-
-Invoquez MAINa explicitement pour qu'il orchestre le workflow :
-
-```
-👤 "/agent MAINa"
-```
-
-Vous pouvez aussi demander l'aide intégrée :
-
-```
-👤 "/maina-help"
-```
-
-### 3️⃣ Expliquer la demande
+### 2️⃣ Expliquer la demande
 
 Décrivez le besoin avec le plus de contexte utile possible :
 
@@ -137,7 +113,7 @@ Contraintes : [délais, compatibilité, sécurité, tests].
 Livrables attendus : [code, tests, documentation, ADR]."
 ```
 
-### 4️⃣ Valider l'option recommandée
+### 3️⃣ Valider l'option recommandée
 
 MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé, validez le choix de solution proposé.
 
@@ -145,7 +121,7 @@ MAINa consulte ARCos pour comparer plusieurs options. Avant tout plan détaillé
 👤 "Je valide l'option 2. Crée le Plan d'Action."
 ```
 
-### 5️⃣ Valider le Plan d'Action
+### 4️⃣ Valider le Plan d'Action
 
 MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les dépendances et les gates.
 
@@ -153,15 +129,16 @@ MAINa produit ensuite le Plan d'Action. Relisez le périmètre, les tâches, les
 👤 "Plan validé. Tu peux lancer la phase d'implémentation."
 ```
 
-### 6️⃣ Suivre les phases et gates
+### 5️⃣ Suivre les phases et gates
 
-Chaque phase revient vers vous pour validation avant de continuer :
+Après chaque phase, MAINa vous présente le livrable et ses **preuves** (bloc `handoff` de l'agent), puis
+demande une décision `GO` / `AJUSTER` / `STOP`, consignée dans le journal des gates du plan :
 
-- **DEVon** implémente le code, puis demande validation code
-- **QALvin** écrit et exécute les tests, puis demande validation tests
-- **DOCly** synchronise la documentation, puis demande validation finale
+- **Gate #2** — code DEVon : build, lint, tests existants verts + revue automatique code et sécurité
+- **Gate #3** — tests QALvin : résultats, couverture, détection de régression
+- **Gate #4** — documentation DOCly : fichiers mis à jour, ADR `Acceptée`, plan clôturé
 
-Ne clôturez l'initiative qu'après validation du code, des tests et de la documentation.
+`AJUSTER` relance le même agent avec vos retours ; rien n'avance sans `GO`.
 
 ---
 
@@ -177,28 +154,26 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (5 fichiers)
-- `.github/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
-- `.github/instructions/` (4 fichiers — à personnaliser)
-- `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
+- `.github/skills/` (un dossier par skill avec `SKILL.md`, conventions par rôle incluses)
+- `.github/copilot-instructions.template.md` (`/init-harness` génère `copilot-instructions.md`)
 - `.github/PLANS.md`
 
 ### Q: Comment initialiser rapidement ?
 A: Une fois les fichiers copiés, exécuter dans votre projet :
 ```
-👤 "Initialise les instructions Copilot pour ce projet"
+/init-harness
 ```
-Prompt associé : [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md).
 
-Pour mettre à jour des instructions existantes, utiliser : [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md).
+Pour mettre à jour des instructions existantes : `/update-harness`.
 
 ### Q: Les agents sont-ils customisables ?
-A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et les conventions par rôle (`.github/instructions/<rôle>.instructions.md`).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
+A: Au sein d'une même phase uniquement, pour des tâches indépendantes (ex: plusieurs composants sans dépendance) — jamais à travers un gate. Voir skill `parallel-guide`.
 
 ### Q: Où stocker mes Plans d'Action ?
-A: Dans `.github/plans/` — utiliser le format `XXX_<nom>.plan.md`.
+A: Dans `docs/plans/` — utiliser le format `XXX_<nom>.plan.md`.
 
 ### Q: Quelle est la licence ?
 A: Libre d'utilisation — c'est un dépôt de templates transverse.
@@ -218,18 +193,17 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 5 fichiers ✅
-- [ ] `.github/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
+- [ ] `.github/skills/` présent (dossiers avec `SKILL.md`) ✅
+- [ ] Conventions par rôle remplies (aucun `[NOM_DU_PROJET]` restant) ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
-- [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
-- [ ] Appeler `Arcos` (🟠 ARC) fonctionne ✅
-- [ ] Appeler `Devon` (🔵 DEV) fonctionne ✅
+- [ ] `/maina-help` répond ✅
+- [ ] `/arcos <question>` et `/devon <tâche>` lancent l'agent et rendent un bloc `handoff` ✅
 
 ---
 
 **C'est tout ! Vous êtes prêt à collaborer avec Copilot. 🚀**
 
-Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et prompt.
+Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et skill.
 
 

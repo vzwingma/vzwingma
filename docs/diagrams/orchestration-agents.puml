@@ -17,13 +17,13 @@ participant "ARCos\nArchitecture" as Arcos
 participant "DEVon\nImplementation" as Devon
 participant "QALvin\nTests / QA" as Qalvin
 participant "DOCly\nDocumentation" as Docly
-participant "Commandes / prompts" as Commands
+participant "Commandes" as Commands
 database "Livrables" as Deliverables
 
 == Entree et cadrage ==
 
 Human -> Maina : Cadre le besoin\n(objectif, contraintes, priorites)
-Human -> Commands : Commande optionnelle\n/maina-help, prompt d'initialisation, /fleet
+Human -> Commands : Commande optionnelle\n/maina, /maina-help, /init-harness
 Commands --> Maina : Contexte operationnel\net regles de workflow
 
 Maina -> Arcos : Delegue analyse architecture\n(options, risques, recommandation)

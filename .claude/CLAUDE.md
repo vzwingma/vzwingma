@@ -1,7 +1,7 @@
 # Instructions Claude — Système Multi-Agents
 
-> Configuration pour Claude Code (claude.ai/code, CLI, IDEs).
-> Infrastructure orchestrée pour développement via 5 agents spécialisés.
+> Harnais multi-agents pour Claude Code (CLI, app desktop, IDE) : 5 agents, workflow strict à gates humains.
+> Ce fichier décrit **ce dépôt transverse** ; template pour les projets : `.claude/CLAUDE.template.md`.
 
 ## 🗿 Mode communication
 
@@ -15,262 +15,149 @@ Mode caveman **full** actif par défaut. Règles :
 ## Règle obligatoire MAINa — Plan + ADR
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
-1. Fichier `Plan d'Action` dans `.claude/plans/NNN_nom.plan.md`
-2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure
-3. Mise à jour `.claude/plans/README.md`
+1. Fichier `Plan d'Action` dans `docs/plans/NNN_nom.plan.md`
+2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure (`Proposée` avant Gate #1, `Acceptée` au `GO`)
+3. Mise à jour `docs/plans/README.md`
 
 Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-## 👋 Agents Claude et Rôles
+## 👋 Agents
 
-5 agents spécialisés, orchestrés par développeur humain.
+| Agent | Rôle | Livrable |
+|---|---|---|
+| ⚫ **MAINa** | Maître orchestrateur : cadre, consulte ARCos, crée le Plan d'Action, délègue, tient les gates | Plan d'Action validé + orchestration traçable |
+| 🟠 **ARCos** | Architecte en lecture seule, consulté par MAINa | ≥ 2 options comparées + recommandation, contenu ADR |
+| 🔵 **DEVon** | Implémentation dans le périmètre du plan | Code + preuves (build, lint, tests existants) |
+| 🟢 **QALvin** | Tests nominal / erreurs / limites | Tests verts, couverture, détection de régression |
+| 🟣 **DOCly** | Documentation | README, `docs/`, ADR à jour |
 
-### **⚫ MAINa** [v1.4]
-
-**Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
-
-**Responsabilités** :
-- Comprendre demande, cadrer flux travail
-- Consulter ARCos (et autres agents) pour analyse solutions avant créer le plan
-- Créer Plan d'Action complet (skill plan-creation)
-- Orchestrer délégations : DEVon → QALvin → DOCly
-- Imposer validations humaines entre phases
-- Fournir aide via `/maina-help`
-- Lire `.claude/instructions/orchestrator.instructions.md` au démarrage
-
-**Quand l'utiliser** : Workflow complet, orchestration multi-agents
-
-**Livrable** : Plan d'Action validé + orchestration complète, séquencée, traçable
-
----
-
-### **🟠 ARCos** [v4.7]
-
-**Rôle** : Expert architecture consulté par MAINa
-
-**Responsabilités** :
-- Analyser problèmes complexes et concevoir solutions architecturales
-- Présenter ≥2 options comparées avec recommandation motivée
-- Prendre décisions stratégiques concernant techno, structure et approche
-- Préparer contenu ADR après décisions architecturales majeures
-- Lire `.claude/instructions/architect.instructions.md` au démarrage
-- Lire `docs/ARCHITECTURE.md` au démarrage
-- Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
-
-**Quand l'utiliser** : "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
-
-**Livrable** : Analyse comparative solutions + recommandation motivée
-
----
-
-### **🔵 DEVon** [v4.3]
-
-**Rôle** : Implémentateur code production
-
-**Responsabilités** :
-- Traduire exigences en code fonctionnel testé
-- Respecter patterns architecturaux + conventions projet
-- Code propre, maintenable, compilant
-- Lire `.claude/instructions/dev.instructions.md` au démarrage
-
-**Quand l'utiliser** : "Implémente cette fonctionnalité", "Code selon architecture"
-
-**Livrable** : Code propre, compilant sans erreurs
-
----
-
-### **🟢 QALvin** [v4.4]
-
-**Rôle** : Expert assurance qualité et tests
-
-**Responsabilités** :
-- Écrire tests unitaires complets (composants, services)
-- Couverture test ≥80%
-- Tester cas limites, scénarios erreur
-- Lire `.claude/instructions/qa.instructions.md` au démarrage
-
-**Quand l'utiliser** : "Écris tests pour...", "Génère tests unitaires"
-
-**Livrable** : Tests passants, rapports couverture
-
----
-
-### **🟣 DOCly** [v4.3]
-
-**Rôle** : Gardien documentation
-
-**Responsabilités** :
-- Mettre à jour README, `docs/`, guides
-- Maintenir `docs/ARCHITECTURE.md` à jour
-- Créer ADRs dans `docs/adr/` sur délégation ARCos
-- Lire `.claude/instructions/doc.instructions.md` au démarrage
-
-**Quand l'utiliser** : "Mets à jour doc", "Garde docs en sync"
-
-**Livrable** : Documentation à jour, claire, complète
+Configuration (modèle, outils, skills préchargés) : [`agents/README.md`](agents/README.md) · versions : [`CHANGELOG.md`](CHANGELOG.md).
+Les sous-agents ne s'adressent pas au 👤 : questions + bloc `handoff` rendus à MAINa, qui les pose au gate.
 
 ---
 
 ## 🔄 Workflow strict
 
-1. **Cadrage** (développeur) → Besoin + critères
-2. **Orchestration** (MAINa) → Déclencher mode PLAN, consulter ARCos
-3. **Analyse solutions** (ARCos) → ≥2 options + recommandation
-4. **Gate #0** → Choix solution par développeur
-5. **Plan d'Action** (MAINa) → Créer plan complet (skill plan-creation)
-6. **Gate #1** → Validation plan avant implémentation
-7. **Implémentation** (DEVon) → Code tâches assignées
-8. **Gate #2** → Validation code avant tests
-9. **Tests** (QALvin) → Écrire tests nominaux + erreurs + limites
-10. **Gate #3** → Validation tests avant doc
-11. **Documentation** (DOCly) → Mettre à jour docs
-12. **Gate #4** → Validation doc + clôture initiative
+1. **Cadrage** (👤) → besoin + critères d'acceptation
+2. **Analyse solutions** (ARCos) → ≥ 2 options + recommandation → **Gate #0** (choix solution)
+3. **Plan d'Action** (MAINa, skill `plan-creation`) + ADR `Proposée` → **Gate #1** (validation plan)
+4. **Implémentation** (DEVon) → revue auto code + sécurité → **Gate #2** (validation code)
+5. **Tests** (QALvin) → **Gate #3** (validation tests)
+6. **Documentation** (DOCly) → **Gate #4** (validation doc + clôture)
 
-Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en parallèle si tâches indépendantes.
+Gates : skill `gate-protocol` (preuves exigées, `GO` / `AJUSTER` / `STOP`, journal des gates dans le plan).
+Pas de parallélisation entre phases séparées par un gate ; parallélisation possible *au sein* d'une phase.
 
 ---
 
 ## 📋 Plans d'Action
 
-Initiatives majeures orchestrées via Plan d'Action :
-
-- **Fichier plan** : `.claude/plans/<NO>_<nom>.plan.md`
-- **Rapports phase** : `.claude/plans/<NO>_reports/PHASE_N_...md`
-- **Index** : `.claude/plans/README.md`
-- **Guide complet** : `.claude/PLANS.md`
-
-Plans coordonnent travail multi-phases, garantissent traçabilité.
+- **Plan** : `docs/plans/<NO>_<slug>.plan.md` · **Rapports** : `docs/plans/<NO>_reports/PHASE_N_*.md`
+- **Index** (plans + statut global uniquement) : `docs/plans/README.md`
+- **Guide** : `.claude/PLANS.md` · modèles dans les skills `plan-creation` et `plan-phase-execution`
 
 ---
 
-## 📐 Instructions Projet (`.claude/instructions/`)
+## 📐 Conventions Projet
 
-Chaque agent lit au démarrage son fichier instructions spécifique :
+<!-- claude-only -->
+Chaque agent précharge son skill `conventions-<rôle>` (`orchestrator`, `architect`, `dev`, `qa`, `doc`),
+prioritaire sur le générique. Dans ce dépôt transverse : **templates** remplis par `/init-harness`.
+<!-- /claude-only -->
+<!-- copilot-only
+Chaque agent lit son fichier `.claude/instructions/<rôle>.instructions.md` (`orchestrator`, `architect`, `dev`, `qa`, `doc`), créé depuis `<rôle>.instructions.template.md` par le skill `init-harness`.
+-->
 
-| Fichier | Agent | Contenu |
+---
+
+## 🛠️ Skills (`.claude/skills/`)
+
+| Skill | Type | Contenu |
 |---|---|---|
-| `orchestrator.instructions.md` | ⚫ MAINa | Orchestration, gates humains, délégations |
-| `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocoles |
-| `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions |
-| `qa.instructions.md` | 🟢 QALvin | Framework test, commandes, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Fichiers `/docs`, conventions documentation |
+| `plan-creation` | procédure (MAINa) | Création + lancement Plan d'Action |
+| `gate-protocol` | procédure (MAINa) | Gates #0→#4 : preuves, revue auto avant Gate #2, décision, journal |
+| `plan-phase-execution` | procédure (agents) | Exécution de phase, rapport avec preuves, bloc `handoff` |
+| `adr-writing` | procédure (ARCos, DOCly) | Rédaction ADR, cycle de vie du statut |
+| `parallel-guide` | procédure | Parallélisation au sein d'une phase |
+<!-- claude-only -->| `conventions-<rôle>` | conventions projet | Valeurs projet par agent |<!-- /claude-only -->
 
-Dans dépôt transverse, fichiers sont **templates** (placeholders `[...]`) à copier + personnaliser.
+### Commandes
 
----
-
-## 🛠️ Skills Partagés (`.claude/skills/`)
-
-Procédures réutilisables, incluses auto dans contexte tous agents :
-
-| Skill | Contenu |
+| Commande | Effet |
 |---|---|
-| `plan-phase-execution` | Procédure exécution phase (avant/pendant/après, rapports) |
-| `plan-creation` | Création Plan d'Action (MAINa — orchestrateur) |
-| `fleet-guide` | Guide parallélisation `/fleet` |
-| `adr-writing` | Rédaction ADR (ARCos prépare, DOCly rédige) |
-| `caveman-default` | Mode caveman règles par défaut |
-| `compact-context` | Compression contexte mémoire |
-| `maina-help` | Aide MAINa + workflow |
-| `copilotignore` | Respect fichier `.copilotignore` |
-| `safety-rules` | Sécurité : opérations destructives interdites |
-
-### Skills d'activation directe (raccourcis agents)
-
-Chaque agent possède skill dédié pour activation via slash command :
-
-| Commande | Agent activé |
-|---|---|
-| `/maina : [prompt]` | ⚫ MAINa |
-| `/arcos : [prompt]` | 🟠 ARCos |
-| `/devon : [prompt]` | 🔵 DEVon |
-| `/qalvin : [prompt]` | 🟢 QALvin |
-| `/docly : [prompt]` | 🟣 DOCly |
-
-Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformulation. Équivalent à `@Agent "prompt"`.
-
----
-
-## 📚 Fichiers clés
-
-### `.claude/agents/`
-
-- `README.md` — Index agents, workflow, exemples
-- `Maina.agent.md` — Orchestrateur
-- `Arcos.agent.md` — Architecte
-- `Devon.agent.md` — Implémentateur
-- `Qalvin.agent.md` — Expert QA
-- `Docly.agent.md` — Gardien docs
-
-### `.claude/instructions/`
-
-Templates instructions projet (personnaliser avant usage).
-
-### `.claude/prompts/`
-
-Prompts d'initialisation/mise à jour instructions.
-
-### `.claude/skills/`
-
-Skills partagés tous agents.
-
-### `.claude/plans/`
-
-Index plans + rapports phases.
+| `/maina <besoin>` | Orchestration complète (session courante en mode MAINa) |
+| `/arcos`, `/devon`, `/qalvin`, `/docly` `<demande>` | Lance l'agent sur la demande |
+| `/maina-help` | Aide workflow + commandes |
+| `/init-harness`, `/update-harness` | Initialiser / auditer le harnais dans un projet |
 
 ---
 
 ## 🚀 Démarrage rapide
 
-### Travail simple
+<!-- claude-only -->
+Initiative complète : MAINa en **agent principal** (gates interactifs ; en sous-agent, MAINa ne peut pas interroger 👤) :
 
-Invoquer agent directement :
-
-```
-@ARCos "Conçois architecture pour..."
-@DEVon "Implémente cette fonctionnalité..."
-@QALvin "Écris tests pour..."
-@DOCly "Mets à jour documentation..."
+```bash
+claude --agent MAINa
 ```
 
-### Travail complexe (multi-phases)
+Ou, dans une session existante : `/maina <besoin>`.
+<!-- /claude-only -->
+<!-- copilot-only
+Initiative complète : sélectionner l'agent **MAINa** dans le chat Copilot, ou `/maina <besoin>`.
+-->
 
-Utiliser MAINa orchestrateur :
+Travail ciblé : `/arcos <problème>`, `/devon <tâche>`, `/qalvin <cible>`, `/docly <changements>`.
 
-```
-@MAINa "J'ai ce besoin : [description]"
+---
 
-# MAINa :
-# 1. Clarifie
-# 2. Active ARCos pour plan
-# 3. Attend validation
-# 4. Active DEVon pour code
-# ... jusqu'à clôture
-```
+## 🧰 Maintenance de ce dépôt
+
+<!-- claude-only -->
+- Source unique : `.claude/` — **ne jamais éditer `.github/`** (généré, ADR 003)
+- Après modification : `scripts/sync-claude-to-github.ps1`, puis `scripts/check-harness.ps1` (cohérence)
+- Agent modifié : incrémenter `> **Version**` dans son corps + entrée `CHANGELOG.md`
+<!-- /claude-only -->
+<!-- copilot-only
+- Ce dossier est **généré** depuis le dossier source `.claude` (ADR 003) : ne pas l'éditer à la main.
+- Modifier la source, puis lancer `scripts/sync-claude-to-github.ps1` et `scripts/check-harness.ps1`.
+-->
+
+
+---
+
+## 🗜️ Compact instructions
+
+Lors d'un `/compact` (ou compaction automatique) en session de Plan d'Action, conserver en ≤ 200 mots :
+plan courant (numéro, titre, statut), phase active + tâches restantes + agent, décisions validées (gates),
+questions ouvertes, prochaine action. Supprimer : détail des tâches ✅, confirmations courtes, lectures de
+fichiers et sorties de commandes sans résultat durable.
 
 ---
 
 ## 🔐 Règles absolues
 
-Tous agents respectent :
+Tous agents respectent, sans exception ni dérogation :
 
-- ⛔ JAMAIS supprimer fichiers/répertoires
-- ⛔ JAMAIS commandes SQL destructives
-- ⛔ JAMAIS `git clean`, `git reset --hard`
-- ⛔ JAMAIS modifier fichiers hors périmètre
-- ⛔ **Respect ABSOLU `.copilotignore`**
+- ⛔ JAMAIS supprimer fichiers/répertoires (`rm`, `rmdir`, `del`, `Remove-Item`…)
+- ⛔ JAMAIS commandes SQL destructives (`DROP`, `TRUNCATE`, `DELETE` sans `WHERE`)
+- ⛔ JAMAIS commande git irréversible (`git clean`, `git reset --hard`, `push --force`, `branch -D`, `stash drop`, `checkout --`, `restore`)
+- ⛔ JAMAIS modifier fichiers hors périmètre de la tâche (ni hors de son rôle)
+- ⛔ **Respect ABSOLU `.copilotignore`** : jamais lire, rechercher, écrire, exécuter ni référencer les fichiers listés ; jamais contourner (chemins alternatifs, symlinks, reconstitution)
 
-En cas doute → demander confirmation développeur.
+En cas de doute → demander confirmation au 👤 Développeur humain. Opération voulue mais bloquée → le 👤 l'exécute lui-même.
+
+<!-- claude-only -->
+**Application déterministe** (pas seulement déclarative) :
+- `.claude/settings.json` → `permissions.deny` (commandes destructives Bash/PowerShell, fichiers sensibles, chemins `.copilotignore` en `Read()`/`Edit()`) ; `ask` pour `git rm`.
+- Hook `PreToolUse` `.claude/hooks/guard.sh` → bloque les formes que les règles ne voient pas (`sh -c "rm …"`, `/bin/rm`, `git -C . reset --hard`, SQL), les écritures dans `.copilotignore`, et les **frontières de rôle** (`.claude/hooks/role-boundaries.conf`).
+<!-- /claude-only -->
 
 ---
 
 ## 📖 Références
 
-- [ARCos](./agents/Arcos.agent.md) — Architecture (analyse solutions)
-- [DEVon](./agents/Devon.agent.md) — Implémentation
-- [QALvin](./agents/Qalvin.agent.md) — Tests
-- [DOCly](./agents/Docly.agent.md) — Documentation
-- [MAINa](./agents/Maina.agent.md) — Orchestration + Plan d'Action
-- [Plans d'Action](./PLANS.md) — Guide complet
+- [Agents](agents/README.md) · [Guide `.claude/`](README.md) · [Plans d'Action](PLANS.md) · [CHANGELOG](CHANGELOG.md)
+- [Architecture du dépôt](../docs/ARCHITECTURE.md) · [ADR](../docs/adr/)

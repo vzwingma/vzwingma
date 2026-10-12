@@ -1,0 +1,11 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Projet fixture minimal pour évaluer le harnais multi-agents (AP 005 P7).",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check src/math.js"
+  }
+}

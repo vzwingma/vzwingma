@@ -1,18 +1,13 @@
 ---
-name: "arcos"
-description: "Skill — Active agent ARCos (architecte) sur prompt utilisateur. Déclenché par `/arcos`, `/ARCos`, `/ARCos : [prompt]`."
-applyTo: "**"
+name: arcos
+description: "Active 🟠 ARCos (architecte, lecture seule) sur la demande de l'utilisateur. Déclenché par `/arcos` ou `/arcos : [prompt]`."
 ---
 
 # Skill : Activation ARCos
 
-Déclenché par `/arcos`, `/ARCos` ou `/ARCos : [prompt]`.
-
-## Action
-
-1. Extraire `[prompt]` : texte après `:` (ou après nom skill si pas de `:`). Si vide, demander quel problème/décision architecturale traiter.
-2. Invoquer agent **ARCos** (Agent tool, `subagent_type: "ARCos"`) avec ce prompt tel quel.
-3. Ne pas analyser toi-même — ARCos fournit ≥2 options comparées + recommandation motivée.
-4. Relayer analyse à l'utilisateur pour décision (Gate #0 si dans workflow MAINa).
+1. Extraire `[prompt]` : texte après `:` (ou après le nom du skill). Vide → demander : « Quel problème ou quelle décision architecturale traiter ? »
+2. Invoquer l'agent **ARCos** avec ce prompt tel quel, sans reformulation.
+3. Ne pas faire le travail soi-même.
+4. Relayer l'analyse (≥ 2 options + recommandation) à l'utilisateur pour décision.
 
 Référence rôle complet : [`.github/agents/Arcos.agent.md`](../../agents/Arcos.agent.md)

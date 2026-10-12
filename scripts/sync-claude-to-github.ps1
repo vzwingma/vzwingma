@@ -1,129 +1,163 @@
 <#
 .SYNOPSIS
-    Syncs content from Claude Code files (.claude/) to GitHub Copilot files (.github/).
+    Generates GitHub Copilot files (.github/) from Claude Code files (.claude/).
 
 .DESCRIPTION
+    .claude/ is the single source of truth (ADR 003). This is the only sync direction.
+
     Covers:
-      - Agents      : .claude/agents/*.agent.md      → .github/agents/*.agent.md
-      - Skills      : .claude/skills/*/SKILL.md      → .github/skills/*/SKILL.md
-      - Instructions: .claude/instructions/*.md      → .github/instructions/*.md
-      - Root tmpl.  : .claude/CLAUDE.template.md     → .github/copilot-instructions.template.md
+      - Agents      : .claude/agents/*.agent.md        -> .github/agents/*.agent.md  (Copilot frontmatter generated)
+      - Agents index: .claude/agents/README.md          -> .github/agents/README.md
+      - Skills      : .claude/skills/<name>/**          -> .github/skills/<name>/**   (SKILL.md frontmatter reduced to spec;
+                                                           SKILL.copilot.md, if present, is the Copilot source of SKILL.md)
+      - Conventions : .claude/skills/conventions-<role>/SKILL.md -> .github/instructions/<role>.instructions.template.md
+      - Legacy      : .claude/instructions/*.md, .claude/prompts/*.prompt.md (if present) -> .github/ same path
+      - Root        : .claude/CLAUDE.md                 -> .github/copilot-instructions.md
+                      .claude/CLAUDE.template.md        -> .github/copilot-instructions.template.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md
-      - Quick Start : QUICK_START_CLAUDE.md → QUICK_START_COPILOT.md
+      - Quick Start : QUICK_START_CLAUDE.md             -> QUICK_START_COPILOT.md
 
-    For structured files (agents/skills/instructions):
-      Syncs both the `description` frontmatter field AND the body content.
-      Platform-specific frontmatter fields (model/tools) are preserved.
-
-    For standalone .md files:
-      Full file sync with automatic path/term substitution (.claude/ -> .github/).
+    Copilot-only frontmatter (model, tools, agents) comes from scripts/copilot-mapping.psd1.
+    Files present in .github/ without a .claude/ source are reported as orphans (never deleted).
 
 .PARAMETER WhatIf
     Dry-run: shows what would change without writing any files.
 
+.PARAMETER Check
+    CI mode: dry-run, exits with code 1 if anything would change or orphans exist.
+
 .EXAMPLE
     .\sync-claude-to-github.ps1
     .\sync-claude-to-github.ps1 -WhatIf
+    .\sync-claude-to-github.ps1 -Check
 #>
 [CmdletBinding()]
 param(
-    [switch]$WhatIf
+    [switch]$WhatIf,
+    [switch]$Check
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+if ($Check) { $WhatIf = $true }
 
-$repoRoot   = Split-Path $PSScriptRoot -Parent
-$moduleFile = Join-Path $PSScriptRoot 'Sync-Description.psm1'
+$repoRoot    = Split-Path $PSScriptRoot -Parent
+$moduleFile  = Join-Path $PSScriptRoot 'Sync-Description.psm1'
+$mappingFile = Join-Path $PSScriptRoot 'copilot-mapping.psd1'
 
-if (-not (Test-Path $moduleFile)) { Write-Error "Module not found: $moduleFile"; exit 1 }
+foreach ($f in @($moduleFile, $mappingFile)) {
+    if (-not (Test-Path $f)) { Write-Error "Missing file: $f"; exit 1 }
+}
 Import-Module $moduleFile -Force -DisableNameChecking
+$mapping = Import-PowerShellDataFile $mappingFile
 
 $claudeBase = Join-Path $repoRoot '.claude'
 $githubBase = Join-Path $repoRoot '.github'
-$direction  = 'claude-to-github'
 
-$totalSynced = 0; $totalOk = 0; $totalWarn = 0
+$counts   = @{ synced = 0; ok = 0; warn = 0 }
+$expected = New-Object System.Collections.Generic.HashSet[string]([System.StringComparer]::OrdinalIgnoreCase)
 
-function Add-Counts ($counts) {
-    $script:totalSynced += $counts.synced
-    $script:totalOk     += $counts.ok
-    $script:totalWarn   += $counts.warn
+function Register-Result {
+    param([string]$Result, [string]$TargetFile)
+    $script:counts[$Result]++
+    [void]$script:expected.Add([System.IO.Path]::GetFullPath($TargetFile))
+}
+
+function Get-RelativePath {
+    param([string]$Base, [string]$Path)
+    return $Path.Substring($Base.Length).TrimStart('\', '/')
 }
 
 # ── Agents ────────────────────────────────────────────────────────────────────
 Write-Host "`n==> Agents (.claude/agents/ -> .github/agents/)" -ForegroundColor Magenta
-$agentFiles = Get-ChildItem (Join-Path $claudeBase 'agents') -Filter '*.agent.md' -File |
-              Select-Object -ExpandProperty FullName
-Add-Counts (Sync-AgentFiles -SourceFiles $agentFiles `
-    -SourceBase (Join-Path $claudeBase 'agents') `
-    -TargetBase (Join-Path $githubBase 'agents') `
-    -Direction $direction -WhatIf:$WhatIf)
+foreach ($file in Get-ChildItem (Join-Path $claudeBase 'agents') -Filter '*.agent.md' -File) {
+    $target = Join-Path (Join-Path $githubBase 'agents') $file.Name
+    Register-Result (Sync-AgentFile -SourceFile $file.FullName -TargetFile $target -Mapping $mapping -WhatIf:$WhatIf) $target
+}
+$agentsIndex = Join-Path $claudeBase 'agents\README.md'
+if (Test-Path $agentsIndex) {
+    $target = Join-Path $githubBase 'agents\README.md'
+    Register-Result (Sync-StandaloneFile -SourceFile $agentsIndex -TargetFile $target -WhatIf:$WhatIf) $target
+}
 
-# ── Skills ────────────────────────────────────────────────────────────────────
-Write-Host "`n==> Skills (.claude/skills/ -> .github/skills/)" -ForegroundColor Magenta
-$skillFiles = Get-ChildItem (Join-Path $claudeBase 'skills') -Filter 'SKILL.md' -Recurse -File |
-              Select-Object -ExpandProperty FullName
-Add-Counts (Sync-AgentFiles -SourceFiles $skillFiles `
-    -SourceBase (Join-Path $claudeBase 'skills') `
-    -TargetBase (Join-Path $githubBase 'skills') `
-    -Direction $direction -WhatIf:$WhatIf)
+# ── Skills (SKILL.md + supporting files) ─────────────────────────────────────
+#   - SKILL.copilot.md (if present) is the Copilot source of SKILL.md and is not copied itself.
+#   - conventions-<role>/SKILL.md -> .github/instructions/<role>.instructions.template.md (Copilot-native).
+Write-Host "`n==> Skills (.claude/skills/ -> .github/skills/, conventions -> .github/instructions/)" -ForegroundColor Magenta
+$skillsBase = Join-Path $claudeBase 'skills'
+foreach ($file in Get-ChildItem $skillsBase -Recurse -File) {
+    $skillName = (Get-RelativePath $skillsBase $file.FullName).Split([char[]]@('\', '/'))[0]
+    if ($file.Name -eq 'SKILL.copilot.md') { continue }
 
-# ── Instructions ──────────────────────────────────────────────────────────────
-Write-Host "`n==> Instructions (.claude/instructions/ -> .github/instructions/)" -ForegroundColor Magenta
-$instrFiles = Get-ChildItem (Join-Path $claudeBase 'instructions') -Filter '*.md' -File |
-              Where-Object { $_.Name -notmatch '\.template\.md$' } |
-              Select-Object -ExpandProperty FullName
-if ($instrFiles) {
-    Add-Counts (Sync-AgentFiles -SourceFiles $instrFiles `
-        -SourceBase (Join-Path $claudeBase 'instructions') `
-        -TargetBase (Join-Path $githubBase 'instructions') `
-        -Direction $direction -WhatIf:$WhatIf)
+    if ($skillName -like 'conventions-*') {
+        if ($file.Name -ne 'SKILL.md') { continue }
+        $role   = $skillName.Substring('conventions-'.Length)
+        $target = Join-Path (Join-Path $githubBase 'instructions') "$role.instructions.template.md"
+        Register-Result (Sync-InstructionFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf) $target
+        continue
+    }
+
+    $target = Join-Path (Join-Path $githubBase 'skills') (Get-RelativePath $skillsBase $file.FullName)
+    if ($file.Name -eq 'SKILL.md') {
+        $copilotVariant = Join-Path $file.DirectoryName 'SKILL.copilot.md'
+        $source = if (Test-Path $copilotVariant) { $copilotVariant } else { $file.FullName }
+        $result = Sync-SkillFile -SourceFile $source -TargetFile $target -WhatIf:$WhatIf
+    } else {
+        $result = Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf
+    }
+    Register-Result $result $target
+}
+
+# ── Instructions + prompts (full-file substitution) ───────────────────────────
+foreach ($dir in @(@{ Name = 'instructions'; Filter = '*.md' }, @{ Name = 'prompts'; Filter = '*.prompt.md' })) {
+    Write-Host "`n==> $($dir.Name) (.claude/$($dir.Name)/ -> .github/$($dir.Name)/)" -ForegroundColor Magenta
+    $srcDir = Join-Path $claudeBase $dir.Name
+    if (-not (Test-Path $srcDir)) { Write-Host "  [OK]     nothing to sync" -ForegroundColor Green; continue }
+    foreach ($file in Get-ChildItem $srcDir -Filter $dir.Filter -File) {
+        $target = Join-Path (Join-Path $githubBase $dir.Name) $file.Name
+        Register-Result (Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf) $target
+    }
+}
+
+# ── Root files ────────────────────────────────────────────────────────────────
+Write-Host "`n==> Root files (.claude/ -> .github/, quick start)" -ForegroundColor Magenta
+$rootMap = @(
+    @{ Source = Join-Path $claudeBase 'CLAUDE.md';          Target = Join-Path $githubBase 'copilot-instructions.md' }
+    @{ Source = Join-Path $claudeBase 'CLAUDE.template.md'; Target = Join-Path $githubBase 'copilot-instructions.template.md' }
+    @{ Source = Join-Path $claudeBase 'CHANGELOG.md';       Target = Join-Path $githubBase 'CHANGELOG.md' }
+    @{ Source = Join-Path $claudeBase 'PLANS.md';           Target = Join-Path $githubBase 'PLANS.md' }
+    @{ Source = Join-Path $claudeBase 'README.md';          Target = Join-Path $githubBase 'README.md' }
+    @{ Source = Join-Path $repoRoot 'QUICK_START_CLAUDE.md'; Target = Join-Path $repoRoot 'QUICK_START_COPILOT.md' }
+)
+foreach ($m in $rootMap) {
+    Register-Result (Sync-StandaloneFile -SourceFile $m.Source -TargetFile $m.Target -WhatIf:$WhatIf) $m.Target
+}
+
+# ── Orphans (generated tree only, never deleted) ──────────────────────────────
+Write-Host "`n==> Orphans (.github/ files without .claude/ source)" -ForegroundColor Magenta
+$orphans = @()
+foreach ($sub in @('agents', 'skills', 'instructions', 'prompts')) {
+    $dir = Join-Path $githubBase $sub
+    if (-not (Test-Path $dir)) { continue }
+    foreach ($file in Get-ChildItem $dir -Recurse -File) {
+        if (-not $expected.Contains([System.IO.Path]::GetFullPath($file.FullName))) { $orphans += $file.FullName }
+    }
+}
+if ($orphans.Count -eq 0) {
+    Write-Host "  [OK]     none" -ForegroundColor Green
 } else {
-    Write-Host "  [OK] No non-template instruction files to sync" -ForegroundColor Green
+    $orphans | ForEach-Object { Write-Host "  [ORPHAN] $_" -ForegroundColor Yellow }
 }
-
-# ── Instructions Templates (sync with path/term substitution) ────────────────
-Write-Host "`n==> Instructions Templates (.claude/instructions/*.template.md -> .github/instructions/)" -ForegroundColor Cyan
-$templateFiles = Get-ChildItem (Join-Path $claudeBase 'instructions') -Filter '*.template.md' -File
-$tc = @{ synced = 0; ok = 0; warn = 0 }
-foreach ($file in $templateFiles) {
-    $targetPath = Join-Path (Join-Path $githubBase 'instructions') $file.Name
-    $tc[(Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $targetPath `
-        -Direction $direction -WhatIf:$WhatIf)]++
-}
-Add-Counts $tc
-
-# ── Root instruction template (.claude/CLAUDE.template.md -> .github/copilot-instructions.template.md) ─
-Write-Host "`n==> Root instruction template (.claude/CLAUDE.template.md -> .github/copilot-instructions.template.md)" -ForegroundColor Magenta
-$rc = @{ synced = 0; ok = 0; warn = 0 }
-$rc[(Sync-StandaloneFile -SourceFile (Join-Path $claudeBase 'CLAUDE.template.md') `
-    -TargetFile (Join-Path $githubBase 'copilot-instructions.template.md') `
-    -Direction $direction -WhatIf:$WhatIf)]++
-Add-Counts $rc
-
-# ── Standalone .md files ──────────────────────────────────────────────────────
-Write-Host "`n==> Standalone files (.claude/ -> .github/)" -ForegroundColor Magenta
-Add-Counts (Sync-StandaloneFiles `
-    -FileNames @('CHANGELOG.md', 'PLANS.md', 'README.md') `
-    -SourceBase $claudeBase `
-    -TargetBase $githubBase `
-    -Direction $direction -WhatIf:$WhatIf)
-
-# ── Root Quick Start ──────────────────────────────────────────────────────────
-Write-Host "`n==> Quick Start (QUICK_START_CLAUDE.md -> QUICK_START_COPILOT.md)" -ForegroundColor Magenta
-$qsc = @{ synced = 0; ok = 0; warn = 0 }
-$qsc[(Sync-StandaloneFile `
-    -SourceFile (Join-Path $repoRoot 'QUICK_START_CLAUDE.md') `
-    -TargetFile (Join-Path $repoRoot 'QUICK_START_COPILOT.md') `
-    -Direction $direction -WhatIf:$WhatIf)]++
-Add-Counts $qsc
 
 # ── Summary ───────────────────────────────────────────────────────────────────
 $mode = if ($WhatIf) { ' (dry-run)' } else { '' }
-Write-Host "`n── Summary$mode ──────────────────────────────────────────────" -ForegroundColor White
-Write-Host "  [SYNC/CREATE] Updated : $totalSynced" -ForegroundColor Cyan
-Write-Host "  [OK]   Already in sync: $totalOk" -ForegroundColor Green
-if ($totalWarn -gt 0) {
-    Write-Host "  [WARN] Skipped/missing : $totalWarn" -ForegroundColor Yellow
+Write-Host "`n-- Summary$mode --------------------------------------------" -ForegroundColor White
+Write-Host "  [SYNC/CREATE] Updated : $($counts.synced)" -ForegroundColor Cyan
+Write-Host "  [OK]   Already in sync: $($counts.ok)" -ForegroundColor Green
+if ($counts.warn -gt 0) { Write-Host "  [WARN] Missing source : $($counts.warn)" -ForegroundColor Yellow }
+if ($orphans.Count -gt 0) { Write-Host "  [ORPHAN] Orphans      : $($orphans.Count)" -ForegroundColor Yellow }
+
+if ($Check -and ($counts.synced -gt 0 -or $counts.warn -gt 0 -or $orphans.Count -gt 0)) {
+    Write-Host "`nCheck failed: .github/ is not in sync with .claude/" -ForegroundColor Red
+    exit 1
 }

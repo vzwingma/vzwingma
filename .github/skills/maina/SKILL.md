@@ -1,18 +1,13 @@
 ---
-name: "maina"
-description: "Skill — Active agent MAINa (orchestrateur) sur prompt utilisateur. Déclenché par `/maina`, `/Maina`, `/MAINa : [prompt]`."
-applyTo: "**"
+name: maina
+description: "Active ⚫ MAINa (orchestrateur) sur le besoin de l'utilisateur. Déclenché par `/maina` ou `/maina : [prompt]`."
 ---
 
 # Skill : Activation MAINa
 
-Déclenché par `/maina`, `/Maina` ou `/MAINa : [prompt]`.
-
-## Action
-
-1. Extraire `[prompt]` : texte après `:` (ou après nom skill si pas de `:`). Si vide, demander à l'utilisateur quel besoin traiter.
-2. Invoquer agent **MAINa** (Agent tool, `subagent_type: "MAINa"`) avec ce prompt tel quel, sans reformulation.
-3. Ne pas exécuter le travail toi-même — MAINa est point d'entrée orchestrateur (cadrage, consultation ARCos, Plan d'Action, délégations DEVon/QALvin/DOCly, gates humains).
-4. Relayer résultat/questions de MAINa à l'utilisateur.
+1. Extraire `[prompt]` : texte après `:` (ou après le nom du skill). Vide → demander quel besoin traiter.
+2. Invoquer l'agent **MAINa** avec ce prompt tel quel, sans reformulation.
+3. Ne pas exécuter le travail soi-même — MAINa cadre, consulte ARCos, crée le Plan d'Action, délègue et impose les gates humains.
+4. Relayer résultats et questions de MAINa à l'utilisateur.
 
 Référence rôle complet : [`.github/agents/Maina.agent.md`](../../agents/Maina.agent.md)

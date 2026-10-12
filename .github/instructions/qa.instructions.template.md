@@ -1,94 +1,52 @@
 ---
-description: Spécificités projet [NOM_DU_PROJET] pour l'agent 🟢 QALvin (qa)
+description: "Conventions de test du projet [NOM_DU_PROJET] pour 🟢 QALvin : framework, commandes, emplacement des tests, mocks, seuil de couverture, cas à couvrir. Prioritaire sur le générique."
 applyTo: "**"
 ---
 
-# Spécificités projet — [NOM_DU_PROJET] (QA)
+# Conventions projet — [NOM_DU_PROJET] (tests)
 
-> Fichier auto-lu par 🟢 QALvin au démarrage.
-> Contient specs projet `[NOM_DU_PROJET]` ([DESCRIPTION_COURTE_DU_PROJET], ex: frontend React/TypeScript).
->
-> **Template** : copier en `qa.instructions.md` (retirer `.template`) et remplir les placeholders
-> `[...]` pour activer cette couche. Non instancié → agent applique le générique.
-
-## Workflow
-
-1. Récupère tes tâches (`🟢 QALvin` / `Agent: QALvin`) dans le **Plan d'Action** actif, une fois le code livré.
-2. Écris tests, exécute, vérifie couverture.
-3. Signale la complétion (rapport `PHASE_N_*.md`) ; si échec bloquant, remonte vers `🔵 DEVon`.
-
-Procédure détaillée : skill `plan-phase-execution`.
+> **Template** — placeholders `[...]` à remplir via skill `init-harness`. Tant qu'un placeholder subsiste,
+> appliquer le comportement générique de l'agent pour la valeur concernée.
+> Projet : `[NOM_DU_PROJET]` — [DESCRIPTION_COURTE_DU_PROJET].
 
 ## Stack de test
 
-- **[FRAMEWORK_TEST]** + **[LIBRAIRIE_TEST_COMPOSANTS]** (`[PACKAGE_TEST_COMPOSANTS]@[VERSION]`, `[PACKAGE_USER_EVENTS]@[VERSION]`)
-- **[LIBRAIRIE_ASSERTIONS_DOM]** pour assertions DOM (`[PACKAGE_ASSERTIONS_DOM]@[VERSION]`)
-- Fichiers test : `*.test.[tsx|ts]` co-localisés avec fichier testé
+- **[FRAMEWORK_TEST] [VERSION]** + [BIBLIOTHÈQUES_TEST, ex. utilitaires de rendu, assertions, mocks]
+- Fichiers de test : `[MOTIF_FICHIERS_TEST]`, [EMPLACEMENT, ex. co-localisés avec le fichier testé]
 
 ## Commandes
 
 ```bash
-# Tous les tests (mode watch)
-[COMMANDE_TEST_WATCH]
-
-# Tous les tests en CI (sans watch, avec coverage)
-[COMMANDE_TEST_CI]
-
-# Un seul fichier de test
-[COMMANDE_TEST_FICHIER] [CHEMIN_EXEMPLE_TEST]
-
-# Un seul test par nom
-[COMMANDE_TEST_NOM_PATTERN] "[NOM_EXEMPLE_TEST]"
+[COMMANDE_TEST]                       # tous les tests
+[COMMANDE_TEST_CI]                    # mode CI avec couverture
+[COMMANDE_TEST_FICHIER] [CHEMIN]      # un fichier
+[COMMANDE_TEST_NOM] "[NOM_DU_TEST]"   # un test par nom
 ```
 
-Rapport couverture généré dans `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_QUALITE, ex: SonarCloud]).
+Rapport de couverture : `[CHEMIN_RAPPORT_COUVERTURE]` (lu par [OUTIL_QUALITÉ, ex. SonarQube]).
+**Seuil de couverture** : [SEUIL, défaut ≥ 80 %] sur le code modifié.
 
-## Ce qu'il faut tester
+## Mocks
 
-### Composants [FRAMEWORK_PRINCIPAL]
+- Dépendances externes (réseau, stockage, horloge) : [MÉCANISME_MOCK]
+- État partagé injecté : [COMMENT_MOCKER_L_ÉTAT]
 
-> 💡 Exemple React / Testing Library — adapter à `[FRAMEWORK_TEST]` / `[FRAMEWORK_PRINCIPAL]`.
-
+<!-- Exemple illustratif (à remplacer par un test réel du projet) :
 ```typescript
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { [NOM_CONTEXT] } from '[CHEMIN_CONTEXT_PROVIDER]';
-
-// Toujours mocker le Context si le composant l'utilise
-const mockContext = { [CLE_CONTEXTE]: ..., [SETTER_CONTEXTE]: jest.fn(), ... };
-
-test('doit afficher le libellé de l\'opération', () => {
-  render(
-    <[NOM_CONTEXT].Provider value={mockContext}>
-      <MonComposant ... />
-    </[NOM_CONTEXT].Provider>
-  );
-  expect(screen.getByText('Libellé attendu')).toBeInTheDocument();
-});
+test('affiche le libellé', () => { render(<MonComposant />); expect(screen.getByText('Libellé')).toBeInTheDocument(); });
 ```
-
-### Services
-
-```typescript
-// Mocker fetch pour [SERVICE_HTTP]
-global.fetch = jest.fn(() => Promise.resolve({ status: 200, json: () => Promise.resolve(data) }));
-```
+-->
 
 ## Cas à couvrir systématiquement
 
-- **Cas nominal** : rendu correct avec données valides.
-- **Cas vide / null** : comportement quand données absentes.
-- **Cas d'erreur HTTP** : 403 ([ACTION_403, ex: logout]), 404, 500.
-- **Interactions utilisateur** : clics, saisies (via `userEvent`).
-- **Responsive** : si `[HOOK_RESPONSIVE]` utilisé, mocker `[THEME_PROVIDER]`.
+- **Nominal** : comportement correct avec données valides
+- **Vide / null** : données absentes ou partielles
+- **Erreurs** : [CODES_ERREUR_PERTINENTS, ex. 401/403, 404, 500] et comportement attendu
+- **Interactions** : actions utilisateur ou appels d'API selon le type de composant
+- **Régression** : casser volontairement le code doit faire échouer au moins un test
 
-## Ce que tu ne fais PAS
+## Ce que QALvin ne fait PAS
 
-- Modifie pas fichiers production (`*.[tsx|ts]` hors `*.test.*`).
-- Mets pas à jour docs (rôle 🟣 DOCly).
-- Prends pas décisions architecture tests sans validation 🟠 ARCos.
-
-## Règle d'index des plans (obligatoire)
-
-- `.github/plans/README.md` est index **plans + statut global** uniquement (pas phases).
-- Si phase QA livrée change statut global plan, synchronise `.github/plans/README.md` dans même changement.
+- Modifier le code de production (hors fichiers de test).
+- Mettre à jour la documentation (rôle 🟣 DOCly).
+- Changer la stratégie de test globale sans validation 🟠 ARCos + 👤.

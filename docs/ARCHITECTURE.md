@@ -1,226 +1,181 @@
-# 🏗️ Architecture — Dépôt Transverse Copilot
+# 🏗️ Architecture — Dépôt Transverse Multi-Agents
 
-> Ce document décrit l'architecture et les principes de ce dépôt de templates multi-agents.  
-> Compléter les sections **⚠️ À COMPLÉTER** au fur et à mesure des évolutions.
+> Architecture et principes de ce dépôt de templates multi-agents (harnais Claude Code, Copilot généré).
 
 ---
 
 ## 🎯 Vue d'ensemble
 
-Le **dépôt transverse Copilot** est un ensemble réutilisable de templates, agents et prompts pour orchestrer le développement avec des assistants IA (GitHub Copilot comme source, Claude Code en miroir généré) via une architecture **multi-agents coordonnée**.
+Ensemble réutilisable d'agents, skills et templates pour orchestrer le développement avec des assistants IA
+via une architecture **multi-agents coordonnée** et des **gates humains** stricts.
 
 | Propriété | Valeur |
 |---|---|
-| **Type** | Dépôt de templates / infrastructure Copilot |
-| **Stack principale** | Markdown, YAML (frontmatter agents) |
-| **Plateformes cibles** | GitHub Copilot CLI (source) + Claude Code (miroir généré) |
-| **Langue** | Français (contenu), Anglais (exemples de code) |
-| **Statut** | En développement actif |
+| **Type** | Dépôt de templates / harnais multi-agents |
+| **Stack principale** | Markdown + frontmatter YAML ; tooling PowerShell (5.1 / 7) |
+| **Plateforme source** | Claude Code (`.claude/`) |
+| **Plateforme générée** | GitHub Copilot (`.github/`, ne jamais éditer à la main) |
+| **Langue** | Français (contenu), anglais (code, scripts) |
+| **Distribution** | ZIP (`scripts/package-*.ps1`) + copie manuelle |
 
-**Philosophie :** *"Écrire une fois, réutiliser partout"*
-- 🎯 **Généricité** : les agents restent stables d'un projet à l'autre
-- 🔧 **Customisation minimale** : les placeholders `[...]` permettent l'adaptation rapide
-- 🔄 **Versionning** : chaque agent porte une version pour tracker les changements
-- 🚀 **Efficacité** : initialiser Copilot en 3 étapes max
+**Philosophie :** *« Écrire une fois, réutiliser partout »*
+- 🎯 **Généricité** : agents stables d'un projet à l'autre ; spécificités dans les conventions par rôle
+- 🔧 **Customisation minimale** : placeholders `[...]` remplis par `/init-harness`
+- 🔄 **Versionnage** : chaque agent porte une version (corps + CHANGELOG)
+- 🛡️ **Traçabilité** : Plan d'Action persisté + journal des gates pour toute initiative
 
 ---
 
 ## 🏢 Architecture Globale
 
-### Principes de séparation des responsabilités
+### Séparation des responsabilités
 
 ```
-Dépôt Transverse Copilot
-├── agents/          # Comportements génériques et réutilisables (non modifiés par projet)
-├── instructions/    # Valeurs spécifiques au projet cible (à personnaliser via [placeholders])
-├── prompts/         # Commandes réutilisables pour initialiser, auditer et migrer
-├── plans/           # Orchestration du travail multi-phases
-└── docs/            # Documentation de ce dépôt transverse
-    └── adr/         # Décisions architecturales
+.claude/
+├── agents/        # Comportements génériques (frontmatter natif : model, tools, skills)
+├── skills/        # Procédures partagées · conventions projet par rôle · commandes
+├── plans/         # Plans d'Action + rapports de phase + archive
+├── CLAUDE.md      # Instructions de ce dépôt (maintenu à la main)
+└── CLAUDE.template.md
+docs/              # Documentation du dépôt + templates (ARCHITECTURE, ADR)
+scripts/           # Génération Copilot + packaging
+.github/           # GÉNÉRÉ depuis .claude/ (Copilot)
 ```
 
 ### Flux d'utilisation (projet consommateur)
 
 ```
-Nouveau Projet
-    → [Copier agents/, instructions/, prompts/, docs/ARCHITECTURE.template.md]
-    → [Exécuter prompt init-copilot-instructions]
-    → copilot-instructions.md + instructions/*.md  (customisés pour le projet)
-    → [Au démarrage de session, chaque agent lit son fichier d'instructions]
-        ├── ARCos  (🟠 ARC) ← architect.instructions.md + docs/ARCHITECTURE.md
-        ├── DEVon  (🔵 DEV) ← dev.instructions.md
-        ├── QALvin(🟢 QUAL)← qa.instructions.md
-        └── DOCly  (🟣 DOC) ← doc.instructions.md
-    → [L'équipe utilise les agents via Copilot]
+Nouveau projet
+    → copier .claude/agents, .claude/skills, PLANS.md, CLAUDE.template.md, templates docs/
+    → /init-harness
+        → .claude/CLAUDE.md + conventions-<rôle> remplis depuis le code
+    → claude --agent MAINa   (ou /maina <besoin>)
+        → ⚫ MAINa orchestre ; chaque agent précharge ses conventions :
+            ├── 🟠 ARCos  ← conventions-architect + docs/ARCHITECTURE.md
+            ├── 🔵 DEVon  ← conventions-dev
+            ├── 🟢 QALvin ← conventions-qa
+            └── 🟣 DOCly  ← conventions-doc
 ```
 
 ### Principes architecturaux
 
 | Principe | Description |
 |---|---|
-| **Réutilisabilité** | Tous les fichiers agents sont génériques et prêts à l'emploi dans n'importe quel projet |
-| **Separation of Concerns** | Agents = comportement · Instructions = valeurs projet · Prompts = automatisation |
-| **Versionning** | Chaque agent commence par `[vX.Y]` pour tracker les changements |
-| **Customisation minimale** | Le template permet une initialisation rapide et complète en 3 étapes |
+| **Réutilisabilité** | Agents et procédures génériques, prêts à l'emploi |
+| **Séparation des préoccupations** | Agents = comportement · Conventions = valeurs projet · Commandes = automatisation |
+| **Chargement déterministe** | Conventions et procédures préchargées par agent (`skills:`), pas « lues au démarrage » |
+| **Gates humains** | Gate #0 → #4 ; seul l'agent principal (MAINa) peut interroger 👤 |
+| **Source unique** | `.claude/` ; Copilot généré et vérifié (`-Check`) |
+| **Garde-fous déterministes** | Règles absolues appliquées par `settings.json` + hook, pas seulement par le prompt |
 
-### Modèle miroir : source unique + génération
+### Modèle Claude-first : source unique + génération Copilot
 
-Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.github/` (source de vérité Copilot), puis **générés** vers `.claude/` (Claude Code) par `scripts/sync-github-to-claude.ps1` avec substitution de chemins/termes (`.github/`→`.claude/`, `GitHub Copilot`→`Claude Code`). Voir [ADR 002](adr/002-claude-miroir-genere.md).
+Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` (source de vérité, optimisée Claude Code), puis **générés** vers `.github/` (GitHub Copilot) par `scripts/sync-claude-to-github.ps1` : frontmatter Copilot dérivé (`scripts/copilot-mapping.psd1`), substitution de chemins/termes, blocs `claude-only` / `copilot-only`, variantes `SKILL.copilot.md`, conventions → `.github/instructions/*.instructions.template.md`. OpenCode est retiré. Voir [ADR 003](adr/003-claude-first-copilot-genere.md) (remplace [ADR 002](adr/002-claude-miroir-genere.md)).
 
-> Exception : `.claude/CLAUDE.md` est **maintenu à la main** (curé, agnostique-projet) ; seul `CLAUDE.template.md` est généré.
+> Ne jamais éditer `.github/` à la main : `sync-claude-to-github.ps1 -Check` échoue si `.github/` diverge.
 
 ---
 
 ## 📂 Structure des Dossiers
 
 ```
-.                                                # Racine du dépôt transverse
-├── README.md                                    # Présentation du dépôt
-├── QUICK_START_COPILOT.md                       # Démarrage rapide Copilot
-├── QUICK_START_OPENCODE.md                      # Démarrage rapide OpenCode
-├── QUICK_START_CLAUDE.md                        # Démarrage rapide Claude Code
-├── SETUP_CHECKLIST.md                           # Checklist d'initialisation
-│
-├── docs/                                        # Documentation versionnée
-│   ├── ARCHITECTURE.md                          # Ce fichier
-│   ├── ARCHITECTURE.template.md                 # Template à copier dans les projets
-│   └── adr/                                     # Architecture Decision Records
-│       └── ADR-TEMPLATE.md                      # Template ADR
-│
-└── .github/
-    ├── README.md                                # Guide complet d'utilisation
-    ├── PLANS.md                                 # Guide des Plans d'Action
-    ├── copilot-instructions.md                  # Template générique (version par défaut)
-    ├── copilot-instructions.template.md         # Template original avec placeholders
-    │
-    ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.3]
-    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.7]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v4.3]
-    │   ├── Qalvin.agent.md                      # Expert QA [v4.4]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.3]
-    │
-    ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
-    │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
-    │   ├── plan-creation/SKILL.md               # Création Plan d'Action (MAINa)
-    │   ├── maina-help/SKILL.md                  # Aide orchestration MAINa
-    │   ├── fleet-guide/SKILL.md                 # Guide parallélisation /fleet
-    │   ├── adr-writing/SKILL.md                 # Rédaction ADR
-    │   ├── copilotignore/SKILL.md               # Règle absolue .copilotignore
-    │   ├── caveman-default/SKILL.md             # Mode caveman full par défaut
-    │   ├── compact-context/SKILL.md             # Instructions preCompact (sessions plans)
-    │   └── safety-rules/SKILL.md                # Sécurité : opérations destructives interdites
-    │
-    ├── instructions/                            # 📐 Spécificités projet (à compléter par projet)
-    │   ├── architect.instructions.md            # ARCos : architecture, SQL handoff, ADR
-    │   ├── dev.instructions.md                  # DEVon : stack, code, HTTP, modèles
-    │   ├── qa.instructions.md                   # QALvin : tests, commandes CI, couverture
-    │   └── doc.instructions.md                  # DOCly : docs/, ARCHITECTURE.md, ADRs
-    │
-    ├── prompts/                                 # 🎯 Commandes réutilisables
-    │   ├── init-copilot-instructions.prompt.md  # Initialiser un nouveau projet
-    │   ├── update-copilot-instructions.prompt.md# Maintenir les instructions à jour
-    │   └── migrate-to-template.prompt.md        # Migrer un projet existant
-    │
-    └── plans/                                   # 📅 Plans d'Action
-        └── README.md                            # Index des plans
+.
+├── README.md                     # Profil GitHub
+├── QUICK_START_CLAUDE.md         # Démarrage rapide Claude Code (source)
+├── QUICK_START_COPILOT.md        # Démarrage rapide Copilot (généré)
+├── SETUP_CHECKLIST.md            # Checklist d'initialisation
+├── docs/
+│   ├── ARCHITECTURE.md           # Ce fichier
+│   ├── ARCHITECTURE.template.md  # Template à copier dans les projets
+│   ├── adr/                      # ADR + ADR-TEMPLATE.md
+│   ├── diagrams/                 # Diagrammes d'orchestration (Mermaid, PlantUML)
+│   └── plans/                    # Plans d'Action, rapports, archive/ (ADR 004)
+├── scripts/                      # sync-claude-to-github, check-harness, package-*, tests/
+├── tests/fixtures/sample-app/    # Projet fixture des scénarios d'évaluation (eval-scenarios.ps1)
+├── .claude/
+│   ├── agents/                   # 5 agents + README (configuration)
+│   ├── skills/                   # voir « Skills » ci-dessous
+│   ├── hooks/                    # guard.sh (PreToolUse) + role-boundaries.conf
+│   ├── settings.json             # Permissions + hooks de ce dépôt (template : settings.template.json)
+│   ├── CHANGELOG.md · PLANS.md · README.md
+│   └── CLAUDE.md · CLAUDE.template.md
+└── .github/                      # GÉNÉRÉ (agents, skills, instructions, copilot-instructions*.md)
 ```
 
 ---
 
 ## 🔧 Composants Principaux
 
-### 🤖 Agents (`.github/agents/`)
+### 🤖 Agents (`.claude/agents/`)
 
-Chaque agent est un **modèle de rôle** générique défini en Markdown avec frontmatter YAML.
+| Agent | Fichier | Version | Modèle | Rôle |
+|---|---|---|---|---|
+| ⚫ MAINa | `Maina.agent.md` | v1.5 | `opus` | Maître orchestrateur — agent principal de session, crée le Plan d'Action, tient les gates |
+| 🟠 ARCos | `Arcos.agent.md` | v4.8 | `opus` | Architecte en lecture seule : ≥ 2 options + recommandation |
+| 🔵 DEVon | `Devon.agent.md` | v4.4 | `sonnet` | Implémentation + preuves (build, lint, tests existants) |
+| 🟢 QALvin | `Qalvin.agent.md` | v4.5 | `sonnet` | Tests et couverture |
+| 🟣 DOCly | `Docly.agent.md` | v4.4 | `sonnet` | Documentation, ADR |
 
-| Agent | Fichier | Version | Rôle |
-|---|---|---|---|
-| ⚫ MAINa | `Maina.agent.md` | v1.3 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
-| 🟠 ARCos | `Arcos.agent.md` | v4.7 | Architecte (consulté par MAINa : analyse + recommandation) |
-| 🔵 DEVon | `Devon.agent.md` | v4.3 | Implémentateur de code |
-| 🟢 QALvin | `Qalvin.agent.md` | v4.4 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v4.3 | Gestionnaire documentation |
+Outils et skills préchargés par agent : [`.claude/agents/README.md`](../.claude/agents/README.md).
+Les sous-agents n'ont pas accès à `AskUserQuestion` : ils remontent leurs questions (`❓ Questions pour 👤`)
+à MAINa, qui les pose au gate.
 
-**Caractéristiques :**
-- ✅ Génériques (pas de dépendances au projet spécifique)
-- ✅ Versionnés (incrémentés à chaque modification comportementale)
-- ✅ Indépendants (peuvent être copiés isolément dans un projet)
-- ✅ Prêts à l'emploi (pas besoin de modification pour démarrer)
+### 🛠️ Skills (`.claude/skills/`)
 
-### 🛠️ Skills partagés (`.github/skills/`)
-
-Procédures réutilisables incluses automatiquement dans le contexte de tous les agents (`applyTo: **`).
-
-| Skill | Rôle |
-|---|---|
-| `plan-creation` | Création / orchestration d'un Plan d'Action (MAINa) |
-| `plan-phase-execution` | Exécution standard d'une phase d'AP |
-| `maina-help` | Aide à l'orchestration MAINa (`/maina-help`) |
-| `fleet-guide` | Guide de parallélisation `/fleet` |
-| `adr-writing` | Rédaction d'un ADR (ARCos prépare, DOCly rédige) |
-| `copilotignore` | Règle absolue de respect de `.copilotignore` |
-| `caveman-default` | Mode caveman (full) actif par défaut |
-| `compact-context` | Instructions preCompact pour sessions plans/SDLC |
-| `safety-rules` | Règles de sécurité : opérations destructives interdites |
-
-### 📐 Instructions agents (`.github/instructions/`)
-
-Ces fichiers complètent les agents génériques avec les **spécificités du projet cible**.
-
-| Fichier | Agent | Contenu |
+| Catégorie | Skills | Chargement |
 |---|---|---|
-| `architect.instructions.md` | 🟠 ARCos | Conventions architecturales, protocole SQL handoff, ADR |
-| `dev.instructions.md` | 🔵 DEVon | Stack technique, conventions de code, organisation |
-| `qa.instructions.md` | 🟢 QALvin | Stack de test, commandes CI, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Structure `docs/`, conventions de rédaction |
+| Procédures | `plan-creation`, `plan-phase-execution`, `gate-protocol`, `adr-writing`, `parallel-guide` | Préchargées par les agents concernés (`user-invocable: false`) |
+| Conventions projet | `conventions-orchestrator`, `-architect`, `-dev`, `-qa`, `-doc` | Préchargées par le rôle correspondant ; templates remplis par `/init-harness` |
+| Commandes | `/maina`, `/arcos`, `/devon`, `/qalvin`, `/docly`, `/maina-help`, `/init-harness`, `/update-harness` | Utilisateur uniquement (`disable-model-invocation: true`) |
 
-> **Différence avec les agents :** Agents = comportement réutilisable · Instructions = valeurs projet concrètes
+`/arcos`, `/devon`, `/qalvin`, `/docly` s'exécutent en sous-agent forké (`context: fork`) ; `/maina`
+s'exécute dans la session courante (gates interactifs).
 
-### 🎯 Prompts (`.github/prompts/`)
+### 🛡️ Garde-fous déterministes
 
-| Prompt | Rôle |
-|---|---|
-| `init-copilot-instructions` | Analyse le code source, remplit le template principal, conserve orchestration MAINa et génère les 4 fichiers `instructions/` |
-| `update-copilot-instructions` | Audite le code, vérifie les valeurs obsolètes et placeholders non remplis |
-| `migrate-to-template` | Guide pour transformer un projet legacy vers ce système |
+Les règles absolues de `CLAUDE.md` sont **appliquées par l'outil**, pas seulement rappelées au modèle :
 
-### 📄 Templates (`docs/`)
+| Mécanisme | Fichier | Couvre |
+|---|---|---|
+| `permissions.deny` / `ask` | `.claude/settings.json` (template : `settings.template.json`) | Commandes destructives Bash/PowerShell, fichiers sensibles (`.env*`), chemins `.copilotignore` (`Read()`/`Edit()`, best-effort sur Grep/Glob) ; `git rm` → confirmation |
+| Hook `PreToolUse` | `.claude/hooks/guard.sh` | Formes invisibles aux règles (`sh -c "rm …"`, `/bin/rm`, `git -C . reset --hard`, SQL `DROP`/`TRUNCATE`/`DELETE` sans `WHERE`), commandes et écritures visant `.copilotignore` |
+| Frontières de rôle | `.claude/hooks/role-boundaries.conf` (lu par le hook) | DEVon ≠ tests/docs, QALvin = tests seulement, DOCly = docs seulement, MAINa = plans + statut ADR (champ `agent_type`) |
+
+Hook en bash pur (aucun sous-processus, ~0,2 s par appel sous Git Bash), limité à Bash/PowerShell/Edit/Write/NotebookEdit ;
+tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles de `copilot-instructions.md` s'appliquent.
+
+### 📄 Templates
 
 | Fichier | Rôle |
 |---|---|
-| `docs/ARCHITECTURE.template.md` | Template `docs/ARCHITECTURE.md` à copier dans chaque projet |
-| `docs/adr/ADR-TEMPLATE.md` | Template ADR à copier pour chaque décision architecturale |
-| `.github/copilot-instructions.template.md` | Template `copilot-instructions.md` avec placeholders |
+| `.claude/CLAUDE.template.md` | Template de `CLAUDE.md` projet |
+| `.claude/skills/conventions-*/SKILL.md` | Conventions par rôle (placeholders) |
+| `.claude/skills/plan-creation/templates/plan.template.md` | Modèle de Plan d'Action (avec journal des gates) |
+| `.claude/skills/plan-phase-execution/templates/phase-report.template.md` | Modèle de rapport de phase |
+| `docs/ARCHITECTURE.template.md` | Template `docs/ARCHITECTURE.md` |
+| `docs/adr/ADR-TEMPLATE.md` | Template ADR |
+| `.claude/settings.template.json` | Permissions + hook de garde à fusionner dans `.claude/settings.json` |
 
 ---
 
 ## 📐 Conventions et Invariants
 
-### Agents — doivent rester génériques
-- Pas de références au projet spécifique dans les fichiers `.agent.md`
-- Pas de chemins relatifs à un projet particulier
+### Agents — génériques
+- Aucune référence à un projet spécifique dans les `*.agent.md`
+- Frontmatter natif Claude Code uniquement (`name`, `description`, `model`, `tools`, `skills`, `color`, …)
 - Incrémenter la version à chaque modification comportementale
 
-### Instructions — doivent être spécifiques
-- Customisées pour chaque projet consommateur
-- Refléter les conventions réelles (pas des hypothèses)
-- Mises à jour régulièrement (prompt `update-copilot-instructions`)
+### Conventions projet — spécifiques
+- Remplies projet par projet (`/init-harness`), maintenues via `/update-harness`
+- Refléter les conventions réelles du code (pas d'hypothèse)
 
-### Prompts — doivent être réutilisables
-- Indépendants du projet
-- Documentés clairement dans leur frontmatter YAML
-- Testés dans plusieurs contextes
+### Templates — placeholders clairs
+- Format : `[DESCRIPTION_DE_CE_QUI_MANQUE]` (ex. `[NOM_DU_PROJET]`, `[COMMANDE_TEST]`)
+- Exemples illustratifs en commentaire, jamais de valeurs d'un projet réel
 
-### Templates — doivent avoir des placeholders clairs
-- Format : `[DESCRIPTION_DE_CE_QUI_MANQUE]`
-- Instructions de remplissage visibles
-- Exemples concrets : `[NOM_DU_PROJET]`, `[STACK_PRINCIPALE]`
-
-### Fichiers `instructions/` — doivent rester initialisables
-- Placeholders `[...]` explicites et compréhensibles
-- Remplis projet par projet lors de l'initialisation
-- Synchronisés avec la stack, les chemins et versions réelles
+### Plateformes
+- Contenu propre à Claude : `<!-- claude-only -->…<!-- /claude-only -->` ; propre à Copilot : `<!-- copilot-only … -->`
+- Skill dont la version Copilot diffère : `SKILL.copilot.md` à côté de `SKILL.md`
 
 ---
 
@@ -232,72 +187,35 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 | # | Décision | Statut | Date |
 |---|---|---|---|
 | 001 | [Ajouter MAINa comme orchestrateur principal](adr/001-maina-orchestrateur.md) | Acceptée | 2026-06-25 |
-| 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Acceptée | 2026-06-29 |
+| 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Remplacée par 003 | 2026-06-29 |
+| 003 | [Claude-first : `.claude/` source unique, Copilot généré, OpenCode retiré](adr/003-claude-first-copilot-genere.md) | Acceptée | 2026-10-12 |
+| 004 | [Plans d'Action dans `docs/plans/` (hors chemin protégé `.claude/`)](adr/004-plans-hors-chemin-protege.md) | Acceptée | 2026-10-12 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 
 ---
 
-## 🚀 Utilisation Typique
-
-### Nouveau projet
-
-```bash
-# 1. Copier les fichiers essentiels
-cp -r copilot-templates/.github/agents mon-projet/.github/
-cp -r copilot-templates/.github/instructions mon-projet/.github/
-cp copilot-templates/.github/*.md mon-projet/.github/
-mkdir -p mon-projet/docs/adr
-cp copilot-templates/docs/ARCHITECTURE.template.md mon-projet/docs/ARCHITECTURE.md
-cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
-
-# 2. Initialiser avec le prompt
-👤 "Initialise les instructions Copilot pour ce projet"
-
-# 3. Vérifier et enrichir
-👤 "Complète les instructions Copilot depuis le code source"
-```
-
-### Projet existant
-
-```bash
-# Utiliser le prompt de migration
-👤 "Aide-moi à migrer ce projet vers les templates Copilot"
-```
-
----
-
-## 📊 Inventaire
-
-| Élément | Nombre | Générique |
-|---|---|---|
-| Agents | 5 | ✅ Oui |
-| Skills | 9 | ✅ Oui |
-| Prompts | 3 | ✅ Oui |
-| Templates instructions | 4 | ✅ Oui (avec placeholders) |
-| Templates docs | 2 | ✅ Oui (ARCHITECTURE + ADR) |
-
----
-
 ## 🔄 Maintenance
 
-### Mise à jour des agents
+### Mise à jour d'un agent ou d'un skill
 
-1. Modifier `.github/agents/<Agent>.agent.md`
-2. Incrémenter la version : `[vX.Y]` → `[vX.Y+1]`
-3. Documenter les changements dans `.github/CHANGELOG.md`
-4. Mettre à jour le tableau d'inventaire ci-dessus
+1. Modifier `.claude/agents/<Agent>.agent.md` ou `.claude/skills/<nom>/SKILL.md` (jamais `.github/`)
+2. Agent : incrémenter la version (ligne `> **Version**`) et documenter dans `.claude/CHANGELOG.md`
+3. Régénérer Copilot : `scripts/sync-claude-to-github.ps1`, puis `-Check` (doit sortir en 0)
 
-### Mise à jour des templates
+### Contrôles automatiques
 
-1. Modifier `docs/ARCHITECTURE.template.md` ou `.github/copilot-instructions.template.md`
-2. Les projets consommateurs se re-synchronisent via les prompts
+- `scripts/check-harness.ps1` : cohérence (frontmatter, versions agent = CHANGELOG = ce document, liens,
+  compteurs, taille de `CLAUDE.md`, settings/hooks, index des plans, génération Copilot)
+- `scripts/tests/sync.tests.ps1` (générateur) · `scripts/tests/guard.tests.sh` (hook de garde)
+- `scripts/tests/eval-scenarios.ps1` : scénarios comportementaux `claude -p` sur le fixture `tests/fixtures/sample-app/`
+  (gates, lecture seule ARCos, frontières de rôle, garde-fous) — CLI authentifiée requise
+- Routine avant release : voir [`scripts/README.md`](../scripts/README.md) (+ `/doctor prompt-audit`)
+- CI : `.github/workflows/harness-check.yml` sur PR et push `main`
 
-### Ajout d'un nouveau prompt
+### Mapping Copilot
 
-1. Créer `.github/prompts/<nom>.prompt.md`
-2. Documenter son rôle dans le frontmatter YAML
-3. Référencer dans `.github/README.md`
+Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [`scripts/README.md`](../scripts/README.md)).
 
 ---
 
@@ -305,6 +223,7 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 | Version | Date | Changements majeurs |
 |---|---|---|
+| v5.0 | 2026-10-12 | Claude-first (ADR 003) : `.claude/` source, Copilot généré, OpenCode retiré ; agents à frontmatter natif ; conventions par rôle en skills préchargés ; commandes `/init-harness`, `/update-harness` ; garde-fous déterministes (`settings.json` + hook `guard.sh`, frontières de rôle) ; gates outillés (`gate-protocol`, handoff) ; contrôles automatiques (`check-harness`, CI) |
 | v4.0 | 2026-06-29 | Modèle miroir : `.github/` source → `.claude/` généré (sync) ; ADR 002 ; ARCos recentré (MAINa crée le plan) |
 | v3.2 | 2026-06-25 | Ajout MAINa (maître-orchestrateur) ; rationalisation agents ; skills `maina-help`, `compact-context` |
 | v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |
@@ -316,8 +235,9 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 ## 🔗 Ressources
 
-- **README** : [`.github/README.md`](.github/README.md)
-- **Guide Plans d'Action** : [`.github/PLANS.md`](.github/PLANS.md)
-- **Checklist** : [`SETUP_CHECKLIST.md`](SETUP_CHECKLIST.md)
+- **Guide `.claude/`** : [`.claude/README.md`](../.claude/README.md)
+- **Guide Plans d'Action** : [`.claude/PLANS.md`](../.claude/PLANS.md)
+- **Scripts** : [`scripts/README.md`](../scripts/README.md)
+- **Diagrammes** : [`docs/diagrams/`](diagrams/) (séquence, activité, flux Mermaid)
+- **Checklist** : [`SETUP_CHECKLIST.md`](../SETUP_CHECKLIST.md)
 - **ADRs** : [`docs/adr/`](./adr/)
-

@@ -6,7 +6,7 @@
 ---
 
 **Date :** [AAAA-MM-JJ]  
-**Statut :** [Proposée / Acceptée / Dépréciée / Remplacée par ADR-NNN]  
+**Statut :** [Proposée / Acceptée / Rejetée / Dépréciée / Remplacée par ADR-NNN]  
 **Décideurs :** [🟠 ARCos + 👤 Développeur humain]
 
 ---
@@ -79,4 +79,4 @@
 ## Références
 
 - [Lien vers la documentation officielle, RFC, article, ou plan d'action associé]
-- [Plan d'Action associé : `.github/plans/NNN_nom.plan.md`]
+- [Plan d'Action associé : `docs/plans/NNN_nom.plan.md`]

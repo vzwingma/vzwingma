@@ -1,18 +1,13 @@
 ---
-name: "qalvin"
-description: "Skill — Active agent QALvin (QA/tests) sur prompt utilisateur. Déclenché par `/qalvin`, `/QALvin`, `/QALvin : [prompt]`."
-applyTo: "**"
+name: qalvin
+description: "Active 🟢 QALvin (QA / tests) sur la demande de l'utilisateur. Déclenché par `/qalvin` ou `/qalvin : [prompt]`."
 ---
 
 # Skill : Activation QALvin
 
-Déclenché par `/qalvin`, `/QALvin` ou `/QALvin : [prompt]`.
-
-## Action
-
-1. Extraire `[prompt]` : texte après `:` (ou après nom skill si pas de `:`). Si vide, demander quel composant/service tester.
-2. Invoquer agent **QALvin** (Agent tool, `subagent_type: "QALvin"`) avec ce prompt tel quel.
-3. Ne pas écrire les tests toi-même — QALvin couvre nominal + erreurs + limites, cible ≥80% couverture.
-4. Relayer résultats (tests, couverture, échecs) à l'utilisateur.
+1. Extraire `[prompt]` : texte après `:` (ou après le nom du skill). Vide → demander : « Quel composant, service ou phase tester ? »
+2. Invoquer l'agent **QALvin** avec ce prompt tel quel, sans reformulation.
+3. Ne pas faire le travail soi-même.
+4. Relayer les résultats (tests, couverture, échecs) à l'utilisateur.
 
 Référence rôle complet : [`.github/agents/Qalvin.agent.md`](../../agents/Qalvin.agent.md)
