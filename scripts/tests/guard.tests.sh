@@ -78,6 +78,8 @@ file 0 'src/dist-utils.ts'
 
 echo "== role boundaries"
 file 0 'src/app.ts' DEVon
+file 0 'docs/plans/005_reports/PHASE_1_COMPLETION_REPORT.md' DEVon Write
+file 2 'docs/plans-notes.md' DEVon
 file 2 'src/app.test.ts' DEVon
 file 2 'src/__tests__/app.ts' DEVon
 file 2 'docs/ARCHITECTURE.md' DEVon
@@ -85,11 +87,11 @@ file 2 'README.md' DEVon Write
 file 2 'src/app.ts' QALvin
 file 0 'src/app.test.ts' QALvin
 file 0 'tests/fixtures/data.json' QALvin Write
-file 0 '.claude/plans/005_reports/PHASE_1_COMPLETION_REPORT.md' QALvin Write
+file 0 'docs/plans/005_reports/PHASE_1_COMPLETION_REPORT.md' QALvin Write
 file 2 'src/app.ts' DOCly
 file 0 'README.md' DOCly
 file 0 'docs/adr/004-choix.md' DOCly Write
-file 0 '.claude/plans/README.md' MAINa
+file 0 'docs/plans/README.md' MAINa
 file 0 'docs/adr/004-choix.md' MAINa
 file 2 'src/app.ts' MAINa Write
 file 0 'src/app.ts'

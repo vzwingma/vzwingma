@@ -85,7 +85,7 @@ Prérequis : `.claude/hooks/` (`guard.sh`, `role-boundaries.conf`) et `.claude/s
 
 - `docs/ARCHITECTURE.md` absent → le créer depuis `docs/ARCHITECTURE.template.md` et le remplir.
 - `docs/adr/` absent → le créer avec `ADR-TEMPLATE.md`.
-- `.claude/plans/README.md` absent → créer l'index des plans (vide).
+- `docs/plans/README.md` absent → créer l'index des plans (vide).
 
 ## 7. Livrer
 

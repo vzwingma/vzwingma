@@ -79,4 +79,4 @@
 ## Références
 
 - [Lien vers la documentation officielle, RFC, article, ou plan d'action associé]
-- [Plan d'Action associé : `.claude/plans/NNN_nom.plan.md`]
+- [Plan d'Action associé : `docs/plans/NNN_nom.plan.md`]

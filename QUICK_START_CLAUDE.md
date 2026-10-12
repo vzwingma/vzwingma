@@ -119,7 +119,7 @@ claude --agent MAINa
 Dans une session déjà ouverte : `/maina <besoin>`. Aide intégrée : `/maina-help`.
 
 > ⚠️ Ne pas activer le mode plan de Claude Code (Shift+Tab) : il interdit les écritures, donc la création du
-> Plan d'Action dans `.claude/plans/`. MAINa conduit lui-même cadrage, plan et gates.
+> Plan d'Action dans `docs/plans/`. MAINa conduit lui-même cadrage, plan et gates.
 <!-- /claude-only -->
 <!-- copilot-only
 ### 1️⃣ Activer MAINa
@@ -198,7 +198,7 @@ A: Les agents sont **génériques**, la customisation se fait dans deux endroits
 A: Au sein d'une même phase uniquement, pour des tâches indépendantes (ex: plusieurs composants sans dépendance) — jamais à travers un gate. Voir skill `parallel-guide`.
 
 ### Q: Où stocker mes Plans d'Action ?
-A: Dans `.claude/plans/` — utiliser le format `XXX_<nom>.plan.md`.
+A: Dans `docs/plans/` — utiliser le format `XXX_<nom>.plan.md`.
 
 ### Q: Quelle est la licence ?
 A: Libre d'utilisation — c'est un dépôt de templates transverse.

@@ -154,8 +154,7 @@ powershell -NoProfile -File scripts/tests/eval-scenarios.ps1 -Only S1,S3   # sou
 ```
 
 Requiert une CLI authentifiée (sinon exit 2) ; coût plafonné par appel (`-BudgetUsd`, défaut 1,50 $ ; MAINa et
-ARCos utilisent `opus`). S2 étape 2 utilise `bypassPermissions` **dans le workdir jetable** : `.claude/` est un
-chemin protégé dont les écritures ne sont jamais auto-approuvées (règles `deny` et hook restent actifs).
+ARCos utilisent `opus`). Plans dans `docs/plans/` (ADR 004) : S2 tourne en `acceptEdits`, sans `bypassPermissions`.
 
 ---
 

@@ -89,7 +89,7 @@ unidirectionnel avec mapping de frontmatter, et de **retirer OpenCode** du dép�
 
 ## Références
 
-- Plan d'Action associé : `.claude/plans/005_claude-first.plan.md`
+- Plan d'Action associé : `docs/plans/005_claude-first.plan.md`
 - ADR remplacée : `docs/adr/002-claude-miroir-genere.md`
 - [Claude Code — Subagents](https://code.claude.com/docs/en/sub-agents),
   [Skills](https://code.claude.com/docs/en/skills), [Settings](https://code.claude.com/docs/en/settings)

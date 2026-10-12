@@ -15,9 +15,9 @@ Mode caveman **full** actif par défaut. Règles :
 ## Règle obligatoire MAINa — Plan + ADR
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
-1. Fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md`
+1. Fichier `Plan d'Action` dans `docs/plans/NNN_nom.plan.md`
 2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure (`Proposée` avant Gate #1, `Acceptée` au `GO`)
-3. Mise à jour `.github/plans/README.md`
+3. Mise à jour `docs/plans/README.md`
 
 Créés dans même lot que implémentation, pas après coup.
 
@@ -54,8 +54,8 @@ Pas de parallélisation entre phases séparées par un gate ; parallélisation p
 
 ## 📋 Plans d'Action
 
-- **Plan** : `.github/plans/<NO>_<slug>.plan.md` · **Rapports** : `.github/plans/<NO>_reports/PHASE_N_*.md`
-- **Index** (plans + statut global uniquement) : `.github/plans/README.md`
+- **Plan** : `docs/plans/<NO>_<slug>.plan.md` · **Rapports** : `docs/plans/<NO>_reports/PHASE_N_*.md`
+- **Index** (plans + statut global uniquement) : `docs/plans/README.md`
 - **Guide** : `.github/PLANS.md` · modèles dans les skills `plan-creation` et `plan-phase-execution`
 
 ---

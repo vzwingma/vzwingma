@@ -21,7 +21,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 📋 Plans Archivés / Complétés
 
-> Index unique (ADR 003). Plans 001-003 et OC-001 rapatriés de `.github/plans/` et `.opencode/plans/` sous [`archive/`](archive/).
+> Index unique (ADR 003, emplacement `docs/plans/` : ADR 004). Plans 001-003 et OC-001 rapatriés de `.github/plans/` et `.opencode/plans/` sous [`archive/`](archive/).
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
@@ -35,28 +35,28 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 🚀 Comment Créer un Nouveau Plan
 
-1. **Créer le fichier plan** : `.claude/plans/<NO>_<nom>.plan.md`
+1. **Créer le fichier plan** : `docs/plans/<NO>_<nom>.plan.md`
    - Utiliser le numéro séquentiel suivant (ex: 004 après 003)
-   - Suivre le format défini dans [`.claude/PLANS.md`](../PLANS.md)
+   - Suivre le format défini dans [`.claude/PLANS.md`](../../.claude/PLANS.md)
 
-2. **Créer le dossier reporting** : `.claude/plans/<NO>_reports/`
+2. **Créer le dossier reporting** : `docs/plans/<NO>_reports/`
    - Contiendra les rapports de phase complétées
 
 3. **Soumettre pour validation** au 👤 Développeur humain ou lead du projet
 
-**Guide complet :** 📖 [`.claude/PLANS.md`](../PLANS.md)
+**Guide complet :** 📖 [`.claude/PLANS.md`](../../.claude/PLANS.md)
 
 ---
 
 ## 📚 Documentation Associée
 
-- **Guide complet des Plans d'Action** : [`.claude/PLANS.md`](../PLANS.md)
-- **Instructions agent MAINa (⚫)** : [`.claude/agents/Maina.agent.md`](../agents/Maina.agent.md)
-- **Instructions agent DEVon (🔵 DEV)** : [`.claude/agents/Devon.agent.md`](../agents/Devon.agent.md)
-- **Instructions agent QALvin (🟢 QUAL)** : [`.claude/agents/Qalvin.agent.md`](../agents/Qalvin.agent.md)
-- **Instructions agent DOCly (🟣 DOC)** : [`.claude/agents/Docly.agent.md`](../agents/Docly.agent.md)
-- **Instructions agent ARCos (🟠 ARC)** : [`.claude/agents/Arcos.agent.md`](../agents/Arcos.agent.md)
-- **Instructions globales** : [`.claude/CLAUDE.md`](../CLAUDE.md)
+- **Guide complet des Plans d'Action** : [`.claude/PLANS.md`](../../.claude/PLANS.md)
+- **Instructions agent MAINa (⚫)** : [`.claude/agents/Maina.agent.md`](../../.claude/agents/Maina.agent.md)
+- **Instructions agent DEVon (🔵 DEV)** : [`.claude/agents/Devon.agent.md`](../../.claude/agents/Devon.agent.md)
+- **Instructions agent QALvin (🟢 QUAL)** : [`.claude/agents/Qalvin.agent.md`](../../.claude/agents/Qalvin.agent.md)
+- **Instructions agent DOCly (🟣 DOC)** : [`.claude/agents/Docly.agent.md`](../../.claude/agents/Docly.agent.md)
+- **Instructions agent ARCos (🟠 ARC)** : [`.claude/agents/Arcos.agent.md`](../../.claude/agents/Arcos.agent.md)
+- **Instructions globales** : [`.claude/CLAUDE.md`](../../.claude/CLAUDE.md)
 
 ---
 

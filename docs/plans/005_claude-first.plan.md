@@ -1,10 +1,10 @@
 # Plan d'Action 005 — Refonte « Claude-first » du harnais multi-agents
 
-**Document :** `.claude/plans/005_claude-first.plan.md`
+**Document :** `docs/plans/005_claude-first.plan.md` (anciennement `.claude/plans/`, ADR 004)
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ⏳ Planifié (Gate #1 en attente)
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 🔄
 **Objectif Prioritaire :** HIGH
-**ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
+**ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../adr/003-claude-first-copilot-genere.md)
 
 > Document **double** : (1) analyse critique de l'existant (revue 3 mois après AP 004),
 > (2) plan d'amélioration en 7 phases. Gate humain 👤 obligatoire après chaque phase.
@@ -240,7 +240,7 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 8 — Plans hors du chemin protégé `.claude/` — ⏳ Planifié
+### Phase 8 — Plans hors du chemin protégé `.claude/` — 🔄 En cours
 **Contexte :** constat P7 — `.claude/` est un chemin protégé : écritures de plans/rapports jamais
 auto-approuvées (confirmation à chaque écriture, refus en headless). Décision 👤 : option B (ADR 004).
 **Critères :** 0 référence active à `.claude/plans/` (hors historique) ; un agent écrit son rapport dans
@@ -326,13 +326,14 @@ Phase 8 (plans hors `.claude/`, ADR 004) → scénarios réels → clôture
 | P6-fin | 2026-10-12 | Revue livrables P6 (Copilot, docs, anti-dérive) | ✅ GO | Commit + push (1ʳᵉ exécution CI) ; vérif VS Code Copilot à faire par 👤 |
 | P7 | 2026-10-12 | Lancement P7 | ✅ GO | — |
 | P7-fin | 2026-10-12 | Revue livrables P7 (évaluation) | 🔁 AJUSTER | Option B retenue : plans → `docs/plans/` (ajout P8, ADR 004) ; PR vers `main` ; scénarios lancés par Claude après reconnexion 👤 |
-| #1 (P8) | — | Validation du plan de la phase 8 | ⏳ En attente | — |
+| #1 (P8) | 2026-10-12 | Validation du plan de la phase 8 | ✅ GO | ADR 004 → Acceptée |
+| P8-fin | — | Revue livrables P8 + scénarios réels + clôture AP 005 | ⏳ En attente | — |
 
 ---
 
 ## 📚 Références
 
 - Plan précédent : [`004_analyse-critique-infra-agents.plan.md`](004_analyse-critique-infra-agents.plan.md)
-- ADR : [`002`](../../docs/adr/002-claude-miroir-genere.md) (remplacée), [`003`](../../docs/adr/003-claude-first-copilot-genere.md)
+- ADR : [`002`](../adr/002-claude-miroir-genere.md) (remplacée), [`003`](../adr/003-claude-first-copilot-genere.md), [`004`](../adr/004-plans-hors-chemin-protege.md)
 - Doc Claude Code : [Subagents](https://code.claude.com/docs/en/sub-agents) · [Skills](https://code.claude.com/docs/en/skills) · [Memory](https://code.claude.com/docs/en/memory) · [Settings](https://code.claude.com/docs/en/settings) · [Plugins](https://code.claude.com/docs/en/plugins)
 - Doc Copilot skills : [Create skills](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-skills)

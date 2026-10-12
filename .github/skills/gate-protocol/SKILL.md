@@ -23,7 +23,7 @@ demander explicitement « Gate #N — <objet> : GO / AJUSTER / STOP ? » et atte
 6. **Agir** :
    - `GO` → phase suivante (relais prévu dans le handoff) ;
    - `AJUSTER` → relancer le **même** agent avec les retours, puis refaire le gate ;
-   - `STOP` → statut du plan `❌ Bloqué` (raison en notes), index `.github/plans/README.md` mis à jour, ADR en `Rejetée`.
+   - `STOP` → statut du plan `❌ Bloqué` (raison en notes), index `docs/plans/README.md` mis à jour, ADR en `Rejetée`.
 
 ---
 

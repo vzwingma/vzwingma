@@ -11,7 +11,7 @@
     - Docs     : dead relative links, hard-coded agent/skill counts that differ from reality,
                  CLAUDE.md <= 200 lines
     - Config   : settings JSON valid, hook scripts exist, .gitattributes keeps *.sh in LF
-    - Plans    : every NNN_*.plan.md listed in .claude/plans/README.md
+    - Plans    : every NNN_*.plan.md listed in docs/plans/README.md
     - Copilot  : sync-claude-to-github.ps1 -Check (unless -SkipSync)
     Prints an inventory (agents, skills) at the end.
 
@@ -131,7 +131,7 @@ foreach ($dir in Get-ChildItem (Join-Path $claude 'skills') -Directory) {
 
 # ── Copilot-only artifacts in the Claude source ──────────────────────────────
 $sourceDocs = Get-ChildItem $claude -Recurse -File -Include '*.md' |
-              Where-Object { $_.FullName -notmatch '[\\/]plans[\\/]' -and $_.Name -ne 'CHANGELOG.md' -and $_.Name -ne 'SKILL.copilot.md' }
+              Where-Object { $_.Name -ne 'CHANGELOG.md' -and $_.Name -ne 'SKILL.copilot.md' }
 foreach ($file in $sourceDocs) {
     $rel  = Get-Rel $file.FullName
     $text = Remove-CopilotOnly (Read-Text $file.FullName)
@@ -143,9 +143,10 @@ foreach ($file in $sourceDocs) {
 # ── Docs: dead links, counts, size ────────────────────────────────────────────
 $docFiles = @()
 $docFiles += Get-ChildItem $repoRoot -File -Filter '*.md'
-$docFiles += Get-ChildItem (Join-Path $repoRoot 'docs') -Recurse -File -Filter '*.md'
+$docFiles += Get-ChildItem (Join-Path $repoRoot 'docs') -Recurse -File -Filter '*.md' |
+             Where-Object { $_.FullName -notmatch '[\\/]docs[\\/]plans[\\/](archive|00[1-4])' }   # historical plans
 $docFiles += Get-ChildItem (Join-Path $repoRoot 'scripts') -Recurse -File -Filter '*.md'
-$docFiles += Get-ChildItem $claude -Recurse -File -Filter '*.md' | Where-Object { $_.FullName -notmatch '[\\/]plans[\\/](archive|00[1-4])' }
+$docFiles += Get-ChildItem $claude -Recurse -File -Filter '*.md'
 
 $agentCount = $agents.Count
 $skillCount = $skills.Count
@@ -160,7 +161,7 @@ foreach ($file in $docFiles) {
         $resolved = Join-Path $file.DirectoryName ([uri]::UnescapeDataString($target))
         if (-not (Test-Path $resolved)) { Add-Err "$rel : lien mort -> $target" }
     }
-    if ($rel -notmatch '^(\.claude/plans/|docs/adr/)' -and $file.Name -ne 'CHANGELOG.md') {   # plans, ADR, changelog = history
+    if ($rel -notmatch '^(docs/plans/|docs/adr/)' -and $file.Name -ne 'CHANGELOG.md') {   # plans, ADR, changelog = history
         foreach ($m in [regex]::Matches($text, '\b(\d+)\s+(agents|skills)\b')) {
             $n = [int]$m.Groups[1].Value
             $expected = if ($m.Groups[2].Value -eq 'agents') { $agentCount } else { $skillCount }
@@ -189,10 +190,11 @@ foreach ($sh in Get-ChildItem $repoRoot -Recurse -File -Filter '*.sh' | Where-Ob
 }
 
 # ── Plans index ───────────────────────────────────────────────────────────────
-$plansDir = Join-Path $claude 'plans'
+$plansDir = Join-Path $repoRoot 'docs\plans'
+if (Test-Path (Join-Path $claude 'plans')) { Add-Err ".claude/plans/ : dossier présent (chemin protégé, plans attendus dans docs/plans/ — ADR 004)" }
 $index    = Read-Text (Join-Path $plansDir 'README.md')
 foreach ($plan in Get-ChildItem $plansDir -File -Filter '*.plan.md') {
-    if (-not $index.Contains($plan.Name)) { Add-Err ".claude/plans/README.md : plan $($plan.Name) non indexé" }
+    if (-not $index.Contains($plan.Name)) { Add-Err "docs/plans/README.md : plan $($plan.Name) non indexé" }
 }
 
 # ── Copilot generation ────────────────────────────────────────────────────────

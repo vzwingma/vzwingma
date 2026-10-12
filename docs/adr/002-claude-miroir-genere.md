@@ -98,6 +98,6 @@ et **n'est pas** régénéré ; sa source naturelle (`copilot-instructions.md`) 
 
 ## Références
 
-- Plan d'Action associé : `.claude/plans/004_analyse-critique-infra-agents.plan.md`
+- Plan d'Action associé : `docs/plans/004_analyse-critique-infra-agents.plan.md`
 - Tooling : `scripts/sync-github-to-claude.ps1`, `scripts/Sync-Description.psm1`
 - ADR liée : `docs/adr/001-maina-orchestrateur.md`

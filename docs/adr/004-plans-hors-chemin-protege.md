@@ -1,7 +1,7 @@
 # ADR 004 — Plans d'Action dans `docs/plans/` (hors du chemin protégé `.claude/`)
 
 **Date :** 2026-10-12  
-**Statut :** Proposée (passe à Acceptée au Gate #1 de la Phase 8 du Plan d'Action 005)  
+**Statut :** Acceptée (Gate #1 de la Phase 8 du Plan d'Action 005, 2026-10-12)  
 **Décideurs :** ⚫ MAINa (orchestration) + 🟠 ARCos (analyse) + 👤 Développeur humain (option B)
 
 ---
@@ -83,6 +83,6 @@ configuration du harnais (agents, skills, hooks, settings) et le guide `PLANS.md
 
 ## Références
 
-- Plan d'Action associé : `.claude/plans/005_claude-first.plan.md` (→ `docs/plans/` après T8.1)
+- Plan d'Action associé : `docs/plans/005_claude-first.plan.md` (anciennement `.claude/plans/`)
 - Constat : `005_reports/PHASE_7_COMPLETION_REPORT.md` § « `.claude/` est un chemin protégé »
 - [Claude Code — Permission modes, Protected paths](https://code.claude.com/docs/en/permission-modes)

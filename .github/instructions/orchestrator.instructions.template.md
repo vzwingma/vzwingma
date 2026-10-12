@@ -16,7 +16,7 @@ applyTo: "**"
 
 ## Règles d'orchestration propres au projet
 
-- Plan d'Action persistant (`.github/plans/`) obligatoire pour toute demande menant à une modification de
+- Plan d'Action persistant (`docs/plans/`) obligatoire pour toute demande menant à une modification de
   code, sauf dispense explicite du 👤.
 - Consulter 🟠 ARCos pour toute décision d'architecture ou changement structurel.
 - Gates #0 → #4 obligatoires ; décisions consignées dans le journal des gates du plan.

@@ -88,14 +88,14 @@ Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` 
 │   ├── ARCHITECTURE.md           # Ce fichier
 │   ├── ARCHITECTURE.template.md  # Template à copier dans les projets
 │   ├── adr/                      # ADR + ADR-TEMPLATE.md
-│   └── diagrams/                 # Diagrammes d'orchestration (Mermaid, PlantUML)
+│   ├── diagrams/                 # Diagrammes d'orchestration (Mermaid, PlantUML)
+│   └── plans/                    # Plans d'Action, rapports, archive/ (ADR 004)
 ├── scripts/                      # sync-claude-to-github, check-harness, package-*, tests/
 ├── tests/fixtures/sample-app/    # Projet fixture des scénarios d'évaluation (eval-scenarios.ps1)
 ├── .claude/
 │   ├── agents/                   # 5 agents + README (configuration)
 │   ├── skills/                   # voir « Skills » ci-dessous
 │   ├── hooks/                    # guard.sh (PreToolUse) + role-boundaries.conf
-│   ├── plans/                    # Plans d'Action, rapports, archive/
 │   ├── settings.json             # Permissions + hooks de ce dépôt (template : settings.template.json)
 │   ├── CHANGELOG.md · PLANS.md · README.md
 │   └── CLAUDE.md · CLAUDE.template.md
@@ -189,7 +189,7 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 | 001 | [Ajouter MAINa comme orchestrateur principal](adr/001-maina-orchestrateur.md) | Acceptée | 2026-06-25 |
 | 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Remplacée par 003 | 2026-06-29 |
 | 003 | [Claude-first : `.claude/` source unique, Copilot généré, OpenCode retiré](adr/003-claude-first-copilot-genere.md) | Acceptée | 2026-10-12 |
-| 004 | [Plans d'Action dans `docs/plans/` (hors chemin protégé `.claude/`)](adr/004-plans-hors-chemin-protege.md) | Proposée | 2026-10-12 |
+| 004 | [Plans d'Action dans `docs/plans/` (hors chemin protégé `.claude/`)](adr/004-plans-hors-chemin-protege.md) | Acceptée | 2026-10-12 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 

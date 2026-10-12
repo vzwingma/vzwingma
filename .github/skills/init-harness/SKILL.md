@@ -51,7 +51,7 @@ Valeur non déterminable depuis le code → conserver le placeholder et le signa
 
 - `docs/ARCHITECTURE.md` absent → le créer depuis `docs/ARCHITECTURE.template.md` et le remplir.
 - `docs/adr/` absent → le créer avec `ADR-TEMPLATE.md`.
-- `.github/plans/README.md` absent → créer l'index des plans (vide).
+- `docs/plans/README.md` absent → créer l'index des plans (vide).
 
 ## 7. Livrer
 

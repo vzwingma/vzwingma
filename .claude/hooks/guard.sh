@@ -123,23 +123,24 @@ check_command() {
 
 # ── File writes ───────────────────────────────────────────────────────────────
 check_role() {
-    # $1 = agent name, $2 = path relative to project root
-    local who=$1 rel=$2 conf="$hooks_dir/role-boundaries.conf" a mode pat has_allow=0 allowed=0
+    # $1 = agent name, $2 = path relative to project root.
+    # Ordered rules: the first line matching the path decides (allow -> ok, deny -> blocked).
+    # No match: blocked if the agent has at least one allow line (allow-list), allowed otherwise.
+    local who=$1 rel=$2 conf="$hooks_dir/role-boundaries.conf" a mode pat has_allow=0
     [[ -z $who || ! -f $conf ]] && return 0
     shopt -s nocasematch
     while read -r a mode pat || [[ -n $a ]]; do
         pat=${pat%$'\r'}
         [[ -z $a || $a == \#* || -z $pat || $a != "$who" ]] && continue
-        if [[ $mode == deny && $rel == $pat ]]; then
-            shopt -u nocasematch; block "$who n'édite pas « $rel » (frontière de rôle : $pat)"
-        fi
-        if [[ $mode == allow ]]; then
-            has_allow=1
-            [[ $rel == $pat ]] && allowed=1
+        [[ $mode == allow ]] && has_allow=1
+        if [[ $rel == $pat ]]; then
+            shopt -u nocasematch
+            [[ $mode == allow ]] && return 0
+            block "$who n'édite pas « $rel » (frontière de rôle : $pat)"
         fi
     done < "$conf"
     shopt -u nocasematch
-    [[ $has_allow == 1 && $allowed == 0 ]] && block "$who n'édite pas « $rel » (hors périmètre autorisé du rôle)"
+    [[ $has_allow == 1 ]] && block "$who n'édite pas « $rel » (hors périmètre autorisé du rôle)"
     return 0
 }
 

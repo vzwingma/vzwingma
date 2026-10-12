@@ -76,8 +76,8 @@ function New-Workdir {
 
     $claudeMd = [IO.File]::ReadAllText((Join-Path $repo '.claude\CLAUDE.template.md'), $utf8).Replace('[NOM_DU_PROJET]', 'sample-app')
     [IO.File]::WriteAllText((Join-Path $c 'CLAUDE.md'), $claudeMd, $utf8)
-    New-Item -ItemType Directory -Path (Join-Path $c 'plans') -Force | Out-Null
-    [IO.File]::WriteAllText((Join-Path $c 'plans\README.md'), "# Plans d'Action`n`n| # | Nom | Statut | Date |`n|---|---|---|---|`n", $utf8)
+    New-Item -ItemType Directory -Path (Join-Path $w 'docs\plans') -Force | Out-Null
+    [IO.File]::WriteAllText((Join-Path $w 'docs\plans\README.md'), "# Plans d'Action`n`n| # | Nom | Statut | Date |`n|---|---|---|---|`n", $utf8)
 
     [void](Invoke-Native git @('-C', $w, 'init', '-q'))
     [void](Invoke-Native git @('-C', $w, '-c', 'core.autocrlf=false', 'add', '-A'))
@@ -113,14 +113,14 @@ $scenarios = @(
             @{ Label = 'présente au moins 2 options'; Test = { param($o) ([regex]::Matches($o, '(?i)(option|solution)\s*(A|B|C|1|2|3)\b') | ForEach-Object { $_.Value.ToLower() } | Select-Object -Unique).Count -ge 2 } }
             @{ Label = 'ne modifie pas le code avant les gates'; Test = { param($o, $w, $ctx) (Get-Hash (Join-Path $w 'src\math.js')) -eq $ctx.MathHash } }
         ) }
-        # .claude/ is a protected path: plan writes are never auto-approved, so this step needs bypassPermissions
-        # (throwaway workdir; deny rules and the guard hook still apply).
-        @{ Args = @('-p', '--continue', '--agent', 'MAINa', '--permission-mode', 'bypassPermissions',
+        # Plans live in docs/plans/ (ADR 004): plain acceptEdits is enough, no protected-path write.
+        @{ Args = @('-p', '--continue', '--agent', 'MAINa', '--permission-mode', 'acceptEdits',
                     'Gate #0 : GO sur l''option recommandée. Crée le Plan d''Action puis arrête-toi au Gate #1.')
            Asserts = @(
-            @{ Label = 'Plan d''Action créé dans .claude/plans/'; Test = { param($o, $w) @(Get-ChildItem (Join-Path $w '.claude\plans') -Filter '*.plan.md' -ErrorAction SilentlyContinue).Count -ge 1 } }
-            @{ Label = 'index des plans mis à jour'; Test = { param($o, $w) ([IO.File]::ReadAllText((Join-Path $w '.claude\plans\README.md'))) -match '\.plan\.md' } }
-            @{ Label = 'journal des gates présent dans le plan'; Test = { param($o, $w) $p = Get-ChildItem (Join-Path $w '.claude\plans') -Filter '*.plan.md' -ErrorAction SilentlyContinue | Select-Object -First 1; $p -and ([IO.File]::ReadAllText($p.FullName) -match 'Journal des gates') } }
+            @{ Label = 'Plan d''Action créé dans docs/plans/'; Test = { param($o, $w) @(Get-ChildItem (Join-Path $w 'docs\plans') -Filter '*.plan.md' -ErrorAction SilentlyContinue).Count -ge 1 } }
+            @{ Label = 'index des plans mis à jour'; Test = { param($o, $w) ([IO.File]::ReadAllText((Join-Path $w 'docs\plans\README.md'))) -match '\.plan\.md' } }
+            @{ Label = 'journal des gates présent dans le plan'; Test = { param($o, $w) $p = Get-ChildItem (Join-Path $w 'docs\plans') -Filter '*.plan.md' -ErrorAction SilentlyContinue | Select-Object -First 1; $p -and ([IO.File]::ReadAllText($p.FullName) -match 'Journal des gates') } }
+            @{ Label = 'rien écrit dans .claude/plans/'; Test = { param($o, $w) -not (Test-Path (Join-Path $w '.claude\plans')) } }
             @{ Label = 's''arrête au Gate #1 (code inchangé)'; Test = { param($o, $w, $ctx) (Get-Hash (Join-Path $w 'src\math.js')) -eq $ctx.MathHash } }
         ) }
     ) }

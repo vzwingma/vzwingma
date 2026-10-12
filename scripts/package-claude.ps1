@@ -11,7 +11,7 @@
       - QUICK_START_CLAUDE.md, SETUP_CHECKLIST.md
 
     Excluded (specific to this repository):
-      - .claude/CLAUDE.md, .claude/settings.json, .claude/plans/
+      - .claude/CLAUDE.md, .claude/settings.json, docs/plans/
       - docs/ARCHITECTURE.md, docs/adr/NNN-*.md (decisions of this repository)
       - .github/, scripts/, root README.md
 

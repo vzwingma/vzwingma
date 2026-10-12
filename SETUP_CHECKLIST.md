@@ -30,7 +30,7 @@ Guide rapide : `QUICK_START_CLAUDE.md` (Claude Code) / `QUICK_START_COPILOT.md` 
   2. génère `CLAUDE.md` / `copilot-instructions.md` depuis le template (fusion si déjà présent) ;
   3. remplit les conventions par rôle (Claude : skills `conventions-<rôle>` · Copilot : `.github/instructions/<rôle>.instructions.md`) ;
   4. Claude Code : fusionne `settings.template.json` dans `.claude/settings.json`, convertit `.copilotignore` en règles `deny`, adapte `role-boundaries.conf`, ajoute `*.sh text eol=lf` à `.gitattributes` ;
-  5. crée `docs/ARCHITECTURE.md`, `docs/adr/`, `.claude/plans/README.md` si absents ;
+  5. crée `docs/ARCHITECTURE.md`, `docs/adr/`, `docs/plans/README.md` si absents ;
   6. liste les placeholders `[...]` restants.
 
 ---
@@ -96,7 +96,7 @@ Parallélisation : seulement **au sein** d'une phase, jamais à travers un gate 
 ## 🔄 Maintenance continue
 
 - [ ] Après un changement majeur : `/update-harness`
-- [ ] Toute initiative structurante : Plan d'Action dans `.claude/plans/` + ADR si décision majeure
+- [ ] Toute initiative structurante : Plan d'Action dans `docs/plans/` + ADR si décision majeure
 - [ ] Mise à jour du harnais : récupérer le nouveau ZIP, comparer avec les fichiers projet (conventions et settings sont propres au projet)
 
 ---
