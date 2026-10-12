@@ -51,7 +51,7 @@ Utiliser le prompt `init-copilot-instructions` pour generer les fichiers d'instr
 Les agents peuvent ensuite etre invoques selon le besoin :
 
 - `MAINa` pour orchestrer workflow complet
-- `ARCos` pour concevoir et planifier
+- `ARCos` pour analyser les options et concevoir (lecture seule)
 - `DEVon` pour implementer
 - `QALvin` pour tester
 - `DOCly` pour documenter

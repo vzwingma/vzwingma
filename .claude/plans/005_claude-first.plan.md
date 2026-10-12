@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅ (gate en attente), P2→P7 ⏳ Planifié
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 🔄, P4→P7 ⏳ Planifié
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -123,9 +123,10 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 2 — Agents natifs Claude Code — ⏳ Planifié
+### Phase 2 — Agents natifs Claude Code — ✅ TERMINÉE (2026-10-12)
 **Contexte :** C1, C2, M10, m1. Dépend de P1.
-**Critères :** 0 `applyTo`/`agents:` dans `.claude/agents/` ; chaque agent a `tools` + `model` ; MAINa exécutable en thread principal.
+**Critères :** ✅ 0 `applyTo`/`agents:` dans `.claude/agents/` ✅ chaque agent a `tools` + `model` ✅ MAINa conçu pour le thread principal (`claude --agent MAINa`).
+**Rapport :** [`005_reports/PHASE_2_COMPLETION_REPORT.md`](005_reports/PHASE_2_COMPLETION_REPORT.md) — écarts : ARCos sans `memory` (activerait Write/Edit) ; MAINa garde `Bash` (preuves de gate, T5.3) ; hooks de rôle reportés en T4.3 ; préchargement `conventions-<rôle>` reporté en T3.4.
 
 #### T2.1 - Frontmatter natif par agent
 - **Agent :** 🟠 ARCos (conception) → 🔵 DEVon
@@ -272,7 +273,9 @@ Phase 7 (évaluation)
 | #1 | 2026-10-12 | Plan d'amélioration (7 phases) | ✅ GO | Plan validé |
 | P0 | 2026-10-12 | AP 005 + ADR 003 | ✅ GO | ADR 003 → Acceptée |
 | P1 | 2026-10-12 | Suppressions OpenCode (autorisées) + sync `claude→github` | ✅ GO (suppressions) | Livrable P1 : validation 👤 en attente |
-| P1-fin | — | Revue livrables P1 | ⏳ En attente | — |
+| P1-fin | 2026-10-12 | Revue livrables P1 | ✅ GO | Commit `6485f79` + push demandés |
+| P2-fin | 2026-10-12 | Revue livrables P2 (agents natifs) | ✅ GO | Commit + push demandés ; smoke test runtime à faire par 👤 |
+| P3-fin | — | Revue livrables P3 (skills & instructions) | ⏳ En attente | — |
 
 ---
 

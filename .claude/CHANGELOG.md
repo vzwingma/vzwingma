@@ -12,6 +12,7 @@
 - **v1.2** : MAINa prend responsabilité création Plan d'Action (skill plan-creation). Peut consulter ARCos (et autres agents) pour analyse solutions + recommandation avant rédiger le plan. ARCos redevient expert consulté — ne crée plus le plan. Workflow mis à jour : consultation ARCos → MAINa produit plan en mode PLAN → validation humaine obligatoire → implémentation.
 - **v1.2 → v1.3** : Bloc sécurité allégé — opérations destructives + `.copilotignore` externalisés vers skills `safety-rules` et `copilotignore` (`applyTo: **`). Règle MAINa-spécifique (pas de clôture sans validations 👤) conservée.
 - **v1.3 → v1.4** : Ajout lecture `.claude/instructions/orchestrator.instructions.md` au démarrage pour appliquer les spécificités projet MAINa.
+- **v1.4 → v1.5** (AP 005 P2) : Frontmatter natif (`model: opus`, `tools` explicites dont `AskUserQuestion`/`Agent`/`SendMessage`, `skills: [plan-creation]`, `color`) ; retrait `applyTo`/`agents`. Conçu pour tourner en **agent principal** de session : un sous-agent n'a pas `AskUserQuestion` → gates impossibles. Gates numérotés #0→#4 et consignés dans le « Journal des gates » ; questions des sous-agents relayées via section `❓ Questions pour 👤` ; plus de parallélisation entre phases séparées par un gate. Version sortie de la description.
 
 ---
 
@@ -37,6 +38,7 @@
 - **v4.4 → v4.5** : Suppression contradictions résiduelles du modèle pré-MAINa (création WBS, orchestration inter-agents, « format sortie = plan »). ARCos recentré sur analyse & conception : propose un découpage candidat en entrée, MAINa crée et orchestre le Plan d'Action.
 - **v4.5 → v4.6** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (désormais couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`). Remplacés par un rappel d'une ligne.
 - **v4.6 → v4.7** : Élagage (214 → ~110 lignes) — fusion des 5 restatements du workflow (Coordination/Séquencement/Points contrôle/Cas limites), suppression des sections « Découpage travail » + « Tâches DEVon/QALvin/DOCly » du format de sortie (résidu du modèle créateur-de-plan). Corps aligné sur le frontmatter : ARCos = analyse + conception + découpage candidat en entrée à MAINa. Workflow global renvoyé à `.claude/README.md` (source unique).
+- **v4.7 → v4.8** (AP 005 P2) : Frontmatter natif (`model: opus`, `effort: high`, outils **lecture seule** `Read, Grep, Glob, WebFetch, WebSearch, Skill`, `skills: [adr-writing, plan-phase-execution]`) ; retrait `applyTo`/`agents`. Pas de `memory` (activerait Write/Edit). Pas d'échange direct avec 👤 : questions + point de décision rendus à MAINa (Gate #0). Rapport de phase rendu à MAINa qui l'écrit.
 
 ---
 
@@ -55,6 +57,7 @@
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Delegation gardee concise ; workflow global deplace vers `.claude/README.md`.
 - **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
+- **v4.3 → v4.4** (AP 005 P2) : Frontmatter natif (`model: sonnet`, `tools: Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill`, `skills: [plan-phase-execution]`) ; retrait `applyTo`/`agents`. Tâches reçues du Plan d'Action (MAINa) ; preuve exigée (build + lint + tests existants) ; relais DOCly après Gate #3 uniquement ; questions via `❓ Questions pour 👤`.
 
 ---
 
@@ -75,6 +78,7 @@
 - **v4.1 → v4.2** : Description réduite. Section relations retiree au profit de `.claude/README.md`.
 - **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
 - **v4.3 → v4.4** : Agent rendu stack-neutre — React/Jest retirés du corps générique au profit de principes de test framework-agnostiques. Concret React/Testing Library conservé en exemples/placeholders dans `qa.instructions.template.md`.
+- **v4.4 → v4.5** (AP 005 P2) : Frontmatter natif (`model: sonnet`, `tools: Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill`, `skills: [plan-phase-execution]`) ; retrait `applyTo`/`agents`. Intervient après Gate #2, relais DOCly après Gate #3 ; questions via `❓ Questions pour 👤` ; séparateur parasite retiré.
 
 ---
 
@@ -93,3 +97,4 @@
 - **v4.0 → v4.1** : Externalisation changelog dans ce fichier. Réduction taille agent ~2KB.
 - **v4.1 → v4.2** : Description réduite. Vue transverse centralisee dans `.claude/README.md`.
 - **v4.2 → v4.3** : Suppression des blocs inline « opérations destructives » + « `.copilotignore` » (couverts par skills `safety-rules` + `copilotignore`, `applyTo: **`).
+- **v4.3 → v4.4** (AP 005 P2) : Frontmatter natif (`model: sonnet`, `tools: Read, Edit, Write, Grep, Glob, Skill`, `skills: [plan-phase-execution, adr-writing]`) ; retrait `applyTo`/`agents`. Intervient après Gate #3 ; questions via `❓ Questions pour 👤`.

@@ -2,6 +2,25 @@
 
 Système orchestré de 5 agents spécialisés pour structurer développement via Claude Code.
 
+<!-- claude-only -->
+## ⚙️ Configuration (frontmatter)
+
+| Agent | Modèle | Outils | Skills préchargés |
+|---|---|---|---|
+| ⚫ MAINa | `opus` | AskUserQuestion, Agent, SendMessage, Read, Grep, Glob, Edit, Write, Bash, TodoWrite, Skill | `plan-creation` |
+| 🟠 ARCos | `opus` (`effort: high`) | Read, Grep, Glob, WebFetch, WebSearch, Skill — **lecture seule** | `adr-writing`, `plan-phase-execution` |
+| 🔵 DEVon | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `plan-phase-execution` |
+| 🟢 QALvin | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `plan-phase-execution` |
+| 🟣 DOCly | `sonnet` | Read, Edit, Write, Grep, Glob, Skill | `plan-phase-execution`, `adr-writing` |
+
+Sous-agents (ARCos, DEVon, QALvin, DOCly) : pas d'accès direct au 👤 → questions remontées dans une section `❓ Questions pour 👤`, relayées par MAINa au gate.
+<!-- /claude-only -->
+<!-- copilot-only
+## ⚙️ Configuration
+
+Modèle, outils et sous-agents autorisés : voir le frontmatter de chaque `*.agent.md`.
+-->
+
 ## 🎯 Agents
 
 ### ⚫ [MAINa](./Maina.agent.md) — Maître Orchestrateur
@@ -107,7 +126,7 @@ Rôle : Documentation après code + tests validés.
 2. `docs/ARCHITECTURE.md` (**obligatoire**)
 3. `docs/adr/` (décisions archi)
 4. `docs/` guides détaillés
-5. Instructions Copilot
+5. Instructions agents
 
 **Points clés** :
 - ✅ Tous exemples code testés
@@ -160,9 +179,19 @@ En cas doute → demander confirmation développeur.
 ```bash
 # Pour projet simple ou décision rapide
 @ARCos "Conçois architecture pour..."
+```
 
-# Pour initiative complète
+<!-- claude-only -->
+```bash
+# Pour initiative complète : MAINa en agent principal (gates interactifs)
+claude --agent MAINa
+```
+<!-- /claude-only -->
+<!-- copilot-only
+```bash
+# Pour initiative complète : sélectionner l'agent MAINa dans le chat
 @MAINa "Voici besoin : ..."
 ```
+-->
 
 Chaque agent lit automatiquement ses instructions projet au démarrage si présentes.

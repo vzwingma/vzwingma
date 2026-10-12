@@ -93,11 +93,11 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
     ├── copilot-instructions.template.md         # Template original avec placeholders
     │
     ├── agents/                                  # 🤖 Rôles réutilisables
-    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.3]
-    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.7]
-    │   ├── Devon.agent.md                       # Implémentateur de code [v4.3]
-    │   ├── Qalvin.agent.md                      # Expert QA [v4.4]
-    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.3]
+    │   ├── Maina.agent.md                       # Maître orchestrateur [v1.5]
+    │   ├── Arcos.agent.md                       # Architecte (consulté par MAINa) [v4.8]
+    │   ├── Devon.agent.md                       # Implémentateur de code [v4.4]
+    │   ├── Qalvin.agent.md                      # Expert QA [v4.5]
+    │   └── Docly.agent.md                       # Gestionnaire documentation [v4.4]
     │
     ├── skills/                                  # 🛠️ Procédures partagées (applyTo: **)
     │   ├── plan-phase-execution/SKILL.md        # Exécution phase AP
@@ -135,11 +135,11 @@ Chaque agent est un **modèle de rôle** générique défini en Markdown avec fr
 
 | Agent | Fichier | Version | Rôle |
 |---|---|---|---|
-| ⚫ MAINa | `Maina.agent.md` | v1.3 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
-| 🟠 ARCos | `Arcos.agent.md` | v4.7 | Architecte (consulté par MAINa : analyse + recommandation) |
-| 🔵 DEVon | `Devon.agent.md` | v4.3 | Implémentateur de code |
-| 🟢 QALvin | `Qalvin.agent.md` | v4.4 | Expert QA et tests |
-| 🟣 DOCly | `Docly.agent.md` | v4.3 | Gestionnaire documentation |
+| ⚫ MAINa | `Maina.agent.md` | v1.5 | Maître orchestrateur (point d'entrée principal, crée le Plan d'Action) |
+| 🟠 ARCos | `Arcos.agent.md` | v4.8 | Architecte (consulté par MAINa : analyse + recommandation) |
+| 🔵 DEVon | `Devon.agent.md` | v4.4 | Implémentateur de code |
+| 🟢 QALvin | `Qalvin.agent.md` | v4.5 | Expert QA et tests |
+| 🟣 DOCly | `Docly.agent.md` | v4.4 | Gestionnaire documentation |
 
 **Caractéristiques :**
 - ✅ Génériques (pas de dépendances au projet spécifique)

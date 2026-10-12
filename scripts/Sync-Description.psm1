@@ -90,7 +90,9 @@ function ConvertTo-CopilotText {
     #>
     param([Parameter(Mandatory)][AllowEmptyString()][string]$Content)
 
-    $r = [regex]::Replace($Content, '(?s)[ \t]*<!--\s*claude-only\s*-->.*?<!--\s*/claude-only\s*-->[ \t]*(\r?\n)?', '')
+    # Block form (markers own their lines): drop the lines. Inline form: drop the span only.
+    $r = [regex]::Replace($Content, '(?ms)^[ \t]*<!--\s*claude-only\s*-->.*?<!--\s*/claude-only\s*-->[ \t]*\r?\n', '')
+    $r = [regex]::Replace($r, '(?s)<!--\s*claude-only\s*-->.*?<!--\s*/claude-only\s*-->', '')
     $r = [regex]::Replace($r, '(?s)<!--\s*copilot-only\s*(.*?)\s*-->', '$1')
 
     # Longest tokens first: QUICK_START_CLAUDE.md and CLAUDE.template.md both contain "CLAUDE.md".

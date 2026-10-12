@@ -12,8 +12,7 @@ description: "Skill — Guide parallélisation `/fleet` pour tous agents. Appliq
 ## Quand utiliser /fleet
 
 - **Tâches indépendantes du même agent**: Plusieurs composants/services/fichiers sans dépendance
-- **Délégation multi-agents en parallèle**: Deux agents démarrent simultanément (ex: QALvin + DOCly sur même feature après DEVon)
-- **Phases parallèles d'un Plan d'Action**: Deux phases s'exécutent simultanément
+- **Phases parallèles d'un Plan d'Action**: Deux phases sans gate humain entre elles et sans dépendance
 
 ---
 
@@ -43,5 +42,5 @@ Dans plan ou délégation, signaler explicitement tâches parallélisables:
 |---|---|
 | Tâche B dépend de tâche A | Séquentiel |
 | Tâches A et B sans lien | `/fleet` |
-| DEVon terminé → QALvin + DOCly | `/fleet` pour QALvin + DOCly |
+| DEVon terminé → QALvin puis DOCly | Séquentiel (Gate #2 puis Gate #3) |
 | Plusieurs éléments indépendants | `/fleet` |

@@ -27,7 +27,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 5 agents spécialisés, orchestrés par développeur humain.
 
-### **⚫ MAINa** [v1.4]
+### **⚫ MAINa** [v1.5]
 
 **Rôle** : Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 
@@ -46,7 +46,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟠 ARCos** [v4.7]
+### **🟠 ARCos** [v4.8]
 
 **Rôle** : Expert architecture consulté par MAINa
 
@@ -65,7 +65,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🔵 DEVon** [v4.3]
+### **🔵 DEVon** [v4.4]
 
 **Rôle** : Implémentateur code production
 
@@ -81,7 +81,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟢 QALvin** [v4.4]
+### **🟢 QALvin** [v4.5]
 
 **Rôle** : Expert assurance qualité et tests
 
@@ -97,7 +97,7 @@ Créés dans même lot que implémentation, pas après coup.
 
 ---
 
-### **🟣 DOCly** [v4.3]
+### **🟣 DOCly** [v4.4]
 
 **Rôle** : Gardien documentation
 
@@ -128,7 +128,7 @@ Créés dans même lot que implémentation, pas après coup.
 11. **Documentation** (DOCly) → Mettre à jour docs
 12. **Gate #4** → Validation doc + clôture initiative
 
-Parallélisation possible après Gate #2 : QALvin + DOCly peuvent travailler en parallèle si tâches indépendantes.
+Pas de parallélisation entre phases séparées par un gate (DOCly attend Gate #3). Parallélisation possible *au sein* d'une phase (tâches indépendantes).
 
 ---
 
@@ -237,15 +237,15 @@ Invoquer agent directement :
 
 ### Travail complexe (multi-phases)
 
-Utiliser MAINa orchestrateur :
+Sélectionner l'agent **MAINa** dans le chat Copilot.
 
 ```
-@MAINa "J'ai ce besoin : [description]"
+"J'ai ce besoin : [description]"
 
 # MAINa :
 # 1. Clarifie
-# 2. Active ARCos pour plan
-# 3. Attend validation
+# 2. Consulte ARCos (options) → Gate #0
+# 3. Crée le Plan d'Action → Gate #1
 # 4. Active DEVon pour code
 # ... jusqu'à clôture
 ```

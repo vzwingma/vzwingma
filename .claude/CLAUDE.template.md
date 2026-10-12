@@ -30,7 +30,7 @@ Projet **[NOM_DU_PROJET]** utilise **architecture multi-agents** orchestrée pou
 
 Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développeur humain** :
 
-#### **⚫ MAINa** [v1.4]
+#### **⚫ MAINa** [v1.5]
 - **Rôle :** Maître orchestrateur, créateur du Plan d'Action et point d'entrée principal
 - **Responsabilités :**
   - Cadrer la demande et piloter l'ordre des phases
@@ -43,7 +43,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
-#### **🟠 ARCos** [v4.7]
+#### **🟠 ARCos** [v4.8]
 - **Rôle :** Expert architecture consulté par MAINa
 - **Responsabilités :**
   - Analyser problèmes complexes et concevoir solutions architecturales
@@ -56,7 +56,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
 - **Livrable :** Analyse comparative solutions + recommandation motivée
 
-#### **🔵 DEVon** [v4.3]
+#### **🔵 DEVon** [v4.4]
 - **Rôle :** Implémentateur code production
 - **Responsabilités :**
   - Traduire exigences en code fonctionnel et testé
@@ -67,7 +67,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
-#### **🟢 QALvin** [v4.4]
+#### **🟢 QALvin** [v4.5]
 - **Rôle :** Expert assurance qualité et tests
 - **Responsabilités :**
   - Écrire tests unitaires complets (composants, services, modèles)
@@ -78,7 +78,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
-#### **🟣 DOCly** [v4.3]
+#### **🟣 DOCly** [v4.4]
 - **Rôle :** Gardien documentation
 - **Responsabilités :**
   - Mettre à jour README, `docs/` et guides
@@ -108,7 +108,11 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
 11. **Documentation (🟣 DOC - Docly)** → Mettre à jour documentation
 12. **Validation Humaine** → Approuver documentation et clôturer
 
-> 💡 **Parallélisation** : Après validation code (étape 8), QALvin et DOCly peuvent être orchestrés en parallèle par MAINa quand tâches indépendantes.
+> 💡 **Parallélisation** : jamais entre phases séparées par un gate (DOCly attend la validation des tests) ; possible *au sein* d'une phase pour des tâches indépendantes.
+<!-- claude-only -->
+>
+> 🚀 **Lancement** : MAINa tourne comme agent principal de session (`claude --agent MAINa`) pour pouvoir tenir les gates humains.
+<!-- /claude-only -->
 
 ---
 

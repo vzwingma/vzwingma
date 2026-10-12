@@ -96,7 +96,7 @@ Une fois Claude configuré, voici comment collaborer :
 8️⃣ ✅ Clôture de l'initiative
 ```
 
-> 💡 **Parallélisation** : Utiliser `/fleet` quand QALvin et DOCly peuvent travailler en parallèle après DEVon, ou quand plusieurs tâches DEVon sont indépendantes.
+> 💡 **Parallélisation** : jamais entre phases séparées par un gate (DOCly attend la validation des tests) ; possible au sein d'une phase quand plusieurs tâches sont indépendantes.
 
 ---
 
@@ -195,7 +195,7 @@ Pour mettre à jour des instructions existantes, utiliser : [`.claude/prompts/up
 A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.claude/CLAUDE.md` (contexte global) et `.claude/instructions/*.instructions.md` (spécificités par agent).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: QALvin + DOCly après DEVon, ou plusieurs composants à implémenter sans dépendance). `/fleet` dispatche les sous-agents en simultané.
+A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: plusieurs composants à implémenter sans dépendance, dans une même phase). `/fleet` dispatche les sous-agents en simultané.
 
 ### Q: Où stocker mes Plans d'Action ?
 A: Dans `.claude/plans/` — utiliser le format `XXX_<nom>.plan.md`.
