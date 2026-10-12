@@ -13,9 +13,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 📂 Plans Actifs / En Cours
 
-| # | Nom | Statut | Date |
-|---|-----|--------|------|
-| 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | 🔄 En cours | 2026-10-12 |
+_(Aucun plan en cours pour l'instant)_
 
 ---
 
@@ -25,6 +23,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
+| 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | ✅ Complété | 2026-10-12 |
 | 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ✅ Complété | 2026-06-30 |
 | 003 | [Agent maitre MAINa](archive/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
 | 002 | [Rationalisation agents Copilot](archive/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
