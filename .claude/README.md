@@ -25,6 +25,11 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 └── CLAUDE.template.md     # Template a copier dans les projets
 ```
 
+<!-- claude-only -->
+Garde-fous : `hooks/` (`guard.sh` hook `PreToolUse` + `role-boundaries.conf`), `settings.json` (ce dépôt),
+`settings.template.json` (à fusionner dans les projets via `/init-harness`).
+<!-- /claude-only -->
+
 ---
 
 ## 🚀 Quick Start : reutiliser le sous-arbre `.claude/`
@@ -35,6 +40,9 @@ Selon le projet cible, copier :
 
 - `.claude/agents/`
 - `.claude/skills/`
+<!-- claude-only -->
+- `.claude/hooks/` + `.claude/settings.template.json` (garde-fous : permissions + hook `PreToolUse`)
+<!-- /claude-only -->
 - `.claude/PLANS.md`
 - `.claude/CLAUDE.template.md`
 

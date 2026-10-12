@@ -160,7 +160,6 @@ Procédures réutilisables (`.claude/skills/<nom>/SKILL.md`) :
 | `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR : ARCos prépare, DOCly rédige |
 | `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
 | `conventions-<rôle>` | conventions projet | Voir section ci-dessus |
-| `safety-rules`, `copilotignore` | rappel | Règles absolues (opérations destructives, `.copilotignore`) |
 | `init-harness`, `update-harness` | commande | Initialiser / auditer le harnais |
 | `maina-help` | commande | Aide orchestration MAINa : workflow strict et gates humains |
 
@@ -287,6 +286,26 @@ Ajouter sections pertinentes pour conventions spécifiques projet :
 - Dépendances clés et usages
 - Performance/optimisations importantes
 - Sécurité (authentification, validation)
+
+---
+
+## 🔐 Règles absolues
+
+Tous agents respectent, sans exception ni dérogation :
+
+- ⛔ JAMAIS supprimer fichiers/répertoires (`rm`, `rmdir`, `del`, `Remove-Item`…)
+- ⛔ JAMAIS commandes SQL destructives (`DROP`, `TRUNCATE`, `DELETE` sans `WHERE`)
+- ⛔ JAMAIS commande git irréversible (`git clean`, `git reset --hard`, `push --force`, `branch -D`, `stash drop`, `checkout --`, `restore`)
+- ⛔ JAMAIS modifier fichiers hors périmètre de la tâche (ni hors de son rôle)
+- ⛔ **Respect ABSOLU `.copilotignore`** : jamais lire, rechercher, écrire, exécuter ni référencer les fichiers listés ; jamais contourner (chemins alternatifs, symlinks, reconstitution)
+
+En cas de doute → demander confirmation au 👤 Développeur humain. Opération voulue mais bloquée → le 👤 l'exécute lui-même.
+
+<!-- claude-only -->
+**Application déterministe** (pas seulement déclarative) :
+- `.claude/settings.json` → `permissions.deny` (commandes destructives Bash/PowerShell, fichiers sensibles, chemins `.copilotignore` en `Read()`/`Edit()`) ; `ask` pour `git rm`.
+- Hook `PreToolUse` `.claude/hooks/guard.sh` → bloque les formes que les règles ne voient pas (`sh -c "rm …"`, `/bin/rm`, `git -C . reset --hard`, SQL), les écritures dans `.copilotignore`, et les **frontières de rôle** (`.claude/hooks/role-boundaries.conf`).
+<!-- /claude-only -->
 
 ---
 

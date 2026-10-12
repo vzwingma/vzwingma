@@ -74,7 +74,7 @@ ZIP distribuable des artefacts Claude → `dist/claude-templates-<yyyyMMdd>.zip`
 .\scripts\package-claude.ps1 -OutputDir C:\release -FileName claude-v1.0
 ```
 
-Inclus : `.claude/agents/`, `instructions/`, `prompts/`, `skills/`, `CHANGELOG.md`, `PLANS.md`, `CLAUDE.md`, `README.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_CLAUDE.md`, `SETUP_CHECKLIST.md`.
+Inclus : `.claude/agents/`, `skills/`, `hooks/`, `settings.template.json`, `CHANGELOG.md`, `PLANS.md`, `CLAUDE.md`, `README.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_CLAUDE.md`, `SETUP_CHECKLIST.md`.
 
 ### `package-github.ps1`
 
@@ -85,7 +85,19 @@ ZIP distribuable des artefacts Copilot (générés) → `dist/copilot-templates-
 .\scripts\package-github.ps1 -OutputDir C:\release -FileName copilot-v1.0
 ```
 
-Inclus : `.github/agents/`, `instructions/`, `prompts/`, `skills/`, `CHANGELOG.md`, `PLANS.md`, `copilot-instructions.template.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_COPILOT.md`, `SETUP_CHECKLIST.md`.
+Inclus : `.github/agents/`, `instructions/`, `skills/`, `CHANGELOG.md`, `PLANS.md`, `copilot-instructions.template.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_COPILOT.md`, `SETUP_CHECKLIST.md`.
+
+---
+
+## 🧪 Tests
+
+### `tests/guard.tests.sh`
+
+Tests du hook de garde `.claude/hooks/guard.sh` (commandes destructives, `.copilotignore`, frontières de rôle, chemins Windows) sur un projet fixture temporaire.
+
+```bash
+bash scripts/tests/guard.tests.sh   # exit code = nombre d'échecs
+```
 
 ---
 

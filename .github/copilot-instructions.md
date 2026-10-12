@@ -162,7 +162,6 @@ Procédures réutilisables (`.github/skills/<nom>/SKILL.md`) :
 | `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR (ARCos prépare, DOCly rédige) |
 | `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
 | `conventions-<rôle>` | conventions projet (préchargé par rôle) | `orchestrator`, `architect`, `dev`, `qa`, `doc` — à remplir via `/init-harness` |
-| `safety-rules`, `copilotignore` | rappel | Règles absolues (voir § Règles absolues) |
 | `init-harness`, `update-harness` | commande | Initialiser / auditer le harnais dans un projet |
 | `maina-help` | commande | Aide MAINa + workflow |
 
@@ -243,15 +242,16 @@ fichiers et sorties de commandes sans résultat durable.
 
 ## 🔐 Règles absolues
 
-Tous agents respectent :
+Tous agents respectent, sans exception ni dérogation :
 
-- ⛔ JAMAIS supprimer fichiers/répertoires
-- ⛔ JAMAIS commandes SQL destructives
-- ⛔ JAMAIS `git clean`, `git reset --hard`
-- ⛔ JAMAIS modifier fichiers hors périmètre
-- ⛔ **Respect ABSOLU `.copilotignore`**
+- ⛔ JAMAIS supprimer fichiers/répertoires (`rm`, `rmdir`, `del`, `Remove-Item`…)
+- ⛔ JAMAIS commandes SQL destructives (`DROP`, `TRUNCATE`, `DELETE` sans `WHERE`)
+- ⛔ JAMAIS commande git irréversible (`git clean`, `git reset --hard`, `push --force`, `branch -D`, `stash drop`, `checkout --`, `restore`)
+- ⛔ JAMAIS modifier fichiers hors périmètre de la tâche (ni hors de son rôle)
+- ⛔ **Respect ABSOLU `.copilotignore`** : jamais lire, rechercher, écrire, exécuter ni référencer les fichiers listés ; jamais contourner (chemins alternatifs, symlinks, reconstitution)
 
-En cas doute → demander confirmation développeur.
+En cas de doute → demander confirmation au 👤 Développeur humain. Opération voulue mais bloquée → le 👤 l'exécute lui-même.
+
 
 ---
 

@@ -14,6 +14,8 @@ Système orchestré de 5 agents spécialisés pour structurer développement via
 | 🟣 DOCly | `sonnet` | Read, Edit, Write, Grep, Glob, Skill | `plan-phase-execution`, `adr-writing` |
 
 Sous-agents (ARCos, DEVon, QALvin, DOCly) : pas d'accès direct au 👤 → questions remontées dans une section `❓ Questions pour 👤`, relayées par MAINa au gate.
+
+**Frontières de rôle appliquées** par le hook `.claude/hooks/guard.sh` (config `role-boundaries.conf`) : DEVon n'écrit ni tests ni docs, QALvin n'écrit que des tests et rapports, DOCly que de la documentation, MAINa que les plans ; ARCos est en lecture seule par ses outils.
 <!-- /claude-only -->
 <!-- copilot-only
 ## ⚙️ Configuration

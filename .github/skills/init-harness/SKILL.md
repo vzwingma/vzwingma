@@ -8,7 +8,8 @@ description: "Initialise le harnais multi-agents dans un projet (nouveau ou exis
 Consignes de l'utilisateur (optionnel) : $ARGUMENTS
 
 > **Prérequis** (copiés depuis le dépôt transverse) : `.github/agents/` (5 agents), `.github/skills/`,
-> `.github/PLANS.md`, `.github/copilot-instructions.template.md`, `docs/ARCHITECTURE.template.md`, `docs/adr/ADR-TEMPLATE.md`.
+> `.github/PLANS.md`, `.github/copilot-instructions.template.md`,
+> `docs/ARCHITECTURE.template.md`, `docs/adr/ADR-TEMPLATE.md`.
 > Absents → lister les fichiers manquants et s'arrêter.
 
 ## 1. Détecter l'état du projet
@@ -45,13 +46,14 @@ puis remplir leurs placeholders avec les valeurs de l'étape 2.
 
 Valeur non déterminable depuis le code → conserver le placeholder et le signaler.
 
-## 5. Documentation de base
+
+## 6. Documentation de base
 
 - `docs/ARCHITECTURE.md` absent → le créer depuis `docs/ARCHITECTURE.template.md` et le remplir.
 - `docs/adr/` absent → le créer avec `ADR-TEMPLATE.md`.
 - `.github/plans/README.md` absent → créer l'index des plans (vide).
 
-## 6. Livrer
+## 7. Livrer
 
 Résumer : fichiers créés/modifiés, valeurs détectées (avec leur source), **placeholders restants**,
 points à valider par 👤.

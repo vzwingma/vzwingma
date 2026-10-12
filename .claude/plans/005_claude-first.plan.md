@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 🔄, P5→P7 ⏳ Planifié
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 🔄, P6→P7 ⏳ Planifié
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -181,9 +181,10 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 4 — Garde-fous déterministes — ⏳ Planifié
+### Phase 4 — Garde-fous déterministes — ✅ TERMINÉE (2026-10-12)
 **Contexte :** C3. Dépend de P2/P3.
-**Critères :** `rm -rf`, `git reset --hard`, `git clean`, lecture `dist/**` / `.env*` refusés en session réelle.
+**Critères :** ✅ blocages vérifiés par 54 cas de test du hook ⚠️ vérification « en session réelle » à faire par 👤 après redémarrage (settings chargés au démarrage).
+**Rapport :** [`005_reports/PHASE_4_COMPLETION_REPORT.md`](005_reports/PHASE_4_COMPLETION_REPORT.md) — écarts : hook unique global (bash) au lieu de `.ps1`+`.sh` agent-scoped ; SQL destructif `deny` (pas `ask`) ; `.copilotignore` en lecture via règles `Read()` statiques (latence).
 
 #### T4.1 - Settings
 - **Agent :** 🔵 DEVon
@@ -278,7 +279,9 @@ Phase 7 (évaluation)
 | P2-fin | 2026-10-12 | Revue livrables P2 (agents natifs) | ✅ GO | Commit + push demandés ; smoke test runtime à faire par 👤 |
 | P3 | 2026-10-12 | Lancement P3 (incl. suppressions `caveman-default`, `compact-context` prévues en T3.3) | ✅ GO | — |
 | P3-fin | 2026-10-12 | Revue livrables P3 (skills & instructions) | ✅ GO | Commit + push demandés ; tests runtime des commandes à faire par 👤 |
-| P4-fin | — | Revue livrables P4 (garde-fous) | ⏳ En attente | — |
+| P4 | 2026-10-12 | Lancement P4 | ✅ GO | — |
+| P4-fin | 2026-10-12 | Revue livrables P4 (garde-fous) | ✅ GO | Commit + push demandés ; test en session réelle après redémarrage à faire par 👤 |
+| P5-fin | — | Revue livrables P5 (workflow fiabilisé) | ⏳ En attente | — |
 
 ---
 

@@ -25,6 +25,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 └── copilot-instructions.template.md     # Template a copier dans les projets
 ```
 
+
 ---
 
 ## 🚀 Quick Start : reutiliser le sous-arbre `.github/`

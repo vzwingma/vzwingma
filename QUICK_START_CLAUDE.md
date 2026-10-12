@@ -19,6 +19,13 @@ mkdir -p <votre_projet>/docs/adr
 cp docs/ARCHITECTURE.template.md <votre_projet>/docs/
 cp docs/adr/ADR-TEMPLATE.md <votre_projet>/docs/adr/
 ```
+<!-- claude-only -->
+Garde-fous (permissions + hook de blocage) :
+
+```bash
+cp -r .claude/hooks .claude/settings.template.json <votre_projet>/.claude/
+```
+<!-- /claude-only -->
 <!-- copilot-only
 Copilot : copier aussi `.github/instructions/` (templates d'instructions par rôle).
 -->

@@ -10,7 +10,8 @@ disable-model-invocation: true
 Consignes de l'utilisateur (optionnel) : $ARGUMENTS
 
 > **Prérequis** (copiés depuis le dépôt transverse) : `.claude/agents/` (5 agents), `.claude/skills/`,
-> `.claude/PLANS.md`, `.claude/CLAUDE.template.md`, `docs/ARCHITECTURE.template.md`, `docs/adr/ADR-TEMPLATE.md`.
+> `.claude/PLANS.md`, `.claude/CLAUDE.template.md`,
+> `docs/ARCHITECTURE.template.md`, `docs/adr/ADR-TEMPLATE.md`.
 > Absents → lister les fichiers manquants et s'arrêter.
 
 ## 1. Détecter l'état du projet
@@ -63,13 +64,30 @@ puis remplir leurs placeholders avec les valeurs de l'étape 2.
 
 Valeur non déterminable depuis le code → conserver le placeholder et le signaler.
 
-## 5. Documentation de base
+<!-- claude-only -->
+## 5. Garde-fous déterministes
+
+Prérequis : `.claude/hooks/` (`guard.sh`, `role-boundaries.conf`) et `.claude/settings.template.json` copiés.
+
+1. **Settings** : fusionner `.claude/settings.template.json` dans `.claude/settings.json` (créer si absent ;
+   si présent, **ajouter** les entrées `permissions.deny` / `ask` et le hook `PreToolUse` sans retirer l'existant).
+2. **`.copilotignore`** : pour chaque motif, ajouter `Read(./<motif>)` et `Edit(./<motif>)` dans
+   `permissions.deny` (dossier `dist/` → `Read(./dist/**)`). Le hook `guard.sh` lit aussi ce fichier.
+3. **Frontières de rôle** : adapter `.claude/hooks/role-boundaries.conf` aux conventions réelles
+   (motifs des fichiers de test, dossier de documentation).
+4. **Fins de ligne** : ajouter `*.sh text eol=lf` à `.gitattributes` (bash refuse les CRLF).
+5. Prérequis : bash (Git Bash sous Windows). Le signaler si absent : seules les règles `deny` s'appliquent alors.
+6. Vérifier `.claude/settings.json` : JSON valide, hook pointant sur `${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.sh`.
+   Les settings s'appliquent au **prochain démarrage** de session.
+<!-- /claude-only -->
+
+## 6. Documentation de base
 
 - `docs/ARCHITECTURE.md` absent → le créer depuis `docs/ARCHITECTURE.template.md` et le remplir.
 - `docs/adr/` absent → le créer avec `ADR-TEMPLATE.md`.
 - `.claude/plans/README.md` absent → créer l'index des plans (vide).
 
-## 6. Livrer
+## 7. Livrer
 
 Résumer : fichiers créés/modifiés, valeurs détectées (avec leur source), **placeholders restants**,
 points à valider par 👤.
@@ -80,5 +98,8 @@ points à valider par 👤.
 - [ ] Conventions des 5 rôles remplies (placeholders restants listés)
 - [ ] Commandes build/lint/test réelles renseignées
 - [ ] `docs/ARCHITECTURE.md` et `docs/adr/` présents
+<!-- claude-only -->
+- [ ] `.claude/settings.json` fusionné (deny/ask + hook), motifs `.copilotignore` convertis, `role-boundaries.conf` adapté
+<!-- /claude-only -->
 - [ ] Aucune référence à un fichier inexistant
 - [ ] Langue française pour le texte narratif

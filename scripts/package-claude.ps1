@@ -10,6 +10,8 @@
       - .claude/README.md
       - .claude/agents/
       - .claude/skills/                        (procedures, conventions-<role> templates, commands)
+      - .claude/hooks/                         (guard.sh PreToolUse hook + role-boundaries.conf)
+      - .claude/settings.template.json         (permissions + hook, merged by /init-harness)
       - .claude/CHANGELOG.md
       - .claude/PLANS.md
       - .claude/CLAUDE.md
@@ -78,6 +80,12 @@ try {
 
     Write-Host "  + .claude/skills/"
     Stage-Dir (Join-Path $repoRoot '.claude\skills') '.claude\skills'
+
+    Write-Host "  + .claude/hooks/"
+    Stage-Dir (Join-Path $repoRoot '.claude\hooks') '.claude\hooks'
+
+    Write-Host "  + .claude/settings.template.json"
+    Stage-File (Join-Path $repoRoot '.claude\settings.template.json') '.claude'
 
     Write-Host "  + .claude/CHANGELOG.md"
     Stage-File (Join-Path $repoRoot '.claude\CHANGELOG.md') '.claude'
