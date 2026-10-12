@@ -89,7 +89,8 @@ Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` 
 │   ├── ARCHITECTURE.template.md  # Template à copier dans les projets
 │   ├── adr/                      # ADR + ADR-TEMPLATE.md
 │   └── diagrams/                 # Diagrammes d'orchestration (Mermaid, PlantUML)
-├── scripts/                      # sync-claude-to-github, package-claude, package-github, tests/
+├── scripts/                      # sync-claude-to-github, check-harness, package-*, tests/
+├── tests/fixtures/sample-app/    # Projet fixture des scénarios d'évaluation (eval-scenarios.ps1)
 ├── .claude/
 │   ├── agents/                   # 5 agents + README (configuration)
 │   ├── skills/                   # voir « Skills » ci-dessous
@@ -188,6 +189,7 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 | 001 | [Ajouter MAINa comme orchestrateur principal](adr/001-maina-orchestrateur.md) | Acceptée | 2026-06-25 |
 | 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Remplacée par 003 | 2026-06-29 |
 | 003 | [Claude-first : `.claude/` source unique, Copilot généré, OpenCode retiré](adr/003-claude-first-copilot-genere.md) | Acceptée | 2026-10-12 |
+| 004 | [Plans d'Action dans `docs/plans/` (hors chemin protégé `.claude/`)](adr/004-plans-hors-chemin-protege.md) | Proposée | 2026-10-12 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 
@@ -206,6 +208,9 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 - `scripts/check-harness.ps1` : cohérence (frontmatter, versions agent = CHANGELOG = ce document, liens,
   compteurs, taille de `CLAUDE.md`, settings/hooks, index des plans, génération Copilot)
 - `scripts/tests/sync.tests.ps1` (générateur) · `scripts/tests/guard.tests.sh` (hook de garde)
+- `scripts/tests/eval-scenarios.ps1` : scénarios comportementaux `claude -p` sur le fixture `tests/fixtures/sample-app/`
+  (gates, lecture seule ARCos, frontières de rôle, garde-fous) — CLI authentifiée requise
+- Routine avant release : voir [`scripts/README.md`](../scripts/README.md) (+ `/doctor prompt-audit`)
 - CI : `.github/workflows/harness-check.yml` sur PR et push `main`
 
 ### Mapping Copilot

@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 🔄
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ⏳ Planifié (Gate #1 en attente)
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -229,13 +229,48 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 7 — Évaluation du harnais — ⏳ Planifié
+### Phase 7 — Évaluation du harnais — ✅ TERMINÉE (2026-10-12)
 **Contexte :** absence de tests du comportement des agents. Dépend de P6.
-**Critères :** scénarios headless verts.
+**Critères :** ⚠️ scénarios headless écrits et validés à vide (`-DryRun`) ; exécution réelle en attente d'une CLI authentifiée.
+**Rapport :** [`005_reports/PHASE_7_COMPLETION_REPORT.md`](005_reports/PHASE_7_COMPLETION_REPORT.md) — constat nouveau : `.claude/` est un chemin protégé (écritures de plans jamais auto-approuvées) → décision 👤 A/B sur l'emplacement des plans.
 
 - **T7.1** (🟢 QALvin) Projet fixture minimal `tests/fixtures/sample-app/`.
 - **T7.2** (🟢 QALvin) Scénarios `claude -p --agent MAINa` + assertions : `/maina-help` ; feature → plan créé + index MAJ + Gate #0 posé ; ARCos ≥ 2 options ; DEVon bloqué sur `*.test.*` ; `rm -rf` bloqué.
 - **T7.3** (🟣 DOCly) Routine de maintenance : `/doctor prompt-audit` + `check-harness` avant chaque release ZIP.
+
+---
+
+### Phase 8 — Plans hors du chemin protégé `.claude/` — ⏳ Planifié
+**Contexte :** constat P7 — `.claude/` est un chemin protégé : écritures de plans/rapports jamais
+auto-approuvées (confirmation à chaque écriture, refus en headless). Décision 👤 : option B (ADR 004).
+**Critères :** 0 référence active à `.claude/plans/` (hors historique) ; un agent écrit son rapport dans
+`docs/plans/` sans confirmation en `acceptEdits` ; `check-harness` 0 erreur ; scénario S2 sans `bypassPermissions`.
+
+#### T8.1 - Déplacer les plans
+- **Agent :** 🔵 DEVon
+- **Fichier(s) :** `.claude/plans/**` → `docs/plans/**` (`git mv`, historique conservé)
+- **Acceptation :** liens relatifs internes (archive, rapports, ADR) toujours valides
+
+#### T8.2 - Mettre à jour les références
+- **Agent :** 🔵 DEVon
+- **Fichier(s) :** skills `plan-creation`, `plan-phase-execution`, `gate-protocol`, `adr-writing`, `init-harness` (+ modèles), agents, `CLAUDE.md`, `CLAUDE.template.md`, `PLANS.md`
+- **Acceptation :** `docs/plans/` partout ; chemin identique côté Copilot (plus de substitution)
+
+#### T8.3 - Frontières de rôle : règles ordonnées
+- **Agent :** 🔵 DEVon (tests 🟢 QALvin)
+- **Fichier(s) :** `.claude/hooks/guard.sh`, `role-boundaries.conf`, `scripts/tests/guard.tests.sh`
+- **Implémenter :** « première règle qui correspond l'emporte » (comme gitignore) pour permettre `DEVon allow docs/plans/*` avant `DEVon deny docs/*` ; agents à liste blanche → `docs/plans/*`
+- **Acceptation :** tests du hook verts, nouveaux cas « DEVon écrit son rapport dans `docs/plans/` »
+
+#### T8.4 - Outillage et scénarios
+- **Agent :** 🔵 DEVon
+- **Fichier(s) :** `scripts/check-harness.ps1` (index des plans, exclusions historiques), `scripts/tests/eval-scenarios.ps1` (S2 étape 2 en `acceptEdits`)
+- **Acceptation :** `check-harness` 0 erreur ; S2 sans `bypassPermissions`
+
+#### T8.5 - Documentation et clôture
+- **Agent :** 🟣 DOCly
+- **Fichier(s) :** `docs/ARCHITECTURE.md`, `.claude/README.md`, `agents/README.md`, QUICK_START, `SETUP_CHECKLIST.md`, `scripts/README.md`, ADR 004 (`Acceptée` au Gate #1)
+- **Acceptation :** docs cohérentes ; exécution réelle des scénarios S1-S6 (CLI authentifiée) avant clôture de l'AP 005
 
 ---
 
@@ -253,6 +288,8 @@ Phase 4 (garde-fous)   Phase 5 (workflow)            [après P2+P3]
 Phase 6 (Copilot généré + docs + CI) ← P1-P5
     ↓
 Phase 7 (évaluation)
+    ↓
+Phase 8 (plans hors `.claude/`, ADR 004) → scénarios réels → clôture
 ```
 
 ---
@@ -288,7 +325,8 @@ Phase 7 (évaluation)
 | P6 | 2026-10-12 | Lancement P6 | ✅ GO | — |
 | P6-fin | 2026-10-12 | Revue livrables P6 (Copilot, docs, anti-dérive) | ✅ GO | Commit + push (1ʳᵉ exécution CI) ; vérif VS Code Copilot à faire par 👤 |
 | P7 | 2026-10-12 | Lancement P7 | ✅ GO | — |
-| P7-fin | — | Revue livrables P7 (évaluation) + clôture AP 005 | ⏳ En attente | — |
+| P7-fin | 2026-10-12 | Revue livrables P7 (évaluation) | 🔁 AJUSTER | Option B retenue : plans → `docs/plans/` (ajout P8, ADR 004) ; PR vers `main` ; scénarios lancés par Claude après reconnexion 👤 |
+| #1 (P8) | — | Validation du plan de la phase 8 | ⏳ En attente | — |
 
 ---
 
