@@ -93,6 +93,15 @@ function Invoke-Native {
     try { return (& $Exe @NativeArgs 2>&1 | ForEach-Object { "$_" } | Out-String) } finally { $ErrorActionPreference = $prev }
 }
 
+function Test-TwoOptions {
+    # >= 2 distinct option labels, written as "Option A" / "Solution 2" or as comparison-table headers "| A : …".
+    param([string]$Text)
+    $labels = @()
+    $labels += [regex]::Matches($Text, '(?i)\b(?:option|solution)\s*([A-C1-3])\b') | ForEach-Object { $_.Groups[1].Value.ToUpper() }
+    $labels += [regex]::Matches($Text, '\|\s*\*{0,2}([A-C])\s*(?::|—|-|\))') | ForEach-Object { $_.Groups[1].Value }
+    return (@($labels | Select-Object -Unique)).Count -ge 2
+}
+
 function Get-Hash { param([string]$Path) if (Test-Path $Path) { (Get-FileHash $Path -Algorithm SHA256).Hash } else { '<absent>' } }
 
 # ── Scenarios ─────────────────────────────────────────────────────────────────
@@ -110,7 +119,7 @@ $scenarios = @(
                     "Besoin : ajouter une fonction multiply(a, b) dans src/math.js, avec validation des types comme sum. Critères : tests verts, doc à jour. Contrainte : aucune dépendance.")
            Asserts = @(
             @{ Label = 'pose le Gate #0 (décision 👤)'; Test = { param($o) $o -match 'Gate #0' } }
-            @{ Label = 'présente au moins 2 options'; Test = { param($o) ([regex]::Matches($o, '(?i)(option|solution)\s*(A|B|C|1|2|3)\b') | ForEach-Object { $_.Value.ToLower() } | Select-Object -Unique).Count -ge 2 } }
+            @{ Label = 'présente au moins 2 options'; Test = { param($o) Test-TwoOptions $o } }
             @{ Label = 'ne modifie pas le code avant les gates'; Test = { param($o, $w, $ctx) (Get-Hash (Join-Path $w 'src\math.js')) -eq $ctx.MathHash } }
         ) }
         # Plans live in docs/plans/ (ADR 004): plain acceptEdits is enough, no protected-path write.

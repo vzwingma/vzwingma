@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/005_claude-first.plan.md` (anciennement `.claude/plans/`, ADR 004)
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ✅ — scénarios réels + clôture en attente
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ✅, scénarios réels 14/14 — gate de clôture en attente
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../adr/003-claude-first-copilot-genere.md)
 
