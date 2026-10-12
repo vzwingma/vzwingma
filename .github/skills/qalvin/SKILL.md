@@ -1,7 +1,6 @@
 ---
 name: "qalvin"
 description: "Skill — Active agent QALvin (QA/tests) sur prompt utilisateur. Déclenché par `/qalvin`, `/QALvin`, `/QALvin : [prompt]`."
-applyTo: "**"
 ---
 
 # Skill : Activation QALvin

@@ -1,7 +1,6 @@
 ---
 name: "safety-rules"
 description: Règles de sécurité absolues pour tous agents — interdiction des opérations destructives (suppression de fichiers, SQL/git irréversibles, modifications hors périmètre). Appliqué automatiquement.
-applyTo: "**"
 ---
 
 # ⛔ Règles de sécurité — Opérations destructives interdites

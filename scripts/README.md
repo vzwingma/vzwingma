@@ -1,248 +1,105 @@
-# Scripts — Synchro Agents & Packaging
+# Scripts — Génération Copilot & Packaging
 
-Utilitaires PowerShell pour synchroniser agents + skills entre `.github/`, `.opencode/`, `.claude/` et générer packages distribués.
+Utilitaires PowerShell (compatibles Windows PowerShell 5.1 et PowerShell 7).
 
----
-
-## 🔄 Synchronisation (Sync Scripts)
-
-### `sync-github-to-opencode.ps1`
-
-**Copilot → OpenCode**
-
-Sync agents, skills, instructions, CHANGELOG, PLANS, README et quickstart depuis `.github/` vers `.opencode/`.
-
-```bash
-.\scripts\sync-github-to-opencode.ps1      # Execute
-.\scripts\sync-github-to-opencode.ps1 -WhatIf  # Dry-run
-```
-
-Couvre :
-- Agents : `.github/agents/*.agent.md` → `.opencode/agents/`
-- Skills : `.github/skills/*/SKILL.md` → `.opencode/skills/`
-- Instructions : `.github/instructions/*.md` → `.opencode/instructions/`
-- Standalone : CHANGELOG.md, PLANS.md, README.md
-- Quick Start : `QUICK_START_COPILOT.md` → `QUICK_START_OPENCODE.md`
-- Templates : conservés dans `.opencode/instructions/` (pas de sous-dossier `templates/`)
+**Modèle (ADR 003)** : `.claude/` = **source unique**. `.github/` (Copilot) = **généré** — ne jamais l'éditer à la main.
 
 ---
 
-### `sync-github-to-claude.ps1`
-
-**Copilot → Claude**
-
-Sync agents, skills, instructions et quickstart depuis `.github/` vers `.claude/`.
-
-```bash
-.\scripts\sync-github-to-claude.ps1        # Execute
-.\scripts\sync-github-to-claude.ps1 -WhatIf   # Dry-run
-```
-
-Couvre :
-- Agents : `.github/agents/*.agent.md` → `.claude/agents/`
-- Skills : `.github/skills/*/SKILL.md` → `.claude/skills/`
-- Instructions : `.github/instructions/*.md` → `.claude/instructions/`
-- Standalone : CHANGELOG.md, PLANS.md, README.md
-- Quick Start : `QUICK_START_COPILOT.md` → `QUICK_START_CLAUDE.md`
-- Templates : Copiés dans `.claude/instructions/`
-
----
-
-### `sync-opencode-to-claude.ps1`
-
-**OpenCode → Claude**
-
-Sync agents, skills, instructions et quickstart depuis `.opencode/` vers `.claude/`.
-
-```bash
-.\scripts\sync-opencode-to-claude.ps1      # Execute
-.\scripts\sync-opencode-to-claude.ps1 -WhatIf  # Dry-run
-```
-
-Couvre :
-- Agents : `.opencode/agents/*.agent.md` → `.claude/agents/`
-- Skills : `.opencode/skills/*/SKILL.md` → `.claude/skills/`
-- Instructions : `.opencode/instructions/*.md` → `.claude/instructions/`
-- Standalone : CHANGELOG.md, PLANS.md, README.md
-- Quick Start : `QUICK_START_OPENCODE.md` → `QUICK_START_CLAUDE.md`
-- Templates : Copiés dans `.claude/instructions/`
-
----
-
-### `sync-opencode-to-github.ps1`
-
-**OpenCode ← Copilot** (reverse sync)
-
-Sync agents, skills, instructions depuis `.opencode/` vers `.github/`.
-
-Couvre aussi `QUICK_START_OPENCODE.md` → `QUICK_START_COPILOT.md`.
-
-```bash
-.\scripts\sync-opencode-to-github.ps1      # Execute
-.\scripts\sync-opencode-to-github.ps1 -WhatIf  # Dry-run
-```
-
----
+## 🔄 Génération Copilot
 
 ### `sync-claude-to-github.ps1`
 
-**Claude → Copilot** (reverse sync)
-
-Sync agents, skills, instructions, templates, CHANGELOG, PLANS, README et quickstart depuis `.claude/` vers `.github/`.
+**Claude → Copilot** — seul sens de synchronisation.
 
 ```bash
-.\scripts\sync-claude-to-github.ps1      # Execute
-.\scripts\sync-claude-to-github.ps1 -WhatIf  # Dry-run
+.\scripts\sync-claude-to-github.ps1           # Génère .github/
+.\scripts\sync-claude-to-github.ps1 -WhatIf   # Dry-run
+.\scripts\sync-claude-to-github.ps1 -Check    # CI : exit 1 si .github/ pas à jour ou orphelins
 ```
 
-Couvre :
-- Agents : `.claude/agents/*.agent.md` → `.github/agents/`
-- Skills : `.claude/skills/*/SKILL.md` → `.github/skills/`
-- Instructions : `.claude/instructions/*.md` → `.github/instructions/`
-- Root template : `.claude/CLAUDE.template.md` → `.github/copilot-instructions.template.md`
-- Standalone : CHANGELOG.md, PLANS.md, README.md
-- Quick Start : `QUICK_START_CLAUDE.md` → `QUICK_START_COPILOT.md`
+| Source `.claude/` | Cible `.github/` | Traitement |
+|---|---|---|
+| `agents/*.agent.md` | `agents/*.agent.md` | Frontmatter Copilot **généré** (voir mapping) + corps substitué |
+| `agents/README.md` | `agents/README.md` | Substitution texte |
+| `skills/<nom>/SKILL.md` (+ fichiers support) | `skills/<nom>/…` | Frontmatter réduit à la spec Agent Skills (`name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`) |
+| `instructions/*.md` | `instructions/*.md` | Substitution texte |
+| `prompts/*.prompt.md` | `prompts/*.prompt.md` | Substitution texte |
+| `CLAUDE.md` / `CLAUDE.template.md` | `copilot-instructions.md` / `copilot-instructions.template.md` | Substitution texte |
+| `CHANGELOG.md`, `PLANS.md`, `README.md` | idem | Substitution texte |
+| `QUICK_START_CLAUDE.md` (racine) | `QUICK_START_COPILOT.md` | Substitution texte |
+
+Fichiers présents dans `.github/{agents,skills,instructions,prompts}` sans source `.claude/` : signalés **ORPHAN** (jamais supprimés).
+
+#### Substitution texte
+
+Tokens délimités, dans cet ordre : `.claude/` → `.github/` · `QUICK_START_CLAUDE` → `QUICK_START_COPILOT` · `CLAUDE.template.md` → `copilot-instructions.template.md` · `CLAUDE.md` → `copilot-instructions.md` · `Claude Code` → `GitHub Copilot` · mot `Claude` → `Copilot` **sauf** noms de modèles (`Claude Sonnet/Opus/Haiku/Fable`).
+
+#### Blocs spécifiques plateforme
+
+```markdown
+<!-- claude-only -->
+Contenu visible seulement côté Claude (retiré pour Copilot).
+<!-- /claude-only -->
+
+<!-- copilot-only
+Contenu visible seulement côté Copilot (commentaire masqué côté Claude, déballé pour Copilot).
+-->
+```
+
+#### Mapping frontmatter — `copilot-mapping.psd1`
+
+| Clé | Rôle |
+|---|---|
+| `Agents.<Nom>` | Champs Copilot par agent (`model`, `tools`, `agents`, …) — **prioritaires** |
+| `ModelMap` | Alias modèle Claude (`opus`, `sonnet`, `haiku`) → modèle Copilot, si pas d'override |
+| `ToolMap` | Outil Claude → outil Copilot, si pas d'override (Copilot accepte nativement `Read`, `Edit`, `Write`, `Bash`, `Grep`, `Glob`, `WebFetch`, `WebSearch`, `Task`, `TodoWrite`) |
+
+Champs Claude-only (`permissionMode`, `skills`, `hooks`, `memory`, `effort`, …) non reportés.
+
+### `Sync-Description.psm1`
+
+Module générateur utilisé par le sync : `ConvertTo-CopilotText`, `New-CopilotAgentContent`, `New-CopilotSkillContent`, `Sync-AgentFile`, `Sync-SkillFile`, `Sync-StandaloneFile`.
 
 ---
 
-## 📦 Packaging (Package Scripts)
-
-### `package-github.ps1`
-
-**Package agents Copilot**
-
-Génère ZIP distributable avec agents, skills, instructions, templates, docs.
-
-```bash
-.\scripts\package-github.ps1
-.\scripts\package-github.ps1 -OutputDir C:\release -FileName copilot-v1.0
-```
-
-Inclus :
-- `.github/agents/`
-- `.github/instructions/`
-- `.github/prompts/`
-- `.github/skills/`
-- `.github/CHANGELOG.md`, `PLANS.md`
-- `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START_COPILOT.md`, `SETUP_CHECKLIST.md`
-
-Exclu : `.opencode/`, `.claude/`, scripts/, plans/, `.git/`, dist/
-
-Output : `dist/copilot-templates-<yyyyMMdd>.zip`
-
----
+## 📦 Packaging
 
 ### `package-claude.ps1`
 
-**Package agents Claude**
-
-Génère ZIP distributable avec agents Claude, skills, instructions, templates, docs.
+ZIP distribuable des artefacts Claude → `dist/claude-templates-<yyyyMMdd>.zip`.
 
 ```bash
 .\scripts\package-claude.ps1
 .\scripts\package-claude.ps1 -OutputDir C:\release -FileName claude-v1.0
 ```
 
-Inclus :
-- `.claude/agents/`
-- `.claude/instructions/`
-- `.claude/prompts/`
-- `.claude/skills/`
-- `.claude/CHANGELOG.md`, `PLANS.md`, `CLAUDE.md`
-- `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START_CLAUDE.md`, `SETUP_CHECKLIST.md`
+Inclus : `.claude/agents/`, `instructions/`, `prompts/`, `skills/`, `CHANGELOG.md`, `PLANS.md`, `CLAUDE.md`, `README.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_CLAUDE.md`, `SETUP_CHECKLIST.md`.
 
-Exclu : `.github/`, `.opencode/`, scripts/, plans/, `.git/`, dist/
+### `package-github.ps1`
 
-Output : `dist/claude-templates-<yyyyMMdd>.zip`
-
----
-
-### `package-opencode.ps1`
-
-**Package agents OpenCode**
-
-Génère ZIP distributable avec agents OpenCode, skills, instructions, templates, docs.
+ZIP distribuable des artefacts Copilot (générés) → `dist/copilot-templates-<yyyyMMdd>.zip`. **Lancer le sync avant.**
 
 ```bash
-.\scripts\package-opencode.ps1
-.\scripts\package-opencode.ps1 -OutputDir C:\release -FileName opencode-v1.0
-```
-
-Inclus :
-- `.opencode/agents/`
-- `.opencode/instructions/`
-- `.opencode/prompts/`
-- `.opencode/skills/`
-- `.opencode/CHANGELOG.md`, `PLANS.md`, `README.md`
-- `docs/` (sans ARCHITECTURE.md)
-- `QUICK_START_OPENCODE.md`, `SETUP_CHECKLIST.md`
-
-Exclu : `.github/`, `.claude/`, scripts/, plans/, `.git/`, dist/
-
-Output : `dist/opencode-templates-<yyyyMMdd>.zip`
-
----
-
-## 🔧 Modules Partagés
-
-### `Sync-Description.psm1`
-
-Utilitaire PowerShell partagé pour synchronisation fichiers structurés.
-
-**Fonctions principales** :
-- `Sync-AgentFiles` : Sync agents/skills avec préservation frontmatter spécifiques plateformes
-- `Sync-StandaloneFiles` : Sync fichiers .md standalone avec substitution chemins
-
-**Utilisé par** : Tous scripts sync
-
----
-
-## 📋 Workflow Recommandé
-
-Après modifications agents Copilot (`.github/`) :
-
-```bash
-# 1. Sync GitHub → OpenCode
-.\scripts\sync-github-to-opencode.ps1
-
-# 2. Sync GitHub → Claude
-.\scripts\sync-github-to-claude.ps1
-
-# 3. (Optionnel) Générer packages distribués
 .\scripts\package-github.ps1
-.\scripts\package-claude.ps1
-.\scripts\package-opencode.ps1
+.\scripts\package-github.ps1 -OutputDir C:\release -FileName copilot-v1.0
 ```
 
-Après modifications agents OpenCode (`.opencode/`) :
-
-```bash
-# 1. Sync OpenCode → Claude
-.\scripts\sync-opencode-to-claude.ps1
-
-# 2. (Optionnel) Sync OpenCode → GitHub (pour mettre à jour source)
-.\scripts\sync-opencode-to-github.ps1
-```
-
-Après modifications agents Claude (`.claude/`) :
-
-```bash
-# Sync Claude → GitHub quand Claude est temporairement la source la plus à jour
-.\scripts\sync-claude-to-github.ps1
-```
+Inclus : `.github/agents/`, `instructions/`, `prompts/`, `skills/`, `CHANGELOG.md`, `PLANS.md`, `copilot-instructions.template.md` · `docs/` (sans `ARCHITECTURE.md`) · `QUICK_START_COPILOT.md`, `SETUP_CHECKLIST.md`.
 
 ---
 
-## 🎯 Cas d'Utilisation
+## 📋 Workflow
 
-| Action | Script | Notes |
-|--------|--------|-------|
-| Modifier agent Copilot | Modifier `.github/agents/*.agent.md` | → sync-github-to-* |
-| Modifier skill Copilot | Modifier `.github/skills/*/SKILL.md` | → sync-github-to-* |
-| Mettre à jour GitHub depuis Claude | `sync-claude-to-github.ps1` | Reverse sync ponctuelle |
-| Créer package Copilot distribué | `package-github.ps1` | ZIP avec agents Copilot |
-| Créer package Claude distribué | `package-claude.ps1` | ZIP avec agents Claude |
-| Créer package OpenCode distribué | `package-opencode.ps1` | ZIP avec agents OpenCode |
-| Mettre à jour Claude depuis GitHub | `sync-github-to-claude.ps1` | Force cohérence plateformes |
+```bash
+# 1. Modifier .claude/ (jamais .github/)
+# 2. Générer Copilot
+.\scripts\sync-claude-to-github.ps1
+# 3. Vérifier (idempotence)
+.\scripts\sync-claude-to-github.ps1 -Check
+# 4. (Optionnel) Packages
+.\scripts\package-claude.ps1
+.\scripts\package-github.ps1
+```
+
+Tâches VS Code équivalentes : `Sync: Claude → GitHub`, `Sync: Check (Claude → GitHub)`, `Package (Claude)`, `Package (GitHub)`.

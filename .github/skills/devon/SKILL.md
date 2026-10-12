@@ -1,7 +1,6 @@
 ---
 name: "devon"
 description: "Skill — Active agent DEVon (développeur) sur prompt utilisateur. Déclenché par `/devon`, `/DEVon`, `/DEVon : [prompt]`."
-applyTo: "**"
 ---
 
 # Skill : Activation DEVon

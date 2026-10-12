@@ -1,7 +1,6 @@
 ---
 name: "compact-context"
 description: "Instructions preCompact pour sessions plans/SDLC. Préserve état courant, supprime blobs skills révolus. Appliqué automatiquement."
-applyTo: "**"
 ---
 
 # Skill : Compact contextuel — Sessions Plans / SDLC

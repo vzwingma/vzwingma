@@ -1,7 +1,7 @@
 # ADR 002 — `.claude/` est un miroir généré de `.github/` (source unique + tooling de sync)
 
 **Date :** 2026-06-29  
-**Statut :** Acceptée  
+**Statut :** Remplacée par [ADR 003](003-claude-first-copilot-genere.md) (2026-10-12)  
 **Décideurs :** ⚫ MAINa (orchestration) + 👤 Développeur humain (décisions A1 / B1-bis / C-ok)
 
 ---

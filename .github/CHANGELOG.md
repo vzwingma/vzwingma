@@ -48,7 +48,7 @@
 - **v2.2 → v2.3** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.3 → v2.4** : Ajout interdictions opérations destructives.
 - **v2.4 → v2.5** : Ajout règle absolue respect `.copilotignore`.
-- **v2.5 → v2.6** : Confirmation modèle Copilot Sonnet 4.6 pour développement optimal.
+- **v2.5 → v2.6** : Confirmation modèle Claude Sonnet 4.6 pour développement optimal.
 - **v2.6 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
@@ -67,7 +67,7 @@
 - **v2.4 → v2.5** : Alignement sur nouvelle arborescence vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.5 → v2.6** : Ajout interdictions opérations destructives.
 - **v2.6 → v2.7** : Ajout règle absolue respect `.copilotignore`.
-- **v2.7 → v2.8** : Migration vers Copilot Haiku 4.5 pour exécution rapide efficace tests.
+- **v2.7 → v2.8** : Migration vers Claude Haiku 4.5 pour exécution rapide efficace tests.
 - **v2.8 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.
@@ -86,7 +86,7 @@
 - **v2.3 → v2.4** : Alignement nouvelle arbo vrais skills (`.github/skills/<nom>/SKILL.md`).
 - **v2.4 → v2.5** : Ajout interdictions opérations destructives.
 - **v2.5 → v2.6** : Ajout règle absolue respect `.copilotignore`.
-- **v2.6 → v2.7** : Migration vers Copilot Sonnet 4.6 pour amélioration qualité doc.
+- **v2.6 → v2.7** : Migration vers Claude Sonnet 4.6 pour amélioration qualité doc.
 - **v2.7 → v3.0** : Ajout instruction globale activation/usage du skill `caveman` et compression des consignes.
 - **v3.0 → v3.1** : Suppression instruction globale caveman (déplacée vers skill `caveman-default`, `applyTo: "**"`). Évite chargements multiples par session.
 - **v3.1 → v4.0** : Sync depuis OpenCode v4.0. Corps mis à jour. Frontmatter Copilot conservé (model, tools). Chemins `.github/` conservés.

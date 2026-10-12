@@ -1,7 +1,6 @@
 ---
 name: "maina-help"
 description: "Skill — Aide MAINa pour orchestration multi-agents. Explique workflow strict et gates humains. Déclenché par `/maina-help` ou `@MAINa /maina-help`."
-applyTo: "**"
 ---
 
 # Skill : Aide Orchestration MAINa

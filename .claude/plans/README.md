@@ -13,20 +13,23 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 ## 📂 Plans Actifs / En Cours
 
-_(Aucun plan en cours pour l'instant)_
+| # | Nom | Statut | Date |
+|---|-----|--------|------|
+| 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | 🔄 En cours | 2026-10-12 |
 
 ---
 
 ## 📋 Plans Archivés / Complétés
 
-> Fichiers archivés sous `.github/plans/` (source de vérité) ; le plan 004 (analyse Claude-scope) réside localement sous `.claude/plans/`.
+> Index unique (ADR 003). Plans 001-003 et OC-001 rapatriés de `.github/plans/` et `.opencode/plans/` sous [`archive/`](archive/).
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
 | 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ✅ Complété | 2026-06-30 |
-| 003 | [Agent maitre MAINa](../../.github/plans/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
-| 002 | [Rationalisation agents Copilot](../../.github/plans/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
-| 001 | [Optimisation tokens Copilot CLI](../../.github/plans/001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
+| 003 | [Agent maitre MAINa](archive/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
+| 002 | [Rationalisation agents Copilot](archive/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |
+| 001 | [Optimisation tokens Copilot CLI](archive/001_token-optimisation.plan.md) | ✅ Complété | 2026-06-23 |
+| OC-001 | Cherry-pick agents Copilot feat/ai → main (ex-OpenCode, rapports seuls : [`archive/OC-001_reports/`](archive/OC-001_reports/)) | ✅ Complété | 2026-06-18 |
 
 ---
 

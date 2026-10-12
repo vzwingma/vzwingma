@@ -1,7 +1,6 @@
 ---
 name: "docly"
 description: "Skill — Active agent DOCly (documentation) sur prompt utilisateur. Déclenché par `/docly`, `/DOCly`, `/DOCly : [prompt]`."
-applyTo: "**"
 ---
 
 # Skill : Activation DOCly

@@ -63,11 +63,11 @@ Nouveau Projet
 | **Versionning** | Chaque agent commence par `[vX.Y]` pour tracker les changements |
 | **Customisation minimale** | Le template permet une initialisation rapide et complète en 3 étapes |
 
-### Modèle miroir : source unique + génération
+### Modèle Claude-first : source unique + génération Copilot
 
-Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.github/` (source de vérité Copilot), puis **générés** vers `.claude/` (Claude Code) par `scripts/sync-github-to-claude.ps1` avec substitution de chemins/termes (`.github/`→`.claude/`, `GitHub Copilot`→`Claude Code`). Voir [ADR 002](adr/002-claude-miroir-genere.md).
+Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.claude/` (source de vérité, optimisée Claude Code), puis **générés** vers `.github/` (GitHub Copilot) par `scripts/sync-claude-to-github.ps1` : frontmatter Copilot dérivé (`scripts/copilot-mapping.psd1`), substitution de chemins/termes, blocs `claude-only` / `copilot-only`. OpenCode est retiré. Voir [ADR 003](adr/003-claude-first-copilot-genere.md) (remplace [ADR 002](adr/002-claude-miroir-genere.md)).
 
-> Exception : `.claude/CLAUDE.md` est **maintenu à la main** (curé, agnostique-projet) ; seul `CLAUDE.template.md` est généré.
+> Ne jamais éditer `.github/` à la main : `sync-claude-to-github.ps1 -Check` échoue si `.github/` diverge.
 
 ---
 
@@ -77,7 +77,6 @@ Les agents, skills, prompts et templates sont **écrits une seule fois** dans `.
 .                                                # Racine du dépôt transverse
 ├── README.md                                    # Présentation du dépôt
 ├── QUICK_START_COPILOT.md                       # Démarrage rapide Copilot
-├── QUICK_START_OPENCODE.md                      # Démarrage rapide OpenCode
 ├── QUICK_START_CLAUDE.md                        # Démarrage rapide Claude Code
 ├── SETUP_CHECKLIST.md                           # Checklist d'initialisation
 │
@@ -232,7 +231,8 @@ Ces fichiers complètent les agents génériques avec les **spécificités du pr
 | # | Décision | Statut | Date |
 |---|---|---|---|
 | 001 | [Ajouter MAINa comme orchestrateur principal](adr/001-maina-orchestrateur.md) | Acceptée | 2026-06-25 |
-| 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Acceptée | 2026-06-29 |
+| 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Remplacée par 003 | 2026-06-29 |
+| 003 | [Claude-first : `.claude/` source unique, Copilot généré, OpenCode retiré](adr/003-claude-first-copilot-genere.md) | Acceptée | 2026-10-12 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 
@@ -283,10 +283,11 @@ cp copilot-templates/docs/adr/ADR-TEMPLATE.md mon-projet/docs/adr/
 
 ### Mise à jour des agents
 
-1. Modifier `.github/agents/<Agent>.agent.md`
+1. Modifier `.claude/agents/<Agent>.agent.md` (jamais `.github/`)
 2. Incrémenter la version : `[vX.Y]` → `[vX.Y+1]`
-3. Documenter les changements dans `.github/CHANGELOG.md`
+3. Documenter les changements dans `.claude/CHANGELOG.md`
 4. Mettre à jour le tableau d'inventaire ci-dessus
+5. Régénérer Copilot : `scripts/sync-claude-to-github.ps1` puis `-Check`
 
 ### Mise à jour des templates
 

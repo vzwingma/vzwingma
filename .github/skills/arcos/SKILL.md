@@ -1,7 +1,6 @@
 ---
 name: "arcos"
 description: "Skill — Active agent ARCos (architecte) sur prompt utilisateur. Déclenché par `/arcos`, `/ARCos`, `/ARCos : [prompt]`."
-applyTo: "**"
 ---
 
 # Skill : Activation ARCos

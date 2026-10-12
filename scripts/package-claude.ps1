@@ -21,7 +21,7 @@
       - SETUP_CHECKLIST.md
 
     Excluded:
-      - .github/, .opencode/, scripts/, .git/, .gitignore, .copilotignore
+      - .github/, scripts/, .git/, .gitignore, .copilotignore
       - README.md (root), *.code-workspace
       - .claude/plans/  (internal action plans)
       - docs/ARCHITECTURE.md  (transverse repo architecture doc)

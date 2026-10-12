@@ -20,7 +20,7 @@
       - SETUP_CHECKLIST.md
 
     Excluded:
-      - .opencode/, scripts/, .git/, .gitignore, .copilotignore
+      - .claude/, scripts/, .git/, .gitignore, .copilotignore
       - README.md (root), AGENTS.md, skills-lock.json, *.code-workspace
       - .github/plans/  (internal action plans)
       - .github/copilot-instructions.md  (transverse repo instructions, not the template)

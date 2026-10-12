@@ -1,7 +1,6 @@
 ---
 name: "plan-creation"
 description: "Skill — Procédure création + orchestration Plan d'Action (AP). Pour MAINa — agent orchestrateur responsable création et validation Plan d'Action."
-applyTo: "**"
 ---
 
 # Skill : Création d'un Plan d'Action (AP)

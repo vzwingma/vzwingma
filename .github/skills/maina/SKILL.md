@@ -1,7 +1,6 @@
 ---
 name: "maina"
 description: "Skill — Active agent MAINa (orchestrateur) sur prompt utilisateur. Déclenché par `/maina`, `/Maina`, `/MAINa : [prompt]`."
-applyTo: "**"
 ---
 
 # Skill : Activation MAINa

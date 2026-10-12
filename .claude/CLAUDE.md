@@ -1,6 +1,6 @@
 # Instructions Claude — Système Multi-Agents
 
-> Configuration pour Claude Code (claude.ai/code, CLI, IDEs).
+> Configuration pour Claude Code (CLI, app desktop, IDE).
 > Infrastructure orchestrée pour développement via 5 agents spécialisés.
 
 ## 🗿 Mode communication
