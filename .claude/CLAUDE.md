@@ -16,7 +16,7 @@ Mode caveman **full** actif par défaut. Règles :
 
 Initiative architecturale/infrastructure doit produire **avant** marquer tâche terminée :
 1. Fichier `Plan d'Action` dans `.claude/plans/NNN_nom.plan.md`
-2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure
+2. ADR dans `docs/adr/NNN-titre-court.md` si décision majeure (`Proposée` avant Gate #1, `Acceptée` au `GO`)
 3. Mise à jour `.claude/plans/README.md`
 
 Créés dans même lot que implémentation, pas après coup.
@@ -173,7 +173,8 @@ Procédures réutilisables (`.claude/skills/<nom>/SKILL.md`) :
 | Skill | Type | Contenu |
 |---|---|---|
 | `plan-creation` | procédure (préchargé MAINa) | Création + lancement Plan d'Action, gates |
-| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves |
+| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves, bloc `handoff` |
+| `gate-protocol` | procédure (préchargé MAINa) | Gates #0→#4 : preuves exigées, revue auto avant Gate #2, GO/AJUSTER/STOP, journal |
 | `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR (ARCos prépare, DOCly rédige) |
 | `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
 | `conventions-<rôle>` | conventions projet (préchargé par rôle) | `orchestrator`, `architect`, `dev`, `qa`, `doc` — à remplir via `/init-harness` |

@@ -90,6 +90,7 @@ file 2 'src/app.ts' DOCly
 file 0 'README.md' DOCly
 file 0 'docs/adr/004-choix.md' DOCly Write
 file 0 '.claude/plans/README.md' MAINa
+file 0 'docs/adr/004-choix.md' MAINa
 file 2 'src/app.ts' MAINa Write
 file 0 'src/app.ts'
 run 0 "Write QALvin: outside project" "{\"tool_name\":\"Write\",\"cwd\":\"$(json_escape "$fixture")\",\"agent_type\":\"QALvin\",\"tool_input\":{\"file_path\":\"/elsewhere/scratch/notes.md\",\"content\":\"x\"}}"

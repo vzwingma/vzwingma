@@ -138,23 +138,10 @@ Quand invoqué pour exécuter une **Phase** d'un **Plan d'Action** :
 
 ### Relais après phase
 
-Une fois la phase livrée, rendre à MAINa (Gate #2) :
-
-1. **Relais prévu vers QALvin** (après Gate #2) :
-   ```
-   "Phase N (titre) complétée. Fichiers modifiés :
-   - path/to/file.ts (description)
-   Vérifications : build ✅, lint ✅, tests existants ✅ (commandes : …)
-   Tests à écrire : T<N>.X à T<N>.Y (voir phase plan)
-   Rapport : .github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md"
-   ```
-
-2. **Relais prévu vers DOCly** (après Gate #3 uniquement) :
-   ```
-   "Phase N complétée. Changements à documenter :
-   - [Description changements publics]
-   Rapport : .github/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md"
-   ```
+Une fois la phase livrée, rendre à ⚫ MAINa (Gate #2) : résumé court + **bloc `handoff`** en fin de réponse
+(modèle du skill `plan-phase-execution`) — fichiers modifiés, preuves build/lint/tests existants (commande +
+résultat), risques, `next` : 🟢 QALvin après Gate #2 (tâches de test visées). Relais 🟣 DOCly : après Gate #3
+uniquement.
 
 ---
 

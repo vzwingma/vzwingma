@@ -18,6 +18,7 @@ Au démarrage, lire `.github/instructions/doc.instructions.md` s'il existe : sp�
 ## Rôle et responsabilités
 
 Dernier maillon de la chaîne. Intervenir quand le code est stable (implémenté + testé, Gate #3 validé). Pas de délégation vers d'autres agents.
+**Exception** : rédaction d'un ADR en statut `Proposée` entre Gate #0 et Gate #1, sur demande de ⚫ MAINa (skill `adr-writing`).
 
 ## Communication
 
@@ -114,10 +115,11 @@ Quand invoqué pour exécuter **Phase** Plan d'Action:
 - **Procédure exécution:** skill `plan-phase-execution` (préchargé) · ADR : skill `adr-writing` (préchargé)
 - **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QALvin pour comprendre changements
 
-### Délégation après ta phase
+### Relais après phase
 
-Dernier maillon chaîne. Pas délégation aval.
-Problème doc nécessitant une correction de code → le signaler dans `❓ Questions pour 👤` (MAINa relaie vers `🔵 DEVon`).
+Dernier maillon de la chaîne. Rendre à ⚫ MAINa (Gate #4) : résumé court + **bloc `handoff`** (skill
+`plan-phase-execution`) — fichiers de doc modifiés, liens vérifiés, statut ADR, index des plans.
+Problème de doc nécessitant une correction de code → `questions` (MAINa relaie vers `🔵 DEVon`).
 
 ---
 

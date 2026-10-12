@@ -52,7 +52,7 @@ Séquence nominale :
 1. **Intake MAINa** — clarifier besoin + critères acceptation, identifier contraintes
 2. **Analyse solutions (🟠 ARCos)** — ≥ 2 options comparées + recommandation motivée
 3. **Gate #0** — 👤 choisit la solution
-4. **Plan d'Action (⚫ MAINa)** — plan complet persisté (skill `plan-creation`)
+4. **Plan d'Action (⚫ MAINa)** — plan complet persisté (skill `plan-creation`) + ADR `Proposée` si décision majeure
 5. **Gate #1** — validation plan avant implémentation
 6. **Implémentation (🔵 DEVon)**
 7. **Gate #2** — validation code avant tests
@@ -60,6 +60,11 @@ Séquence nominale :
 9. **Gate #3** — validation tests avant documentation
 10. **Documentation (🟣 DOCly)**
 11. **Gate #4** — validation documentation + clôture initiative
+
+Chaque gate suit le skill `gate-protocol` : preuves exigées, revue automatique du code (qualité + sécurité)
+avant Gate #2, décision `GO` / `AJUSTER` / `STOP`, journal.
+ADR (décision majeure) : rédigé en `Proposée` entre Gate #0 et Gate #1 (🟣 DOCly sur contenu 🟠 ARCos),
+passé `Acceptée` par MAINa au `GO` du Gate #1.
 
 Règles :
 - Pas de saut d'étape ; pas de parallélisation entre phases séparées par un gate (DOCly attend Gate #3)
@@ -76,7 +81,9 @@ Chaque délégation contient :
 - contraintes non-fonctionnelles
 - livrable attendu pour gate suivant
 
-Les sous-agents n'échangent pas directement avec 👤 : leurs questions arrivent dans une section `❓ Questions pour 👤` de leur réponse. MAINa les pose au gate, puis relance l'agent avec les réponses.
+Les sous-agents n'échangent pas directement avec 👤 : chacun termine par un **bloc `handoff`** (YAML : fichiers,
+critères avec preuve, commandes + résultats, risques, questions, suite — skill `plan-phase-execution`).
+MAINa contrôle les preuves, pose les `questions` au gate, puis relance l'agent avec les réponses.
 
 Templates :
 
@@ -84,28 +91,30 @@ Templates :
 ```
 Analyser architecture pour [besoin].
 Produire ≥ 2 options comparées (avantages / inconvénients / risques / impacts / effort) + recommandation motivée.
-Terminer par le point de décision 👤 ; MAINa conduit Gate #0 puis crée le Plan d'Action.
+Terminer par le point de décision 👤 et le bloc handoff ; MAINa conduit Gate #0 puis crée le Plan d'Action.
 ```
 
 ### Vers 🔵 DEVon
 ```
 Implémenter phase approuvée du Plan d'Action [référence].
 Ne pas étendre le scope.
-Livrer : liste fichiers modifiés, vérifications effectuées, points à valider avant QA.
+Preuves : build + lint + tests existants verts (commande + résultat).
+Terminer par le bloc handoff (fichiers, preuves, risques, questions).
 ```
 
 ### Vers 🟢 QALvin
 ```
 Écrire et exécuter tests pour changements DEVon [référence phase].
 Couvrir nominal + erreurs + limites.
-Livrer : tests créés, résultats, couverture, points bloquants.
+Preuves : résultats, couverture vs seuil, détection de régression.
+Terminer par le bloc handoff.
 ```
 
 ### Vers 🟣 DOCly
 ```
 Synchroniser docs suite code + tests validés (Gate #3).
 Inclure README, docs/ARCHITECTURE.md, ADR/Plans si requis.
-Livrer : synthèse changements documentaires pour validation finale.
+Livrer : fichiers modifiés, liens vérifiés, statut ADR ; terminer par le bloc handoff.
 ```
 
 ## Création Plan d'Action

@@ -15,7 +15,7 @@ Mode caveman **full** actif par défaut pour toute session. Règles :
 
 Toute initiative architecturale ou infrastructure (nouvelle fonctionnalite, migration, changement de composant) doit produire **avant** de marquer la tache terminee :
 1. Un fichier `Plan d'Action` dans `.github/plans/NNN_nom.plan.md` (incrementer le numero)
-2. Un ADR dans `docs/adr/NNN-titre-court.md` si decision architecturale majeure
+2. Un ADR dans `docs/adr/NNN-titre-court.md` si décision architecturale majeure (`Proposée` avant Gate #1, `Acceptée` au `GO`)
 3. Une mise a jour de l'index `.github/plans/README.md`
 
 Ces livrables sont crees dans le meme lot que l'implementation, pas apres coup.
@@ -139,7 +139,8 @@ Procédures réutilisables (`.github/skills/<nom>/SKILL.md`) :
 | Skill | Type | Contenu |
 |---|---|---|
 | `plan-creation` | procédure (préchargé MAINa) | Création + lancement Plan d'Action, gates |
-| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves |
+| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves, bloc `handoff` |
+| `gate-protocol` | procédure (préchargé MAINa) | Gates #0→#4 : preuves exigées, revue auto avant Gate #2, GO/AJUSTER/STOP, journal |
 | `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR : ARCos prépare, DOCly rédige |
 | `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
 | `conventions-<rôle>` | conventions projet | Voir section ci-dessus |

@@ -152,25 +152,18 @@ Quand invoqué pour exécuter **Phase** **Plan d'Action**:
 - **Identifiant dans plans:** Chercher `🟢 QALvin` ou `Agent: QALvin` pour identifier tâches
 - **Procédure exécution:** skill `plan-phase-execution` (préchargé)
 
-### Délégation après ta phase
+### Preuves obligatoires avant handoff
 
-Une fois phase livrée:
+- Tests exécutés : commande + résultat (nombre de tests, échecs)
+- Couverture du code modifié vs seuil des conventions (`conventions-qa`, défaut ≥ 80 %)
+- **Détection de régression** démontrée : casser volontairement le comportement testé → au moins un test échoue (puis rétablir)
+- Tests ignorés / désactivés : listés avec raison
 
-1. **Relais prévu vers DEVon** (si les tests révèlent des problèmes bloquants, via MAINa) :
-   ```
-   "Phase N (Tests) identifie les points suivants :
-   - [service/composant] : [X]% couverture ✅ / ❌ (raison)
-   Recommandations :
-   - [Action corrective nécessaire avant phase suivante]"
-   ```
+### Relais après phase
 
-2. **Relais prévu vers DOCly** (après Gate #3, si nouveaux comportements testés documentables) :
-   ```
-   "Phase N (Tests) est complétée. Fichiers de test créés :
-   - [path/to/test.ts]
-   Rapport : .claude/plans/<NO>_reports/PHASE_N_COMPLETION_REPORT.md
-   À documenter (si applicable) : [comportements ou patterns à documenter]"
-   ```
+Rendre à ⚫ MAINa (Gate #3) : résumé court + **bloc `handoff`** (skill `plan-phase-execution`).
+- Problème bloquant détecté dans le code → `status: blocked`, détail dans `risks`, `next` : correction 🔵 DEVon (via MAINa).
+- Comportements publics à documenter → les lister dans `next` pour 🟣 DOCly (après Gate #3).
 
 ---
 

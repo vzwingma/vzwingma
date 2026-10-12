@@ -4,7 +4,7 @@
 **Date de création :** AAAA-MM-JJ
 **Statut :** ⏳ Planifié | 🔄 En cours | ✅ Complété | ❌ Bloqué
 **Objectif Prioritaire :** HIGH | MEDIUM | LOW
-**ADR associé :** `docs/adr/NNN-titre.md` (si décision majeure)
+**ADR associé :** `docs/adr/NNN-titre.md` — `Proposée` → `Acceptée` au Gate #1 (si décision majeure)
 
 ---
 

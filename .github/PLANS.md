@@ -41,6 +41,8 @@ Obligatoire pour toute initiative menant à une modification de code (règle MAI
 |---|---|---|
 | Plan d'Action | [`skills/plan-creation/templates/plan.template.md`](skills/plan-creation/templates/plan.template.md) | skill `plan-creation` (⚫ MAINa) |
 | Rapport de phase | [`skills/plan-phase-execution/templates/phase-report.template.md`](skills/plan-phase-execution/templates/phase-report.template.md) | skill `plan-phase-execution` (agents) |
+| Bloc handoff (fin de réponse agent) | [`skills/plan-phase-execution/templates/handoff.template.md`](skills/plan-phase-execution/templates/handoff.template.md) | skill `plan-phase-execution` (agents) |
+| Gate | — | skill `gate-protocol` (⚫ MAINa) |
 
 ### Règles de rédaction
 
@@ -68,8 +70,9 @@ Phase(s) 🟢 QALvin                       → 👤 Gate #3 — validation des t
 Phase(s) 🟣 DOCly                        → 👤 Gate #4 — validation doc + clôture
 ```
 
-- Chaque gate : livrable + preuves présentés au 👤, décision `GO` / `AJUSTER` / `STOP` consignée dans le
-  **journal des gates** du plan.
+- Chaque gate suit le skill `gate-protocol` : livrable + preuves (bloc `handoff` de l'agent) présentés au 👤,
+  revue automatique avant Gate #2, décision `GO` / `AJUSTER` / `STOP` consignée dans le **journal des gates**.
+- Décision majeure : ADR rédigé en `Proposée` avant Gate #1, `Acceptée` au `GO` du Gate #1.
 - Pas de parallélisation à travers un gate ; parallélisation possible **au sein** d'une phase
   (skill `parallel-guide`).
 - Les sous-agents ne s'adressent pas au 👤 : questions dans `❓ Questions pour 👤`, posées par MAINa au gate.

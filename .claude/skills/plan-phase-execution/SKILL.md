@@ -7,7 +7,7 @@ user-invocable: false
 # Skill : Exécution de Phase d'un Plan d'Action (AP)
 
 > Procédure commune à tous les agents exécutants. Chaque agent connaît son identifiant et ses relais.
-> Modèle de rapport : [`templates/phase-report.template.md`](templates/phase-report.template.md) · Guide : `.claude/PLANS.md`
+> Modèles : rapport [`templates/phase-report.template.md`](templates/phase-report.template.md) · handoff [`templates/handoff.template.md`](templates/handoff.template.md) · Guide : `.claude/PLANS.md`
 
 ---
 
@@ -47,7 +47,9 @@ Chaque résultat cite sa **preuve** : commande lancée et résultat obtenu (test
 
 1. Remplir la **Synthèse de Phase** du rapport (tâches X/Y, critères, bloqueurs, questions).
 2. Statut du rapport : `✅ COMPLÉTÉE — validation 👤 en attente`.
-3. Rendre la main à ⚫ MAINa pour le gate : résumé, preuves, `❓ Questions pour 👤`.
+3. Rendre la main à ⚫ MAINa pour le gate : résumé court, puis **bloc `handoff`** (YAML, modèle
+   [`templates/handoff.template.md`](templates/handoff.template.md)) en toute fin de réponse —
+   fichiers, critères avec preuve, commandes + résultats, risques, questions, suite.
    Relais vers l'agent suivant **seulement après** validation du gate.
 
 > 💡 Session longue : avant la phase suivante, `/compact` (instructions de compaction : `CLAUDE.md`).

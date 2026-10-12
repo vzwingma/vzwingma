@@ -123,7 +123,7 @@ Les sous-agents n'ont pas accès à `AskUserQuestion` : ils remontent leurs ques
 
 | Catégorie | Skills | Chargement |
 |---|---|---|
-| Procédures | `plan-creation`, `plan-phase-execution`, `adr-writing`, `parallel-guide` | Préchargées par les agents concernés (`user-invocable: false`) |
+| Procédures | `plan-creation`, `plan-phase-execution`, `gate-protocol`, `adr-writing`, `parallel-guide` | Préchargées par les agents concernés (`user-invocable: false`) |
 | Conventions projet | `conventions-orchestrator`, `-architect`, `-dev`, `-qa`, `-doc` | Préchargées par le rôle correspondant ; templates remplis par `/init-harness` |
 | Commandes | `/maina`, `/arcos`, `/devon`, `/qalvin`, `/docly`, `/maina-help`, `/init-harness`, `/update-harness` | Utilisateur uniquement (`disable-model-invocation: true`) |
 
@@ -138,7 +138,7 @@ Les règles absolues de `CLAUDE.md` sont **appliquées par l'outil**, pas seulem
 |---|---|---|
 | `permissions.deny` / `ask` | `.claude/settings.json` (template : `settings.template.json`) | Commandes destructives Bash/PowerShell, fichiers sensibles (`.env*`), chemins `.copilotignore` (`Read()`/`Edit()`, best-effort sur Grep/Glob) ; `git rm` → confirmation |
 | Hook `PreToolUse` | `.claude/hooks/guard.sh` | Formes invisibles aux règles (`sh -c "rm …"`, `/bin/rm`, `git -C . reset --hard`, SQL `DROP`/`TRUNCATE`/`DELETE` sans `WHERE`), commandes et écritures visant `.copilotignore` |
-| Frontières de rôle | `.claude/hooks/role-boundaries.conf` (lu par le hook) | DEVon ≠ tests/docs, QALvin = tests seulement, DOCly = docs seulement, MAINa = plans seulement (champ `agent_type`) |
+| Frontières de rôle | `.claude/hooks/role-boundaries.conf` (lu par le hook) | DEVon ≠ tests/docs, QALvin = tests seulement, DOCly = docs seulement, MAINa = plans + statut ADR (champ `agent_type`) |
 
 Hook en bash pur (aucun sous-processus, ~0,2 s par appel sous Git Bash), limité à Bash/PowerShell/Edit/Write/NotebookEdit ;
 tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles de `copilot-instructions.md` s'appliquent.

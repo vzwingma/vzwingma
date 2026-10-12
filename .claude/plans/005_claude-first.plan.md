@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 🔄, P6→P7 ⏳ Planifié
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 🔄, P7 ⏳ Planifié
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -202,9 +202,10 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 5 — Workflow strict fiabilisé — ⏳ Planifié
+### Phase 5 — Workflow strict fiabilisé — ✅ TERMINÉE (2026-10-12)
 **Contexte :** C2, M8, M9. Dépend de P2/P3.
-**Critères :** chaque gate produit une entrée « Journal des gates » ; handoff YAML utilisé par les 5 agents.
+**Critères :** ✅ protocole de gate imposant l'entrée « Journal des gates » (skill `gate-protocol`) ✅ handoff YAML exigé des 4 agents exécutants (MAINa le consomme).
+**Rapport :** [`005_reports/PHASE_5_COMPLETION_REPORT.md`](005_reports/PHASE_5_COMPLETION_REPORT.md) — T5.1 déjà couvert par P2/P3 (vérifié) ; ADR : `Proposée` avant Gate #1, `Acceptée` au GO (DOCly autorisé à rédiger l'ADR avant Gate #3).
 
 - **T5.1** (🟠 ARCos → 🔵 DEVon) MAINa thread principal ; `/maina` et docs alignés.
 - **T5.2** (🔵 DEVon) Protocole de gate : livrable + preuves (tests/lint, diff résumé, rapport revue) + décision `GO / AJUSTER / STOP` dans « Journal des gates ».
@@ -281,7 +282,10 @@ Phase 7 (évaluation)
 | P3-fin | 2026-10-12 | Revue livrables P3 (skills & instructions) | ✅ GO | Commit + push demandés ; tests runtime des commandes à faire par 👤 |
 | P4 | 2026-10-12 | Lancement P4 | ✅ GO | — |
 | P4-fin | 2026-10-12 | Revue livrables P4 (garde-fous) | ✅ GO | Commit + push demandés ; test en session réelle après redémarrage à faire par 👤 |
-| P5-fin | — | Revue livrables P5 (workflow fiabilisé) | ⏳ En attente | — |
+| P5 | 2026-10-12 | Lancement P5 | ✅ GO | — |
+| P5-fin | 2026-10-12 | Revue livrables P5 (workflow fiabilisé) | ✅ GO | Commit + push demandés |
+| P6 | 2026-10-12 | Lancement P6 | ✅ GO | — |
+| P6-fin | — | Revue livrables P6 (Copilot, docs, anti-dérive) | ⏳ En attente | — |
 
 ---
 

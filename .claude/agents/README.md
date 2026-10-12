@@ -7,15 +7,15 @@ Système orchestré de 5 agents spécialisés pour structurer développement via
 
 | Agent | Modèle | Outils | Skills préchargés |
 |---|---|---|---|
-| ⚫ MAINa | `opus` | AskUserQuestion, Agent, SendMessage, Read, Grep, Glob, Edit, Write, Bash, TodoWrite, Skill | `plan-creation` |
-| 🟠 ARCos | `opus` (`effort: high`) | Read, Grep, Glob, WebFetch, WebSearch, Skill — **lecture seule** | `adr-writing`, `plan-phase-execution` |
-| 🔵 DEVon | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `plan-phase-execution` |
-| 🟢 QALvin | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `plan-phase-execution` |
-| 🟣 DOCly | `sonnet` | Read, Edit, Write, Grep, Glob, Skill | `plan-phase-execution`, `adr-writing` |
+| ⚫ MAINa | `opus` | AskUserQuestion, Agent, SendMessage, Read, Grep, Glob, Edit, Write, Bash, TodoWrite, Skill | `conventions-orchestrator`, `plan-creation`, `gate-protocol` |
+| 🟠 ARCos | `opus` (`effort: high`) | Read, Grep, Glob, WebFetch, WebSearch, Skill — **lecture seule** | `conventions-architect`, `adr-writing`, `plan-phase-execution` |
+| 🔵 DEVon | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `conventions-dev`, `plan-phase-execution` |
+| 🟢 QALvin | `sonnet` | Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill | `conventions-qa`, `plan-phase-execution` |
+| 🟣 DOCly | `sonnet` | Read, Edit, Write, Grep, Glob, Skill | `conventions-doc`, `plan-phase-execution`, `adr-writing` |
 
 Sous-agents (ARCos, DEVon, QALvin, DOCly) : pas d'accès direct au 👤 → questions remontées dans une section `❓ Questions pour 👤`, relayées par MAINa au gate.
 
-**Frontières de rôle appliquées** par le hook `.claude/hooks/guard.sh` (config `role-boundaries.conf`) : DEVon n'écrit ni tests ni docs, QALvin n'écrit que des tests et rapports, DOCly que de la documentation, MAINa que les plans ; ARCos est en lecture seule par ses outils.
+**Frontières de rôle appliquées** par le hook `.claude/hooks/guard.sh` (config `role-boundaries.conf`) : DEVon n'écrit ni tests ni docs, QALvin n'écrit que des tests et rapports, DOCly que de la documentation, MAINa que les plans et le statut des ADR ; ARCos est en lecture seule par ses outils.
 <!-- /claude-only -->
 <!-- copilot-only
 ## ⚙️ Configuration

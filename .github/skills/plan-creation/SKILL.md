@@ -46,11 +46,19 @@ Outils d'édition interdits ou consigne « ne modifier aucun fichier » → ne p
 
 ---
 
+## ADR (décision majeure)
+
+Décision structurante (techno, pattern, sécurité — critères du skill `adr-writing`) : faire rédiger l'ADR
+par 🟣 DOCly sur le contenu 🟠 ARCos **avant** Gate #1, statut `Proposée`, et le référencer dans l'en-tête
+du plan.
+
 ## Présenter et valider le plan — Gate #1
 
-1. Soumettre le plan au 👤 (chemins créés + résumé phases/tâches).
+Suivre le skill `gate-protocol` (preuves, question, journal) :
+
+1. Soumettre le plan au 👤 (chemins créés + résumé phases/tâches + ADR `Proposée` éventuel).
 2. Points de validation : phases séparées, dépendances sans cycle, tâches mesurables, agents appropriés.
-3. Décision `GO` / `AJUSTER` / `STOP` consignée dans le journal des gates ; ajuster si besoin.
+3. Décision `GO` / `AJUSTER` / `STOP` consignée dans le journal des gates ; `GO` → ADR `Acceptée`.
 
 ---
 
@@ -79,7 +87,8 @@ Questions ou blocages : section « ❓ Questions pour 👤 » de ta réponse.
 Après phase signalée complétée :
 
 1. Lire le rapport : critères ✅, preuves présentes, aucun bloqueur.
-2. Conduire le gate de fin de phase (questions `❓` relayées au 👤) et consigner la décision.
+2. Conduire le gate de fin de phase selon le skill `gate-protocol` (preuves du bloc `handoff`, revue
+   automatique avant Gate #2, questions relayées au 👤) et consigner la décision.
 3. Mettre à jour le statut du plan ; démarrer la phase suivante seulement après `GO`.
 
 ---

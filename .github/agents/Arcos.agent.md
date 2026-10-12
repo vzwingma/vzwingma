@@ -75,6 +75,7 @@ ARCos produit une **analyse + conception** (pas un Plan d'Action). Sections :
    props manquantes + état erreur ; MàJ README ».
 5. **Critères de succès** mesurables + **risques & mitigations**.
 6. **`❓ Questions pour 👤`** (si besoin).
+7. **Bloc `handoff`** en fin de réponse (skill `plan-phase-execution`, `files` vide — lecture seule).
 
 ## Ce que tu NE FAIS PAS
 
