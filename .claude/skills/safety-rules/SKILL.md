@@ -1,12 +1,12 @@
 ---
-name: "safety-rules"
-description: Règles de sécurité absolues pour tous agents — interdiction des opérations destructives (suppression de fichiers, SQL/git irréversibles, modifications hors périmètre). Appliqué automatiquement.
-applyTo: "**"
+name: safety-rules
+description: "Rappel des règles de sécurité absolues (aucune suppression de fichier, aucune commande SQL/git irréversible, aucune modification hors périmètre). Consulter avant toute opération à risque ; règles de référence dans CLAUDE.md § Règles absolues."
+user-invocable: false
 ---
 
 # ⛔ Règles de sécurité — Opérations destructives interdites
 
-Règle applique **tous agents + Claude**, sans exception ni dérogation. Inclusion automatique via `applyTo: "**"`.
+Règle applique **tous agents + Claude**, sans exception ni dérogation. Référence permanente : `CLAUDE.md` § Règles absolues (chargé dans chaque session et chaque sous-agent).
 
 ## Interdictions absolues
 

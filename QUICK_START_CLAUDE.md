@@ -13,40 +13,36 @@ Si vous avez un **nouveau projet** et voulez initialiser Claude rapidement :
 ```bash
 # Depuis ce dépôt vers votre projet
 cp -r .claude/agents <votre_projet>/.claude/
-cp -r .claude/instructions <votre_projet>/.claude/
 cp -r .claude/skills <votre_projet>/.claude/
-cp .claude/PLANS.md <votre_projet>/.claude/
-cp .claude/CLAUDE.template.md <votre_projet>/.claude/CLAUDE.md
-mkdir -p <votre_projet>/.claude/prompts
-cp .claude/prompts/*.prompt.md <votre_projet>/.claude/prompts/
+cp .claude/PLANS.md .claude/CLAUDE.template.md <votre_projet>/.claude/
+mkdir -p <votre_projet>/docs/adr
+cp docs/ARCHITECTURE.template.md <votre_projet>/docs/
+cp docs/adr/ADR-TEMPLATE.md <votre_projet>/docs/adr/
 ```
+<!-- copilot-only
+Copilot : copier aussi `.github/instructions/` (templates d'instructions par rôle).
+-->
 
 ### 2️⃣ Initialiser les Instructions
 
-Ouvrir Claude dans votre projet et lancer le prompt d'initialisation :
-
-- [`.claude/prompts/init-copilot-instructions.prompt.md`](.claude/prompts/init-copilot-instructions.prompt.md) — pour initialiser un nouveau projet
-- [`.claude/prompts/update-copilot-instructions.prompt.md`](.claude/prompts/update-copilot-instructions.prompt.md) — pour auditer et mettre à jour un projet existant
-
-Commande typique :
+Ouvrir Claude dans votre projet et lancer :
 
 ```
-👤 "Initialise les instructions Claude pour ce projet grâce au prompt d'initialisation init-copilot-instructions.prompt.md."
+/init-harness
 ```
 
-✅ Cela va analyser votre code et générer les instructions automatiquement.
+✅ Analyse le code, génère `CLAUDE.md` depuis le template et remplit les conventions par rôle
+(nouveau projet ou projet existant).
 
-Ou, pour une mise à jour après évolution du projet :
+Pour une mise à jour après évolution du projet :
 
 ```
-👤 "Mets à jour les instructions Claude depuis le code source grâce au prompt de mise à jour update-copilot-instructions.prompt.md."
+/update-harness
 ```
 
 ### 3️⃣ Valider
 
-```
-👤 "Complète les instructions Claude depuis le code source"
-```
+Relire les placeholders `[...]` restants signalés par `/init-harness` et les compléter.
 
 ✅ Votre projet est prêt ! Commencez à utiliser les agents.
 
@@ -64,9 +60,9 @@ Modèles prêts à l'emploi pour différents rôles :
 
 ### 📋 Templates
 - **`CLAUDE.template.md`** — Template générique à customiser
-- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
+- **`skills/conventions-<rôle>/`** — conventions projet par agent (templates remplis par `/init-harness`)
 - **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
-- **Prompts** — Pour initialiser automatiquement les instructions
+- **`/init-harness`, `/update-harness`** — initialisation et mise à jour automatiques
 
 ### 📖 Documentation
 - **`.claude/README.md`** — Guide complet du dépôt
@@ -177,25 +173,23 @@ cp -r copilot-templates/.claude/* mon-projet/.claude/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.claude/agents/` (5 fichiers)
-- `.claude/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
-- `.claude/instructions/` (4 fichiers — à personnaliser)
-- `.claude/CLAUDE.template.md` (renommer en `CLAUDE.md`)
+- `.claude/skills/` (un dossier par skill avec `SKILL.md`, conventions par rôle incluses)
+- `.claude/CLAUDE.template.md` (`/init-harness` génère `CLAUDE.md`)
 - `.claude/PLANS.md`
 
 ### Q: Comment initialiser rapidement ?
 A: Une fois les fichiers copiés, exécuter dans votre projet :
 ```
-👤 "Initialise les instructions Claude pour ce projet"
+/init-harness
 ```
-Prompt associé : [`.claude/prompts/init-copilot-instructions.prompt.md`](.claude/prompts/init-copilot-instructions.prompt.md).
 
-Pour mettre à jour des instructions existantes, utiliser : [`.claude/prompts/update-copilot-instructions.prompt.md`](.claude/prompts/update-copilot-instructions.prompt.md).
+Pour mettre à jour des instructions existantes : `/update-harness`.
 
 ### Q: Les agents sont-ils customisables ?
-A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.claude/CLAUDE.md` (contexte global) et `.claude/instructions/*.instructions.md` (spécificités par agent).
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.claude/CLAUDE.md` (contexte global) et les conventions par rôle (<!-- claude-only -->`.claude/skills/conventions-<rôle>/SKILL.md`<!-- /claude-only --><!-- copilot-only `.claude/instructions/<rôle>.instructions.md` -->).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: plusieurs composants à implémenter sans dépendance, dans une même phase). `/fleet` dispatche les sous-agents en simultané.
+A: Au sein d'une même phase uniquement, pour des tâches indépendantes (ex: plusieurs composants sans dépendance) — jamais à travers un gate. Voir skill `parallel-guide`.
 
 ### Q: Où stocker mes Plans d'Action ?
 A: Dans `.claude/plans/` — utiliser le format `XXX_<nom>.plan.md`.
@@ -218,8 +212,8 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.claude/agents/` a 5 fichiers ✅
-- [ ] `.claude/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.claude/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
+- [ ] `.claude/skills/` présent (dossiers avec `SKILL.md`) ✅
+- [ ] Conventions par rôle remplies (aucun `[NOM_DU_PROJET]` restant) ✅
 - [ ] `.claude/CLAUDE.md` existe et est customisé ✅
 - [ ] `.claude/PLANS.md` est accessible ✅
 - [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
@@ -230,6 +224,6 @@ Après configuration, vérifier que :
 
 **C'est tout ! Vous êtes prêt à collaborer avec Claude. 🚀**
 
-Lisez [`.claude/README.md`](.claude/README.md) pour plus de détails sur chaque agent et prompt.
+Lisez [`.claude/README.md`](.claude/README.md) pour plus de détails sur chaque agent et skill.
 
 

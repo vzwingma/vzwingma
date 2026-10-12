@@ -8,11 +8,8 @@
 
     Included in the package:
       - .claude/README.md
-      - .claude/                               (agents, instructions, prompts, skills — voir ci-dessous)
       - .claude/agents/
-      - .claude/instructions/
-      - .claude/prompts/
-      - .claude/skills/
+      - .claude/skills/                        (procedures, conventions-<role> templates, commands)
       - .claude/CHANGELOG.md
       - .claude/PLANS.md
       - .claude/CLAUDE.md
@@ -78,15 +75,6 @@ try {
     # ── .claude/ ────────────────────────────────────────────────────────────────
     Write-Host "  + .claude/agents/"
     Stage-Dir (Join-Path $repoRoot '.claude\agents') '.claude\agents'
-
-    Write-Host "  + .claude/instructions/"
-    Stage-Dir (Join-Path $repoRoot '.claude\instructions') '.claude\instructions'
-
-    Write-Host "  + .claude/prompts/"
-    $promptsSrc = Join-Path $repoRoot '.claude\prompts'
-    if (Test-Path $promptsSrc) {
-        Stage-Dir $promptsSrc '.claude\prompts'
-    }
 
     Write-Host "  + .claude/skills/"
     Stage-Dir (Join-Path $repoRoot '.claude\skills') '.claude\skills'

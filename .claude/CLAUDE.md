@@ -38,7 +38,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Orchestrer délégations : DEVon → QALvin → DOCly
 - Imposer validations humaines entre phases
 - Fournir aide via `/maina-help`
-- Lire `.claude/instructions/orchestrator.instructions.md` au démarrage
+- Conventions projet : <!-- claude-only -->skill `conventions-orchestrator` (préchargé)<!-- /claude-only --><!-- copilot-only `.claude/instructions/orchestrator.instructions.md` -->
 
 **Quand l'utiliser** : Workflow complet, orchestration multi-agents
 
@@ -55,7 +55,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Présenter ≥2 options comparées avec recommandation motivée
 - Prendre décisions stratégiques concernant techno, structure et approche
 - Préparer contenu ADR après décisions architecturales majeures
-- Lire `.claude/instructions/architect.instructions.md` au démarrage
+- Conventions projet : <!-- claude-only -->skill `conventions-architect` (préchargé)<!-- /claude-only --><!-- copilot-only `.claude/instructions/architect.instructions.md` -->
 - Lire `docs/ARCHITECTURE.md` au démarrage
 - Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
 
@@ -73,7 +73,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Traduire exigences en code fonctionnel testé
 - Respecter patterns architecturaux + conventions projet
 - Code propre, maintenable, compilant
-- Lire `.claude/instructions/dev.instructions.md` au démarrage
+- Conventions projet : <!-- claude-only -->skill `conventions-dev` (préchargé)<!-- /claude-only --><!-- copilot-only `.claude/instructions/dev.instructions.md` -->
 
 **Quand l'utiliser** : "Implémente cette fonctionnalité", "Code selon architecture"
 
@@ -89,7 +89,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Écrire tests unitaires complets (composants, services)
 - Couverture test ≥80%
 - Tester cas limites, scénarios erreur
-- Lire `.claude/instructions/qa.instructions.md` au démarrage
+- Conventions projet : <!-- claude-only -->skill `conventions-qa` (préchargé)<!-- /claude-only --><!-- copilot-only `.claude/instructions/qa.instructions.md` -->
 
 **Quand l'utiliser** : "Écris tests pour...", "Génère tests unitaires"
 
@@ -105,7 +105,7 @@ Créés dans même lot que implémentation, pas après coup.
 - Mettre à jour README, `docs/`, guides
 - Maintenir `docs/ARCHITECTURE.md` à jour
 - Créer ADRs dans `docs/adr/` sur délégation ARCos
-- Lire `.claude/instructions/doc.instructions.md` au démarrage
+- Conventions projet : <!-- claude-only -->skill `conventions-doc` (préchargé)<!-- /claude-only --><!-- copilot-only `.claude/instructions/doc.instructions.md` -->
 
 **Quand l'utiliser** : "Mets à jour doc", "Garde docs en sync"
 
@@ -145,37 +145,41 @@ Plans coordonnent travail multi-phases, garantissent traçabilité.
 
 ---
 
-## 📐 Instructions Projet (`.claude/instructions/`)
+## 📐 Conventions Projet
 
-Chaque agent lit au démarrage son fichier instructions spécifique :
+<!-- claude-only -->
+Chaque agent précharge son skill de conventions (frontmatter `skills:`), prioritaire sur le générique :
 
-| Fichier | Agent | Contenu |
+| Skill | Agent | Contenu |
 |---|---|---|
-| `orchestrator.instructions.md` | ⚫ MAINa | Orchestration, gates humains, délégations |
-| `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocoles |
-| `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions |
-| `qa.instructions.md` | 🟢 QALvin | Framework test, commandes, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Fichiers `/docs`, conventions documentation |
+| `conventions-orchestrator` | ⚫ MAINa | Orchestration, gates humains, délégations |
+| `conventions-architect` | 🟠 ARCos | Conventions archi, couches, intégrations |
+| `conventions-dev` | 🔵 DEVon | Stack, versions, commandes, conventions code |
+| `conventions-qa` | 🟢 QALvin | Framework test, commandes, couverture, cas à couvrir |
+| `conventions-doc` | 🟣 DOCly | Fichiers `docs/`, conventions documentation |
 
-Dans dépôt transverse, fichiers sont **templates** (placeholders `[...]`) à copier + personnaliser.
+Dans dépôt transverse, ces skills sont des **templates** (placeholders `[...]`) remplis par `/init-harness`.
+<!-- /claude-only -->
+<!-- copilot-only
+Chaque agent lit son fichier `.claude/instructions/<rôle>.instructions.md` (`orchestrator`, `architect`, `dev`, `qa`, `doc`), créé depuis `<rôle>.instructions.template.md` par le skill `init-harness`.
+-->
 
 ---
 
 ## 🛠️ Skills Partagés (`.claude/skills/`)
 
-Procédures réutilisables, incluses auto dans contexte tous agents :
+Procédures réutilisables (`.claude/skills/<nom>/SKILL.md`) :
 
-| Skill | Contenu |
-|---|---|
-| `plan-phase-execution` | Procédure exécution phase (avant/pendant/après, rapports) |
-| `plan-creation` | Création Plan d'Action (MAINa — orchestrateur) |
-| `fleet-guide` | Guide parallélisation `/fleet` |
-| `adr-writing` | Rédaction ADR (ARCos prépare, DOCly rédige) |
-| `caveman-default` | Mode caveman règles par défaut |
-| `compact-context` | Compression contexte mémoire |
-| `maina-help` | Aide MAINa + workflow |
-| `copilotignore` | Respect fichier `.copilotignore` |
-| `safety-rules` | Sécurité : opérations destructives interdites |
+| Skill | Type | Contenu |
+|---|---|---|
+| `plan-creation` | procédure (préchargé MAINa) | Création + lancement Plan d'Action, gates |
+| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves |
+| `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR (ARCos prépare, DOCly rédige) |
+| `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
+| `conventions-<rôle>` | conventions projet (préchargé par rôle) | `orchestrator`, `architect`, `dev`, `qa`, `doc` — à remplir via `/init-harness` |
+| `safety-rules`, `copilotignore` | rappel | Règles absolues (voir § Règles absolues) |
+| `init-harness`, `update-harness` | commande | Initialiser / auditer le harnais dans un projet |
+| `maina-help` | commande | Aide MAINa + workflow |
 
 ### Skills d'activation directe (raccourcis agents)
 
@@ -189,7 +193,9 @@ Chaque agent possède skill dédié pour activation via slash command :
 | `/qalvin : [prompt]` | 🟢 QALvin |
 | `/docly : [prompt]` | 🟣 DOCly |
 
-Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformulation. Équivalent à `@Agent "prompt"`.
+<!-- claude-only -->
+`/arcos`, `/devon`, `/qalvin`, `/docly` : sous-agent forké (`context: fork`) avec la demande telle quelle. `/maina` : la session courante adopte le protocole MAINa (gates interactifs).
+<!-- /claude-only -->
 
 ---
 
@@ -204,17 +210,9 @@ Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformul
 - `Qalvin.agent.md` — Expert QA
 - `Docly.agent.md` — Gardien docs
 
-### `.claude/instructions/`
-
-Templates instructions projet (personnaliser avant usage).
-
-### `.claude/prompts/`
-
-Prompts d'initialisation/mise à jour instructions.
-
 ### `.claude/skills/`
 
-Skills partagés tous agents.
+Procédures partagées, conventions projet par rôle, commandes `/init-harness`, `/update-harness`, `/maina-help`.
 
 ### `.claude/plans/`
 
@@ -258,6 +256,15 @@ Sélectionner l'agent **MAINa** dans le chat Copilot.
 # 4. Active DEVon pour code
 # ... jusqu'à clôture
 ```
+
+---
+
+## 🗜️ Compact instructions
+
+Lors d'un `/compact` (ou compaction automatique) en session de Plan d'Action, conserver en ≤ 200 mots :
+plan courant (numéro, titre, statut), phase active + tâches restantes + agent, décisions validées (gates),
+questions ouvertes, prochaine action. Supprimer : détail des tâches ✅, confirmations courtes, lectures de
+fichiers et sorties de commandes sans résultat durable.
 
 ---
 

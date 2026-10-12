@@ -13,40 +13,34 @@ Si vous avez un **nouveau projet** et voulez initialiser Copilot rapidement :
 ```bash
 # Depuis ce dépôt vers votre projet
 cp -r .github/agents <votre_projet>/.github/
-cp -r .github/instructions <votre_projet>/.github/
 cp -r .github/skills <votre_projet>/.github/
-cp .github/PLANS.md <votre_projet>/.github/
-cp .github/copilot-instructions.template.md <votre_projet>/.github/copilot-instructions.md
-mkdir -p <votre_projet>/.github/prompts
-cp .github/prompts/*.prompt.md <votre_projet>/.github/prompts/
+cp .github/PLANS.md .github/copilot-instructions.template.md <votre_projet>/.github/
+mkdir -p <votre_projet>/docs/adr
+cp docs/ARCHITECTURE.template.md <votre_projet>/docs/
+cp docs/adr/ADR-TEMPLATE.md <votre_projet>/docs/adr/
 ```
+Copilot : copier aussi `.github/instructions/` (templates d'instructions par rôle).
 
 ### 2️⃣ Initialiser les Instructions
 
-Ouvrir Copilot dans votre projet et lancer le prompt d'initialisation :
-
-- [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md) — pour initialiser un nouveau projet
-- [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md) — pour auditer et mettre à jour un projet existant
-
-Commande typique :
+Ouvrir Copilot dans votre projet et lancer :
 
 ```
-👤 "Initialise les instructions Copilot pour ce projet grâce au prompt d'initialisation init-copilot-instructions.prompt.md."
+/init-harness
 ```
 
-✅ Cela va analyser votre code et générer les instructions automatiquement.
+✅ Analyse le code, génère `copilot-instructions.md` depuis le template et remplit les conventions par rôle
+(nouveau projet ou projet existant).
 
-Ou, pour une mise à jour après évolution du projet :
+Pour une mise à jour après évolution du projet :
 
 ```
-👤 "Mets à jour les instructions Copilot depuis le code source grâce au prompt de mise à jour update-copilot-instructions.prompt.md."
+/update-harness
 ```
 
 ### 3️⃣ Valider
 
-```
-👤 "Complète les instructions Copilot depuis le code source"
-```
+Relire les placeholders `[...]` restants signalés par `/init-harness` et les compléter.
 
 ✅ Votre projet est prêt ! Commencez à utiliser les agents.
 
@@ -64,9 +58,9 @@ Modèles prêts à l'emploi pour différents rôles :
 
 ### 📋 Templates
 - **`copilot-instructions.template.md`** — Template générique à customiser
-- **`instructions/`** — 4 templates d'instructions agents à personnaliser par projet
+- **`skills/conventions-<rôle>/`** — conventions projet par agent (templates remplis par `/init-harness`)
 - **`PLANS.md`** — Guide pour orchestrer le travail multi-phases
-- **Prompts** — Pour initialiser automatiquement les instructions
+- **`/init-harness`, `/update-harness`** — initialisation et mise à jour automatiques
 
 ### 📖 Documentation
 - **`.github/README.md`** — Guide complet du dépôt
@@ -177,25 +171,23 @@ cp -r copilot-templates/.github/* mon-projet/.github/
 ### Q: Est-ce que je dois tout copier ?
 A: Non ! Minimum requis :
 - `.github/agents/` (5 fichiers)
-- `.github/skills/` (9 skills — un dossier par skill avec `SKILL.md`)
-- `.github/instructions/` (4 fichiers — à personnaliser)
-- `.github/copilot-instructions.template.md` (renommer en `copilot-instructions.md`)
+- `.github/skills/` (un dossier par skill avec `SKILL.md`, conventions par rôle incluses)
+- `.github/copilot-instructions.template.md` (`/init-harness` génère `copilot-instructions.md`)
 - `.github/PLANS.md`
 
 ### Q: Comment initialiser rapidement ?
 A: Une fois les fichiers copiés, exécuter dans votre projet :
 ```
-👤 "Initialise les instructions Copilot pour ce projet"
+/init-harness
 ```
-Prompt associé : [`.github/prompts/init-copilot-instructions.prompt.md`](.github/prompts/init-copilot-instructions.prompt.md).
 
-Pour mettre à jour des instructions existantes, utiliser : [`.github/prompts/update-copilot-instructions.prompt.md`](.github/prompts/update-copilot-instructions.prompt.md).
+Pour mettre à jour des instructions existantes : `/update-harness`.
 
 ### Q: Les agents sont-ils customisables ?
-A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et `.github/instructions/*.instructions.md` (spécificités par agent).
+A: Les agents sont **génériques**, la customisation se fait dans deux endroits : `.github/copilot-instructions.md` (contexte global) et les conventions par rôle (`.github/instructions/<rôle>.instructions.md`).
 
 ### Q: Comment paralléliser les tâches entre agents ?
-A: Utiliser `/fleet` quand plusieurs agents ont des tâches indépendantes (ex: plusieurs composants à implémenter sans dépendance, dans une même phase). `/fleet` dispatche les sous-agents en simultané.
+A: Au sein d'une même phase uniquement, pour des tâches indépendantes (ex: plusieurs composants sans dépendance) — jamais à travers un gate. Voir skill `parallel-guide`.
 
 ### Q: Où stocker mes Plans d'Action ?
 A: Dans `.github/plans/` — utiliser le format `XXX_<nom>.plan.md`.
@@ -218,8 +210,8 @@ A: Libre d'utilisation — c'est un dépôt de templates transverse.
 Après configuration, vérifier que :
 
 - [ ] `.github/agents/` a 5 fichiers ✅
-- [ ] `.github/skills/` a 9 skills (dossiers avec `SKILL.md`) ✅
-- [ ] `.github/instructions/` a 4 fichiers avec `[NOM_DU_PROJET]` rempli ✅
+- [ ] `.github/skills/` présent (dossiers avec `SKILL.md`) ✅
+- [ ] Conventions par rôle remplies (aucun `[NOM_DU_PROJET]` restant) ✅
 - [ ] `.github/copilot-instructions.md` existe et est customisé ✅
 - [ ] `.github/PLANS.md` est accessible ✅
 - [ ] Appeler `MAINa` (⚫) ou `@MAINa /maina-help` fonctionne ✅
@@ -230,6 +222,6 @@ Après configuration, vérifier que :
 
 **C'est tout ! Vous êtes prêt à collaborer avec Copilot. 🚀**
 
-Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et prompt.
+Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et skill.
 
 

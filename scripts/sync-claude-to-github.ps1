@@ -8,9 +8,10 @@
     Covers:
       - Agents      : .claude/agents/*.agent.md        -> .github/agents/*.agent.md  (Copilot frontmatter generated)
       - Agents index: .claude/agents/README.md          -> .github/agents/README.md
-      - Skills      : .claude/skills/<name>/**          -> .github/skills/<name>/**   (SKILL.md frontmatter reduced to spec)
-      - Instructions: .claude/instructions/*.md         -> .github/instructions/*.md
-      - Prompts     : .claude/prompts/*.prompt.md       -> .github/prompts/*.prompt.md
+      - Skills      : .claude/skills/<name>/**          -> .github/skills/<name>/**   (SKILL.md frontmatter reduced to spec;
+                                                           SKILL.copilot.md, if present, is the Copilot source of SKILL.md)
+      - Conventions : .claude/skills/conventions-<role>/SKILL.md -> .github/instructions/<role>.instructions.template.md
+      - Legacy      : .claude/instructions/*.md, .claude/prompts/*.prompt.md (if present) -> .github/ same path
       - Root        : .claude/CLAUDE.md                 -> .github/copilot-instructions.md
                       .claude/CLAUDE.template.md        -> .github/copilot-instructions.template.md
       - Standalone  : CHANGELOG.md, PLANS.md, README.md
@@ -80,12 +81,27 @@ if (Test-Path $agentsIndex) {
 }
 
 # ── Skills (SKILL.md + supporting files) ─────────────────────────────────────
-Write-Host "`n==> Skills (.claude/skills/ -> .github/skills/)" -ForegroundColor Magenta
+#   - SKILL.copilot.md (if present) is the Copilot source of SKILL.md and is not copied itself.
+#   - conventions-<role>/SKILL.md -> .github/instructions/<role>.instructions.template.md (Copilot-native).
+Write-Host "`n==> Skills (.claude/skills/ -> .github/skills/, conventions -> .github/instructions/)" -ForegroundColor Magenta
 $skillsBase = Join-Path $claudeBase 'skills'
 foreach ($file in Get-ChildItem $skillsBase -Recurse -File) {
+    $skillName = (Get-RelativePath $skillsBase $file.FullName).Split([char[]]@('\', '/'))[0]
+    if ($file.Name -eq 'SKILL.copilot.md') { continue }
+
+    if ($skillName -like 'conventions-*') {
+        if ($file.Name -ne 'SKILL.md') { continue }
+        $role   = $skillName.Substring('conventions-'.Length)
+        $target = Join-Path (Join-Path $githubBase 'instructions') "$role.instructions.template.md"
+        Register-Result (Sync-InstructionFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf) $target
+        continue
+    }
+
     $target = Join-Path (Join-Path $githubBase 'skills') (Get-RelativePath $skillsBase $file.FullName)
     if ($file.Name -eq 'SKILL.md') {
-        $result = Sync-SkillFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf
+        $copilotVariant = Join-Path $file.DirectoryName 'SKILL.copilot.md'
+        $source = if (Test-Path $copilotVariant) { $copilotVariant } else { $file.FullName }
+        $result = Sync-SkillFile -SourceFile $source -TargetFile $target -WhatIf:$WhatIf
     } else {
         $result = Sync-StandaloneFile -SourceFile $file.FullName -TargetFile $target -WhatIf:$WhatIf
     }

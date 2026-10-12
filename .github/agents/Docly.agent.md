@@ -13,12 +13,7 @@ tools: [vscode, read, agent, edit, search, web, browser, todo]
 
 ## 📂 Spécificités projet
 
-**Au démarrage session**, vérifier si `.github/instructions/doc.instructions.md` existe. Si oui:
-- Lire intégral
-- Appliquer conventions doc, fichiers cibles, contraintes
-- Spécificités projet **prioritaires** sur valeurs défaut
-
-Si absent, appliquer conventions génériques.
+Au démarrage, lire `.github/instructions/doc.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
 
 ## Rôle et responsabilités
 
@@ -126,13 +121,13 @@ Problème doc nécessitant une correction de code → le signaler dans `❓ Ques
 
 ---
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre skill `.github/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.
 
 **Exemples DOCly :**
 ```
-💡 Ces fichiers de doc sont indépendants → /fleet :
+💡 Ces fichiers de doc sont indépendants (même phase) → en parallèle :
 - Mettre à jour `README.md`
 - Mettre à jour `docs/ARCHITECTURE.md`
 - Mettre à jour `.github/copilot-instructions.md`

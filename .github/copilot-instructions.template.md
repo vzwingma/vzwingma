@@ -39,7 +39,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Orchestrer `DEVon -> QALvin -> DOCly`
   - Imposer validations humaines entre chaque phase
   - Expliquer fonctionnement via `/maina-help` et `@MAINa /maina-help`
-  - Lire `.github/instructions/orchestrator.instructions.md` au démarrage pour spécificités projet
+  - Conventions projet : `.github/instructions/orchestrator.instructions.md`
 - **Quand l'utiliser :** "`/maina-help`", "`@MAINa /maina-help`", "organise le workflow", "pilote cette initiative"
 - **Livrable :** Plan d'Action validé + workflow orchestré, séquencé, traçable
 
@@ -50,7 +50,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Présenter ≥2 options comparées avec recommandation motivée à MAINa
   - Prendre décisions stratégiques concernant techno, structure et approche
   - Préparer contenu ADR après décisions architecturales majeures
-  - Lire `.github/instructions/architect.instructions.md` au démarrage pour spécificités projet
+  - Conventions projet : `.github/instructions/architect.instructions.md`
   - Lire `docs/ARCHITECTURE.md` au démarrage pour comprendre contexte architectural projet
   - Exécuter tâches T*.* assignées dans le Plan d'Action créé par MAINa
 - **Quand l'utiliser :** "Analyse les options pour...", "Conçois architecture pour...", "Quelle approche pour..."
@@ -63,7 +63,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Respecter patterns architecturaux et conventions projet
   - Mettre à jour dépendances et refactoriser code
   - Implémenter optimisations performance
-  - Lire `.github/instructions/dev.instructions.md` au démarrage pour spécificités projet
+  - Conventions projet : `.github/instructions/dev.instructions.md`
 - **Quand l'utiliser :** "Implémente cette fonctionnalité", "Développe selon architecture", "Code cette fonction"
 - **Livrable :** Code propre, compilant sans erreurs
 
@@ -74,7 +74,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Assurer couverture test ≥80%
   - Tester cas limites et scénarios d'erreur
   - Valider que code fonctionne correctement
-  - Lire `.github/instructions/qa.instructions.md` au démarrage pour spécificités projet
+  - Conventions projet : `.github/instructions/qa.instructions.md`
 - **Quand l'utiliser :** "Écris tests pour ce composant", "Génère tests unitaires", "Valide avec tests"
 - **Livrable :** Tests passants avec rapports couverture
 
@@ -87,7 +87,7 @@ Cinq agents spécialisés travaillent ensemble, orchestrés par **👤 Développ
   - Documenter changements architecturaux
   - Mettre à jour instructions Copilot quand agents changent
   - Garder documentation en sync avec code
-  - Lire `.github/instructions/doc.instructions.md` au démarrage pour spécificités projet
+  - Conventions projet : `.github/instructions/doc.instructions.md`
 - **Quand l'utiliser :** "Mets à jour documentation", "Garde docs en sync avec ce code", "Ajoute ça au README"
 - **Livrable :** Documentation à jour, claire et complète
 
@@ -123,39 +123,29 @@ Chaque initiative majeure (modernisation, nouvelle feature, refactoring) orchest
 
 Plans d'Action coordonnent travail multi-phases et garantissent traçabilité complète via rapports.
 
-## 📐 Instructions Spécifiques Projet (`.github/instructions/`)
+## 📐 Conventions Spécifiques Projet
 
-Chaque agent lit au démarrage son fichier instructions spécifique projet :
+Chaque agent lit son fichier `.github/instructions/<rôle>.instructions.md` (`orchestrator`, `architect`, `dev`, `qa`, `doc`).
 
-| Fichier | Agent | Contenu |
-|---|---|---|
-| `orchestrator.instructions.md` | ⚫ MAINa | Orchestration, gates humains, délégations |
-| `architect.instructions.md` | 🟠 ARCos | Conventions archi, couches, protocole SQL handoff |
-| `dev.instructions.md` | 🔵 DEVon | Stack technique, versions, conventions code |
-| `qa.instructions.md` | 🟢 QALvin | Framework test, commandes CI, cas à couvrir |
-| `doc.instructions.md` | 🟣 DOCly | Fichiers /docs, conventions documentation |
-
-Fichiers contiennent valeurs **spécifiques projet** (versions réelles, chemins, noms fichiers).  
+Valeurs **spécifiques projet** (versions réelles, chemins, commandes).
 Agents génériques (`.github/agents/`) restent inchangés entre projets.
 
-> Pour initialiser fichiers : utiliser prompt `init-copilot-instructions`.  
-> Pour mettre à jour : utiliser prompt `update-copilot-instructions`.
+> Initialiser : `/init-harness`. Mettre à jour depuis le code : `/update-harness`.
 
 ## 🛠️ Skills Partagés (`.github/skills/`)
 
-Skills = procédures réutilisables incluses automatiquement dans contexte tous agents (`applyTo: **`) :
+Procédures réutilisables (`.github/skills/<nom>/SKILL.md`) :
 
-| Skill | Emplacement | Contenu |
+| Skill | Type | Contenu |
 |---|---|---|
-| `plan-phase-execution` | `.github/skills/plan-phase-execution/SKILL.md` | Procédure standard exécution phase AP (avant/pendant/après, formats rapport) |
-| `plan-creation` | `.github/skills/plan-creation/SKILL.md` | Procédure création et orchestration Plan d'Action (MAINa) |
-| `fleet-guide` | `.github/skills/fleet-guide/SKILL.md` | Guide parallélisation `/fleet` (quand utiliser, règle décision) |
-| `adr-writing` | `.github/skills/adr-writing/SKILL.md` | Rédaction ADR après accord ARCos + humain : ARCos prépare contenu, DOCly rédige fichier |
-| `copilotignore` | `.github/skills/copilotignore/SKILL.md` | **Règle absolue**: interdiction d'accès à tout fichier déclaré dans `.copilotignore` |
-| `caveman-default` | `.github/skills/caveman-default/SKILL.md` | Mode caveman (full) actif par défaut pour tous agents, sans invocation du skill tool |
-| `compact-context` | `.github/skills/compact-context/SKILL.md` | Instructions preCompact pour sessions plans/SDLC — évite accumulation skill blobs entre phases |
-| `maina-help` | `.github/skills/maina-help/SKILL.md` | Aide à l'orchestration MAINa (`/maina-help`) : workflow strict et gates humains |
-| `safety-rules` | `.github/skills/safety-rules/SKILL.md` | **Règle absolue**: interdiction des opérations destructives (suppression, SQL/git irréversibles, hors périmètre) |
+| `plan-creation` | procédure (préchargé MAINa) | Création + lancement Plan d'Action, gates |
+| `plan-phase-execution` | procédure (préchargé agents) | Exécution de phase, rapport avec preuves |
+| `adr-writing` | procédure (préchargé ARCos, DOCly) | Rédaction ADR : ARCos prépare, DOCly rédige |
+| `parallel-guide` | procédure | Parallélisation au sein d'une phase, jamais à travers un gate |
+| `conventions-<rôle>` | conventions projet | Voir section ci-dessus |
+| `safety-rules`, `copilotignore` | rappel | Règles absolues (opérations destructives, `.copilotignore`) |
+| `init-harness`, `update-harness` | commande | Initialiser / auditer le harnais |
+| `maina-help` | commande | Aide orchestration MAINa : workflow strict et gates humains |
 
 Skills centralisent procédures communes pour éviter duplication entre agents.
 
@@ -171,7 +161,6 @@ Chaque agent possède skill dédié pour activation via slash command :
 | `/qalvin : [prompt]` | 🟢 QALvin |
 | `/docly : [prompt]` | 🟣 DOCly |
 
-Skill extrait `[prompt]`, invoque agent correspondant (Agent tool) sans reformulation. Équivalent à `@Agent "prompt"`.
 
 ---
 
@@ -283,8 +272,8 @@ Ajouter sections pertinentes pour conventions spécifiques projet :
 
 ## 📊 Relations entre Agents (Diagramme Mermaid)
 
-> Diagramme complet : voir [README.md — Workflow Typique](../README.md#-workflow-typique)
+> Diagramme complet : voir `.github/README.md` § Workflow typique
 
 ---
 
-**🎯 Pour customiser instructions :** Remplacer tous placeholders `[...]` par vos valeurs, puis utiliser prompt `.github/prompts/update-copilot-instructions.prompt.md` pour auditer et enrichir fichier depuis code source.
+**🎯 Pour customiser instructions :** `/init-harness` remplit les placeholders `[...]` depuis le code ; `/update-harness` audite et enrichit ensuite depuis le code source.

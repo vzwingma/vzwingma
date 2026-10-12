@@ -193,6 +193,26 @@ function New-CopilotSkillContent {
     return (ConvertTo-FrontmatterBlock -Entries $out -Newline $nl) + (ConvertTo-CopilotText $parts.Body)
 }
 
+function New-CopilotInstructionContent {
+    <#
+    .SYNOPSIS
+        Builds a Copilot *.instructions.md from a Claude conventions skill (conventions-<role>):
+        frontmatter = description + applyTo "**", body substituted.
+    #>
+    param([Parameter(Mandatory)][string]$SourceContent)
+
+    $nl    = Get-Newline $SourceContent
+    $parts = Split-Frontmatter $SourceContent
+    if ($null -eq $parts) { throw 'Conventions skill has no frontmatter' }
+
+    $src = Get-FrontmatterEntries $parts.Frontmatter
+    $out = [ordered]@{}
+    $out['description'] = ConvertTo-CopilotText $src['description']
+    $out['applyTo']     = '"**"'
+
+    return (ConvertTo-FrontmatterBlock -Entries $out -Newline $nl) + (ConvertTo-CopilotText $parts.Body)
+}
+
 # ── File writers ──────────────────────────────────────────────────────────────
 
 function Write-GeneratedFile {
@@ -251,6 +271,16 @@ function Sync-SkillFile {
     return Write-GeneratedFile -TargetFile $TargetFile -Content $content -WhatIf:$WhatIf
 }
 
+function Sync-InstructionFile {
+    param(
+        [Parameter(Mandatory)][string]$SourceFile,
+        [Parameter(Mandatory)][string]$TargetFile,
+        [switch]$WhatIf
+    )
+    $content = New-CopilotInstructionContent -SourceContent ([System.IO.File]::ReadAllText($SourceFile, $script:Utf8NoBom))
+    return Write-GeneratedFile -TargetFile $TargetFile -Content $content -WhatIf:$WhatIf
+}
+
 function Sync-StandaloneFile {
     <#
     .SYNOPSIS
@@ -275,5 +305,5 @@ function Sync-StandaloneFile {
 Export-ModuleMember -Function `
     Split-Frontmatter, Get-FrontmatterEntries, Get-ScalarValue, `
     ConvertTo-CopilotText, ConvertTo-CopilotToolList, `
-    New-CopilotAgentContent, New-CopilotSkillContent, `
-    Write-GeneratedFile, Sync-AgentFile, Sync-SkillFile, Sync-StandaloneFile
+    New-CopilotAgentContent, New-CopilotSkillContent, New-CopilotInstructionContent, `
+    Write-GeneratedFile, Sync-AgentFile, Sync-SkillFile, Sync-InstructionFile, Sync-StandaloneFile

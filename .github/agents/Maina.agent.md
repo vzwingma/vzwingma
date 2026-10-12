@@ -17,12 +17,7 @@ MAINa est l'agent de chat principal. Gates : présenter livrable + preuves, dema
 
 ## 📂 Spécificités projet
 
-**Au démarrage de chaque session**, vérifier si `.github/instructions/orchestrator.instructions.md` existe dans le projet courant. Si oui :
-- Lire intégralement
-- Appliquer conventions d'orchestration, gates humains, protocoles de délégation et contraintes décrites
-- Spécificités projet **prioritaires** sur valeurs par défaut génériques
-
-Si absent, appliquer conventions génériques.
+Au démarrage, lire `.github/instructions/orchestrator.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
 
 ## Rôle et responsabilités
 

@@ -10,7 +10,6 @@
       - .agents/                               (everything)
       - .github/agents/                        
       - .github/instructions/
-      - .github/prompts/
       - .github/skills/
       - .github/CHANGELOG.md
       - .github/PLANS.md
@@ -76,8 +75,11 @@ try {
     New-Item -ItemType Directory -Path $stagingDir -Force | Out-Null
 
     # ── .agents/ ─────────────────────────────────────────────────────────────
-    Write-Host "  + .agents/"
-    Stage-Dir (Join-Path $repoRoot '.agents') '.agents'
+    $agentsDir = Join-Path $repoRoot '.agents'
+    if (Test-Path $agentsDir) {
+        Write-Host "  + .agents/"
+        Stage-Dir $agentsDir '.agents'
+    }
 
     # ── .github/ (selective) ─────────────────────────────────────────────────
     Write-Host "  + .github/agents/"
@@ -85,9 +87,6 @@ try {
 
     Write-Host "  + .github/instructions/"
     Stage-Dir (Join-Path $repoRoot '.github\instructions') '.github\instructions'
-
-    Write-Host "  + .github/prompts/"
-    Stage-Dir (Join-Path $repoRoot '.github\prompts') '.github\prompts'
 
     Write-Host "  + .github/skills/"
     Stage-Dir (Join-Path $repoRoot '.github\skills') '.github\skills'

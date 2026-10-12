@@ -5,6 +5,7 @@ model: sonnet
 color: green
 tools: Read, Edit, Write, Bash, Grep, Glob, TodoWrite, Skill
 skills:
+  - conventions-qa
   - plan-phase-execution
 ---
 
@@ -15,13 +16,13 @@ skills:
 
 ## 📂 Spécificités projet
 
-Au démarrage chaque session, vérifier si `.claude/instructions/qa.instructions.md` existe dans projet courant. Si oui:
-
-- Lire intégralement
-- Appliquer stack test, commandes, conventions mock, cas à couvrir décrits
-- Spécificités projet ont **priorité** sur valeurs défaut génériques
-
-Si fichier absent, appliquer conventions génériques.
+<!-- claude-only -->
+Conventions projet : skill `conventions-qa` (préchargé) — **prioritaires** sur les valeurs génériques.
+Placeholders `[...]` non remplis → comportement générique pour la valeur concernée.
+<!-- /claude-only -->
+<!-- copilot-only
+Au démarrage, lire `.claude/instructions/qa.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
+-->
 
 ## Rôle et responsabilités
 
@@ -173,13 +174,13 @@ Une fois phase livrée:
 
 ---
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre le skill `.claude/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.
 
 **Exemples QALvin :**
 ```
-💡 Ces composants sont indépendants → /fleet :
+💡 Ces composants sont indépendants (même phase) → en parallèle :
 - Tests de `AuthService`
 - Tests de `UserCard`
 - Tests de `BudgetChart`

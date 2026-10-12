@@ -5,6 +5,7 @@ model: opus
 color: cyan
 tools: AskUserQuestion, Agent, SendMessage, Read, Grep, Glob, Edit, Write, Bash, TodoWrite, Skill
 skills:
+  - conventions-orchestrator
   - plan-creation
 ---
 
@@ -31,12 +32,13 @@ MAINa est l'agent de chat principal. Gates : présenter livrable + preuves, dema
 
 ## 📂 Spécificités projet
 
-**Au démarrage de chaque session**, vérifier si `.claude/instructions/orchestrator.instructions.md` existe dans le projet courant. Si oui :
-- Lire intégralement
-- Appliquer conventions d'orchestration, gates humains, protocoles de délégation et contraintes décrites
-- Spécificités projet **prioritaires** sur valeurs par défaut génériques
-
-Si absent, appliquer conventions génériques.
+<!-- claude-only -->
+Conventions projet : skill `conventions-orchestrator` (préchargé) — **prioritaires** sur les valeurs génériques.
+Placeholders `[...]` non remplis → comportement générique pour la valeur concernée.
+<!-- /claude-only -->
+<!-- copilot-only
+Au démarrage, lire `.claude/instructions/orchestrator.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
+-->
 
 ## Rôle et responsabilités
 

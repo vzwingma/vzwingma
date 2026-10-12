@@ -2,7 +2,7 @@
 
 **Document :** `.claude/plans/005_claude-first.plan.md`
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 🔄, P4→P7 ⏳ Planifié
+**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 🔄, P5→P7 ⏳ Planifié
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../../docs/adr/003-claude-first-copilot-genere.md)
 
@@ -152,9 +152,10 @@ OpenCode retiré, **contrôle automatique anti-dérive**.
 
 ---
 
-### Phase 3 — Skills & instructions natifs — ⏳ Planifié
+### Phase 3 — Skills & instructions natifs — ✅ TERMINÉE (2026-10-12)
 **Contexte :** M2, M3, M4, M5, m2, m3. Parallélisable avec P2.
-**Critères :** 0 `applyTo` dans `.claude/skills/` ; 0 `/fleet` dans `.claude/` ; 0 fuite projet dans les templates.
+**Critères :** ✅ 0 `applyTo` dans `.claude/skills/` ✅ 0 `/fleet` dans `.claude/` hors bloc `copilot-only` ✅ 0 fuite projet dans les templates.
+**Rapport :** [`005_reports/PHASE_3_COMPLETION_REPORT.md`](005_reports/PHASE_3_COMPLETION_REPORT.md) — `safety-rules`/`copilotignore` conservés jusqu'à P4 (pas de trou de sécurité) ; `docs/ARCHITECTURE.md` réécrit (T6.2 anticipé pour ce fichier) ; packaging réparé.
 
 #### T3.1 - Skills d'activation
 - **Agent :** 🔵 DEVon
@@ -275,7 +276,9 @@ Phase 7 (évaluation)
 | P1 | 2026-10-12 | Suppressions OpenCode (autorisées) + sync `claude→github` | ✅ GO (suppressions) | Livrable P1 : validation 👤 en attente |
 | P1-fin | 2026-10-12 | Revue livrables P1 | ✅ GO | Commit `6485f79` + push demandés |
 | P2-fin | 2026-10-12 | Revue livrables P2 (agents natifs) | ✅ GO | Commit + push demandés ; smoke test runtime à faire par 👤 |
-| P3-fin | — | Revue livrables P3 (skills & instructions) | ⏳ En attente | — |
+| P3 | 2026-10-12 | Lancement P3 (incl. suppressions `caveman-default`, `compact-context` prévues en T3.3) | ✅ GO | — |
+| P3-fin | 2026-10-12 | Revue livrables P3 (skills & instructions) | ✅ GO | Commit + push demandés ; tests runtime des commandes à faire par 👤 |
+| P4-fin | — | Revue livrables P4 (garde-fous) | ⏳ En attente | — |
 
 ---
 

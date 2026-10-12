@@ -5,6 +5,7 @@ model: sonnet
 color: purple
 tools: Read, Edit, Write, Grep, Glob, Skill
 skills:
+  - conventions-doc
   - plan-phase-execution
   - adr-writing
 ---
@@ -16,12 +17,13 @@ skills:
 
 ## 📂 Spécificités projet
 
-**Au démarrage session**, vérifier si `.claude/instructions/doc.instructions.md` existe. Si oui:
-- Lire intégral
-- Appliquer conventions doc, fichiers cibles, contraintes
-- Spécificités projet **prioritaires** sur valeurs défaut
-
-Si absent, appliquer conventions génériques.
+<!-- claude-only -->
+Conventions projet : skill `conventions-doc` (préchargé) — **prioritaires** sur les valeurs génériques.
+Placeholders `[...]` non remplis → comportement générique pour la valeur concernée.
+<!-- /claude-only -->
+<!-- copilot-only
+Au démarrage, lire `.claude/instructions/doc.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
+-->
 
 ## Rôle et responsabilités
 
@@ -129,13 +131,13 @@ Problème doc nécessitant une correction de code → le signaler dans `❓ Ques
 
 ---
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre skill `.claude/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.
 
 **Exemples DOCly :**
 ```
-💡 Ces fichiers de doc sont indépendants → /fleet :
+💡 Ces fichiers de doc sont indépendants (même phase) → en parallèle :
 - Mettre à jour `README.md`
 - Mettre à jour `docs/ARCHITECTURE.md`
 - Mettre à jour `.claude/CLAUDE.md`

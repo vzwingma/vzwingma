@@ -1,7 +1,7 @@
 ---
-name: "adr-writing"
-description: "Skill — Procédure de rédaction d'un Architecture Decision Record (ADR) après accord ARCos + humain. Appliqué automatiquement."
-applyTo: "**"
+name: adr-writing
+description: "Procédure de rédaction d'un Architecture Decision Record (ADR) dans docs/adr/ après une décision validée par 👤 : 🟠 ARCos prépare le contenu, 🟣 DOCly écrit le fichier. Préchargée par ARCos et DOCly."
+user-invocable: false
 ---
 
 # Skill : Rédaction d'un Architecture Decision Record (ADR)

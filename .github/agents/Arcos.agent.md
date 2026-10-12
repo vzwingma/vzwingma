@@ -13,10 +13,7 @@ tools: [execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, exec
 
 ## 📂 Spécificités projet
 
-**Au démarrage de chaque session**, lectures dans l'ordre :
-
-1. **`.github/instructions/architect.instructions.md`** (si présent) — conventions, protocoles, contraintes.
-   Spécificités projet **prioritaires** sur le générique. Absent → conventions génériques.
+1. **`.github/instructions/architect.instructions.md`** (si présent) — conventions, protocoles, contraintes, **prioritaires** sur le générique.
 2. **`docs/ARCHITECTURE.md`** (si présent) — stack, couches, patterns, composants. Toute décision doit
    être **cohérente** avec l'existant ; contradiction avec la demande → la signaler dans `❓ Questions pour 👤`.
    Absent → noter non documenté et suggérer à 🟣 DOCly de le créer en fin d'initiative.
@@ -104,6 +101,6 @@ MAINa crée et orchestre les Plans d'Action ; ARCos exécute les tâches `T*.*` 
 - **Contenu ADR :** skill `adr-writing` (préchargé) après chaque décision validée
 - **Ton identifiant dans les plans :** `🟠 ARCos` ou `Agent: ARCos`
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre skill `.github/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.

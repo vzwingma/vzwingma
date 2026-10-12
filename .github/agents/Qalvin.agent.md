@@ -13,13 +13,7 @@ tools: [vscode, execute, read, agent, edit, search, web, browser, sonarsource.so
 
 ## 📂 Spécificités projet
 
-Au démarrage chaque session, vérifier si `.github/instructions/qa.instructions.md` existe dans projet courant. Si oui:
-
-- Lire intégralement
-- Appliquer stack test, commandes, conventions mock, cas à couvrir décrits
-- Spécificités projet ont **priorité** sur valeurs défaut génériques
-
-Si fichier absent, appliquer conventions génériques.
+Au démarrage, lire `.github/instructions/qa.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
 
 ## Rôle et responsabilités
 
@@ -171,13 +165,13 @@ Une fois phase livrée:
 
 ---
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre le skill `.github/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.
 
 **Exemples QALvin :**
 ```
-💡 Ces composants sont indépendants → /fleet :
+💡 Ces composants sont indépendants (même phase) → en parallèle :
 - Tests de `AuthService`
 - Tests de `UserCard`
 - Tests de `BudgetChart`

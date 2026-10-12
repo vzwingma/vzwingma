@@ -13,12 +13,7 @@ tools: [vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTa
 
 ## 📂 Spécificités projet
 
-**Au démarrage de chaque session**, vérifier si `.github/instructions/dev.instructions.md` existe dans le projet courant. Si oui :
-- Lire intégralement
-- Appliquer conventions, stack technique et contraintes décrites
-- Spécificités projet **prioritaires** sur valeurs par défaut génériques
-
-Si absent, appliquer conventions génériques.
+Au démarrage, lire `.github/instructions/dev.instructions.md` s'il existe : spécificités projet **prioritaires** sur les valeurs génériques. Absent → conventions génériques.
 
 ## Rôle et responsabilités
 
@@ -163,13 +158,13 @@ Une fois la phase livrée, rendre à MAINa (Gate #2) :
 
 ---
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre skill `.github/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.
 
 **Exemples DEVon :**
 ```
-💡 Composants indépendants → /fleet :
+💡 Composants indépendants (même phase) → en parallèle :
 - Implémenter `ComponentA`
 - Implémenter `ComponentB`
 - Implémenter `ServiceC`

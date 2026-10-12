@@ -1,7 +1,7 @@
 ---
-name: "copilotignore"
-description: Règle absolue respect `.copilotignore` — aucun agent lire/accéder fichiers listés, jamais.
-applyTo: "**"
+name: copilotignore
+description: "Règle absolue de non-accès aux fichiers listés dans .copilotignore (lecture, recherche, écriture, exécution). Consulter avant d'explorer un dépôt qui contient un fichier .copilotignore."
+user-invocable: false
 ---
 
 # 🚫 Règle absolue : Respect de `.copilotignore`

@@ -6,6 +6,7 @@ effort: high
 color: orange
 tools: Read, Grep, Glob, WebFetch, WebSearch, Skill
 skills:
+  - conventions-architect
   - adr-writing
   - plan-phase-execution
 ---
@@ -17,10 +18,13 @@ skills:
 
 ## 📂 Spécificités projet
 
-**Au démarrage de chaque session**, lectures dans l'ordre :
-
-1. **`.claude/instructions/architect.instructions.md`** (si présent) — conventions, protocoles, contraintes.
-   Spécificités projet **prioritaires** sur le générique. Absent → conventions génériques.
+<!-- claude-only -->
+1. **Conventions projet** : skill `conventions-architect` (préchargé) — **prioritaires** sur le générique ;
+   placeholders `[...]` non remplis → comportement générique pour la valeur concernée.
+<!-- /claude-only -->
+<!-- copilot-only
+1. **`.claude/instructions/architect.instructions.md`** (si présent) — conventions, protocoles, contraintes, **prioritaires** sur le générique.
+-->
 2. **`docs/ARCHITECTURE.md`** (si présent) — stack, couches, patterns, composants. Toute décision doit
    être **cohérente** avec l'existant ; contradiction avec la demande → la signaler dans `❓ Questions pour 👤`.
    Absent → noter non documenté et suggérer à 🟣 DOCly de le créer en fin d'initiative.
@@ -108,6 +112,6 @@ MAINa crée et orchestre les Plans d'Action ; ARCos exécute les tâches `T*.*` 
 - **Contenu ADR :** skill `adr-writing` (préchargé) après chaque décision validée
 - **Ton identifiant dans les plans :** `🟠 ARCos` ou `Agent: ARCos`
 
-## ⚡ Parallélisation avec /fleet
+## ⚡ Parallélisation
 
-Suivre skill `.claude/skills/fleet-guide/SKILL.md`.
+Au sein d'une phase uniquement (jamais à travers un gate) : skill `parallel-guide`.

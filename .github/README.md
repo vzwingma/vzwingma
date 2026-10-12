@@ -1,6 +1,6 @@
 # 📚 GitHub Copilot Agents & Templates — Dépôt Transverse
 
-Ce sous-arbre `.github/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills, prompts, templates d'instructions et plans d'action.
+Ce sous-arbre `.github/` contient les **artefacts Copilot réutilisables** du dépôt : agents, skills (procédures, conventions projet, commandes) et plans d'action.
 
 Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
@@ -16,9 +16,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
 │   └── Docly.agent.md                   # Documentation
-├── instructions/                        # Templates d'instructions par role
-├── prompts/                             # Prompts d'initialisation / mise a jour
-├── skills/                              # Procedures partagees auto-chargees
+├── skills/                              # Procédures, conventions par rôle (templates), commandes
 ├── plans/                               # Plans d'Action et rapports
 ├── CHANGELOG.md                         # Historique des versions des agents
 ├── PLANS.md                             # Guide des Plans d'Action
@@ -37,14 +35,12 @@ Selon le projet cible, copier :
 
 - `.github/agents/`
 - `.github/skills/`
-- `.github/instructions/`
-- `.github/prompts/`
 - `.github/PLANS.md`
 - `.github/copilot-instructions.template.md`
 
 ### Etape 2 : Initialiser les instructions projet
 
-Utiliser le prompt `init-copilot-instructions` pour generer les fichiers d'instructions adaptes au projet consommateur.
+Lancer `/init-harness` : analyse du code, génération de `copilot-instructions.md`, remplissage des conventions par rôle (`conventions-<rôle>`).
 
 ### Etape 3 : Utiliser les agents
 
@@ -72,23 +68,18 @@ Les agents peuvent ensuite etre invoques selon le besoin :
 
 Les agents restent focalises sur leurs instructions runtime. La vue transverse et la coordination sont documentees ici pour eviter la duplication.
 
-### Instructions (`.github/instructions/`)
+### Instructions projet (`.github/instructions/`)
 
-| Fichier | Role |
+Un fichier par rôle (`orchestrator`, `architect`, `dev`, `qa`, `doc`) : `<rôle>.instructions.md`, créé depuis `<rôle>.instructions.template.md` via `/init-harness`.
+
+### Commandes (`.github/skills/`)
+
+| Commande | Utilisation |
 |---|---|
-| `orchestrator.instructions.md` | Conventions d'orchestration MAINa / gates humains / délégation |
-| `architect.instructions.md` | Conventions architecture / SQL handoff |
-| `dev.instructions.md` | Stack technique, versions, conventions de code |
-| `qa.instructions.md` | Framework de test, commandes CI, cas a couvrir |
-| `doc.instructions.md` | Cibles documentaires et conventions de doc |
-
-### Prompts (`.github/prompts/`)
-
-| Prompt | Utilisation |
-|---|---|
-| `init-copilot-instructions.prompt.md` | Initialiser les instructions Copilot dans un projet |
-| `update-copilot-instructions.prompt.md` | Auditer et mettre a jour les instructions |
-| `migrate-to-template.prompt.md` | Migrer un projet vers le format template transverse |
+| `/init-harness` | Initialiser le harnais dans un projet (nouveau ou existant) |
+| `/update-harness` | Auditer et mettre à jour copilot-instructions.md + conventions depuis le code |
+| `/maina-help` | Aide workflow MAINa |
+| `/maina`, `/arcos`, `/devon`, `/qalvin`, `/docly` | Activer un agent sur une demande |
 
 ### Plans et gouvernance
 
