@@ -159,7 +159,9 @@ foreach ($file in $docFiles) {
         $target = ($target -split '#')[0]
         if (-not $target) { continue }
         $resolved = Join-Path $file.DirectoryName ([uri]::UnescapeDataString($target))
-        if (-not (Test-Path $resolved)) { Add-Err "$rel : lien mort -> $target" }
+        # An empty folder is invisible to git: dead in a fresh clone (CI) even if present locally.
+        $isEmptyDir = (Test-Path $resolved -PathType Container) -and -not (Get-ChildItem $resolved -Recurse -File -Force | Select-Object -First 1)
+        if (-not (Test-Path $resolved) -or $isEmptyDir) { Add-Err "$rel : lien mort -> $target" }
     }
     if ($rel -notmatch '^(docs/plans/|docs/adr/)' -and $file.Name -ne 'CHANGELOG.md') {   # plans, ADR, changelog = history
         foreach ($m in [regex]::Matches($text, '\b(\d+)\s+(agents|skills)\b')) {
