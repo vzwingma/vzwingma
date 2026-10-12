@@ -108,7 +108,7 @@ Affiche l'inventaire agents/skills.
 .\scripts\check-harness.ps1 -SkipSync   # sans contrôle de .github/
 ```
 
-CI : `.github/workflows/harness-check.yml` (Windows : PowerShell 5.1 + 7 + bash), sur PR et push `main`.
+CI : `.github/workflows/harness-check.yml` (Windows : PowerShell 5.1 + 7 + bash), sur PR et push `main` / `main-ai`.
 
 ---
 

@@ -211,7 +211,7 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 - `scripts/tests/eval-scenarios.ps1` : scénarios comportementaux `claude -p` sur le fixture `tests/fixtures/sample-app/`
   (gates, lecture seule ARCos, frontières de rôle, garde-fous) — CLI authentifiée requise
 - Routine avant release : voir [`scripts/README.md`](../scripts/README.md) (+ `/doctor prompt-audit`)
-- CI : `.github/workflows/harness-check.yml` sur PR et push `main`
+- CI : `.github/workflows/harness-check.yml` sur PR et push `main` / `main-ai` (harnais sur `main-ai`)
 
 ### Mapping Copilot
 
