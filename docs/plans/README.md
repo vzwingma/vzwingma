@@ -16,6 +16,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
 | 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | 🔄 En cours | 2026-10-12 |
+| 006 | [Compatibilité Copilot du harnais Claude-first](006_compatibilite-copilot.plan.md) | ❌ Bloqué | 2026-10-13 |
 
 ---
 
@@ -91,4 +92,3 @@ Pour contribuer ou modifier un plan existant :
 ---
 
 **Gestionnaire des Plans :** MAINa (⚫) & 👤 Développeur humain
-
