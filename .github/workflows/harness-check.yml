@@ -5,7 +5,7 @@ name: harness-check
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, main-ai]   # main-ai carries the harness (main is the GitHub profile)
   workflow_dispatch:
 
 permissions:
