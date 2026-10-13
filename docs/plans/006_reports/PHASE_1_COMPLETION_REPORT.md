@@ -1,8 +1,7 @@
 # AP 006 — Phase 1 : contrat de compatibilité
-
 **Plan :** [006 — Compatibilité Copilot](../006_compatibilite-copilot.plan.md)
 **Date de vérification :** 2026-10-13
-**Responsable :** 🟠 ARCos ; blocage consigné par ⚫ MAINa
+**Responsable :** 🟠 ARCos ; synthèse persistée par ⚫ MAINa
 **Statut :** ❌ BLOQUÉE — phase non complétée
 **Prérequis humain :** Gate #1 `GO` le 2026-10-13 ; ADR 005 Acceptée
 
@@ -10,40 +9,11 @@
 
 | Tâche | Statut | Preuves disponibles | Preuves manquantes |
 |---|---|---|---|
-| T1.1 — Découverte et schémas par cible | Bloquée | Audit statique Phase 0 ; agents/skills exposés dans cette session | Documentation officielle consultée et datée, versions cibles et inventaire Git exhaustif autorisé |
-| T1.2 — Invariants et stratégie de projection | Non finalisée | Invariants et écarts décrits dans le plan et l'analyse initiale | Décisions champ par champ fondées sur le contrat vérifié ; comparaison de configuration effective sans accès aux secrets |
-
-## Blocage
-
-Les outils actuellement exposés permettent lecture/édition locales et délégation, mais aucun appel web ou shell invocable. Les tentatives précédentes via agents `research` et `task` ont confirmé la même limitation ; aucune nouvelle délégation identique n'est lancée pour simuler une capacité absente.
-
-La présence de `git`, `curl` et `gh` dans l'environnement ne fournit pas, à elle seule, un outil permettant de les exécuter dans cette session. Aucune commande, consultation officielle ou évaluation comportementale n'a été exécutée.
-
-| Cible | État de vérification |
-|---|---|
-| Copilot CLI | Contrat actuel non vérifié |
-| Copilot VS Code | Contrat actuel non vérifié |
-| Copilot cloud | Contrat actuel non vérifié |
-
-Cette matrice ne signifie ni absence de support ni impossibilité d'adaptation. Aucun transfert à DEVon tant que Phase 1 n'est pas validée.
-
-## Reprise nécessaire
-
-Reprendre dans une session exposant des outils web et shell, ou fournir les spécifications officielles avec URLs, versions et dates ainsi qu'un inventaire Git autorisé. Les contenus doivent pouvoir être inspectés sans parcourir les exclusions ni transmettre des données privées.
-
-Le `GO` reçu accepte le plan et l'ADR, pas un contournement des critères de preuve. Une évolution de périmètre reste soumise à ajustement humain du Gate #1.
-
-## Handoff
-
-```yaml
-handoff:
-  plan: "006"
-  phase: 1
 | T1.1 — Découverte et schémas par cible | Bloquée | Pages officielles GitHub recoupées ci-dessous ; exclusion racine `.copilotignore` lue (`/dist/`) | Inventaire Git ; versions installées CLI/VS Code/extension ; validation comportementale |
-| T1.2 — Invariants et stratégie de projection | Incomplète | Settings/template et profils des cinq agents comparés en lecture seule | Configuration locale effective et comportements non vérifiés ; hooks VS Code en preview |
-  tasks:
-    T1.1: blocked
-    T1.2: incomplete
+| T1.2 — Invariants et stratégie de projection | Incomplète | Settings effectifs accessibles, template et profils des cinq agents comparés en lecture seule, sans secrets | Enforcement et comportements non vérifiés ; hooks VS Code en preview |
+
+## Matrice documentaire
+
 Vérification des sources officielles le 2026-10-13. « Native » signifie documentée pour la cible, pas validée dans ce dépôt. Les pages ne présentaient généralement pas de date de révision. La matrice des fonctionnalités liste VS Code 1.108.0 comme version récente; ce n'est pas la version installée ici.
 
 | Capacité | Copilot CLI | VS Code | GitHub.com / cloud agent |
@@ -65,10 +35,11 @@ Les skills chargées selon pertinence ne prouvent pas un préchargement détermi
 | Source et profils | **Conserver** `.claude/` comme source; **adapter** les profils Copilot à leurs schémas/emplacements documentés. | Profils actuels utilisent `model`, `tools`, `skills`; transformation Copilot pas certifiée par inspection seule. |
 | MAINa et gates | **Adapter** l'orchestration aux mécanismes par cible; garder les gates humains comme exigence. | `AskUserQuestion` et le texte seul ne prouvent pas le comportement; MAINa a des outils d'édition/Bash à encadrer. |
 | ARCos et rôles | **Adapter** les listes d'outils au moindre privilège; ARCos Claude limité à lecture/recherche/web/skills. | Les restrictions Copilot et frontières DEVon/QALvin/DOCly restent à tester. |
-| Settings / hooks | **Adapter** séparément par cible; ne pas transposer les hooks Claude comme preuve. | `.claude/settings.json` a `deny`/`ask` et `hooks` vide; le template définit `PreToolUse`. `settings.local.json` non lu, donc configuration effective indéterminée. |
-| Skills / conventions | **Partager** les skills où le format est reconnu; considérer leur chargement comme dynamique. | Préchargement des conventions par rôle et initialization non testé. |
+| Settings / hooks | **Adapter** séparément par cible; ne pas transposer les hooks Claude comme preuve. | `.claude/settings.json` a `deny`/`ask` et `hooks` vide; le template définit `PreToolUse`. L'overlay local contient des autorisations, dont `Bash(git rm *)`, en tension avec le `ask` du réglage dépôt; priorité effective non vérifiée. |
+| Skills / conventions | **Partager** les skills où le format est reconnu; considérer leur chargement comme dynamique. | Préchargement des conventions par rôle et initialisation non testé. |
 | Exclusions | **Non vérifié** pour `.copilotignore`; conserver `/dist/` comme invariant sans prétendre Copilot l'applique. | Essai requis pour chaque cible; aucun chemin exclu parcouru. |
 | Plans / packaging | **Conserver** comme exigences de processus, pas comme capacité native annoncée. | Scripts et packages non exécutés; inventaire Git absent. |
+| Commandes interdites / initialisation | **Conserver** les interdictions comme invariants; **adapter** leur application par cible et vérifier les parcours d'initialisation. | Aucune équivalence Copilot ou résultat d'initialisation démontré. Le conflit `git rm` / `ask` n'a pas été vérifié en runtime. |
 
 ## Sources officielles consultées
 
@@ -82,7 +53,7 @@ Les skills chargées selon pertinence ne prouvent pas un préchargement détermi
 - [Copilot hooks reference](https://docs.github.com/en/copilot/reference/hooks-reference) — CLI/cloud, événements, limites et timeouts.
 - [Copilot on GitHub.com](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent) — cloud agent, modèles et limites.
 
-Le terminal n'est pas disponible : `git ls-files`, versions installées, tests, scripts et `-Check` n'ont pas été exécutés. Aucun outil ne permet d'observer les effets dans les clients Copilot. Aucune configuration personnelle locale n'a été inspectée. Pas de transfert à DEVon tant que T1.1/T1.2 ne sont pas réglées.
+Le terminal n'est pas disponible : `git ls-files`, versions installées, tests, scripts et `-Check` n'ont pas été exécutés. Aucun outil ne permet d'observer les effets dans les clients Copilot. L'overlay local a été lu en lecture seule sans secrets; le comportement effectif de la permission `git rm` face au `ask` dépôt reste à vérifier. Aucun transfert à DEVon tant que T1.1/T1.2 ne sont pas réglées.
 
 Le `GO` du Gate #1 valide le plan et l'ADR, pas une dérogation aux preuves. Ces sources permettent une stratégie candidate, mais ne certifient aucune parité « 100 % ».
 
@@ -106,10 +77,10 @@ handoff:
     T1.2:
       status: "incomplete"
       evidence:
-        - "Profils et settings/template dépôt comparés en lecture seule."
+        - "Profils et settings effectifs/template dépôt comparés en lecture seule, sans secrets."
       missing:
-        - "Configuration effective incluant l'overlay local."
-        - "Validation runtime des frontières, gates, hooks et exclusions."
+        - "Validation runtime des permissions et frontières de rôle."
+        - "Validation des gates, hooks, exclusions et initialization."
   files_written:
     - "docs/plans/006_reports/PHASE_1_COMPLETION_REPORT.md"
     - "docs/plans/006_compatibilite-copilot.plan.md"
@@ -118,5 +89,6 @@ handoff:
   risks:
     - "Aucune parité des gardes et gates démontrée par la documentation seule."
     - "Hooks VS Code en preview; référence technique limitée à CLI et cloud."
+    - "Permission locale git rm et ask dépôt en conflit apparent; priorité runtime inconnue."
   next_step: "Rétablir un terminal pour inventaire/version; finaliser T1.2 avant Phase 2."
 ```

@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** ❌ Bloqué — Gate #1 validé ; Phase 1 en attente d'accès web/shell
+**Statut :** ❌ Bloqué — Gate #1 validé ; Phase 1 partiellement documentée, inventaire Git et vérifications runtime en attente
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
