@@ -2,7 +2,7 @@
 **Plan :** [006 — Compatibilité Copilot](../006_compatibilite-copilot.plan.md)
 **Date de vérification :** 2026-10-13
 **Responsable :** 🟠 ARCos ; synthèse persistée par ⚫ MAINa
-**Statut :** ❌ BLOQUÉE — phase non complétée
+**Statut :** ✅ ACCEPTÉE AVEC LIMITES — Gate #1b `GO` (2026-10-15) ; T1.2 validée par ARCos avec corrections ; décisions 👤 D1–D4 consignées (voir fin de rapport). Validation comportementale reportée à T3.2.
 **Prérequis humain :** Gate #1 `GO` le 2026-10-13 ; ADR 005 Acceptée
 
 ## Tâches et preuves
@@ -139,7 +139,7 @@ Preuves obtenues via terminal (agent `general-purpose`) et `curl.exe` (HTTP 200 
 
 ### Inventaire Git (lecture seule)
 
-- Branche `main-ai` ; `git status` : 1 fichier modifié (ce rapport).
+- Branche `feat/copilot_compat` (correction D4 du 2026-10-15 : la mention initiale `main-ai` était erronée ; `git branch --show-current` = `feat/copilot_compat`) ; `git status` : 1 fichier modifié (ce rapport).
 - `git ls-files` : 139 fichiers suivis — `.claude/` 41, `docs/` 35 (dont `docs/plans/` 24), `.github/` 33, `scripts/` 11, `tests/` 9, `.vscode/` 1, racine 9.
 - `.claude/agents/` : Arcos, Devon, Docly, Maina, Qalvin + README. `.claude/skills/` : 25 fichiers SKILL/SKILL.copilot + 3 templates.
 - `.github/agents/` : mêmes 5 agents + README. `.github/skills/` : 14 SKILL.md + 3 templates, sans `SKILL.copilot.md`. `.github/hooks/` : absent.
@@ -281,7 +281,9 @@ handoff:
   next_step: "Gate #2 de Phase 1 : décider d'accepter la validation partielle (limites explicites) ou d'autoriser des tests avec appel modèle pour (a), (c), (e)."
 ```
 
-## Gate #2 Phase 1 — tests CLI avec appels modèle (2026-10-15)
+## Gate #1b Phase 1 — tests CLI avec appels modèle (2026-10-15)
+
+> Renvoi D2 : cette validation du contrat de Phase 1 était notée « Gate #2 » à l'origine. Elle est renumérotée **#1b**. Gate #2 reste réservé à la validation du code de la Phase 2 (`gate-protocol`).
 
 Décision 👤 : **GO** sur la validation, avec autorisation explicite des appels modèle. Résultats (Copilot CLI 1.0.97-2, 7 appels modèle, dépôt réel inchangé) :
 
@@ -376,7 +378,7 @@ handoff:
   next_step: "Phase 2 bloquée : compléter T1.2 (gates #0, #3, #4 ; instructions racine ; exclusions) avant DEVon."
 ```
 
-## Décision Gate #2 — GO avec limites (2026-10-15)
+## Décision Gate #1b (ex-« #2 ») — GO avec limites (2026-10-15)
 
 Décision 👤 : **GO**, Phase 1 acceptée en l'état partiel. Limites consignées : hooks `preToolUse` non observés en `-p` (fail-open / fail-closed non démontré) ; précédence `git rm` non tranchée ; DEVon, QALvin, DOCly non chargés en test ; version CLI 1.0.99-0.
 
@@ -442,13 +444,55 @@ handoff:
 
 **Relecteur :** 🟠 ARCos (lecture seule). **Verdict :** ✅ **Validé avec corrections**. Le complément T1.2 rédigé par MAINa est accepté comme base du contrat CLI, sous réserve des corrections et des 4 décisions 👤 ci-dessous.
 
-> ⚠️ **Traçabilité :** MAINa a reçu le verdict, l'existence des risques R1–R4 et la liste des 4 décisions. Il n'a pas reçu le texte intégral (corrections détaillées, libellés exacts de R1–R4). Ce texte doit être joint ici avant le `GO` Phase 2. MAINa n'a rien reconstitué par inférence.
+> **Traçabilité :** le texte intégral ci-dessous a été transmis par 👤 le 2026-10-15. Il remplace le résumé partiel précédent. Il est reproduit sans reformulation de fond.
+
+### Table de validation
+
+| Point du complément MAINa | Verdict ARCos |
+|---|---|
+| Gates #0–#4 | Invariants fidèles à `gate-protocol`. |
+| `.claude/CLAUDE.md` → `.github/copilot-instructions.md` | **Adapter**. Emplacement documenté CLI (U5). Chargement effectif à observer en T3.2. |
+| Exclusions | Distinguer : invariant / garantie Claude / absence d'équivalent Copilot. |
+| Modèle | Constat repris en §R3. |
+
+### Décision par champ
+
+| Champ / sujet | Décision | Détail |
+|---|---|---|
+| `name`, `description` | **Conserver** | — |
+| `tools` | **Adapter** | Dériver du moindre privilège. |
+| `model` | **Adapter** | Voir R3 et D1. |
+| `skills:` (préchargement) | **NON SUPPORTÉ** déterministe | Le corps dit « préchargé ». C'est faux : la CLI charge selon pertinence (U4). Remplacer par une consigne explicite de chargement en tête de profil. Interdire « préchargé » dans le rendu Copilot. |
+| `agents: [...]` | **Non vérifié** pour la CLI | Champ absent de U3. Ne pas s'y fier. |
+| `effort`, `color` | **Non supporté** | Perte acceptable. |
+| Skills `.claude/skills` | **Partager** | Voir R1. |
+| Instructions racine | **Adapter** | — |
+| Exclusion `/dist/` | **NON SUPPORTÉ** déterministe côté Copilot | Garantie déterministe côté Claude (`deny` Read/Edit `./dist/**`). `.copilotignore` non documenté ; aucun `deny` équivalent versionné. Prose + scripts (T2.3). Ne jamais l'annoncer comme garantie Copilot. |
+| Commandes interdites (`rm`, `git clean`, `reset --hard`, `push -f`, `branch -D`…) | **Non supporté** déterministe | Prose seulement. Refus observé uniquement en `-p`. |
+| `git rm` (`ask`) | **Non vérifié** | — |
+| Hooks / gardes | **Non supporté** tant que non prouvé en session interactive | `.github/hooks` absent. |
+| Gates | **Adapter** | Texte GO / AJUSTER / STOP explicite. Arrêt automatique non garanti ; à observer en T3.2. |
 
 ### Risques relevés par ARCos
 
-| Id | Libellé | Statut |
+| Id | Risque | Détail |
 |---|---|---|
-| R1–R4 | Texte ARCos à joindre | Ouverts ; la Phase 2 ne les traite qu'après leur report ici |
+| R1 | Variante de skill | La CLI lit `.claude/skills/*/SKILL.md`, soit la variante Claude avec `AskUserQuestion` / `SendMessage` (18 skills listées par `copilot skill list`). Rien ne prouve que `SKILL.copilot.md` ou `.github/skills` soit utilisé. La stratégie « variantes par cible » ne tient pas telle quelle. À trancher en T2.2 par test observable : skills neutres vis-à-vis de l'hôte, ou un seul emplacement publié. |
+| R2 | Dérive du rendu | `.github/agents/*.agent.md` modifiés à la main (ARCos Claude Opus 5.5, DEVon Claude Sonnet 5.5, QALvin GPT-5.6 Sol, DOCly GPT-5.6 Luna). `copilot-mapping.psd1` contient encore Claude Sonnet 4.6 / GPT-5.3-Codex / GPT-5 mini. Le prochain sync écrasera ces éditions. |
+| R3 | Modèles | Source : `opus` (MAINa, ARCos) et `sonnet` (DEVon, QALvin, DOCly). GPT pour QALvin/DOCly contredit T2.1 « préserver modèles Claude ». Le format « Nom (copilot) » est propre à VS Code ; identifiant CLI observé : `claude-sonnet-5.5`. Format du champ `model` CLI non documenté (Q7b). |
+| R4 | Capacités contournant les rôles | ARCos Copilot a `edit`, `execute/*`, `agent`, `todo` (source : Read, Grep, Glob, WebFetch, WebSearch, Skill) → viole la lecture seule. DOCly : `edit` non cadré, `agent`, `browser`, `vscode`. QALvin : `execute` brut + `edit` + `agent` (rien n'empêche de modifier la prod). MAINa : `edit` sans `execute` → ne peut produire `git diff --stat` ni lancer les scripts (preuves Gate #2). Tous : outils `vscode`, `browser`, `vscjava.*`, `sonarsource.*` propres à VS Code, hors périmètre CLI, imposant une dépendance Java/Sonar au profil générique (interdit par le critère Phase 2). |
+
+### Stratégie de projection (entrée T2.1 / T2.2)
+
+1. Dériver `tools` de la source Claude : Read→`read` ; Grep/Glob→`search` ; WebFetch/WebSearch→`web` ; Edit/Write→`edit` ; Bash→`execute` ; TodoWrite→`todo` ; Agent→`agent`. Les noms inconnus de la CLI sont signalés en sortie de contrôle, jamais ajoutés silencieusement.
+2. ARCos = `[read, search, web]`, sans `agent` / `edit` / `execute`, sans champ `agents`.
+3. Aucun outil d'extension locale dans le profil générique.
+4. `skills:` → consigne de chargement explicite ; retirer « préchargé » du rendu Copilot.
+5. `check-harness.ps1` échoue si ARCos Copilot a un outil mutant, si une exclusion n'est pas respectée dans les parcours, ou si le rendu est périmé.
+
+### Statut ARCos
+
+T1.2 complète côté contrat documentaire. Validation comportementale reportée à T3.2. Limites : hooks, exclusion `/dist/`, précédence `git rm` et variante de skill lue par la CLI non vérifiés.
 
 ### Constats MAINa sur `scripts/copilot-mapping.psd1` (lu le 2026-10-15, lecture seule)
 
@@ -492,5 +536,33 @@ handoff:
     - "Branche courante (aucun terminal)"
   decisions_pending: ["D1 modèles", "D2 numérotation", "D3 dérive rendu", "D4 branche"]
   next_step: "Gate 👤 sur D1–D4, puis lancement de DEVon sur T2.1."
+```
+
+## Décisions 👤 D1–D4 et clôture Phase 1 — Gate #1b `GO` (2026-10-15)
+
+| # | Décision 👤 | Conséquence pour la Phase 2 |
+|---|---|---|
+| D1 | Modèles = **alias source** via `ModelMap` de `scripts/copilot-mapping.psd1` : `opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`. Plus d'override de modèle par agent : QALvin et DOCly suivent l'alias source `sonnet`. | T2.1 : retirer les `model` par agent du mapping. Le format d'identifiant accepté par la CLI dans le champ `model` d'un profil est **validé par un essai avant fixation** (Q7b non documenté). |
+| D2 | Renommer l'entrée « #2 » du 2026-10-15 (validation du contrat Phase 1) en **#1b** dans le journal. #2 est réservé à la validation du code Phase 2. | Journal du plan mis à jour ; titres du présent rapport annotés « #1b (ex-« #2 ») ». |
+| D3 | **Reporter** dans la source ou le mapping les modifications légitimes des `.github/agents` édités à la main (modèles), puis régénérer. Ne jamais éditer les fichiers générés à la main. | T2.1 : inventaire des écarts rendu/source avant régénération. Avec D1, les modèles légitimes sont ceux de l'alias source ; les GPT de QALvin/DOCly ne sont pas reportés. |
+| D4 | On garde la branche courante **`feat/copilot_compat`**. Corriger la mention `main-ai`. | Mention corrigée dans l'inventaire « Relance 2 ». Branche vérifiée : `git branch --show-current` = `feat/copilot_compat`, arbre propre (dernier commit `c8d25c5`). |
+
+Phase 1 : **acceptée avec limites**. Limites reportées dans la Phase 3 (T3.2) : hooks, exclusion `/dist/` côté Copilot, précédence `git rm`, variante de skill lue par la CLI, chargement de DEVon, QALvin et DOCly, arrêt réel aux gates.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  gate: "#1b GO"
+  status: "accepted-with-limits"
+  evidence:
+    - "Texte intégral de la revue ARCos T1.2 joint (table de validation, décisions par champ, R1–R4, stratégie de projection)"
+    - "Décisions 👤 D1–D4 consignées"
+    - "git branch --show-current = feat/copilot_compat ; git status --porcelain vide avant écriture"
+  open_limits:
+    - "Hooks preToolUse non observés ; exclusion /dist/ non garantie côté Copilot ; précédence git rm ; variante de skill lue (R1)"
+  next_step: "Phase 2 — DEVon T2.1, puis T2.2 et T2.3 ; revue automatique ; Gate #2."
 ```
 

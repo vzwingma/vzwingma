@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** 🔄 Ajusté au Gate #1 (2026-10-15) — périmètre réduit à Copilot CLI ; Phase 1 partielle acceptée (limites consignées) ; T1.2 validée par ARCos avec corrections ; Phase 2 en attente des décisions 👤 D1–D4
+**Statut :** 🔄 En cours — Phase 2 bloquée (exécution indisponible) le 2026-10-15 : T2.1 codée et revue, non exécutée. Périmètre : Copilot CLI seul (Gate #1 AJUSTER). Phase 1 acceptée avec limites (Gate #1b `GO`). Décisions 👤 D1–D4 consignées. Branche : `feat/copilot_compat`.
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
@@ -42,11 +42,11 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 ## 🛠️ Phases
 
-### Phase 1 — Établir le contrat de compatibilité — 🔄 Reprise sur Copilot CLI
+### Phase 1 — Établir le contrat de compatibilité — ✅ Acceptée avec limites (Gate #1b, 2026-10-15)
 
 **Contexte :** les différences natives de Copilot CLI ne sont pas toutes vérifiées. Cette phase précède toute implémentation ; elle ne modifie ni source du harnais ni rendu.
 
-**Rapport :** [Phase 1 — vérification partielle et blocages](006_reports/PHASE_1_COMPLETION_REPORT.md). Gate #1 validé le 2026-10-13 ; les sources officielles GitHub ont été consultées et recoupées, mais aucun terminal n'est disponible pour l'inventaire Git, les versions installées ou les tests. T1.1 reste bloquée ; T1.2 reste incomplète (configuration effective et comportements non vérifiés). Ce blocage technique n'est pas une décision `STOP` et ne rejette pas l'ADR.
+**Rapport :** [Phase 1 — contrat CLI](006_reports/PHASE_1_COMPLETION_REPORT.md). T1.1 : matrice documentaire vérifiée et chargement de MAINa et ARCos observé. T1.2 : contrat documentaire validé par ARCos avec corrections (texte intégral, R1–R4 et stratégie de projection dans le rapport). La validation comportementale est reportée à T3.2. Limites : hooks, exclusion `/dist/` côté Copilot, précédence `git rm`, variante de skill lue par la CLI.
 
 **Critères de réussite :**
 - Inventaire des fichiers suivis dans le périmètre autorisé, avec exclusions et omissions explicites.
@@ -68,9 +68,16 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Relais :** MAINa contrôle le rapport avant DEVon. Si outils ou preuves manquent, Phase 1 reste bloquée. Si le contrat réduit le périmètre, change la solution ou révèle une impossibilité de parité, soumettre `AJUSTER` au Gate #1 avant implémentation ; pas de décision majeure déléguée implicitement.
 
-### Phase 2 — Corriger source, projection et distribution — ⏳ Planifié
+### Phase 2 — Corriger source, projection et distribution — 🔄 En cours
 
 **Contexte :** dépend de Phase 1 et du Gate #1 validé. DEVon implémente uniquement le contrat vérifié ; n'écrit ni tests ni documentation utilisateur.
+
+**Rapport :** [Phase 2](006_reports/PHASE_2_COMPLETION_REPORT.md).
+
+**Décisions applicables (Gate #1b, 2026-10-15) :**
+- **D1** : modèles = alias source via `ModelMap` (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`). Pas d'override par agent. Le format d'identifiant du champ `model` CLI est validé par un essai avant fixation. Cette décision remplace « ne pas forcer un nom Copilot non validé » de T2.1.
+- **D3** : les modifications légitimes des `.github/agents` édités à la main sont reportées dans la source ou le mapping, puis régénérées. Aucun fichier généré édité à la main.
+- **Contrat ARCos** : stratégie de projection 1–5 et risques R1–R4 du rapport Phase 1.
 
 **Critères de réussite :**
 - Profil ARCos sans capacité d'écriture/exécution mutante ni délégation d'implémentation ; autres rôles au moindre privilège compatible avec leur mission.
@@ -183,8 +190,10 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 | #0 | 2026-10-13 | Choix de solution | ✅ GO | Option B : source Claude unique + projection Copilot ciblée ; copies réduites après preuve native |
 | #1 | 2026-10-13 | Validation AP 006 et ADR 005 | ✅ GO | Réponse humaine « go » ; ADR 005 Acceptée ; Phase 1 bloquée faute accès web/shell, aucune implémentation lancée |
 | #1 (ajustement) | 2026-10-15 | Périmètre de compatibilité après preuves documentaires | 🔄 AJUSTER | Décision humaine : cible unique Copilot CLI ; VS Code et cloud agent hors périmètre. Revue du plan et de l'ADR 005 requise avant Phase 2 |
-| #2 | 2026-10-15 | Validation contrat CLI (Phase 1) | ✅ GO (limites acceptées) | Phase 1 partielle acceptée : (a) MAINa et ARCos chargés ; hooks et précédence `git rm` non concluants en `-p` ; `git rm` refusé par défaut. T1.2 incomplet (gates #0, #3, #4 absents ; instructions racine absentes ; exclusions non vérifiées) : à compléter avant Phase 2 |
-| Revue T1.2 | 2026-10-15 | Revue ARCos du complément T1.2 | ⏳ Décisions 👤 en attente | ARCos : validé avec corrections ; risques R1–R4 (texte à joindre au rapport). Décisions requises avant Phase 2 : D1 modèles, D2 numérotation des gates, D3 dérive `.github/agents` vs mapping, D4 branche |
+| #1b | 2026-10-15 | Validation contrat CLI (Phase 1) — noté « #2 » à l'origine, renuméroté (D2) | ✅ GO (limites acceptées) | Phase 1 partielle acceptée : (a) MAINa et ARCos chargés ; hooks et précédence `git rm` non concluants en `-p` ; `git rm` refusé par défaut. T1.2 incomplet (gates #0, #3, #4 absents ; instructions racine absentes ; exclusions non vérifiées) : à compléter avant Phase 2 |
+| Revue T1.2 | 2026-10-15 | Revue ARCos du complément T1.2 | ✅ Validé avec corrections | Texte intégral ARCos joint au rapport Phase 1 (décisions par champ, R1–R4, stratégie de projection). |
+| #1b (décisions) | 2026-10-15 | Décisions D1–D4, clôture Phase 1 et lancement Phase 2 | ✅ GO | D1 : modèles = alias source (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`), pas d'override GPT ; format CLI à valider par un essai. D2 : renumérotation #2 → #1b. D3 : reporter les modèles légitimes dans source/mapping puis régénérer. D4 : branche `feat/copilot_compat`. Phase 1 acceptée avec limites. |
+| #2 | — | Validation code (Phase 2) | ⛔ Non présentable en `GO` | 2026-10-15 : T2.1 codée et revue (1 HIGH corrigé, 0 vulnérabilité), mais aucune exécution possible (pas de shell, profondeur de sous-agents maximale). Essai `model` (D1), génération, `-Check`, tests et `git diff --stat` manquants ; T2.2 et T2.3 non démarrées. Décision 👤 attendue sur le mode d'exécution. |
 | #3 | — | Validation tests et comportements | ⏳ En attente | Après Phase 3 |
 | #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
 
