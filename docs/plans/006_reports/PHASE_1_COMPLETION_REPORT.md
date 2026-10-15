@@ -242,14 +242,137 @@ handoff:
   - permission `git rm` face au `ask` du dépôt (conflit non vérifié).
 - Limite : la validation comportementale nécessite de lancer le client CLI sur le dépôt. Si l'environnement ne le permet pas, Phase 1 reste partielle et le contrat CLI est candidat, pas certifié.
 
+## Validation comportementale CLI — sans appel modèle (2026-10-15)
+
+Client : GitHub Copilot CLI 1.0.97-2. Aucun prompt envoyé au modèle, aucun fichier du dépôt modifié, aucun secret lu.
+
+| Point | Méthode | Résultat | Statut |
+|---|---|---|---|
+| (a) Agents `.github/agents/*.agent.md` | `copilot --help`, `copilot help agent` | Pas de sous-commande de listage (`help agent` : sujet inconnu, exit 1). Visibles seulement via `/agent` interactif. | NON VÉRIFIABLE SANS MODÈLE |
+| (b) Skills `.claude/skills/` | `copilot skill list` | 18 skills projet reconnus (maina, arcos, devon, qalvin, docly, …). `.github/skills/` absent de la liste, cause non identifiée. | VALIDÉ pour `.claude/skills/` ; ÉCART pour `.github/skills/` |
+| (c) Hooks `.github/hooks/*.json` | `Test-Path`, `copilot help config` | Dossier `.github/hooks/` absent. La config documente une clé `hooks` inline (même schéma) et `disableAllHooks`. Exécution non testable. | ÉCHEC de présence ; comportement NON VÉRIFIABLE SANS MODÈLE |
+| (d) Exclusion `/dist/` via `.copilotignore` | `copilot help ignore` | Sujet inexistant (exit 1). Aucun moyen non-modèle. | NON APPLICABLE (non garanti) |
+| (e) `git rm` : allow local vs ask dépôt | Lecture des clés seulement | Overlay local : `allow` contient `Bash(git rm`. Dépôt `.claude/settings.json` : `ask` contient `git rm`. Précédence non documentée. | NON VÉRIFIABLE SANS MODÈLE (statique) |
+
+Commandes : `copilot --version`, `--help`, `help config`, `skill --help`, `plugin --help`, `lsp --help`, `help permissions`, `help commands`, `skill list`, `plugin list` (exit 0) ; `help agent`, `help hooks`, `help ignore` (exit 1). `git status --short` vide.
+
+Conséquences pour le contrat CLI :
+- Skills `.claude/skills/` : validés comme reconnus par la CLI.
+- `.github/skills/` : non listés par la CLI ; ne pas s'appuyer dessus tant que la cause n'est pas identifiée. Hypothèse à tester en Phase 2.
+- Hooks : aucune garde de sécurité ne doit être annoncée comme active. Le dossier `.github/hooks/` n'existe pas encore.
+- Exclusion `/dist/` et précédence `git rm` : non garanties ; à traiter comme risques.
+
 ```yaml
 handoff:
   plan: "006"
   phase: 1
   agent: "MAINa"
   date: "2026-10-15"
-  gate: "#1 AJUSTER"
-  scope: "Copilot CLI seul"
   status: "partial"
-  next_step: "Validation comportementale CLI (chargement agents/skills, hooks preToolUse, exclusions, git rm) puis Gate #2 de Phase 1 ; ADR 005 à aligner sur le périmètre CLI (DOCly, Phase 4)."
+  evidence:
+    - "copilot skill list : 18 skills .claude/skills reconnus"
+    - ".github/hooks absent ; aucun appel modèle"
+    - "git status --short vide"
+  missing:
+    - "Listage agents (a) et exécution hooks (c) sans modèle"
+    - "Précédence allow local vs ask dépôt (e)"
+    - "Exclusion /dist/ (d)"
+    - "Cause de l'absence de .github/skills dans copilot skill list"
+  next_step: "Gate #2 de Phase 1 : décider d'accepter la validation partielle (limites explicites) ou d'autoriser des tests avec appel modèle pour (a), (c), (e)."
 ```
+
+## Gate #2 Phase 1 — tests CLI avec appels modèle (2026-10-15)
+
+Décision 👤 : **GO** sur la validation, avec autorisation explicite des appels modèle. Résultats (Copilot CLI 1.0.97-2, 7 appels modèle, dépôt réel inchangé) :
+
+| Point | Commande | Code | Observation | Statut |
+|---|---|---|---|---|
+| (a) MAINa | `copilot --agent MAINa -p "..."` | 0 | Répond en orchestrateur MAINa | VALIDÉ (contrôle sans `--agent` : réponse générique) |
+| (a) ARCos | `copilot --agent ARCos -p "..."` | 0 | Répond « architecte en lecture seule » | VALIDÉ (idem) |
+| (a) DEVon, QALvin, DOCly | non testés | — | — | NON TESTÉ |
+| (c) hook `preToolUse` (OK) | `copilot -p "... echo hello-probe"` dans un dépôt temporaire avec `.github/hooks/probe.json` | 0 | Commande exécutée ; journal du hook absent | NON CONCLUANT : hook probablement non chargé, schéma non confirmé sur 1.0.97-2 |
+| (c) hook en erreur | non effectué | — | — | NON CONCLUANT (dépend du point précédent) |
+| (e) `git rm --dry-run` (dépôt réel) | `copilot -p "..."` sans drapeau d'allow | 0 | « Denied, no one to approve » | NON CONCLUANT : défaut non interactif, pas le conflit allow local / ask dépôt |
+| (e) `git rm dummy.txt` (temporaire) | idem | 0 | Refusé ; fichier intact | NON CONCLUANT (idem) |
+
+Points à noter :
+- Le sous-agent a signalé une branche courante `feat/copilot_compat` alors que ce plan indique `main-ai`. À vérifier avant tout commit.
+- Les agents déclarent le modèle `Claude Sonnet 4.6`, indisponible : la CLI bascule sur `claude-sonnet-5.5`. Effet sur la fidélité du comportement à vérifier en Phase 3.
+- Dépôt réel : état git inchangé par les tests (les 3 fichiers modifiés sont ceux de cette session).
+- Répertoire temporaire créé, non supprimé (règle : aucun agent ne supprime de fichier) : `C:\Users\vzwingma\AppData\Local\Temp\cli-probe-006-20261015-163434`. À supprimer par 👤.
+
+Conclusion : Phase 1 reste **partielle**. Seul le chargement de MAINa et ARCos est prouvé. Les hooks et la précédence `git rm` ne sont pas tranchés en mode non interactif. Ces points ne peuvent pas être certifiés sans session interactive.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  gate: "#2 GO avec appels modèle autorisés"
+  status: "partial"
+  evidence:
+    - "copilot --agent MAINa et ARCos : chargement vérifié par contrôle"
+    - "dépôt réel inchangé"
+  missing:
+    - "Chargement DEVon, QALvin, DOCly"
+    - "Schéma et exécution des hooks preToolUse (fail-open / fail-closed)"
+    - "Précédence allow local vs ask dépôt pour git rm"
+  risks:
+    - "Hooks possiblement inactifs : aucune garde ne doit être annoncée"
+    - "Modèle de remplacement claude-sonnet-5.5 au lieu de Sonnet 4.6"
+    - "Branche relevée feat/copilot_compat : écart à vérifier"
+  next_step: "Décision 👤 : accepter les limites (contrat CLI candidat, hooks et git rm non garantis) ou organiser un test en session CLI interactive pour hooks et git rm."
+```
+
+## Décision 👤 — test interactif (2026-10-15)
+
+Choix 👤 : **option 2**, test des hooks et de `git rm` en session CLI interactive lancée par 👤. Aucune session interactive n'est pilotée par un agent. Protocole à exécuter par 👤 :
+
+1. **Hooks (dépôt temporaire, jamais le dépôt réel)** : créer `.github/hooks/probe.json` avec un hook `preToolUse` qui ajoute une ligne horodatée à `probe.log` (schéma : `copilot help config`). Lancer `copilot` en interactif dans ce dépôt, demander `echo hello-probe`. Consigner : `probe.log` présent ou non, et si l'outil s'exécute.
+2. **Hooks en erreur** : même dépôt, hook qui retourne `exit 1`. Consigner : l'outil est-il bloqué (fail-closed) ou exécuté (fail-open) ?
+3. **`git rm` (dépôt réel en lecture)** : session interactive, demander `git rm --dry-run docs/plans/README.md`. Consigner la question d'approbation, la règle invoquée si affichée, et la décision prise. Ne pas choisir « toujours autoriser » (cela modifie la configuration).
+4. **`git rm` (dépôt temporaire)** : demander `git rm dummy.txt`, répondre « non ». Vérifier que `dummy.txt` est intact.
+
+Résultat à transmettre à MAINa : pour chaque point, observation brute (≤ 5 lignes) et statut VALIDÉ / ÉCHEC / NON CONCLUANT. Phase 1 ne passera à `complete` qu'après ce résultat ou une acceptation explicite des limites.
+
+Répertoire temporaire à supprimer par 👤 : `C:\Users\vzwingma\AppData\Local\Temp\cli-probe-006-20261015-163434`.
+
+### Résultats des probes (validation 👤 « toutes les actions sont validées », mode `-p --no-ask-user`)
+
+Copilot CLI relevé : **1.0.99-0** (la note précédente indiquait 1.0.97-2 : écart à traiter).
+
+| Point | Commande | Observation brute | Statut |
+|---|---|---|---|
+| 1. Hook `preToolUse` nominal | `copilot -p "... echo hello-probe" --allow-tool "shell(echo)" --no-ask-user` (dépôt temporaire, puis `--log-level debug`) | `hello-probe` affiché, outil exécuté. `probe.log` absent. Log debug sans trace de chargement ou d'exécution du hook. | NON CONCLUANT |
+| 2. Hook en erreur (`exit 1`) | même commande, copie `cli-probe-006-fail` | `hello-probe` affiché, aucun message d'erreur de hook, `probe.log` absent. | NON CONCLUANT : fail-open / fail-closed non démontré |
+| 3. `git rm --dry-run docs/plans/README.md` (dépôt réel) | `copilot -p ... --no-ask-user` | Permission refusée automatiquement (« no interactive user response »), commande non exécutée. `git status --short` identique avant / après (3 fichiers M préexistants). | VALIDÉ (refus observé) |
+| 4. `git rm dummy.txt` (dépôt temporaire) | `copilot -p ... --no-ask-user`, sans `--allow-tool` | Refus « Denied, no one to approve ». `dummy.txt` présent (7 octets). | VALIDÉ (refus observé) |
+
+Note de représentativité : **partielle**. Le refus en `-p --no-ask-user` est cohérent avec le mode interactif, mais les hooks n'ont été observés dans aucun run `-p`. Le comportement des hooks reste à confirmer en session interactive.
+
+Copie `C:\Users\vzwingma\AppData\Local\Temp\cli-probe-006-fail` créée, non supprimée. À supprimer par 👤 avec le dossier `cli-probe-006-20261015-163434`.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  gate: "#2 GO avec appels modèle autorisés ; probes validés"
+  status: "partial"
+  evidence:
+    - "git rm refusé en dépôt réel (dry-run) et en dépôt temporaire, dépôt réel inchangé"
+    - "copilot --agent MAINa et ARCos : chargement vérifié par contrôle"
+  missing:
+    - "Exécution des hooks preToolUse (points 1 et 2 non concluants en -p)"
+    - "Chargement DEVon, QALvin, DOCly"
+    - "Précédence allow local vs ask dépôt pour git rm"
+  risks:
+    - "Hooks possiblement inactifs : aucune garde ne doit être annoncée"
+    - "Version CLI 1.0.99-0 relevée, différente de 1.0.97-2 consignée précédemment"
+    - "Modèle de remplacement claude-sonnet-5.5 au lieu de Sonnet 4.6"
+    - "Branche relevée feat/copilot_compat : écart à vérifier"
+  next_step: "Décision 👤 : accepter les limites (hooks non garantis, git rm refusé par défaut) ou tester les hooks en session interactive."
+```
+
