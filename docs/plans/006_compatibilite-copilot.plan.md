@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** 🔄 En cours — Phase 2 bloquée (exécution indisponible) le 2026-10-15 : T2.1 codée et revue, non exécutée. Périmètre : Copilot CLI seul (Gate #1 AJUSTER). Phase 1 acceptée avec limites (Gate #1b `GO`). Décisions 👤 D1–D4 consignées. Branche : `feat/copilot_compat`.
+**Statut :** 🔄 En cours — Phase 2 acceptée (Gate #2 `GO`, 2026-10-15) ; Phase 3 (tests) lancée. Périmètre : Copilot CLI seul (Gate #1 AJUSTER). Phase 1 acceptée avec limites (Gate #1b `GO`). Décisions 👤 D1–D4 consignées. Branche : `feat/copilot_compat`.
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
@@ -68,7 +68,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Relais :** MAINa contrôle le rapport avant DEVon. Si outils ou preuves manquent, Phase 1 reste bloquée. Si le contrat réduit le périmètre, change la solution ou révèle une impossibilité de parité, soumettre `AJUSTER` au Gate #1 avant implémentation ; pas de décision majeure déléguée implicitement.
 
-### Phase 2 — Corriger source, projection et distribution — 🔄 En cours
+### Phase 2 — Corriger source, projection et distribution — ✅ Acceptée (Gate #2 GO)
 
 **Contexte :** dépend de Phase 1 et du Gate #1 validé. DEVon implémente uniquement le contrat vérifié ; n'écrit ni tests ni documentation utilisateur.
 
@@ -105,7 +105,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Preuves / Gate #2 :** build/lint applicables et tests existants verts, commandes et résultats ; génération puis `-Check` sans changement ; `git diff --stat` ; revues automatiques code et sécurité selon protocole. Si outils indisponibles ou script existant interdit, ne pas l'exécuter : signaler bloqueur et demander ajustement du scope avant correction hors rôle.
 
-### Phase 3 — Tester contrats et comportements — ⏳ Planifié
+### Phase 3 — Tester contrats et comportements — 🔄 En cours
 
 **Contexte :** QALvin intervient après `GO` du Gate #2. Aucun changement de production ou documentation.
 
@@ -193,7 +193,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 | #1b | 2026-10-15 | Validation contrat CLI (Phase 1) — noté « #2 » à l'origine, renuméroté (D2) | ✅ GO (limites acceptées) | Phase 1 partielle acceptée : (a) MAINa et ARCos chargés ; hooks et précédence `git rm` non concluants en `-p` ; `git rm` refusé par défaut. T1.2 incomplet (gates #0, #3, #4 absents ; instructions racine absentes ; exclusions non vérifiées) : à compléter avant Phase 2 |
 | Revue T1.2 | 2026-10-15 | Revue ARCos du complément T1.2 | ✅ Validé avec corrections | Texte intégral ARCos joint au rapport Phase 1 (décisions par champ, R1–R4, stratégie de projection). |
 | #1b (décisions) | 2026-10-15 | Décisions D1–D4, clôture Phase 1 et lancement Phase 2 | ✅ GO | D1 : modèles = alias source (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`), pas d'override GPT ; format CLI à valider par un essai. D2 : renumérotation #2 → #1b. D3 : reporter les modèles légitimes dans source/mapping puis régénérer. D4 : branche `feat/copilot_compat`. Phase 1 acceptée avec limites. |
-| #2 | — | Validation code (Phase 2) | ⛔ Non présentable en `GO` | 2026-10-15 : T2.1 codée et revue (1 HIGH corrigé, 0 vulnérabilité), mais aucune exécution possible (pas de shell, profondeur de sous-agents maximale). Essai `model` (D1), génération, `-Check`, tests et `git diff --stat` manquants ; T2.2 et T2.3 non démarrées. Décision 👤 attendue sur le mode d'exécution. |
+| #2 | 2026-10-15 | Validation code (Phase 2) | ✅ GO | Réponse humaine « GO ». Reprise avec terminal (GO B) : T2.1–T2.3 exécutées ; essai `model` (D1) et découverte des skills (R1) faits ; génération, `-Check` et idempotence OK ; `check-harness` 0 erreur (PS 5.1 et 7) ; `sync.tests` 31/31 (5.1 et 7), `guard.tests` 54/54 ; défaut injecté détecté ; packages sans exclusions violées, écrasement refusé ; revue code 0 bloquant (4 corrigés), sécurité 0 vulnérabilité. Limites acceptées : gardes/hooks, `.copilotignore`, `git rm`, arrêt aux gates non prouvés en CLI ; repli de modèle silencieux (exit 0) à couvrir en Phase 3. Rapport : `006_reports/PHASE_2_COMPLETION_REPORT.md`. |
 | #3 | — | Validation tests et comportements | ⏳ En attente | Après Phase 3 |
 | #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
 

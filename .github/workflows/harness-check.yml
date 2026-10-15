@@ -15,7 +15,7 @@ jobs:
   check:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683   # v4.2.2 (pinned by commit)
 
       - name: Harness consistency + Copilot generation check (Windows PowerShell 5.1)
         shell: powershell
