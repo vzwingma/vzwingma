@@ -46,6 +46,10 @@ Créer les fichiers d'instructions par rôle depuis les templates `.github/instr
 `orchestrator`, `architect`, `dev`, `qa`, `doc` → `.github/instructions/<rôle>.instructions.md` (sans `.template`),
 puis remplir leurs placeholders avec les valeurs de l'étape 2.
 
+La cible documentée est GitHub Copilot CLI uniquement ; VS Code et cloud agent sont hors périmètre. Les
+skills CLI sont chargées selon pertinence, sans sélection déterministe par rôle. Les profils générés
+portent donc une consigne explicite de chargement.
+
 Valeur non déterminable depuis le code → conserver le placeholder et le signaler.
 
 
@@ -68,3 +72,6 @@ points à valider par 👤.
 - [ ] `docs/ARCHITECTURE.md` et `docs/adr/` présents
 - [ ] Aucune référence à un fichier inexistant
 - [ ] Langue française pour le texte narratif
+
+Après toute modification de la source `.github/`, régénérer la projection avec
+`scripts/sync-claude-to-github.ps1`, puis contrôler avec `-Check` et `scripts/check-harness.ps1`.

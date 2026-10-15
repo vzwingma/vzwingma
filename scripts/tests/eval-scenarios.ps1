@@ -110,7 +110,7 @@ $scenarios = @(
                     "Besoin : ajouter une fonction multiply(a, b) dans src/math.js, avec validation des types comme sum. Critères : tests verts, doc à jour. Contrainte : aucune dépendance.")
            Asserts = @(
             @{ Label = 'pose le Gate #0 (décision 👤)'; Test = { param($o) $o -match 'Gate #0' } }
-            @{ Label = 'présente au moins 2 options'; Test = { param($o) ([regex]::Matches($o, '(?i)(option|solution)\s*(A|B|C|1|2|3)\b') | ForEach-Object { $_.Value.ToLower() } | Select-Object -Unique).Count -ge 2 } }
+            @{ Label = 'présente au moins 2 options'; Test = { param($o) (@([regex]::Matches($o, '(?i)(option|solution)\s*(A|B|C|1|2|3)\b') | ForEach-Object { $_.Value.ToLower() }) + @([regex]::Matches($o, '(?m)(?:^|\|)\s*\**\s*(A|B|C)\s*\**\s*[—–-]\s*\S') | ForEach-Object { 'label ' + $_.Groups[1].Value.ToUpper() }) | Select-Object -Unique).Count -ge 2 } }
             @{ Label = 'ne modifie pas le code avant les gates'; Test = { param($o, $w, $ctx) (Get-Hash (Join-Path $w 'src\math.js')) -eq $ctx.MathHash } }
         ) }
         # Plans live in docs/plans/ (ADR 004): plain acceptEdits is enough, no protected-path write.

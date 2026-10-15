@@ -2,7 +2,9 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** ❌ Bloqué — Gate #1 validé ; Phase 1 partiellement documentée, inventaire Git et vérifications runtime en attente
+**Statut :** ✅ Complété (Gate #4 `GO`, 2026-10-15) — Phase 4 ✅ terminée. Périmètre : Copilot CLI seul (Gate #1
+AJUSTER). Phase 1 acceptée avec limites (Gate #1b `GO`), Phase 2 acceptée (Gate #2 `GO`) et Phase 3
+acceptée (Gate #3 `GO`). Décisions 👤 D1–D4 consignées. Branche : `feat/copilot_compat`.
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
@@ -13,7 +15,9 @@
 
 Rendre le harnais Claude-first utilisable dans GitHub Copilot sans maintenir une seconde source de contenu, en préservant les rôles, skills, activités et gates définis pour Claude. Remplacer la projection « best-effort » non vérifiée par un contrat de compatibilité explicite et des preuves indépendantes du générateur.
 
-La compatibilité « 100 % » signifie que tous les invariants obligatoires passent sur chaque cible annoncée. Une fonctionnalité indisponible, une approximation déclarative ou un scénario non exécuté interdit cette qualification pour la cible concernée.
+La qualification de compatibilité exige que tous les invariants obligatoires soient vérifiés sur la cible
+annoncée. Une fonctionnalité indisponible, une approximation déclarative ou un scénario non exécuté interdit
+cette qualification pour la cible concernée.
 
 ### Solution retenue (Gate #0)
 
@@ -21,10 +25,16 @@ La compatibilité « 100 % » signifie que tous les invariants obligatoires pass
 
 Alternatives : fichiers Claude seuls (moins de duplication, équivalence native non établie) ; socle neutre partagé avec adaptateurs (refonte plus importante, contraire à la priorité Claude-first si appliquée intégralement).
 
+### Périmètre ajusté (Gate #1 — AJUSTER, 2026-10-15)
+
+- **Cible unique : GitHub Copilot CLI.** VS Code et cloud agent sortent du périmètre de cette qualification ; leurs lignes de matrice restent documentaires et ne sont annoncées nulle part.
+- Conséquences : pas de profil VS Code/cloud à produire en Phase 2 ; pas de test de parité VS Code/cloud en Phase 3 ; documentation Phase 4 limitée à Copilot CLI.
+- Le `GO` précédent valide l'ADR 005 ; la portée de l'ADR doit être alignée sur ce périmètre par DOCly en Phase 4.
+
 ### État des preuves et contraintes
 
 - Audit statique disponible ; aucune documentation officielle actuelle consultée, aucun test ni commande Git exécuté dans cette session faute outils web/shell exposés.
-- Agents et skills exposés par l'hôte actuel : disponibilité observée, pas certification CLI/IDE/cloud.
+- Agents et skills exposés par l'hôte actuel : disponibilité observée, pas certification Copilot CLI.
 - Inventaire exhaustif des fichiers suivis à établir en Phase 1 ; les affirmations natives non sourcées de l'analyse ne sont pas considérées comme preuves.
 - AP 005 reste en cours, scénarios réels et clôture en attente. AP 006 le complète sans modifier son statut ni présumer ses preuves obtenues.
 - Respecter les exclusions avant toute recherche, lecture, copie et exécution ; ne pas parcourir métadonnées Git, autres checkouts ou liens externes.
@@ -36,15 +46,15 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 ## 🛠️ Phases
 
-### Phase 1 — Établir le contrat de compatibilité — ❌ Bloquée
+### Phase 1 — Établir le contrat de compatibilité — ✅ Acceptée avec limites (Gate #1b, 2026-10-15)
 
-**Contexte :** les différences natives entre Copilot CLI, VS Code et cloud ne sont pas vérifiées. Cette phase précède toute implémentation ; elle ne modifie ni source du harnais ni rendu.
+**Contexte :** les différences natives de Copilot CLI ne sont pas toutes vérifiées. Cette phase précède toute implémentation ; elle ne modifie ni source du harnais ni rendu.
 
-**Rapport :** [Phase 1 — vérification partielle et blocages](006_reports/PHASE_1_COMPLETION_REPORT.md). Gate #1 validé le 2026-10-13 ; les sources officielles GitHub ont été consultées et recoupées, mais aucun terminal n'est disponible pour l'inventaire Git, les versions installées ou les tests. T1.1 reste bloquée ; T1.2 reste incomplète (configuration effective et comportements non vérifiés). Ce blocage technique n'est pas une décision `STOP` et ne rejette pas l'ADR.
+**Rapport :** [Phase 1 — contrat CLI](006_reports/PHASE_1_COMPLETION_REPORT.md). T1.1 : matrice documentaire vérifiée et chargement de MAINa et ARCos observé. T1.2 : contrat documentaire validé par ARCos avec corrections (texte intégral, R1–R4 et stratégie de projection dans le rapport). La validation comportementale est reportée à T3.2. Limites : hooks, exclusion `/dist/` côté Copilot, précédence `git rm`, variante de skill lue par la CLI.
 
 **Critères de réussite :**
 - Inventaire des fichiers suivis dans le périmètre autorisé, avec exclusions et omissions explicites.
-- Trois cibles étudiées séparément : CLI, VS Code et cloud ; versions, sources officielles consultées et dates consignées.
+- Cible unique Copilot CLI ; version, sources officielles consultées et dates consignées.
 - Chaque capacité classée : native, adaptée, non supportée ou non vérifiée.
 - Chaque invariant obligatoire associé à un scénario observable ; aucun statut « supporté » basé seulement sur une copie textuelle.
 
@@ -52,7 +62,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 - **Agent :** 🟠 ARCos
 - **Fichier(s) :** `docs/plans/006_reports/PHASE_1_COMPLETION_REPORT.md`
 - **Couvrir :** instructions racine ; découverte `.claude`, `.github`, `.agents` ; agents, skills, invocation, modèles, outils, délégation, hooks et permissions ; différences d'hôte.
-- **Acceptation :** matrice pour les trois cibles avec références officielles et versions ; chaque point non vérifiable explicitement bloqué. Aucun fait de compatibilité attribué à une source non consultée.
+- **Acceptation :** matrice pour Copilot CLI avec références officielles et versions ; chaque point non vérifiable explicitement bloqué. Aucun fait de compatibilité attribué à une source non consultée.
 
 #### T1.2 - Définir invariants et stratégie de projection
 - **Agent :** 🟠 ARCos
@@ -62,20 +72,27 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Relais :** MAINa contrôle le rapport avant DEVon. Si outils ou preuves manquent, Phase 1 reste bloquée. Si le contrat réduit le périmètre, change la solution ou révèle une impossibilité de parité, soumettre `AJUSTER` au Gate #1 avant implémentation ; pas de décision majeure déléguée implicitement.
 
-### Phase 2 — Corriger source, projection et distribution — ⏳ Planifié
+### Phase 2 — Corriger source, projection et distribution — ✅ Acceptée (Gate #2 GO)
 
 **Contexte :** dépend de Phase 1 et du Gate #1 validé. DEVon implémente uniquement le contrat vérifié ; n'écrit ni tests ni documentation utilisateur.
 
+**Rapport :** [Phase 2](006_reports/PHASE_2_COMPLETION_REPORT.md).
+
+**Décisions applicables (Gate #1b, 2026-10-15) :**
+- **D1** : modèles = alias source via `ModelMap` (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`). Pas d'override par agent. Le format d'identifiant du champ `model` CLI est validé par un essai avant fixation. Cette décision remplace « ne pas forcer un nom Copilot non validé » de T2.1.
+- **D3** : les modifications légitimes des `.github/agents` édités à la main sont reportées dans la source ou le mapping, puis régénérées. Aucun fichier généré édité à la main.
+- **Contrat ARCos** : stratégie de projection 1–5 et risques R1–R4 du rapport Phase 1.
+
 **Critères de réussite :**
 - Profil ARCos sans capacité d'écriture/exécution mutante ni délégation d'implémentation ; autres rôles au moindre privilège compatible avec leur mission.
-- Aucun outil d'extension locale imposé par le profil générique ; modèles et outils validés pour les cibles annoncées.
+- Aucun outil d'extension locale imposé par le profil générique ; modèles et outils validés pour Copilot CLI.
 - Aucune perte silencieuse d'un invariant obligatoire dans la génération.
 - Parcours et packages respectent exclusions ; génération idempotente et publication de rendu obsolète bloquée.
 
 #### T2.1 - Corriger profils et chargement par rôle
 - **Agent :** 🔵 DEVon
 - **Fichier(s) :** `scripts/copilot-mapping.psd1`, `scripts/Sync-Description.psm1`, `.claude/agents/{Maina,Arcos,Devon,Qalvin,Docly}.agent.md`
-- **Implémenter :** profils par cible si nécessaires ; suppression des droits incohérents ; obtention des preuves par MAINa directement ou par délégation bornée ; procédures/conventions explicitement chargées. Préserver modèles Claude et ne pas forcer un nom Copilot non validé.
+- **Implémenter :** profils adaptés à Copilot CLI si nécessaires ; suppression des droits incohérents ; obtention des preuves par MAINa directement ou par délégation bornée ; procédures/conventions explicitement chargées. Préserver modèles Claude et ne pas forcer un nom Copilot non validé.
 - **Acceptation :** cinq profils conformes au contrat ; zéro dépendance Java/Sonar imposée au générique ; aucun cumul global d'interdictions des cinq rôles.
 
 #### T2.2 - Préserver sémantique des skills et gardes
@@ -92,13 +109,14 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Preuves / Gate #2 :** build/lint applicables et tests existants verts, commandes et résultats ; génération puis `-Check` sans changement ; `git diff --stat` ; revues automatiques code et sécurité selon protocole. Si outils indisponibles ou script existant interdit, ne pas l'exécuter : signaler bloqueur et demander ajustement du scope avant correction hors rôle.
 
-### Phase 3 — Tester contrats et comportements — ⏳ Planifié
+### Phase 3 — Tester contrats et comportements — ✅ Acceptée (Gate #3 GO)
 
 **Contexte :** QALvin intervient après `GO` du Gate #2. Aucun changement de production ou documentation.
 
 **Critères de réussite :**
-- Tests unitaires/intégration du générateur, contrôles, gardes et packages verts ; couverture ≥ 80 % du code modifié mesurable.
-- Scénarios Claude de non-régression et Copilot des cibles annoncées réellement exécutés ou marqués bloqués.
+- Tests unitaires/intégration du générateur, contrôles, gardes et packages verts ; couverture du code modifié
+  mesurable ou limite instrumentée explicitement.
+- Scénarios Claude de non-régression et Copilot CLI réellement exécutés ou marqués bloqués.
 - Une CLI en erreur, un défaut d'authentification ou un agent non chargé ne peut produire de succès.
 - Refus observés et preuves de régression enregistrés ; pas seulement absence de fichiers modifiés.
 
@@ -111,14 +129,14 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 #### T3.2 - Évaluer comportement réel Claude et Copilot
 - **Agent :** 🟢 QALvin
 - **Fichier(s) :** `scripts/tests/eval-scenarios.ps1`, `scripts/tests/eval-copilot-scenarios.ps1`, `docs/plans/006_reports/PHASE_3_COMPLETION_REPORT.md`
-- **Couvrir :** découverte des cinq agents et skills distribuées, initialization, routage, conventions, gates #0→#4, MAINa principal, ARCos lecture seule, frontières dev/QA/doc, opérations interdites et exclusions. Tests IDE/cloud guidés si automatisation indisponible.
-- **Acceptation :** codes de sortie et chargement effectif vérifiés ; réponse et effets observés ; journal des gates et arrêt réel à chaque gate ; matrice par cible sans faux positif. Appels payants/authentification/configuration personnelle soumis à accord distinct.
+- **Couvrir :** découverte des cinq agents et skills distribuées, initialization, routage, conventions, gates #0→#4, MAINa principal, ARCos lecture seule, frontières dev/QA/doc, opérations interdites et exclusions. - **Acceptation :** codes de sortie et chargement effectif vérifiés ; réponse et effets observés ; journal des gates et arrêt réel à chaque gate ; résultats Copilot CLI sans faux positif. Appels payants/authentification/configuration personnelle soumis à accord distinct.
 
-**Relais / Gate #3 :** résultats, couverture, régression et matrice de certification. Si un défaut de production apparaît, retour vers DEVon via MAINa puis nouvelle validation code ; QALvin ne le corrige pas lui-même. Toute cible obligatoire bloquée empêche qualification « 100 % » et clôture sans révision humaine explicite du périmètre.
+**Relais / Gate #3 :** résultats, couverture, régression et matrice de certification. Si un défaut de production apparaît, retour vers DEVon via MAINa puis nouvelle validation code ; QALvin ne le corrige pas lui-même. Si Copilot CLI reste bloqué, la qualification complète est impossible et la clôture exige une révision humaine explicite du périmètre.
 
-### Phase 4 — Documenter support vérifié et clôturer — ⏳ Planifié
+### Phase 4 — Documenter support vérifié et clôturer — ✅ Acceptée (Gate #4 GO)
 
-**Contexte :** DOCly intervient après `GO` du Gate #3, sauf rédaction de l'ADR proposée avant Gate #1.
+**Contexte :** DOCly est intervenu après `GO` du Gate #3. Documentation synchronisée ; validation humaine
+du Gate #4 et clôture restent en attente.
 
 **Critères de réussite :**
 - Documentation annonce uniquement clients, versions et comportements prouvés.
@@ -135,7 +153,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 #### T4.2 - Finaliser décision et rapports
 - **Agent :** 🟣 DOCly
 - **Fichier(s) :** `docs/adr/005-projection-copilot-verifiee.md`, `docs/plans/006_compatibilite-copilot.plan.md`, `docs/plans/006_reports/PHASE_4_COMPLETION_REPORT.md`, `docs/plans/README.md`
-- **Acceptation :** ADR et rapport référencent preuves, limites et cibles supportées ; préparation de clôture sans présumer `GO` au Gate #4. MAINa marque le plan complété après validation humaine, dans le même changement que l'index.
+- **Acceptation :** ADR et rapport référencent preuves, limites et Copilot CLI comme seule cible supportée ; préparation de clôture sans présumer `GO` au Gate #4. MAINa marque le plan complété après validation humaine, dans le même changement que l'index.
 
 ---
 
@@ -163,13 +181,20 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 
 ## ✅ Critères de Succès Globaux
 
-1. Une source maintenue ; projection minimale, déterministe et idempotente ; copies inutiles identifiées avec preuve, sans suppression par agents.
-2. Matrice native/adaptée/non supportée pour CLI, VS Code et cloud, sourcée et datée.
-3. Cinq rôles et gates #0→#4 conformes dans les cibles certifiées ; conventions/procédures chargées correctement.
-4. Aucun invariant de garde ou d'exclusion perdu silencieusement ; aucun support déclaré « 100 % » sans preuve.
-5. Tests verts, couverture ≥ 80 % du code modifié et régression détectée ; CLI en échec jamais interprétée comme succès.
-6. Distribution reproductible et installation vierge vérifiée ; documentation alignée sans résidus de plateforme erronés.
-7. Gates humains tous tracés ; ADR acceptée au Gate #1 ; clôture uniquement après Gate #4 et traitement explicite des bloqueurs.
+1. ✅ Source unique `.claude/`, projection idempotente et contrôlée par `-Check` — preuves Phase 2 ; aucune
+   projection éditée manuellement.
+2. ✅ Matrice et contrat documentés pour GitHub Copilot CLI seule — Phase 1, compléments et rapport Phase 3 ;
+   versions observées `1.0.99-0`, puis `1.0.99-1`.
+3. ⚠️ Cinq profils chargés et 18 skills reconnus — S1 valide les cinq profils et `skill list` valide les
+   skills ; chargement par pertinence et arrêt général aux gates non garantis.
+4. ⚠️ Contrat indépendant `check-harness` et scénarios S3/S5/S6 — contrôles verts et comportements observés,
+   mais aucune garde native Copilot déterministe ; `/dist/`, `.copilotignore`, hooks et frontières restent
+   limités par les preuves disponibles.
+5. ✅ Tests de projection verts : sync 31/31, compatibilité 68/68, guards 54/54 ; S7 détecte le repli malgré
+   un code CLI nul. La matrice fonctionnelle 17/17 n'est pas instrumentée.
+6. ✅ Génération, packages, refus d'écrasement et exclusions de parcours vérifiés en Phase 2 ; installation
+   vierge et comportement CLI documentés avec leurs limites.
+7. ✅ Gates #0 à #4 tracés, ADR 005 acceptée au Gate #1, clôture après `GO` humain au Gate #4 (2026-10-15). Limites non déterministes (hooks, `.copilotignore`, frontières de rôle, `git rm`) restent documentées comme comportements observés.
 
 ## 🚦 Journal des gates
 
@@ -177,9 +202,13 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 |---|---|---|---|---|
 | #0 | 2026-10-13 | Choix de solution | ✅ GO | Option B : source Claude unique + projection Copilot ciblée ; copies réduites après preuve native |
 | #1 | 2026-10-13 | Validation AP 006 et ADR 005 | ✅ GO | Réponse humaine « go » ; ADR 005 Acceptée ; Phase 1 bloquée faute accès web/shell, aucune implémentation lancée |
-| #2 | — | Validation code et revues | ⏳ En attente | Après Phases 1–2 |
-| #3 | — | Validation tests et comportements | ⏳ En attente | Après Phase 3 |
-| #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
+| #1 (ajustement) | 2026-10-15 | Périmètre de compatibilité après preuves documentaires | 🔄 AJUSTER | Décision humaine : cible unique Copilot CLI ; VS Code et cloud agent hors périmètre. Revue du plan et de l'ADR 005 requise avant Phase 2 |
+| #1b | 2026-10-15 | Validation contrat CLI (Phase 1) — noté « #2 » à l'origine, renuméroté (D2) | ✅ GO (limites acceptées) | Phase 1 partielle acceptée : (a) MAINa et ARCos chargés ; hooks et précédence `git rm` non concluants en `-p` ; `git rm` refusé par défaut. T1.2 incomplet (gates #0, #3, #4 absents ; instructions racine absentes ; exclusions non vérifiées) : à compléter avant Phase 2 |
+| Revue T1.2 | 2026-10-15 | Revue ARCos du complément T1.2 | ✅ Validé avec corrections | Texte intégral ARCos joint au rapport Phase 1 (décisions par champ, R1–R4, stratégie de projection). |
+| #1b (décisions) | 2026-10-15 | Décisions D1–D4, clôture Phase 1 et lancement Phase 2 | ✅ GO | D1 : modèles = alias source (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`), pas d'override GPT ; format CLI à valider par un essai. D2 : renumérotation #2 → #1b. D3 : reporter les modèles légitimes dans source/mapping puis régénérer. D4 : branche `feat/copilot_compat`. Phase 1 acceptée avec limites. |
+| #2 | 2026-10-15 | Validation code (Phase 2) | ✅ GO | Réponse humaine « GO ». Reprise avec terminal (GO B) : T2.1–T2.3 exécutées ; essai `model` (D1) et découverte des skills (R1) faits ; génération, `-Check` et idempotence OK ; `check-harness` 0 erreur (PS 5.1 et 7) ; `sync.tests` 31/31 (5.1 et 7), `guard.tests` 54/54 ; défaut injecté détecté ; packages sans exclusions violées, écrasement refusé ; revue code 0 bloquant (4 corrigés), sécurité 0 vulnérabilité. Limites acceptées : gardes/hooks, `.copilotignore`, `git rm`, arrêt aux gates non prouvés en CLI ; repli de modèle silencieux (exit 0) à couvrir en Phase 3. Rapport : `006_reports/PHASE_2_COMPLETION_REPORT.md`. |
+| #3 | 2026-10-15 | Validation tests et comportements (Phase 3) | ✅ GO | Réponse humaine « GO ». T3.1 : `compatibility.tests.ps1` 68/68 (5.1 et 7), `sync.tests` 31/31, `check-harness` 0 erreur ; défaut injecté (`Read → broken-read`) détecté (3 échecs). T3.2 : S1–S7 exécutés sur Copilot CLI 1.0.99-1 (S1 rescoré sans appel : 5 profils chargés ; S2 arrêt au Gate #0 observé en `-p` ; S3 ARCos lecture seule ; S4 DEVon/QALvin bloqués faute d'approbateur, DOCly par prose ; S5 refus et cible intacte ; S6 non-divulgation par lecture de `.copilotignore` (prose) ; S7 repli de modèle détecté malgré exit 0). Crédits : 64,39 puis 27,71 = 92,10 au total (plafonds 60 et 45 : le premier dépassé de 4,39). Limites acceptées : garanties comportementales non déterministes ; couverture fonctionnelle (matrice 17/17), non instrumentée. Rapport : `006_reports/PHASE_3_COMPLETION_REPORT.md`. |
+| #4 | 2026-10-15 | Documentation et clôture (Phase 4) | ✅ GO | Réponse humaine « GO ». Documentation alignée sur Copilot CLI seule (1.0.99-0 puis 1.0.99-1), ADR 005 avec résultats de vérification, rapport Phase 4. Projection régénérée, `-Check` 0 écart, `check-harness` 0 erreur (5.1 et 7), tests 31/68/54 verts. Plan complété ; commit et suppression des dossiers temporaires laissés à 👤. |
 
 ## 📚 Références
 

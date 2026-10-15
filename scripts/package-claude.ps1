@@ -39,6 +39,7 @@ $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
 Import-Module (Join-Path $PSScriptRoot 'Package.psm1') -Force -DisableNameChecking
+Assert-HarnessCheck -RepoRoot $repoRoot
 
 if ($OutputDir -eq '') { $OutputDir = Join-Path $repoRoot 'dist' }
 if ($FileName  -eq '') { $FileName  = "claude-templates-$(Get-Date -Format 'yyyyMMdd')" }

@@ -33,7 +33,7 @@ Créés dans même lot que implémentation, pas après coup.
 | 🟢 **QALvin** | Tests nominal / erreurs / limites | Tests verts, couverture, détection de régression |
 | 🟣 **DOCly** | Documentation | README, `docs/`, ADR à jour |
 
-Configuration (modèle, outils, skills préchargés) : [`agents/README.md`](agents/README.md) · versions : [`CHANGELOG.md`](CHANGELOG.md).
+Configuration (modèle, outils, skills Copilot préchargés) : [`agents/README.md`](agents/README.md) · versions : [`CHANGELOG.md`](CHANGELOG.md).
 Les sous-agents ne s'adressent pas au 👤 : questions + bloc `handoff` rendus à MAINa, qui les pose au gate.
 
 ---
@@ -99,6 +99,20 @@ Travail ciblé : `/arcos <problème>`, `/devon <tâche>`, `/qalvin <cible>`, `/d
 
 - Ce dossier est **généré** depuis le dossier source `.claude` (ADR 003) : ne pas l'éditer à la main.
 - Modifier la source, puis lancer `scripts/sync-claude-to-github.ps1` et `scripts/check-harness.ps1`.
+
+## 🎯 Périmètre Copilot vérifié
+
+Seule cible vérifiée : GitHub Copilot CLI. Versions observées : `1.0.99-0`, puis `1.0.99-1`.
+VS Code et cloud agent sont hors périmètre ; aucune parité n'est annoncée.
+
+`.github/` est la source unique. Chaque profil généré demande explicitement le chargement des skills :
+la CLI les charge selon pertinence, avec priorité `.github/skills/` sur `.github/skills/` à nom égal.
+Conventions projet projetées en `.github/instructions/<role>.instructions.template.md`.
+
+Le mapping des outils et modèles est décrit dans `scripts/copilot-mapping.psd1` et `scripts/README.md`.
+ARCos reste en lecture seule. Un modèle inconnu peut avertir, revenir au défaut et conserver un code 0.
+Gardes, exclusions et frontières de rôle sont des comportements observés, non des garanties natives générales.
+<!-- /copilot-only
 
 
 ---

@@ -16,7 +16,8 @@
       - .github/copilot-instructions.md, .github/workflows/
       - docs/ARCHITECTURE.md, docs/adr/NNN-*.md, .claude/, scripts/, root README.md
 
-    ZIP entries use forward slashes (portable unzip).
+    ZIP entries use forward slashes (portable unzip). check-harness.ps1 must pass first (blocking), and an
+    existing archive is never overwritten.
 
 .PARAMETER OutputDir
     Directory where the ZIP will be written. Defaults to <repo-root>/dist.
@@ -39,6 +40,7 @@ $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
 Import-Module (Join-Path $PSScriptRoot 'Package.psm1') -Force -DisableNameChecking
+Assert-HarnessCheck -RepoRoot $repoRoot
 
 if ($OutputDir -eq '') { $OutputDir = Join-Path $repoRoot 'dist' }
 if ($FileName  -eq '') { $FileName  = "copilot-templates-$(Get-Date -Format 'yyyyMMdd')" }

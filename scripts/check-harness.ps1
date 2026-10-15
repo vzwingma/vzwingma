@@ -29,6 +29,7 @@ $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
 Import-Module (Join-Path $PSScriptRoot 'Sync-Description.psm1') -Force -DisableNameChecking
+Import-Module (Join-Path $PSScriptRoot 'Harness-Paths.psm1') -Force -DisableNameChecking
 
 $claude  = Join-Path $repoRoot '.claude'
 $utf8    = New-Object System.Text.UTF8Encoding($false)
@@ -130,8 +131,8 @@ foreach ($dir in Get-ChildItem (Join-Path $claude 'skills') -Directory) {
 }
 
 # ── Copilot-only artifacts in the Claude source ──────────────────────────────
-$sourceDocs = Get-ChildItem $claude -Recurse -File -Include '*.md' |
-              Where-Object { $_.Name -ne 'CHANGELOG.md' -and $_.Name -ne 'SKILL.copilot.md' }
+$sourceDocs = @(Get-HarnessFiles -RepoRoot $repoRoot -Path $claude -Filter '*.md' -Recurse |
+              Where-Object { $_.Name -ne 'CHANGELOG.md' -and $_.Name -ne 'SKILL.copilot.md' })
 foreach ($file in $sourceDocs) {
     $rel  = Get-Rel $file.FullName
     $text = Remove-CopilotOnly (Read-Text $file.FullName)
@@ -142,11 +143,11 @@ foreach ($file in $sourceDocs) {
 
 # ── Docs: dead links, counts, size ────────────────────────────────────────────
 $docFiles = @()
-$docFiles += Get-ChildItem $repoRoot -File -Filter '*.md'
-$docFiles += Get-ChildItem (Join-Path $repoRoot 'docs') -Recurse -File -Filter '*.md' |
-             Where-Object { $_.FullName -notmatch '[\\/]docs[\\/]plans[\\/](archive|00[1-4])' }   # historical plans
-$docFiles += Get-ChildItem (Join-Path $repoRoot 'scripts') -Recurse -File -Filter '*.md'
-$docFiles += Get-ChildItem $claude -Recurse -File -Filter '*.md'
+$docFiles += @(Get-HarnessFiles -RepoRoot $repoRoot -Path $repoRoot -Filter '*.md')
+$docFiles += @(Get-HarnessFiles -RepoRoot $repoRoot -Path (Join-Path $repoRoot 'docs') -Filter '*.md' -Recurse |
+             Where-Object { $_.FullName -notmatch '[\\/]docs[\\/]plans[\\/](archive|00[1-4])' })   # historical plans
+$docFiles += @(Get-HarnessFiles -RepoRoot $repoRoot -Path (Join-Path $repoRoot 'scripts') -Filter '*.md' -Recurse)
+$docFiles += @(Get-HarnessFiles -RepoRoot $repoRoot -Path $claude -Filter '*.md' -Recurse)
 
 $agentCount = $agents.Count
 $skillCount = $skills.Count
@@ -187,7 +188,7 @@ foreach ($name in @('settings.json', 'settings.template.json')) {
 }
 $attrPath = Join-Path $repoRoot '.gitattributes'
 if (-not (Test-Path $attrPath) -or (Read-Text $attrPath) -notmatch '(?m)^\*\.sh\s+.*eol=lf') { Add-Err ".gitattributes : '*.sh ... eol=lf' absent" }
-foreach ($sh in Get-ChildItem $repoRoot -Recurse -File -Filter '*.sh' | Where-Object { $_.FullName -notmatch '[\\/](\.git|node_modules)[\\/]' }) {
+foreach ($sh in @(Get-HarnessFiles -RepoRoot $repoRoot -Path $repoRoot -Filter '*.sh' -Recurse)) {
     if ((Read-Text $sh.FullName).Contains("`r`n")) { Add-Err "$(Get-Rel $sh.FullName) : fins de ligne CRLF (bash les refuse)" }
 }
 
@@ -197,6 +198,46 @@ if (Test-Path (Join-Path $claude 'plans')) { Add-Err ".claude/plans/ : dossier p
 $index    = Read-Text (Join-Path $plansDir 'README.md')
 foreach ($plan in Get-ChildItem $plansDir -File -Filter '*.plan.md') {
     if (-not $index.Contains($plan.Name)) { Add-Err "docs/plans/README.md : plan $($plan.Name) non indexé" }
+}
+
+# ── Copilot projection contract (AP 006 T2.3) — independent of the generator's own mapping ─────────────
+$CliTools = @('read', 'search', 'edit', 'execute', 'web', 'agent', 'todo')
+$githubAgents = Join-Path $repoRoot '.github\agents'
+if (Test-Path $githubAgents) {
+    foreach ($file in @(Get-HarnessFiles -RepoRoot $repoRoot -Path $githubAgents -Filter '*.agent.md')) {
+        $rel   = Get-Rel $file.FullName
+        $text  = Read-Text $file.FullName
+        $parts = Split-Frontmatter $text
+        if ($null -eq $parts) { Add-Err "$rel : frontmatter manquant (projection Copilot)"; continue }
+        $fm   = Get-FrontmatterEntries $parts.Frontmatter
+        $name = Get-ScalarValue $fm['name']
+        $tools = if ($fm.Contains('tools')) { @(Get-ListValue $fm['tools']) } else { @() }
+        # Absent 'tools' means ALL tools in Copilot: never acceptable in a projected profile.
+        if (-not $fm.Contains('tools') -or $tools.Count -eq 0) { Add-Err "$rel : champ 'tools' absent ou vide (Copilot accorderait tous les outils)" }
+        foreach ($t in $tools) { if ($t -cnotin $CliTools) { Add-Err "$rel : outil '$t' hors contrat Copilot CLI ($($CliTools -join ', '))" } }
+        if ($name -eq 'ARCos') {
+            foreach ($t in @('edit', 'execute', 'agent')) { if ($t -in $tools) { Add-Err "$rel : ARCos (lecture seule) ne doit pas avoir l'outil '$t'" } }
+        }
+        if ($fm.Contains('agents') -and $name -ne 'MAINa') { Add-Err "$rel : champ 'agents' réservé à MAINa (non vérifié pour la CLI)" }
+        if ($fm.Contains('model')) {
+            $m = Get-ScalarValue $fm['model']
+            if ($m -cnotmatch '^[a-z][a-z0-9]*(-[a-z0-9.]+)+$' -or $m -cnotmatch '\d') { Add-Err "$rel : 'model' '$m' n'est pas un identifiant de catalogue CLI (ex. claude-sonnet-5.5)" }
+        }
+        if ($parts.Body -notmatch 'Chargement des skills') { Add-Err "$rel : consigne explicite de chargement des skills absente" }
+        if ($parts.Body -match '(?i)pr[ée]charg[ée]e?s?\b|preload') { Add-Err "$rel : terme « préchargé » interdit dans le rendu Copilot (chargement non déterministe)" }
+    }
+    $claudeSkillDirs = @(Get-ChildItem (Join-Path $claude 'skills') -Directory | Select-Object -ExpandProperty Name)
+    $githubSkills    = Join-Path $repoRoot '.github\skills'
+    $githubSkillDirs = if (Test-Path $githubSkills) { @(Get-ChildItem $githubSkills -Directory | Select-Object -ExpandProperty Name) } else { @() }
+    $conventionDirs  = @($claudeSkillDirs | Where-Object { $_ -like 'conventions-*' })
+    foreach ($n in $claudeSkillDirs) {
+        if ($n -in $conventionDirs) { continue }   # conventions-* are projected to .github/instructions/
+        if ($n -notin $githubSkillDirs) { Add-Err ".github/skills/$n : skill source non projetée" }
+    }
+    foreach ($n in $githubSkillDirs) { if ($n -notin $claudeSkillDirs) { Add-Err ".github/skills/$n : skill sans source .claude/skills (orpheline)" } }
+}
+foreach ($entry in @(Get-HarnessUnsupportedIgnoreEntries -RepoRoot $repoRoot)) {
+    Add-Warn ".copilotignore : entrée '$entry' non interprétée par les scripts (non garantie)"
 }
 
 # ── Copilot generation ────────────────────────────────────────────────────────

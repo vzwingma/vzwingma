@@ -25,7 +25,7 @@ Guide rapide : `QUICK_START_CLAUDE.md` (Claude Code) / `QUICK_START_COPILOT.md` 
 
 ## 🎯 Étape 2 : Initialiser
 
-- [ ] Lancer `/init-harness` dans le projet (Claude Code ou Copilot). Il :
+- [ ] Lancer `/init-harness` dans le projet (Claude Code ou GitHub Copilot CLI). Il :
   1. analyse le code (stack, structure, commandes, conventions) ;
   2. génère `CLAUDE.md` / `copilot-instructions.md` depuis le template (fusion si déjà présent) ;
   3. remplit les conventions par rôle (Claude : skills `conventions-<rôle>` · Copilot : `.github/instructions/<rôle>.instructions.md`) ;
@@ -57,9 +57,18 @@ Guide rapide : `QUICK_START_CLAUDE.md` (Claude Code) / `QUICK_START_COPILOT.md` 
 
 ### GitHub Copilot
 
-- [ ] Agents visibles dans le sélecteur d'agents du chat
-- [ ] `/maina-help` → aide workflow
-- [ ] Agent MAINa : « Organise ce besoin de bout en bout : … » → options ARCos, demande de décision
+- [ ] Cible utilisée : GitHub Copilot CLI (`1.0.99-0` puis `1.0.99-1` observées)
+- [ ] Générer la projection depuis `.claude/` :
+      `pwsh -NoProfile -File scripts/sync-claude-to-github.ps1`
+- [ ] Vérifier la projection :
+      `pwsh -NoProfile -File scripts/sync-claude-to-github.ps1 -Check`
+- [ ] `copilot skill list` → skills projet visibles selon la CLI
+- [ ] `copilot --agent MAINa` → profil MAINa chargé ; vérifier la demande de décision
+- [ ] Ne pas annoncer de support VS Code ou cloud agent
+
+> Les hooks `.github/hooks`, `.copilotignore`, les garde-fous de rôle et l'arrêt automatique aux gates ne
+> sont pas documentés ici comme garanties natives Copilot. Les scénarios AP 006 ont seulement établi des
+> comportements observés, variables selon le mode d'exécution.
 
 ---
 
@@ -82,7 +91,7 @@ Guide rapide : `QUICK_START_CLAUDE.md` (Claude Code) / `QUICK_START_COPILOT.md` 
 
 | Besoin | Commande |
 |---|---|
-| Initiative complète (cadrage → plan → code → tests → doc, 5 gates) | Claude : `claude --agent MAINa` ou `/maina <besoin>` · Copilot : agent MAINa |
+| Initiative complète (cadrage → plan → code → tests → doc, 5 gates) | Claude : `claude --agent MAINa` ou `/maina <besoin>` · Copilot CLI : `copilot --agent MAINa` |
 | Analyse d'options d'architecture | `/arcos <problème>` |
 | Implémentation d'une tâche du plan | `/devon <tâche>` |
 | Tests | `/qalvin <cible>` |

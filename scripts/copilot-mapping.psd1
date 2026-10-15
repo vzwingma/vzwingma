@@ -3,49 +3,51 @@
     # Generated Copilot frontmatter = name + description (from .claude/) + fields below.
     # Values are raw YAML, written as-is.
 
-    # Claude model alias -> Copilot model, used when an agent has no 'model' override.
+    # Claude model alias -> Copilot CLI model (AP 006, decision D1: agent models follow the source alias,
+    # no per-agent override). Probe 2026-10-15 (Copilot CLI 1.0.99-0, -p, debug log): the CLI 'model' field
+    # accepts the catalog identifier ('claude-opus-5.5') and the display name; an unknown value only
+    # prints a warning, falls back to the default model and exits 0 (silent-substitution risk: see AP 006 T3.2).
     # Alias without entry -> no 'model' field (Copilot default model).
     ModelMap = @{
-        sonnet = 'Claude Sonnet 4.6 (copilot)'
+        opus   = 'claude-opus-5.5'
+        sonnet = 'claude-sonnet-5.5'
     }
 
-    # Claude tool -> Copilot tool, used when an agent has no 'tools' override.
-    # Copilot accepts Claude tool names as aliases (Read, Edit, Write, Bash, Grep, Glob,
-    # WebFetch, WebSearch, Task, TodoWrite); only tools missing from its alias table are listed.
+    # Claude tool -> Copilot CLI tool alias (AP 006, ARCos projection strategy #1).
+    # 'tools' is derived from the Claude agent frontmatter (least privilege): no per-agent 'tools' override.
+    # Claude names that are neither mapped here nor listed in DroppedTools raise a visible warning in the
+    # generator output and are NOT emitted.
     ToolMap = @{
-        Agent      = 'agent'
+        Read       = 'read'
+        Grep       = 'search'
+        Glob       = 'search'
+        WebFetch   = 'web'
+        WebSearch  = 'web'
+        Edit       = 'edit'
+        Write      = 'edit'
+        Bash       = 'execute'
+        TodoWrite  = 'todo'
         TaskCreate = 'todo'
         TaskUpdate = 'todo'
         TaskList   = 'todo'
         TaskGet    = 'todo'
+        Agent      = 'agent'
+    }
+
+    # Claude tools deliberately without Copilot CLI equivalent (name -> reason). Still reported by the
+    # generator, never silently added. The presence of this key enables strict tool derivation.
+    DroppedTools = @{
+        AskUserQuestion = 'Claude-only; gates are asked explicitly in text (copilot-only blocks)'
+        SendMessage     = 'Claude-only; no equivalent verified for Copilot CLI'
+        Skill           = 'no verified tool alias; skills are loaded through the explicit loading notice of the profile'
     }
 
     # Per-agent Copilot-only fields (override anything derived from .claude/).
+    # 'agents' is NOT verified for Copilot CLI (U3): informational only, never a guard. Kept for MAINa
+    # only (the sole role with the Agent tool); no 'agents' field for the other roles (incl. ARCos).
     Agents = @{
         MAINa = @{
-            model  = 'Claude Sonnet 4.6 (copilot)'
             agents = '["ARCos", "DEVon", "QALvin", "DOCly"]'
-            tools  = '[read, agent, edit, search, web, todo]'
-        }
-        ARCos = @{
-            model  = 'Claude Sonnet 4.6 (copilot)'
-            agents = '["DEVon", "QALvin", "DOCly", "MAINa"]'
-            tools  = '[execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, read, agent, edit, search, web, todo]'
-        }
-        DEVon = @{
-            model  = 'Claude Sonnet 4.6 (copilot)'
-            agents = '["QALvin", "DOCly", "MAINa"]'
-            tools  = '[vscode, execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, execute/runTests, execute/testFailure, read, agent, edit, search, web, vscjava.vscode-java-debug/debugJavaApplication, vscjava.vscode-java-debug/setJavaBreakpoint, vscjava.vscode-java-debug/debugStepOperation, vscjava.vscode-java-debug/getDebugVariables, vscjava.vscode-java-debug/getDebugStackTrace, vscjava.vscode-java-debug/evaluateDebugExpression, vscjava.vscode-java-debug/getDebugThreads, vscjava.vscode-java-debug/removeJavaBreakpoints, vscjava.vscode-java-debug/stopDebugSession, vscjava.vscode-java-debug/getDebugSessionInfo]'
-        }
-        QALvin = @{
-            model  = 'GPT-5.3-Codex (copilot)'
-            agents = '["DOCly", "MAINa"]'
-            tools  = '[vscode, execute, read, agent, edit, search, web, browser, sonarsource.sonarlint-vscode/sonarqube_getPotentialSecurityIssues, sonarsource.sonarlint-vscode/sonarqube_excludeFiles, sonarsource.sonarlint-vscode/sonarqube_setUpConnectedMode, sonarsource.sonarlint-vscode/sonarqube_analyzeFile, todo]'
-        }
-        DOCly = @{
-            model  = 'GPT-5 mini (copilot)'
-            agents = '["MAINa"]'
-            tools  = '[vscode, read, agent, edit, search, web, browser, todo]'
         }
     }
 }

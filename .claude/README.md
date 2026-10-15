@@ -4,6 +4,27 @@ Ce sous-arbre `.claude/` contient les **artefacts Claude réutilisables** du dé
 
 Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agents se coordonnent** et **quels fichiers copier ou maintenir** sans surcharger chaque `*.agent.md`.
 
+## 🎯 Cible Copilot vérifiée
+
+La projection vérifiée de ce dépôt cible **GitHub Copilot CLI uniquement**. Versions observées pendant AP 006 :
+`1.0.99-0`, puis `1.0.99-1`. VS Code et cloud agent sont hors périmètre ; aucune parité ni support n'est
+annoncé pour ces surfaces.
+
+`.claude/` reste la source unique. La projection Copilot est générée par
+`scripts/sync-claude-to-github.ps1` (`-Check` vérifie l'absence de dérive, génération idempotente). Le mapping
+`scripts/copilot-mapping.psd1` dérive les outils du frontmatter Claude : `Read` → `read`, `Grep`/`Glob` →
+`search`, `WebFetch`/`WebSearch` → `web`, `Edit`/`Write` → `edit`, `Bash` → `execute`, `TodoWrite` → `todo`,
+`Agent` → `agent`. `AskUserQuestion`, `SendMessage` et `Skill` sont signalés puis non projetés.
+
+ARCos est projeté en lecture seule (`[read, search, web]`). Les alias source donnent `opus` →
+`claude-opus-5.5` et `sonnet` → `claude-sonnet-5.5`. Un modèle inconnu provoque un avertissement, un repli
+sur le modèle par défaut et un code de sortie nul : risque de faux succès à contrôler.
+
+La CLI peut lire `.github/skills/` et `.claude/skills/` ; `.github/` l'emporte en cas de nom identique. Le
+chargement se fait selon la pertinence, non de façon déterministe ; chaque profil généré demande explicitement
+le chargement de ses skills. Les conventions sont projetées vers
+`.github/instructions/<role>.instructions.template.md`.
+
 ---
 
 ## 📂 Structure
@@ -16,7 +37,7 @@ Il sert de point d'entree pour comprendre **qui fait quoi**, **comment les agent
 │   ├── Devon.agent.md                   # Implementation
 │   ├── Qalvin.agent.md                  # Tests
 │   └── Docly.agent.md                   # Documentation
-├── skills/                              # Procédures, conventions par rôle (templates), commandes
+├── skills/                              # 18 skills : procédures, conventions, commandes
 ├── CHANGELOG.md                         # Historique des versions des agents
 ├── PLANS.md                             # Guide des Plans d'Action
 ├── README.md                            # Ce fichier
@@ -86,7 +107,7 @@ Les agents restent focalises sur leurs instructions runtime. La vue transverse e
 | `conventions-qa` | 🟢 QALvin | Framework de test, commandes CI, couverture, cas à couvrir |
 | `conventions-doc` | 🟣 DOCly | Cibles documentaires et conventions de doc |
 
-Préchargés par l'agent correspondant (frontmatter `skills:`). Templates à remplir via `/init-harness`.
+Préchargés par l'agent Claude correspondant (frontmatter `skills:`). Templates à remplir via `/init-harness`.
 <!-- /claude-only -->
 <!-- copilot-only
 ### Instructions projet (`.claude/instructions/`)
@@ -182,6 +203,14 @@ Pour les details de phases, de rapports et de dependances, voir `PLANS.md`.
 - Régénérer Copilot : `scripts/sync-claude-to-github.ps1`, puis `scripts/check-harness.ps1` (doit sortir en 0)
 <!-- /claude-only -->
 - Garder ce README comme source de vérité pour la coordination transverse
+
+<!-- copilot-only
+### Contrat observé côté GitHub Copilot CLI
+
+La CLI charge les skills selon pertinence, sans sélection déterministe par rôle. Les profils générés portent
+donc une consigne explicite de chargement. Les comportements de garde, d'exclusion et de frontière de rôle
+restent des comportements observés dans les scénarios AP 006, pas des protections natives garanties par la CLI.
+<!-- /copilot-only -->
 
 ---
 

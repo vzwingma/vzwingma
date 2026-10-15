@@ -59,6 +59,11 @@ Travail ciblé : `/arcos`, `/devon`, `/qalvin`, `/docly` `<demande>` · aide : `
 <!-- /claude-only -->
 <!-- copilot-only
 🚀 **Lancement** : agent **MAINa** dans le chat, ou `/maina <besoin>` · aide : `/maina-help`.
+
+**Cible vérifiée** : GitHub Copilot CLI uniquement. VS Code et cloud agent sont hors périmètre. La source
+reste `.claude/` ; la projection est générée par `scripts/sync-claude-to-github.ps1`, puis contrôlée avec
+`-Check`. Les skills sont chargées selon pertinence, donc chaque profil généré porte une consigne explicite
+de chargement.
 -->
 
 ---

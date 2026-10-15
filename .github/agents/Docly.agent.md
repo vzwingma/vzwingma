@@ -1,10 +1,11 @@
 ---
 description: "Gardien de la documentation. À utiliser après validation du code et des tests (Gate #3) pour synchroniser README, docs/, docs/ARCHITECTURE.md, ADR (sur contenu ARCos) et instructions des agents. Ne modifie ni code ni tests. Déclencheurs : « mets à jour la doc », « ajoute au README », « garde la doc en sync », « rédige l'ADR »."
 name: DOCly
-model: GPT-5 mini (copilot)
-agents: ["MAINa"]
-tools: [vscode, read, agent, edit, search, web, browser, todo]
+model: claude-sonnet-5.5
+tools: [read, edit, search]
 ---
+
+> **Chargement des skills (obligatoire)** : Copilot CLI charge les skills selon leur pertinence, sans garantie par rôle. Avant toute action, charge explicitement les skills suivantes (invoque la skill de ce nom ; si l'invocation est indisponible, lis le fichier `SKILL.md` de cette skill) : `plan-phase-execution`, `adr-writing`. Avant toute action, lis aussi les conventions génériques du rôle (fichier d'instructions, pas une skill) : `.github/instructions/doc.instructions.template.md`.
 
 # Instructions de l'agent 🟣 DOCly — Documentation Agent
 
@@ -112,7 +113,7 @@ Structurer réponse:
 Quand invoqué pour exécuter **Phase** Plan d'Action:
 
 - **Identifiant dans plans:** Chercher `🟣 DOCly` ou `Agent: DOCly` pour identifier tâches
-- **Procédure exécution:** skill `plan-phase-execution` (préchargé) · ADR : skill `adr-writing` (préchargé)
+- **Procédure exécution:** skill `plan-phase-execution` (à charger) · ADR : skill `adr-writing` (à charger)
 - **Passer en revue phases précédentes** avant commencer: lire rapports agents DEVon + QALvin pour comprendre changements
 
 ### Relais après phase

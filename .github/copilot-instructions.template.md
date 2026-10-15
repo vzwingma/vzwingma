@@ -55,6 +55,11 @@ Pas de parallélisation entre phases séparées par un gate ; possible *au sein*
 
 🚀 **Lancement** : agent **MAINa** dans le chat, ou `/maina <besoin>` · aide : `/maina-help`.
 
+**Cible vérifiée** : GitHub Copilot CLI uniquement. VS Code et cloud agent sont hors périmètre. La source
+reste `.github/` ; la projection est générée par `scripts/sync-claude-to-github.ps1`, puis contrôlée avec
+`-Check`. Les skills sont chargées selon pertinence, donc chaque profil généré porte une consigne explicite
+de chargement.
+
 ---
 
 ## 📋 Plans d'Action

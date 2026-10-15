@@ -4,8 +4,12 @@
     source of truth (ADR 003). One direction only: claude -> github.
 
     - Agents : Copilot frontmatter generated (name + description from .claude/, model/tools/agents
-               from scripts/copilot-mapping.psd1 or derived from Claude model/tools). Claude-only
-               fields (permissionMode, skills, hooks, memory, ...) are dropped.
+               from scripts/copilot-mapping.psd1 or derived from Claude model/tools; unmapped Claude
+               tools are reported with a warning). Claude `skills:` is replaced by an explicit
+               skill-loading notice at the top of the profile (conventions-<role> are pointed to as
+               .github/instructions/<role>.instructions.template.md, not as skills). Other Claude-only
+               fields (hooks, memory, effort, color, ...) are dropped; a missing `tools` (= all tools)
+               and restrictive fields (disallowedTools, permissionMode) raise a visible warning.
     - Skills : frontmatter reduced to Agent Skills spec fields (name, description, license,
                compatibility, metadata, allowed-tools).
     - Text   : path/term substitution on delimited tokens + platform blocks:
@@ -72,6 +76,26 @@ function Get-ScalarValue {
     return $Raw.Trim().Trim('"').Trim("'")
 }
 
+function Get-FrontmatterList {
+    <#
+    .SYNOPSIS
+        Parses a raw frontmatter list value into a string array. Accepts a block list ("`n  - a`n  - b"),
+        an inline list ("[a, b]") or a comma-separated string ("a, b").
+    #>
+    param([AllowNull()][string]$Raw)
+
+    if ([string]::IsNullOrWhiteSpace($Raw)) { return @() }
+    $items = foreach ($line in ($Raw -split "\r?\n")) {
+        $text = $line.Trim()
+        if ($text -match '^-\s+(.+)$') {
+            Get-ScalarValue $Matches[1]
+        } elseif ($text) {
+            $text.TrimStart('[').TrimEnd(']') -split ',' | ForEach-Object { Get-ScalarValue $_ }
+        }
+    }
+    return @($items | Where-Object { $_ })
+}
+
 function ConvertTo-FrontmatterBlock {
     param([Parameter(Mandatory)]$Entries, [Parameter(Mandatory)][string]$Newline)
     $lines = foreach ($key in $Entries.Keys) {
@@ -110,16 +134,82 @@ function ConvertTo-CopilotToolList {
     <#
     .SYNOPSIS
         Converts a Claude `tools` value ("Read, Grep" or "[Read, Grep]") into a Copilot inline list.
+    .DESCRIPTION
+        Legacy mode (no -DroppedTools): names missing from -ToolMap are passed through unchanged.
+        Strict mode (-DroppedTools given): only names found in -ToolMap are emitted; any other name is
+        dropped with a visible warning (never added silently). Names listed in -DroppedTools are
+        reported with their documented reason; unknown names are reported as unmapped.
     #>
-    param([Parameter(Mandatory)][string]$Raw, [hashtable]$ToolMap = @{})
+    param(
+        [Parameter(Mandatory)][string]$Raw,
+        [hashtable]$ToolMap = @{},
+        [hashtable]$DroppedTools,
+        [string]$AgentName = ''
+    )
 
-    $items = $Raw.Trim().TrimStart('[').TrimEnd(']') -split ',' |
-             ForEach-Object { Get-ScalarValue $_ } |
-             Where-Object { $_ }
+    $strict = $PSBoundParameters.ContainsKey('DroppedTools')
+    $items  = Get-FrontmatterList $Raw
     $mapped = foreach ($tool in $items) {
-        if ($ToolMap.ContainsKey($tool)) { $ToolMap[$tool] } else { $tool }
+        if ($ToolMap.ContainsKey($tool)) {
+            $ToolMap[$tool]
+        } elseif (-not $strict) {
+            $tool
+        } elseif ($DroppedTools.ContainsKey($tool)) {
+            Write-Warning "Agent '$AgentName': Claude tool '$tool' not projected to Copilot ($($DroppedTools[$tool]))."
+        } else {
+            Write-Warning "Agent '$AgentName': Claude tool '$tool' has no Copilot mapping (declare it in ToolMap or DroppedTools); not emitted."
+        }
     }
     return '[' + (($mapped | Select-Object -Unique) -join ', ') + ']'
+}
+
+function Remove-PrechargedWording {
+    <#
+    .SYNOPSIS
+        Copilot CLI loads skills on relevance, not by deterministic preloading: removes the
+        "preloaded" wording (Claude `skills:` semantics) from Copilot agent text.
+    #>
+    param([Parameter(Mandatory)][AllowEmptyString()][string]$Content)
+
+    # Non-ASCII characters are written as \u escapes: the module file has no BOM (Windows PowerShell 5.1 safe).
+    $r = [regex]::Replace($Content, '(?i)\(\s*pr\u00e9charg\u00e9(e?s?)\s*\)', '(' + [char]0x00e0 + ' charger)')
+    $r = [regex]::Replace($r, '(?i)\bpr\u00e9chargement(s?)\b', 'chargement$1')
+    $r = [regex]::Replace($r, '(?i)\bpr\u00e9charg\u00e9(e?s?)\b', 'charg' + [char]0x00e9 + '$1')
+    return $r
+}
+
+function New-SkillLoadingNotice {
+    <#
+    .SYNOPSIS
+        Explicit skill-loading instruction placed at the top of a Copilot agent profile
+        (replaces the Claude `skills:` field, which Copilot CLI does not support deterministically).
+    .DESCRIPTION
+        `conventions-<role>` skills are NOT projected as skills by sync-claude-to-github.ps1: they are
+        rendered as .github/instructions/<role>.instructions.template.md. They are therefore excluded from
+        the skill list and replaced by a pointer to that generated file (same naming as the sync script).
+        The SKILL.md fallback deliberately carries no path: Copilot CLI is only proven to list
+        .claude/skills/*/SKILL.md (Phase 1 R1), not .github/skills/.
+    #>
+    param([Parameter(Mandatory)][string[]]$Skills)
+
+    $conventionRoles = @($Skills | Where-Object { $_ -like 'conventions-*' } | ForEach-Object { $_.Substring('conventions-'.Length) })
+    $plainSkills     = @($Skills | Where-Object { $_ -notlike 'conventions-*' })
+
+    $role = 'r' + [char]0x00f4 + 'le'
+    $gene = 'g' + [char]0x00e9 + 'n' + [char]0x00e9 + 'riques'
+    $text = '> **Chargement des skills (obligatoire)** : Copilot CLI charge les skills selon leur pertinence, sans garantie par ' + $role + '. '
+
+    if ($plainSkills.Count -gt 0) {
+        $list = ($plainSkills | ForEach-Object { '`' + $_ + '`' }) -join ', '
+        $text += 'Avant toute action, charge explicitement les skills suivantes (invoque la skill de ce nom ; ' +
+                 'si l''invocation est indisponible, lis le fichier `SKILL.md` de cette skill) : ' + $list + '.'
+    }
+    if ($conventionRoles.Count -gt 0) {
+        $files = ($conventionRoles | ForEach-Object { '`.github/instructions/' + $_ + '.instructions.template.md`' }) -join ', '
+        if ($plainSkills.Count -gt 0) { $text += ' ' }
+        $text += 'Avant toute action, lis aussi les conventions ' + $gene + ' du ' + $role + ' (fichier d''instructions, pas une skill) : ' + $files + '.'
+    }
+    return $text
 }
 
 # ── Generators ────────────────────────────────────────────────────────────────
@@ -161,14 +251,34 @@ function New-CopilotAgentContent {
     if ($ov.ContainsKey('tools')) {
         $out['tools'] = $ov['tools']
     } elseif ($src.Contains('tools')) {
-        $out['tools'] = ConvertTo-CopilotToolList -Raw $src['tools'] -ToolMap $toolMap
+        $toolArgs = @{ Raw = $src['tools']; ToolMap = $toolMap; AgentName = $name }
+        if ($Mapping.ContainsKey('DroppedTools')) { $toolArgs['DroppedTools'] = $Mapping['DroppedTools'] }
+        $out['tools'] = ConvertTo-CopilotToolList @toolArgs
     }
 
     foreach ($key in ($ov.Keys | Sort-Object)) {
         if (-not $out.Contains($key)) { $out[$key] = $ov[$key] }
     }
 
-    return (ConvertTo-FrontmatterBlock -Entries $out -Newline $nl) + (ConvertTo-CopilotText $parts.Body)
+    # No silent loss: restrictive Claude settings that have no Copilot projection are reported.
+    if (-not $out.Contains('tools')) {
+        Write-Warning "Agent '$name': no 'tools' in Claude source nor mapping override -> Copilot profile has no 'tools' field (ALL tools available, no least privilege)."
+    }
+    foreach ($restrictive in @('disallowedTools', 'permissionMode')) {
+        if ($src.Contains($restrictive)) {
+            Write-Warning "Agent '$name': Claude field '$restrictive' ($(Get-ScalarValue $src[$restrictive])) is not projected to Copilot (restriction lost)."
+        }
+    }
+
+    # Claude `skills:` (preloading) is not supported deterministically by Copilot CLI:
+    # replaced by an explicit loading notice at the top of the profile; "preloaded" wording removed.
+    $body   = Remove-PrechargedWording (ConvertTo-CopilotText $parts.Body)
+    $skills = @(Get-FrontmatterList $src['skills'])
+    if ($skills.Count -gt 0) {
+        $body = $nl + $nl + (New-SkillLoadingNotice -Skills $skills) + $nl + $nl + $body.TrimStart([char[]]@("`r", "`n"))
+    }
+
+    return (ConvertTo-FrontmatterBlock -Entries $out -Newline $nl) + $body
 }
 
 function New-CopilotSkillContent {
@@ -303,7 +413,7 @@ function Sync-StandaloneFile {
 }
 
 Export-ModuleMember -Function `
-    Split-Frontmatter, Get-FrontmatterEntries, Get-ScalarValue, `
-    ConvertTo-CopilotText, ConvertTo-CopilotToolList, `
+    Split-Frontmatter, Get-FrontmatterEntries, Get-FrontmatterList, Get-ScalarValue, `
+    ConvertTo-CopilotText, ConvertTo-CopilotToolList, Remove-PrechargedWording, New-SkillLoadingNotice, `
     New-CopilotAgentContent, New-CopilotSkillContent, New-CopilotInstructionContent, `
     Write-GeneratedFile, Sync-AgentFile, Sync-SkillFile, Sync-InstructionFile, Sync-StandaloneFile
