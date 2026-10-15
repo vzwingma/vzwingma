@@ -374,6 +374,7 @@ handoff:
     - "Modèle de remplacement claude-sonnet-5.5 au lieu de Sonnet 4.6"
     - "Branche relevée feat/copilot_compat : écart à vérifier"
   next_step: "Phase 2 bloquée : compléter T1.2 (gates #0, #3, #4 ; instructions racine ; exclusions) avant DEVon."
+```
 
 ## Décision Gate #2 — GO avec limites (2026-10-15)
 
@@ -436,5 +437,60 @@ handoff:
     - "Modèle déclaré indisponible : échec ou repli silencieux"
   next_step: "Gate 👤 : valider le complément (ou le faire relire par ARCos avec modèle autorisé), trancher modèle Copilot, numérotation et branche ; puis Phase 2 (DEVon)."
 ```
+
+## Revue ARCos de T1.2 (2026-10-15)
+
+**Relecteur :** 🟠 ARCos (lecture seule). **Verdict :** ✅ **Validé avec corrections**. Le complément T1.2 rédigé par MAINa est accepté comme base du contrat CLI, sous réserve des corrections et des 4 décisions 👤 ci-dessous.
+
+> ⚠️ **Traçabilité :** MAINa a reçu le verdict, l'existence des risques R1–R4 et la liste des 4 décisions. Il n'a pas reçu le texte intégral (corrections détaillées, libellés exacts de R1–R4). Ce texte doit être joint ici avant le `GO` Phase 2. MAINa n'a rien reconstitué par inférence.
+
+### Risques relevés par ARCos
+
+| Id | Libellé | Statut |
+|---|---|---|
+| R1–R4 | Texte ARCos à joindre | Ouverts ; la Phase 2 ne les traite qu'après leur report ici |
+
+### Constats MAINa sur `scripts/copilot-mapping.psd1` (lu le 2026-10-15, lecture seule)
+
+Ces constats étayent les décisions D1 et D3. Ils viennent de MAINa et ne remplacent pas la revue ARCos.
+
+- **Modèles :** `ModelMap.sonnet` et les profils MAINa, ARCos et DEVon déclarent `Claude Sonnet 4.6 (copilot)`. Ce modèle n'est pas disponible : la CLI 1.0.97-2 a basculé sur `claude-sonnet-5.5` (Gate #2). QALvin déclare `GPT-5.3-Codex (copilot)` et DOCly `GPT-5 mini (copilot)`. La disponibilité de ces deux modèles en CLI n'a pas été vérifiée.
+- **ARCos :** son profil Copilot inclut `edit`, `execute/*` (`runInTerminal`, `createAndRunTask`…) et peut déléguer à DEVon. Cela contredit le rôle « ARCos lecture seule » et le premier critère de la Phase 2.
+- **Dépendances d'extensions :** DEVon a des outils `vscjava.vscode-java-debug/*` et QALvin des outils `sonarsource.sonarlint-vscode/*`. Cela contredit le critère « zéro dépendance Java/Sonar imposée au générique ».
+- **Identifiants d'outils :** `vscode`, `browser` et `execute/*` sont des identifiants VS Code. Leur validité dans Copilot CLI, seule cible, n'est pas vérifiée.
+- **Dérive du rendu `.github/agents/` :** constat ARCos. MAINa ne l'a pas revérifié : aucun terminal pour lancer `git diff` ou `-Check` dans cette session.
+
+### Décisions 👤 requises avant Phase 2
+
+| # | Sujet | Options | Recommandation MAINa |
+|---|---|---|---|
+| D1 | Modèles Copilot | A. Pas de champ `model` côté Copilot : héritage du modèle par défaut, comportement documenté (U3). B. Épingler un nom vérifié disponible (seul observé : `claude-sonnet-5.5`) et vérifier ceux de QALvin et DOCly par un essai. C. Garder la valeur actuelle. | **A** : aucun nom inventé et aucun repli silencieux. B seulement si 👤 veut différencier les modèles par rôle, après un essai. C est exclu (modèle indisponible). |
+| D2 | Numérotation des gates | A. Renommer l'entrée du journal « #2 (2026-10-15) » en « #1b — Validation du contrat Phase 1 » et réserver #2 à la validation du code (`gate-protocol`). B. Garder « #2 » et décaler les gates suivants. | **A** : conforme au protocole et au plan (« Preuves / Gate #2 » = code de la Phase 2). Les titres historiques du rapport restent inchangés, avec une note de renvoi. |
+| D3 | Dérive entre `.github/agents/` (édité à la main) et `copilot-mapping.psd1` | A. Régénérer depuis la source et écraser les éditions manuelles. B. Reporter dans la source ou le mapping les écarts légitimes du rendu, puis régénérer (`-Check` propre). C. Prendre `.github/agents/` comme référence. | **B** : respecte l'ADR 003 et la règle « aucun fichier généré édité à la main » sans perdre d'information. Première action de T2.1 : inventorier les écarts rendu/source avant toute régénération. C est exclu (seconde source). |
+| D4 | Branche de travail | A. `feat/copilot_compat` (relevée par un sous-agent au Gate #2). B. `main-ai` (inventaire de la Relance 2). | Choix 👤. MAINa ne change pas de branche. Recommandation : travailler sur une branche dédiée (A) si elle existe bien, puis corriger la mention de branche dans le plan. 👤 confirme la branche courante (`git branch --show-current`). |
+
+### Préalables au lancement de DEVon (T2.1)
+
+1. Texte ARCos (corrections + R1–R4) joint à ce rapport.
+2. D1 à D4 tranchées et consignées dans le journal du plan.
+3. Brief DEVon : décisions D1 à D4, constats ci-dessus, aucun fichier généré édité à la main, aucune suppression, preuves Gate #2 (génération puis `-Check` sans changement, tests existants, `git diff --stat`).
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  review: "ARCos T1.2 — validé avec corrections"
+  status: "accepted-with-limits ; Phase 2 en attente de décisions 👤"
+  evidence:
+    - "Verdict ARCos transmis : validé avec corrections, risques R1–R4, 4 décisions"
+    - "scripts/copilot-mapping.psd1 lu : modèles Sonnet 4.6 indisponibles, ARCos avec edit/execute, outils Java/Sonar"
+  missing:
+    - "Texte intégral de la revue ARCos (corrections, R1–R4)"
+    - "Vérification MAINa de la dérive .github/agents (aucun terminal)"
+    - "Branche courante (aucun terminal)"
+  decisions_pending: ["D1 modèles", "D2 numérotation", "D3 dérive rendu", "D4 branche"]
+  next_step: "Gate 👤 sur D1–D4, puis lancement de DEVon sur T2.1."
 ```
 

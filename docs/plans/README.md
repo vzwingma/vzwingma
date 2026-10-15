@@ -16,7 +16,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
 | 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | 🔄 En cours | 2026-10-12 |
-| 006 | [Compatibilité Copilot du harnais Claude-first](006_compatibilite-copilot.plan.md) | 🔄 Ajusté (Gate #1, cible CLI) — Gate #2 GO (Phase 1 acceptée avec limites) ; T1.2 à compléter avant Phase 2 | 2026-10-13 |
+| 006 | [Compatibilité Copilot du harnais Claude-first](006_compatibilite-copilot.plan.md) | 🔄 Ajusté (Gate #1, cible CLI) — Phase 1 acceptée avec limites ; T1.2 validée par ARCos avec corrections ; décisions 👤 en attente avant Phase 2 | 2026-10-13 |
 
 ---
 

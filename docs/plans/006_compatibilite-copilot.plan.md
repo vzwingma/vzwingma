@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** 🔄 Ajusté au Gate #1 (2026-10-15) — périmètre réduit à Copilot CLI ; Phase 1 partielle acceptée au Gate #2 (limites consignées) ; T1.2 à compléter avant Phase 2
+**Statut :** 🔄 Ajusté au Gate #1 (2026-10-15) — périmètre réduit à Copilot CLI ; Phase 1 partielle acceptée (limites consignées) ; T1.2 validée par ARCos avec corrections ; Phase 2 en attente des décisions 👤 D1–D4
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
@@ -184,6 +184,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 | #1 | 2026-10-13 | Validation AP 006 et ADR 005 | ✅ GO | Réponse humaine « go » ; ADR 005 Acceptée ; Phase 1 bloquée faute accès web/shell, aucune implémentation lancée |
 | #1 (ajustement) | 2026-10-15 | Périmètre de compatibilité après preuves documentaires | 🔄 AJUSTER | Décision humaine : cible unique Copilot CLI ; VS Code et cloud agent hors périmètre. Revue du plan et de l'ADR 005 requise avant Phase 2 |
 | #2 | 2026-10-15 | Validation contrat CLI (Phase 1) | ✅ GO (limites acceptées) | Phase 1 partielle acceptée : (a) MAINa et ARCos chargés ; hooks et précédence `git rm` non concluants en `-p` ; `git rm` refusé par défaut. T1.2 incomplet (gates #0, #3, #4 absents ; instructions racine absentes ; exclusions non vérifiées) : à compléter avant Phase 2 |
+| Revue T1.2 | 2026-10-15 | Revue ARCos du complément T1.2 | ⏳ Décisions 👤 en attente | ARCos : validé avec corrections ; risques R1–R4 (texte à joindre au rapport). Décisions requises avant Phase 2 : D1 modèles, D2 numérotation des gates, D3 dérive `.github/agents` vs mapping, D4 branche |
 | #3 | — | Validation tests et comportements | ⏳ En attente | Après Phase 3 |
 | #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
 
