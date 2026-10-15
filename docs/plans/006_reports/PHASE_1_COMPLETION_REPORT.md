@@ -92,3 +92,164 @@ handoff:
     - "Permission locale git rm et ask dépôt en conflit apparent; priorité runtime inconnue."
   next_step: "Rétablir un terminal pour inventaire/version; finaliser T1.2 avant Phase 2."
 ```
+
+## Nouvelle tentative — 2026-10-15
+
+Relance de l'exécution du plan (T1.1 et T1.2 non complétées) :
+
+| Démarche | Résultat | Preuve obtenue |
+|---|---|---|
+| Inventaire Git (`git ls-files`, `git status`, existences, versions CLI/VS Code/Git/gh/pwsh) | Bloqué : agent d'exécution sans shell exposé dans la session | Aucune |
+| Revérification des 9 pages officielles (questions Q1–Q9 : découverte `.claude/agents/` et `.claude/skills/`, `CLAUDE.md`, `.copilotignore`, hooks, `tools`/`model`, subagents, versions) | Bloqué : aucun outil web opérationnel ; délégation de recherche refusée (profondeur maximale de sous-agents atteinte) | Aucune |
+
+Conséquences :
+- Les réponses Q1–Q9 restent **non vérifiées** ; la matrice documentaire ci-dessus repose sur la vérification du 2026-10-13 et n'est pas revalidée.
+- Aucune ligne de la matrice ne passe de « non vérifié » à « native » ; aucun fichier source, projection ou règle n'a été modifié.
+- Phase 1 reste **❌ BLOQUÉE**. Phase 2 ne peut pas démarrer : elle dépend d'un contrat vérifié.
+- Déblocage requis (une des options) : session avec terminal PowerShell/Git et accès web (`curl`/`gh` ou navigateur), ou validation 👤 d'un `AJUSTER` au Gate #1 réduisant le périmètre de compatibilité annoncé.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  status: "blocked"
+  tasks:
+    T1.1:
+      status: "blocked"
+      evidence: []
+      missing:
+        - "Inventaire Git, versions installées, validation comportementale CLI/VS Code/cloud."
+    T1.2:
+      status: "incomplete"
+      evidence: []
+      missing:
+        - "Revalidation des sources officielles ; validation runtime des permissions, gates, hooks et exclusions."
+  files_written:
+    - "docs/plans/006_reports/PHASE_1_COMPLETION_REPORT.md"
+  commands: []
+  excluded_paths_traversed: []
+  next_step: "Terminal et accès web requis, ou AJUSTER au Gate #1 pour réduire le périmètre."
+```
+
+## Relance 2 — 2026-10-15 : terminal et accès web obtenus
+
+Preuves obtenues via terminal (agent `general-purpose`) et `curl.exe` (HTTP 200 sur les 9 URLs de la matrice documentaire ; aucune date de révision affichée sur ces pages).
+
+### Inventaire Git (lecture seule)
+
+- Branche `main-ai` ; `git status` : 1 fichier modifié (ce rapport).
+- `git ls-files` : 139 fichiers suivis — `.claude/` 41, `docs/` 35 (dont `docs/plans/` 24), `.github/` 33, `scripts/` 11, `tests/` 9, `.vscode/` 1, racine 9.
+- `.claude/agents/` : Arcos, Devon, Docly, Maina, Qalvin + README. `.claude/skills/` : 25 fichiers SKILL/SKILL.copilot + 3 templates.
+- `.github/agents/` : mêmes 5 agents + README. `.github/skills/` : 14 SKILL.md + 3 templates, sans `SKILL.copilot.md`. `.github/hooks/` : absent.
+- Existence : `.copilotignore` oui ; `.github/copilot-instructions.md` oui ; `CLAUDE.md` racine non (seulement `.claude/CLAUDE.md`) ; `AGENTS.md` non ; `.claude/settings.json` et `settings.template.json` oui ; `.agents/` présent sur disque, 0 fichier suivi.
+- `.copilotignore` : motif `/dist/`, aucun fichier suivi correspondant.
+
+### Versions installées
+
+Git 2.45.2 ; gh 2.102.0 ; PowerShell 7.6.6 ; VS Code 1.136.2 ; Copilot CLI 1.0.97-2.
+
+### Réponses documentaires Q1–Q9 (sources officielles, 2026-10-15)
+
+| Q | Réponse | Cible | Source (U1 à U9 = pages du plan) |
+|---|---|---|---|
+| Q1a `.claude/agents/` lu par CLI | **NON DOCUMENTÉ** | CLI | Absent de U1, U3, U7 |
+| Q1b `.github/agents/` lu par CLI | **OUI** | CLI | U1 : `.github/agents/AGENT-NAME.md` |
+| Q2a Skills `.claude/skills/` reconnus | **OUI** | CLI, VS Code, cloud | U4 : « load when relevant » |
+| Q2b Chargement déterministe par agent | **NON** | tous | U4 : chargement selon pertinence |
+| Q3a VS Code lit `AGENTS.md` | **OUI** | VS Code Chat | U6 |
+| Q3b VS Code lit `CLAUDE.md` racine | **NON DOCUMENTÉ** | VS Code Chat | U6 ne liste que AGENTS.md |
+| Q3c VS Code lit `.claude/CLAUDE.md` | **NON DOCUMENTÉ** | VS Code | Absent de U5, U6 |
+| Q4a Cloud lit `CLAUDE.md` racine | **OUI** | cloud agent | U6 : AGENTS.md, CLAUDE.md, GEMINI.md |
+| Q4b Cloud lit `.claude/CLAUDE.md` | **NON DOCUMENTÉ** | cloud agent | Absent de U6, U9 |
+| Q5 `.copilotignore` | **NON DOCUMENTÉ** | CLI, VS Code, cloud | Aucune occurrence dans U1 à U9 |
+| Q6a Chemin hooks | **OUI** | CLI, dépôt | U8 : `.github/hooks/*.json`, `~/.copilot/settings.json` |
+| Q6b Statut hooks VS Code | **PREVIEW (déduit)** | VS Code | Légende « P » de U1 ; non écrit dans U8 |
+| Q6c `preToolUse` en erreur | **FAIL-CLOSED** | CLI, cloud | U8 : « Denied by preToolUse hook (hook errored) » |
+| Q6d `preToolUse` en timeout | **FAIL-OPEN** | CLI, cloud | U8 : timeout 30 s |
+| Q6e `preToolUse` HTTP en erreur | **FAIL-OPEN** | hook HTTP | U8 (paraphrase) |
+| Q6f Événements | **OUI** | hooks | U8 : SessionStart, PreToolUse, PostToolUse, SubagentStart, SubagentStop… |
+| Q7a Champ `tools` | **OUI** | agents custom | U3 : absent = tous les outils ; `tools: []` = aucun |
+| Q7b Champ `model` | **NON DOCUMENTÉ** (liste de valeurs) | agents custom | U3 : hérite du modèle par défaut si absent |
+| Q8a Subagents VS Code | **OUI** | VS Code | U1 |
+| Q8b Subagents CLI | **OUI** | CLI | U1, U7 : `subagents.maxDepth`, `subagents.maxConcurrency` |
+| Q8c Subagents cloud | **NON** (cheat sheet) | cloud | U1 : colonne GitHub.com ✗ ; U9 silencieux |
+| Q9a Versions VS Code | VS Code 1.97 à 1.108 listées | VS Code | U2 |
+| Q9b Version Copilot CLI | **NON DOCUMENTÉ** | CLI | Aucune version dans U2 |
+
+### Conséquences pour le contrat
+
+- **Agents** : `.claude/agents/` n'est pas documenté pour Copilot CLI. La projection doit rester dans `.github/agents/` ; ne rien annoncer sur `.claude/agents/`.
+- **Skills** : `.claude/skills/` est reconnu, mais le chargement est dynamique. Aucune garantie de préchargement par rôle.
+- **Instructions** : `CLAUDE.md` n'est documenté que pour le cloud agent (racine uniquement). VS Code lit `AGENTS.md`, absent du dépôt.
+- **Exclusions** : `.copilotignore` n'est documenté par aucune des trois cibles. L'invariant `/dist/` n'est donc pas garanti par Copilot.
+- **Gardes** : les hooks `preToolUse` sont fail-open sur timeout. Une garde ne peut pas être présentée comme bloquante sans test.
+- **Hooks VS Code** : statut preview, non confirmé par la page dédiée.
+
+### Non vérifiable (reste bloquant)
+
+- Dates de révision des pages : absentes.
+- Version de Copilot CLI documentée : absente.
+- Comportement réel (exécution dans CLI, VS Code, cloud) : non testé. La documentation ne suffit pas pour certifier un invariant.
+- Valeurs de `model` : non documentées.
+
+### Statut
+
+- **T1.1** : documentaire complété (matrice vérifiée sur sources officielles). Validation comportementale toujours manquante.
+- **T1.2** : incomplète. Les décisions candidates sont confirmées partiellement ; l'enforcement et les hooks restent à tester.
+- **Phase 1** : toujours non close. Le contrat ne peut pas certifier la parité sans scénarios observables (Phase 3). Décision 👤 requise : `AJUSTER` au Gate #1 pour restreindre le périmètre (par exemple CLI seul, sans garantie sur `.copilotignore` ni sur les hooks VS Code), ou accepter la matrice documentaire comme contrat candidat et reporter la validation comportementale.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  status: "partial"
+  tasks:
+    T1.1:
+      status: "partial"
+      evidence:
+        - "git ls-files : 139 fichiers ; versions Git/gh/pwsh/VS Code/Copilot CLI relevées."
+        - "Q1–Q9 vérifiées sur U1–U9 (HTTP 200), citations consignées."
+      missing:
+        - "Validation comportementale CLI, VS Code et cloud."
+        - "Dates de révision et version Copilot CLI documentée."
+    T1.2:
+      status: "incomplete"
+      evidence:
+        - "Décisions candidates confirmées par la documentation (agents, skills, hooks, exclusions)."
+      missing:
+        - "Enforcement des exclusions et gardes ; statut preview des hooks VS Code."
+  files_written:
+    - "docs/plans/006_reports/PHASE_1_COMPLETION_REPORT.md"
+  commands:
+    - "git rev-parse, git branch, git status, git ls-files, Test-Path, versions CLI (sous-agent general-purpose)"
+    - "curl.exe sur U1 à U9 (HTTP 200)"
+  excluded_paths_traversed: []
+  next_step: "Décision 👤 au Gate #1 : AJUSTER (périmètre réduit) ou validation de la matrice documentaire avec tests comportementaux reportés en Phase 3."
+```
+
+## Décision Gate #1 — AJUSTER (2026-10-15)
+
+- Décision 👤 : **AJUSTER**, cible unique **GitHub Copilot CLI** (version relevée : 1.0.97-2).
+- VS Code et cloud agent : hors périmètre. Leurs constats (hooks VS Code en preview, `CLAUDE.md` cloud, subagents cloud) ne sont pas à certifier.
+- Reste à faire pour Phase 1 (CLI) : validation comportementale des points suivants, qui n'ont pas été testés dans le client :
+  - chargement effectif des agents `.github/agents/*.agent.md` et des skills `.claude/skills/` ;
+  - comportement réel de `preToolUse` (hooks `.github/hooks/*.json`, fail-open sur timeout) ;
+  - exclusion `/dist/` : `.copilotignore` non documenté pour CLI, donc à traiter comme non garanti ;
+  - permission `git rm` face au `ask` du dépôt (conflit non vérifié).
+- Limite : la validation comportementale nécessite de lancer le client CLI sur le dépôt. Si l'environnement ne le permet pas, Phase 1 reste partielle et le contrat CLI est candidat, pas certifié.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa"
+  date: "2026-10-15"
+  gate: "#1 AJUSTER"
+  scope: "Copilot CLI seul"
+  status: "partial"
+  next_step: "Validation comportementale CLI (chargement agents/skills, hooks preToolUse, exclusions, git rm) puis Gate #2 de Phase 1 ; ADR 005 à aligner sur le périmètre CLI (DOCly, Phase 4)."
+```

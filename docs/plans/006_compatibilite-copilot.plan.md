@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** ❌ Bloqué — Gate #1 validé ; Phase 1 partiellement documentée, inventaire Git et vérifications runtime en attente
+**Statut :** 🔄 Ajusté au Gate #1 (2026-10-15) — périmètre réduit à Copilot CLI ; Phase 1 à reprendre sur la cible CLI (validation comportementale en attente)
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [ADR 005 — Projection Copilot ciblée et vérifiée](../adr/005-projection-copilot-verifiee.md) — Acceptée (Gate #1, 2026-10-13)
 **Rapports :** [`006_reports/`](006_reports/)
@@ -21,6 +21,12 @@ La compatibilité « 100 % » signifie que tous les invariants obligatoires pass
 
 Alternatives : fichiers Claude seuls (moins de duplication, équivalence native non établie) ; socle neutre partagé avec adaptateurs (refonte plus importante, contraire à la priorité Claude-first si appliquée intégralement).
 
+### Périmètre ajusté (Gate #1 — AJUSTER, 2026-10-15)
+
+- **Cible unique : GitHub Copilot CLI.** VS Code et cloud agent sortent du périmètre de cette qualification ; leurs lignes de matrice restent documentaires et ne sont annoncées nulle part.
+- Conséquences : pas de profil VS Code/cloud à produire en Phase 2 ; pas de test de parité VS Code/cloud en Phase 3 ; documentation Phase 4 limitée à Copilot CLI.
+- Le `GO` précédent valide l'ADR 005 ; la portée de l'ADR doit être alignée sur ce périmètre par DOCly en Phase 4.
+
 ### État des preuves et contraintes
 
 - Audit statique disponible ; aucune documentation officielle actuelle consultée, aucun test ni commande Git exécuté dans cette session faute outils web/shell exposés.
@@ -36,7 +42,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 ## 🛠️ Phases
 
-### Phase 1 — Établir le contrat de compatibilité — ❌ Bloquée
+### Phase 1 — Établir le contrat de compatibilité — 🔄 Reprise sur Copilot CLI
 
 **Contexte :** les différences natives entre Copilot CLI, VS Code et cloud ne sont pas vérifiées. Cette phase précède toute implémentation ; elle ne modifie ni source du harnais ni rendu.
 
@@ -164,7 +170,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 ## ✅ Critères de Succès Globaux
 
 1. Une source maintenue ; projection minimale, déterministe et idempotente ; copies inutiles identifiées avec preuve, sans suppression par agents.
-2. Matrice native/adaptée/non supportée pour CLI, VS Code et cloud, sourcée et datée.
+2. Matrice native/adaptée/non supportée pour Copilot CLI (seule cible), sourcée et datée.
 3. Cinq rôles et gates #0→#4 conformes dans les cibles certifiées ; conventions/procédures chargées correctement.
 4. Aucun invariant de garde ou d'exclusion perdu silencieusement ; aucun support déclaré « 100 % » sans preuve.
 5. Tests verts, couverture ≥ 80 % du code modifié et régression détectée ; CLI en échec jamais interprétée comme succès.
@@ -177,6 +183,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 |---|---|---|---|---|
 | #0 | 2026-10-13 | Choix de solution | ✅ GO | Option B : source Claude unique + projection Copilot ciblée ; copies réduites après preuve native |
 | #1 | 2026-10-13 | Validation AP 006 et ADR 005 | ✅ GO | Réponse humaine « go » ; ADR 005 Acceptée ; Phase 1 bloquée faute accès web/shell, aucune implémentation lancée |
+| #1 (ajustement) | 2026-10-15 | Périmètre de compatibilité après preuves documentaires | 🔄 AJUSTER | Décision humaine : cible unique Copilot CLI ; VS Code et cloud agent hors périmètre. Revue du plan et de l'ADR 005 requise avant Phase 2 |
 | #2 | — | Validation code et revues | ⏳ En attente | Après Phases 1–2 |
 | #3 | — | Validation tests et comportements | ⏳ En attente | Après Phase 3 |
 | #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
