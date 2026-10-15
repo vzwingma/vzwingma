@@ -5,6 +5,14 @@
 
 ---
 
+## AP 006 — 2026-10-15
+
+- Documentation alignée sur la projection vérifiée vers GitHub Copilot CLI uniquement.
+- Limites observées, mapping des outils/modèles, chargement des skills, contrôles, packages et scénarios
+  documentés ; aucune version d'agent modifiée.
+
+---
+
 ## ⚫ MAINa
 
 - **v1.0** : Création nouvel agent maitre-orchestrateur. Point d'entrée principal, support `/help` et `@MAINa /help`, orchestration stricte ARCos → DEVon → QALvin → DOCly avec validations humaines entre phases.

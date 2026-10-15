@@ -14,7 +14,8 @@ via une architecture **multi-agents coordonnée** et des **gates humains** stric
 | **Type** | Dépôt de templates / harnais multi-agents |
 | **Stack principale** | Markdown + frontmatter YAML ; tooling PowerShell (5.1 / 7) |
 | **Plateforme source** | Claude Code (`.claude/`) |
-| **Plateforme générée** | GitHub Copilot (`.github/`, ne jamais éditer à la main) |
+| **Cible Copilot vérifiée** | GitHub Copilot CLI (`1.0.99-0`, puis `1.0.99-1`) |
+| **Cibles hors périmètre** | VS Code et cloud agent ; aucune parité annoncée |
 | **Langue** | Français (contenu), anglais (code, scripts) |
 | **Distribution** | ZIP (`scripts/package-*.ps1`) + copie manuelle |
 
@@ -34,9 +35,11 @@ via une architecture **multi-agents coordonnée** et des **gates humains** stric
 .claude/
 ├── agents/        # Comportements génériques (frontmatter natif : model, tools, skills)
 ├── skills/        # Procédures partagées · conventions projet par rôle · commandes
-├── plans/         # Plans d'Action + rapports de phase + archive
+├── hooks/         # Garde Claude Code et frontières de rôle
+├── settings*.json # Permissions Claude Code
 ├── CLAUDE.md      # Instructions de ce dépôt (maintenu à la main)
 └── CLAUDE.template.md
+docs/plans/        # Plans d'Action + rapports de phase + archive
 docs/              # Documentation du dépôt + templates (ARCHITECTURE, ADR)
 scripts/           # Génération Copilot + packaging
 .github/           # GÉNÉRÉ depuis .claude/ (Copilot)
@@ -63,16 +66,35 @@ Nouveau projet
 |---|---|
 | **Réutilisabilité** | Agents et procédures génériques, prêts à l'emploi |
 | **Séparation des préoccupations** | Agents = comportement · Conventions = valeurs projet · Commandes = automatisation |
-| **Chargement déterministe** | Conventions et procédures préchargées par agent (`skills:`), pas « lues au démarrage » |
+| **Chargement par plateforme** | Claude : skills préchargées par agent ; Copilot CLI : skills chargées selon pertinence, consigne explicite dans chaque profil |
 | **Gates humains** | Gate #0 → #4 ; seul l'agent principal (MAINa) peut interroger 👤 |
 | **Source unique** | `.claude/` ; Copilot généré et vérifié (`-Check`) |
-| **Garde-fous déterministes** | Règles absolues appliquées par `settings.json` + hook, pas seulement par le prompt |
+| **Garde-fous par plateforme** | Claude : `settings.json` + hook ; Copilot CLI : contrôles de projection et comportements observés, aucune garde native déterministe prouvée |
 
 ### Modèle Claude-first : source unique + génération Copilot
 
-Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` (source de vérité, optimisée Claude Code), puis **générés** vers `.github/` (GitHub Copilot) par `scripts/sync-claude-to-github.ps1` : frontmatter Copilot dérivé (`scripts/copilot-mapping.psd1`), substitution de chemins/termes, blocs `claude-only` / `copilot-only`, variantes `SKILL.copilot.md`, conventions → `.github/instructions/*.instructions.template.md`. OpenCode est retiré. Voir [ADR 003](adr/003-claude-first-copilot-genere.md) (remplace [ADR 002](adr/002-claude-miroir-genere.md)).
+Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` (source de vérité, optimisée
+Claude Code), puis **générés** vers `.github/` pour GitHub Copilot CLI par
+`scripts/sync-claude-to-github.ps1` : frontmatter dérivé (`scripts/copilot-mapping.psd1`), substitution de
+chemins/termes, blocs `claude-only` / `copilot-only`, conventions →
+`.github/instructions/*.instructions.template.md`. La génération est idempotente et `-Check` détecte la
+dérive. VS Code et cloud agent sont hors périmètre de cette vérification. Voir
+[ADR 003](adr/003-claude-first-copilot-genere.md) (remplace [ADR 002](adr/002-claude-miroir-genere.md)).
 
 > Ne jamais éditer `.github/` à la main : `sync-claude-to-github.ps1 -Check` échoue si `.github/` diverge.
+
+### Contrat de projection Copilot CLI
+
+Le mapping dérive `Read` → `read`, `Grep`/`Glob` → `search`, `WebFetch`/`WebSearch` → `web`, `Edit`/`Write`
+→ `edit`, `Bash` → `execute`, `TodoWrite` → `todo` et `Agent` → `agent`. `AskUserQuestion`, `SendMessage`
+et `Skill` sont signalés et non projetés. ARCos reçoit `[read, search, web]`. Les alias source donnent
+`opus` → `claude-opus-5.5` et `sonnet` → `claude-sonnet-5.5`; un modèle inconnu peut avertir, revenir au
+défaut et conserver un code `0`.
+
+La CLI lit `.github/skills/` et `.claude/skills/`, avec priorité `.github/` à nom identique. Les 18 skills
+sont chargées selon pertinence, non de façon déterministe ; chaque profil généré porte une consigne explicite.
+Les conventions deviennent `.github/instructions/<role>.instructions.template.md`. Le champ `agents` de
+MAINa reste informatif et non vérifié.
 
 ---
 
@@ -116,7 +138,7 @@ Les agents, skills et templates sont **écrits une seule fois** dans `.claude/` 
 | 🟢 QALvin | `Qalvin.agent.md` | v4.5 | `sonnet` | Tests et couverture |
 | 🟣 DOCly | `Docly.agent.md` | v4.4 | `sonnet` | Documentation, ADR |
 
-Outils et skills préchargés par agent : [`.claude/agents/README.md`](../.claude/agents/README.md).
+Outils et skills Claude préchargés par agent : [`.claude/agents/README.md`](../.claude/agents/README.md).
 Les sous-agents n'ont pas accès à `AskUserQuestion` : ils remontent leurs questions (`❓ Questions pour 👤`)
 à MAINa, qui les pose au gate.
 
@@ -124,8 +146,8 @@ Les sous-agents n'ont pas accès à `AskUserQuestion` : ils remontent leurs ques
 
 | Catégorie | Skills | Chargement |
 |---|---|---|
-| Procédures | `plan-creation`, `plan-phase-execution`, `gate-protocol`, `adr-writing`, `parallel-guide` | Préchargées par les agents concernés (`user-invocable: false`) |
-| Conventions projet | `conventions-orchestrator`, `-architect`, `-dev`, `-qa`, `-doc` | Préchargées par le rôle correspondant ; templates remplis par `/init-harness` |
+| Procédures | `plan-creation`, `plan-phase-execution`, `gate-protocol`, `adr-writing`, `parallel-guide` | Claude : préchargées par les agents concernés ; Copilot CLI : chargement selon pertinence + consigne explicite |
+| Conventions projet | `conventions-orchestrator`, `-architect`, `-dev`, `-qa`, `-doc` | Claude : préchargées par le rôle ; Copilot CLI : templates projetés par `/init-harness` |
 | Commandes | `/maina`, `/arcos`, `/devon`, `/qalvin`, `/docly`, `/maina-help`, `/init-harness`, `/update-harness` | Utilisateur uniquement (`disable-model-invocation: true`) |
 
 `/arcos`, `/devon`, `/qalvin`, `/docly` s'exécutent en sous-agent forké (`context: fork`) ; `/maina`
@@ -142,7 +164,9 @@ Les règles absolues de `CLAUDE.md` sont **appliquées par l'outil**, pas seulem
 | Frontières de rôle | `.claude/hooks/role-boundaries.conf` (lu par le hook) | DEVon ≠ tests/docs, QALvin = tests seulement, DOCly = docs seulement, MAINa = plans + statut ADR (champ `agent_type`) |
 
 Hook en bash pur (aucun sous-processus, ~0,2 s par appel sous Git Bash), limité à Bash/PowerShell/Edit/Write/NotebookEdit ;
-tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles de `copilot-instructions.md` s'appliquent.
+tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot CLI, aucune garde native déterministe n'est annoncée :
+les refus, exclusions et frontières observés reposent sur la prose, l'approbation interactive ou les contrôles
+du harnais. `.copilotignore` n'est pas documenté comme mécanisme CLI ; `/dist/` n'est donc pas garanti par la CLI.
 
 ### 📄 Templates
 
@@ -190,6 +214,7 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
 | 002 | [`.claude/` = miroir généré de `.github/`](adr/002-claude-miroir-genere.md) | Remplacée par 003 | 2026-06-29 |
 | 003 | [Claude-first : `.claude/` source unique, Copilot généré, OpenCode retiré](adr/003-claude-first-copilot-genere.md) | Acceptée | 2026-10-12 |
 | 004 | [Plans d'Action dans `docs/plans/` (hors chemin protégé `.claude/`)](adr/004-plans-hors-chemin-protege.md) | Acceptée | 2026-10-12 |
+| 005 | [Projection Copilot ciblée et vérifiée](adr/005-projection-copilot-verifiee.md) | Acceptée | 2026-10-13 |
 
 > 💡 Chaque nouvelle décision majeure sur ce dépôt transverse doit faire l'objet d'un ADR.
 
@@ -209,13 +234,19 @@ tests : `bash scripts/tests/guard.tests.sh`. Côté Copilot, seules les règles 
   compteurs, taille de `CLAUDE.md`, settings/hooks, index des plans, génération Copilot)
 - `scripts/tests/sync.tests.ps1` (générateur) · `scripts/tests/guard.tests.sh` (hook de garde)
 - `scripts/tests/eval-scenarios.ps1` : scénarios comportementaux `claude -p` sur le fixture `tests/fixtures/sample-app/`
-  (gates, lecture seule ARCos, frontières de rôle, garde-fous) — CLI authentifiée requise
+  (gates, lecture seule ARCos, frontières de rôle, garde-fous)
+- `scripts/tests/eval-copilot-scenarios.ps1` : scénarios réels Copilot CLI S1–S7, appels payants plafonnés,
+  `-DryRun`, `-Only`, `SELFTEST`
 - Routine avant release : voir [`scripts/README.md`](../scripts/README.md) (+ `/doctor prompt-audit`)
 - CI : `.github/workflows/harness-check.yml` sur PR et push `main` / `main-ai` (harnais sur `main-ai`)
 
-### Mapping Copilot
+### Mapping Copilot CLI
 
-Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [`scripts/README.md`](../scripts/README.md)).
+Modèles, outils et sous-agents Copilot CLI : `scripts/copilot-mapping.psd1` (voir
+[`scripts/README.md`](../scripts/README.md)). `check-harness.ps1` valide indépendamment les outils autorisés,
+ARCos en lecture seule, modèles au format identifiant de catalogue, parité des skills, présence de `tools` et
+consigne de chargement. `scripts/Harness-Paths.psm1` applique les exclusions avant récursion. Les packages
+bloquent si ce contrôle échoue, refusent l'écrasement et publient via `.partial` puis renommage.
 
 ---
 
@@ -224,6 +255,7 @@ Modèles, outils et sous-agents Copilot : `scripts/copilot-mapping.psd1` (voir [
 | Version | Date | Changements majeurs |
 |---|---|---|
 | v5.0 | 2026-10-12 | Claude-first (ADR 003) : `.claude/` source, Copilot généré, OpenCode retiré ; agents à frontmatter natif ; conventions par rôle en skills préchargés ; commandes `/init-harness`, `/update-harness` ; garde-fous déterministes (`settings.json` + hook `guard.sh`, frontières de rôle) ; gates outillés (`gate-protocol`, handoff) ; contrôles automatiques (`check-harness`, CI) |
+| AP 006 | 2026-10-15 | Projection documentée et vérifiée pour GitHub Copilot CLI uniquement ; limites de guards, exclusions, rôles, skills, modèles et gates explicitées ; versions d'agents inchangées |
 | v4.0 | 2026-06-29 | Modèle miroir : `.github/` source → `.claude/` généré (sync) ; ADR 002 ; ARCos recentré (MAINa crée le plan) |
 | v3.2 | 2026-06-25 | Ajout MAINa (maître-orchestrateur) ; rationalisation agents ; skills `maina-help`, `compact-context` |
 | v3.1 | 2026-06-11 | Suppression agent FINNops ; ajout skills `adr-writing` et `caveman-default` |

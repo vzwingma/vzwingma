@@ -55,7 +55,7 @@ Les skills chargées selon pertinence ne prouvent pas un préchargement détermi
 
 Le terminal n'est pas disponible : `git ls-files`, versions installées, tests, scripts et `-Check` n'ont pas été exécutés. Aucun outil ne permet d'observer les effets dans les clients Copilot. L'overlay local a été lu en lecture seule sans secrets; le comportement effectif de la permission `git rm` face au `ask` dépôt reste à vérifier. Aucun transfert à DEVon tant que T1.1/T1.2 ne sont pas réglées.
 
-Le `GO` du Gate #1 valide le plan et l'ADR, pas une dérogation aux preuves. Ces sources permettent une stratégie candidate, mais ne certifient aucune parité « 100 % ».
+Le `GO` du Gate #1 valide le plan et l'ADR, pas une dérogation aux preuves. Ces sources permettent une stratégie candidate, mais ne certifient pas la parité comportementale.
 
 ## Handoff
 
@@ -565,4 +565,3 @@ handoff:
     - "Hooks preToolUse non observés ; exclusion /dist/ non garantie côté Copilot ; précédence git rm ; variante de skill lue (R1)"
   next_step: "Phase 2 — DEVon T2.1, puis T2.2 et T2.3 ; revue automatique ; Gate #2."
 ```
-

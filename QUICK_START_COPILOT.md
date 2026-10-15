@@ -19,7 +19,11 @@ mkdir -p <votre_projet>/docs/adr
 cp docs/ARCHITECTURE.template.md <votre_projet>/docs/
 cp docs/adr/ADR-TEMPLATE.md <votre_projet>/docs/adr/
 ```
-Copilot : copier aussi `.github/instructions/` (templates d'instructions par rôle).
+GitHub Copilot CLI : ne copier aucune projection à la main. Depuis la source `.github/`, générer
+`.github/` avec `scripts/sync-claude-to-github.ps1`, puis vérifier avec `-Check`.
+
+La cible vérifiée est la CLI Copilot (`1.0.99-0`, puis `1.0.99-1`). VS Code et cloud agent sont hors
+périmètre.
 
 ### 2️⃣ Initialiser les Instructions
 
@@ -100,7 +104,11 @@ Pour une demande structurante, utilisez MAINa comme point d'entrée. L'objectif 
 
 ### 1️⃣ Activer MAINa
 
-Sélectionner l'agent **MAINa** dans le chat (ou `/agent MAINa` en CLI). Aide intégrée : `/maina-help`.
+Lancer **MAINa** dans GitHub Copilot CLI (`copilot --agent MAINa`) ou `/agent MAINa`. Aide intégrée :
+`/maina-help`.
+
+Chaque profil généré demande explicitement le chargement de ses skills. La CLI les sélectionne selon
+pertinence ; `.github/skills/` l'emporte sur `.github/skills/` à nom identique.
 
 ### 2️⃣ Expliquer la demande
 
@@ -139,6 +147,10 @@ demande une décision `GO` / `AJUSTER` / `STOP`, consignée dans le journal des 
 - **Gate #4** — documentation DOCly : fichiers mis à jour, ADR `Acceptée`, plan clôturé
 
 `AJUSTER` relance le même agent avec vos retours ; rien n'avance sans `GO`.
+
+Les scénarios AP 006 ont observé l'arrêt de MAINa au Gate #0 en mode `-p`, mais cet arrêt n'est pas une
+garantie native générale. Gardes, exclusion des chemins, frontières DEVon/QALvin/DOCly et arrêt aux autres
+gates restent des comportements observés ou portés par la prose.
 
 ---
 
@@ -205,5 +217,4 @@ Après configuration, vérifier que :
 **C'est tout ! Vous êtes prêt à collaborer avec Copilot. 🚀**
 
 Lisez [`.github/README.md`](.github/README.md) pour plus de détails sur chaque agent et skill.
-
 

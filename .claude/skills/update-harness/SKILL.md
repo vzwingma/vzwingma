@@ -30,6 +30,10 @@ et des conventions par rôle pour refléter l'état réel du projet.
 <!-- /claude-only -->
 <!-- copilot-only
 - Instructions par rôle : `.github/instructions/{orchestrator,architect,dev,qa,doc}.instructions.md` (créer depuis `*.instructions.template.md` si absent).
+
+La cible documentée est GitHub Copilot CLI uniquement ; VS Code et cloud agent sont hors périmètre. La CLI
+charge les skills selon pertinence ; ne pas décrire une sélection déterministe par rôle. Chaque profil Copilot
+doit porter une consigne explicite de chargement.
 -->
 
 ## 3. Extraire les conventions réelles du code
@@ -59,3 +63,8 @@ réellement utilisés (nommage, injection, gestion d'erreurs, structure, mocks, 
    à supprimer (demander confirmation), validées ; placeholders non remplis et valeurs obsolètes séparés.
 2. **Attendre la validation 👤** avant toute modification.
 3. Appliquer les changements validés, puis résumer les modifications en liste à puces.
+
+<!-- copilot-only
+Après validation, modifier la source `.claude/`, générer la projection avec
+`scripts/sync-claude-to-github.ps1`, puis exécuter `-Check` et `scripts/check-harness.ps1`.
+-->

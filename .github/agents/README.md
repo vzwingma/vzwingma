@@ -6,6 +6,20 @@ Système orchestré de 5 agents spécialisés pour structurer développement via
 
 Modèle, outils et sous-agents autorisés : voir le frontmatter de chaque `*.agent.md`.
 
+### Périmètre vérifié
+
+Cette projection vise uniquement GitHub Copilot CLI. Versions observées : `1.0.99-0`, puis `1.0.99-1`.
+VS Code et cloud agent sont hors périmètre ; aucune affirmation de support ou de parité ne s'applique à ces
+surfaces.
+
+Les cinq profils sont générés depuis `.github/`. Les outils sont dérivés par
+`scripts/copilot-mapping.psd1` ; ARCos reçoit `[read, search, web]`. Les alias source sont `opus` →
+`claude-opus-5.5` et `sonnet` → `claude-sonnet-5.5`. Le champ `agents` de MAINa est informatif et non vérifié.
+
+La CLI lit `.github/skills/` et `.github/skills/` ; `.github/` gagne à nom identique. Le chargement est fait
+selon pertinence, non de façon déterministe : chaque profil porte une consigne explicite de chargement.
+Les conventions sont projetées en `.github/instructions/<rôle>.instructions.template.md`.
+
 ## 🎯 Agents
 
 ### ⚫ [MAINa](./Maina.agent.md) — Maître Orchestrateur
@@ -171,4 +185,6 @@ En cas doute → demander confirmation développeur.
 @MAINa "Voici besoin : ..."
 ```
 
-Chaque agent lit automatiquement ses instructions projet au démarrage si présentes.
+Chaque profil Copilot suit les instructions projet générées et charge explicitement les skills demandées ;
+la sélection finale des skills reste déterminée par la pertinence de la CLI.
+<!-- /copilot-only
