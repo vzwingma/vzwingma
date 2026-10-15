@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/005_claude-first.plan.md` (anciennement `.claude/plans/`, ADR 004)
 **Date de création :** 2026-10-12
-**Statut :** 🔄 En cours — P0 ✅, P1 ✅, P2 ✅, P3 ✅, P4 ✅, P5 ✅, P6 ✅, P7 ✅, P8 ✅ — scénarios réels + clôture en attente
+**Statut :** ✅ Complété (2026-10-15) — P0 ✅ à P8 ✅ ; scénarios réels S1–S6 exécutés (13/14, échec unique = défaut d'assertion corrigé et rejoué sur le log)
 **Objectif Prioritaire :** HIGH
 **ADR associé :** [`docs/adr/003-claude-first-copilot-genere.md`](../adr/003-claude-first-copilot-genere.md)
 
@@ -328,7 +328,7 @@ Phase 8 (plans hors `.claude/`, ADR 004) → scénarios réels → clôture
 | P7 | 2026-10-12 | Lancement P7 | ✅ GO | — |
 | P7-fin | 2026-10-12 | Revue livrables P7 (évaluation) | 🔁 AJUSTER | Option B retenue : plans → `docs/plans/` (ajout P8, ADR 004) ; PR vers `main` ; scénarios lancés par Claude après reconnexion 👤 |
 | #1 (P8) | 2026-10-12 | Validation du plan de la phase 8 | ✅ GO | ADR 004 → Acceptée |
-| P8-fin | — | Revue livrables P8 + scénarios réels + clôture AP 005 | ⏳ En attente | — |
+| P8-fin | 2026-10-15 | Revue livrables P8 + scénarios réels + clôture AP 005 | ✅ GO (clôture) | Scénarios réels S1–S6 exécutés (Claude Code 2.1.296) : 13/14 au 1ᵉʳ passage ; l'échec unique (« ≥ 2 options », S2) était un défaut d'assertion (options présentées en tableau), corrigé et validé par rejeu sur le log capturé, sans relance réelle. Décision 👤 : « lancer S1–S6, puis clôturer 005 si tout est vert ». Détail : `005_reports/PHASE_8_COMPLETION_REPORT.md`. |
 
 ---
 

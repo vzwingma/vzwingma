@@ -15,8 +15,7 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
-| 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | 🔄 En cours | 2026-10-12 |
-| 006 | [Compatibilité Copilot du harnais Claude-first](006_compatibilite-copilot.plan.md) | Phase 4 terminée, Gate #4 en attente — cible GitHub Copilot CLI seule | 2026-10-13 |
+| — | Aucun plan actif | — | — |
 
 ---
 
@@ -26,6 +25,8 @@ Cet index liste uniquement les plans et leur **statut global**.
 
 | # | Nom | Statut | Date |
 |---|-----|--------|------|
+| 006 | [Compatibilité Copilot du harnais Claude-first](006_compatibilite-copilot.plan.md) | ✅ Complété — cible GitHub Copilot CLI seule | 2026-10-15 |
+| 005 | [Refonte « Claude-first » du harnais](005_claude-first.plan.md) | ✅ Complété | 2026-10-15 |
 | 004 | [Analyse critique & remédiation infra agents](004_analyse-critique-infra-agents.plan.md) | ✅ Complété | 2026-06-30 |
 | 003 | [Agent maitre MAINa](archive/003_maina-orchestrateur.plan.md) | ✅ Complété | 2026-06-25 |
 | 002 | [Rationalisation agents Copilot](archive/002_agent-rationalisation.plan.md) | ✅ Complété | 2026-06-25 |

@@ -2,7 +2,7 @@
 
 **Document :** `docs/plans/006_compatibilite-copilot.plan.md`
 **Date de création :** 2026-10-13
-**Statut :** 🔄 En cours — Phase 4 ✅ terminée ; Gate #4 en attente. Périmètre : Copilot CLI seul (Gate #1
+**Statut :** ✅ Complété (Gate #4 `GO`, 2026-10-15) — Phase 4 ✅ terminée. Périmètre : Copilot CLI seul (Gate #1
 AJUSTER). Phase 1 acceptée avec limites (Gate #1b `GO`), Phase 2 acceptée (Gate #2 `GO`) et Phase 3
 acceptée (Gate #3 `GO`). Décisions 👤 D1–D4 consignées. Branche : `feat/copilot_compat`.
 **Objectif Prioritaire :** HIGH
@@ -133,7 +133,7 @@ Alternatives : fichiers Claude seuls (moins de duplication, équivalence native 
 
 **Relais / Gate #3 :** résultats, couverture, régression et matrice de certification. Si un défaut de production apparaît, retour vers DEVon via MAINa puis nouvelle validation code ; QALvin ne le corrige pas lui-même. Si Copilot CLI reste bloqué, la qualification complète est impossible et la clôture exige une révision humaine explicite du périmètre.
 
-### Phase 4 — Documenter support vérifié et clôturer — ✅ Terminée, Gate #4 en attente
+### Phase 4 — Documenter support vérifié et clôturer — ✅ Acceptée (Gate #4 GO)
 
 **Contexte :** DOCly est intervenu après `GO` du Gate #3. Documentation synchronisée ; validation humaine
 du Gate #4 et clôture restent en attente.
@@ -194,7 +194,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
    un code CLI nul. La matrice fonctionnelle 17/17 n'est pas instrumentée.
 6. ✅ Génération, packages, refus d'écrasement et exclusions de parcours vérifiés en Phase 2 ; installation
    vierge et comportement CLI documentés avec leurs limites.
-7. ⚠️ Gates #0 à #3 tracés et ADR acceptée au Gate #1 ; Gate #4 reste en attente, donc clôture non cochée.
+7. ✅ Gates #0 à #4 tracés, ADR 005 acceptée au Gate #1, clôture après `GO` humain au Gate #4 (2026-10-15). Limites non déterministes (hooks, `.copilotignore`, frontières de rôle, `git rm`) restent documentées comme comportements observés.
 
 ## 🚦 Journal des gates
 
@@ -208,7 +208,7 @@ Pas de parallélisation entre phases. Toute modification majeure révélée par 
 | #1b (décisions) | 2026-10-15 | Décisions D1–D4, clôture Phase 1 et lancement Phase 2 | ✅ GO | D1 : modèles = alias source (`opus` → `claude-opus-5.5`, `sonnet` → `claude-sonnet-5.5`), pas d'override GPT ; format CLI à valider par un essai. D2 : renumérotation #2 → #1b. D3 : reporter les modèles légitimes dans source/mapping puis régénérer. D4 : branche `feat/copilot_compat`. Phase 1 acceptée avec limites. |
 | #2 | 2026-10-15 | Validation code (Phase 2) | ✅ GO | Réponse humaine « GO ». Reprise avec terminal (GO B) : T2.1–T2.3 exécutées ; essai `model` (D1) et découverte des skills (R1) faits ; génération, `-Check` et idempotence OK ; `check-harness` 0 erreur (PS 5.1 et 7) ; `sync.tests` 31/31 (5.1 et 7), `guard.tests` 54/54 ; défaut injecté détecté ; packages sans exclusions violées, écrasement refusé ; revue code 0 bloquant (4 corrigés), sécurité 0 vulnérabilité. Limites acceptées : gardes/hooks, `.copilotignore`, `git rm`, arrêt aux gates non prouvés en CLI ; repli de modèle silencieux (exit 0) à couvrir en Phase 3. Rapport : `006_reports/PHASE_2_COMPLETION_REPORT.md`. |
 | #3 | 2026-10-15 | Validation tests et comportements (Phase 3) | ✅ GO | Réponse humaine « GO ». T3.1 : `compatibility.tests.ps1` 68/68 (5.1 et 7), `sync.tests` 31/31, `check-harness` 0 erreur ; défaut injecté (`Read → broken-read`) détecté (3 échecs). T3.2 : S1–S7 exécutés sur Copilot CLI 1.0.99-1 (S1 rescoré sans appel : 5 profils chargés ; S2 arrêt au Gate #0 observé en `-p` ; S3 ARCos lecture seule ; S4 DEVon/QALvin bloqués faute d'approbateur, DOCly par prose ; S5 refus et cible intacte ; S6 non-divulgation par lecture de `.copilotignore` (prose) ; S7 repli de modèle détecté malgré exit 0). Crédits : 64,39 puis 27,71 = 92,10 au total (plafonds 60 et 45 : le premier dépassé de 4,39). Limites acceptées : garanties comportementales non déterministes ; couverture fonctionnelle (matrice 17/17), non instrumentée. Rapport : `006_reports/PHASE_3_COMPLETION_REPORT.md`. |
-| #4 | — | Documentation et clôture | ⏳ En attente | Après Phase 4 |
+| #4 | 2026-10-15 | Documentation et clôture (Phase 4) | ✅ GO | Réponse humaine « GO ». Documentation alignée sur Copilot CLI seule (1.0.99-0 puis 1.0.99-1), ADR 005 avec résultats de vérification, rapport Phase 4. Projection régénérée, `-Check` 0 écart, `check-harness` 0 erreur (5.1 et 7), tests 31/68/54 verts. Plan complété ; commit et suppression des dossiers temporaires laissés à 👤. |
 
 ## 📚 Références
 
