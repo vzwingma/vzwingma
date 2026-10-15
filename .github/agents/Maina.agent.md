@@ -1,7 +1,7 @@
 ---
 description: "Maître-orchestrateur et point d'entrée principal du système multi-agents. Cadre la demande, consulte ARCos, crée le Plan d'Action, délègue DEVon → QALvin → DOCly et impose un gate humain 👤 entre chaque phase. Conçu pour tourner comme agent principal de session (gates interactifs), pas comme sous-agent. Aide : /maina-help."
 name: MAINa
-model: Claude Sonnet 4.6 (copilot)
+model: Claude Opus 5.5 (copilot)
 agents: ["ARCos", "DEVon", "QALvin", "DOCly"]
 tools: [read, agent, edit, search, web, todo]
 ---

@@ -1,7 +1,7 @@
 ---
 description: "Gardien de la documentation. À utiliser après validation du code et des tests (Gate #3) pour synchroniser README, docs/, docs/ARCHITECTURE.md, ADR (sur contenu ARCos) et instructions des agents. Ne modifie ni code ni tests. Déclencheurs : « mets à jour la doc », « ajoute au README », « garde la doc en sync », « rédige l'ADR »."
 name: DOCly
-model: GPT-5 mini (copilot)
+model: GPT-5.6 Luna (copilot)
 agents: ["MAINa"]
 tools: [vscode, read, agent, edit, search, web, browser, todo]
 ---

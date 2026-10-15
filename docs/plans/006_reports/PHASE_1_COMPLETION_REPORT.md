@@ -373,6 +373,68 @@ handoff:
     - "Version CLI 1.0.99-0 relevée, différente de 1.0.97-2 consignée précédemment"
     - "Modèle de remplacement claude-sonnet-5.5 au lieu de Sonnet 4.6"
     - "Branche relevée feat/copilot_compat : écart à vérifier"
-  next_step: "Décision 👤 : accepter les limites (hooks non garantis, git rm refusé par défaut) ou tester les hooks en session interactive."
+  next_step: "Phase 2 bloquée : compléter T1.2 (gates #0, #3, #4 ; instructions racine ; exclusions) avant DEVon."
+
+## Décision Gate #2 — GO avec limites (2026-10-15)
+
+Décision 👤 : **GO**, Phase 1 acceptée en l'état partiel. Limites consignées : hooks `preToolUse` non observés en `-p` (fail-open / fail-closed non démontré) ; précédence `git rm` non tranchée ; DEVon, QALvin, DOCly non chargés en test ; version CLI 1.0.99-0.
+
+Écarts restant ouverts avant Phase 2 (T1.2) : invariants des gates #0, #3, #4 absents ; décision « instructions racine » absente ; exclusions marquées « non vérifié ». DEVon ne doit pas combler ces points par inférence.
+
+Handoff Phase 1 : `status: accepted-with-limits`.
+
+## T1.2 — Complément (2026-10-15) — rédigé par MAINa, à valider par ARCos
+
+Écart au plan : T1.2 est attribuée à 🟠 ARCos. Le sous-agent ARCos n'a pas pu démarrer (deux essais : modèle déclaré `Claude Sonnet 4.6` indisponible dans l'hôte ; aucun override de modèle appliqué sans accord 👤). Ce complément est donc rédigé par MAINa à partir de `.claude/skills/gate-protocol/SKILL.md`, `.claude/CLAUDE.md`, `.copilotignore` et du rapport. **Validation ARCos requise avant Phase 2.** Aucun comportement CLI n'est inventé : tout point non prouvé est marqué « non vérifié ».
+
+### Décisions manquantes ou précisées
+
+| Sujet | Décision | Source / preuve | Limite |
+|---|---|---|---|
+| Instructions racine — `CLAUDE.md` à la racine | **Non supporté (inexistant)** | `Test-Path CLAUDE.md` = False | Rien à projeter. |
+| Instructions racine — `.claude/CLAUDE.md` | **Adapter** : projeter vers `.github/copilot-instructions.md` (emplacement documenté natif) ; ne pas compter sur la lecture directe | Matrice : CLI documente `CLAUDE.md` racine ; `.claude/CLAUDE.md` non documenté pour CLI | Découverte effective par CLI **non vérifiée** (non testée avec modèle). Les blocs `claude-only` / `copilot-only` doivent être résolus par la génération. |
+| Modèles | **Adapter** | `model: Claude Sonnet 4.6` indisponible : la CLI a basculé sur `claude-sonnet-5.5` en `-p` ; le sous-agent ARCos de l'hôte échoue sans repli | Valeur Copilot à valider par 👤 (nom vérifié disponible : `claude-sonnet-5.5`). Ne pas forcer un nom non validé ; un modèle absent ne doit jamais produire un faux succès. |
+| Exclusions | **Conserver** comme invariant (`/dist/` lu dans `.copilotignore`) ; mécanisme Copilot **non vérifié** | `.copilotignore` = `/dist/` ; non documenté comme mécanisme CLI | À prouver : un agent CLI refuse-t-il de lire `/dist/` ? Test avec modèle, sans lire de contenu protégé. Tant que non prouvé : ne pas annoncer l'exclusion comme garantie Copilot ; la garantie doit venir des scripts (parcours, packages) en Phase 2 (T2.3). |
+
+### Invariants des gates (source : `gate-protocol`)
+
+| Gate | Exigences | Scénario observable (Copilot CLI) |
+|---|---|---|
+| #0 — choix solution | Livrable ARCos : ≥ 2 options comparées (avantages / inconvénients / risques / effort) + recommandation motivée ; arrêt sur décision 👤 | Lancer MAINa sur un besoin d'architecture : constater la table comparative et l'arrêt avant création du plan. |
+| #1 — validation plan | Plan + `<NO>_reports/` + index à jour ; ADR `Proposée` ; arrêt | Constater arrêt et question « GO / AJUSTER / STOP » avant toute délégation à DEVon. |
+| #2 — validation code | Handoff DEVon : build + lint + tests verts (commandes + résultats), `git diff --stat`, revue automatique (code + sécurité si disponible, sinon signalé) | Constater l'absence de passage à QALvin sans réponse 👤. |
+| #3 — validation tests | Tests créés, résultats, couverture vs seuil, preuve de détection de régression | Défaut volontaire détecté par au moins un test ; arrêt avant DOCly. |
+| #4 — clôture | Docs modifiées, liens vérifiés, ADR `Acceptée`, statut plan et index à jour | Constater arrêt et mise à jour du journal ; pas de clôture sans réponse 👤. |
+| Tous | Décisions `GO` / `AJUSTER` / `STOP` ; ligne consignée dans le journal ; `AJUSTER` relance le même agent ; `STOP` : plan `❌ Bloqué`, ADR `Rejetée` | Journal du plan modifié après chaque décision. |
+
+Limite : `AskUserQuestion` est propre à Claude ; la variante `copilot-only` impose de poser la question explicitement et d'attendre. Aucune source ne garantit l'arrêt automatique à un gate en CLI : le test T3.2 doit l'observer, jamais le supposer.
+
+### Écarts ouverts
+
+1. **Numérotation** : le journal 006 utilise « #2 » pour la validation du contrat de Phase 1, alors que le protocole réserve Gate #2 à la validation du code. Convention à trancher par 👤 (renommer l'entrée ou assumer un décalage).
+2. **Hooks** : `preToolUse` non observé en `-p` sur 1.0.99-0 ; aucune garde ne doit dépendre d'un hook tant que non prouvé en session interactive.
+3. **Précédence `git rm`** (allow local / ask dépôt) : non tranchée ; refus observé uniquement en mode non interactif.
+4. **Modèle des agents** : valeur Copilot à choisir par 👤 avant T2.1.
+5. **Branche** : `feat/copilot_compat` relevée, plan indique `main-ai`.
+
+```yaml
+handoff:
+  plan: "006"
+  phase: 1
+  agent: "MAINa (en remplacement d'ARCos)"
+  date: "2026-10-15"
+  status: "partial"
+  evidence:
+    - "Gates #0, #3, #4 : invariants tirés de .claude/skills/gate-protocol/SKILL.md"
+    - "CLAUDE.md racine absent ; .claude/CLAUDE.md présent ; .copilotignore = /dist/"
+  missing:
+    - "Validation ARCos du complément"
+    - "Découverte effective de .claude/CLAUDE.md ou .github/copilot-instructions.md par la CLI"
+    - "Application de l'exclusion /dist/ par la CLI"
+  risks:
+    - "Rédaction hors rôle ARCos : revue requise"
+    - "Modèle déclaré indisponible : échec ou repli silencieux"
+  next_step: "Gate 👤 : valider le complément (ou le faire relire par ARCos avec modèle autorisé), trancher modèle Copilot, numérotation et branche ; puis Phase 2 (DEVon)."
+```
 ```
 

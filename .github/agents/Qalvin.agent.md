@@ -1,7 +1,7 @@
 ---
 description: "Expert QA et tests. À utiliser pour écrire et exécuter des tests (unitaires, intégration) sur du code déjà implémenté et validé (Gate #2) : nominal, erreurs, cas limites, couverture ≥ 80 %. Ne modifie pas le code de production ni la documentation. Déclencheurs : « écris des tests », « ajoute des tests unitaires », « génère une couverture de test », « valide avec des tests »."
 name: QALvin
-model: GPT-5.3-Codex (copilot)
+model: GPT-5.6 Sol (copilot)
 agents: ["DOCly", "MAINa"]
 tools: [vscode, execute, read, agent, edit, search, web, browser, sonarsource.sonarlint-vscode/sonarqube_getPotentialSecurityIssues, sonarsource.sonarlint-vscode/sonarqube_excludeFiles, sonarsource.sonarlint-vscode/sonarqube_setUpConnectedMode, sonarsource.sonarlint-vscode/sonarqube_analyzeFile, todo]
 ---

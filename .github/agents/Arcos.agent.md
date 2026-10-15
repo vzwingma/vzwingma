@@ -1,7 +1,7 @@
 ---
 description: "Expert architecture, en lecture seule, consulté par MAINa. À utiliser pour concevoir une architecture, comparer ≥ 2 options (avantages / inconvénients / risques / effort) et recommander une solution, ou préparer le contenu d'un ADR. N'écrit pas de code et ne crée pas le Plan d'Action. Déclencheurs : « conçois une architecture pour », « analyse les options pour », « comment structurer », « quelle approche pour »."
 name: ARCos
-model: Claude Sonnet 4.6 (copilot)
+model: Claude Opus 5.5 (copilot)
 agents: ["DEVon", "QALvin", "DOCly", "MAINa"]
 tools: [execute/getTerminalOutput, execute/sendToTerminal, execute/runTask, execute/createAndRunTask, execute/runInTerminal, read, agent, edit, search, web, todo]
 ---
